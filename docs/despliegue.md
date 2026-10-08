@@ -1,0 +1,65 @@
+# Despliegue
+
+La web se publica sola en Cloudflare cada vez que se sube un cambio a `main`, siempre que
+pasen el linter y los tests.
+
+## Cloudflare (una sola vez)
+
+1. En el panel de Cloudflare, ve a **Workers & Pages** → **Create** → **Import a repository**
+   y conecta tu cuenta de GitHub dando acceso al repositorio `ctp-valdelasfuentes`.
+2. Configura la compilación:
+
+   | Campo                              | Valor                      |
+   | ---------------------------------- | -------------------------- |
+   | Project name                       | `ctp-valdelasfuentes`      |
+   | Root directory                     | `web`                      |
+   | Build command                      | `npm run build:cloudflare` |
+   | Deploy command                     | `npx wrangler deploy`      |
+   | Variable de entorno de compilación | `NODE_VERSION` = `24`      |
+
+3. Guarda y despliega. La web quedará en
+   `https://ctp-valdelasfuentes.<tu-subdominio>.workers.dev`.
+
+`build:cloudflare` ejecuta linter y tests antes de compilar: si algo falla, no se publica.
+La configuración del sitio está en [`web/wrangler.jsonc`](../web/wrangler.jsonc); la opción
+`single-page-application` hace que cualquier ruta de Angular (`/clasificacion`, `/acceso`…)
+funcione al recargar la página.
+
+## Supabase: direcciones permitidas para el login
+
+En **Authentication** → **URL Configuration**:
+
+| Campo         | Valor                                                                                     |
+| ------------- | ----------------------------------------------------------------------------------------- |
+| Site URL      | `https://ctp-valdelasfuentes.<tu-subdominio>.workers.dev`                                 |
+| Redirect URLs | `https://ctp-valdelasfuentes.<tu-subdominio>.workers.dev/**` y `http://localhost:4200/**` |
+
+Sin esto, después de iniciar sesión con Google Supabase no sabría a qué web devolverte.
+
+## Google (login)
+
+- Las credenciales OAuth están en Google Cloud Console, proyecto **CTP Valdelasfuentes**.
+- La app está en **modo prueba**: solo pueden iniciar sesión las cuentas añadidas en
+  **Público** → **Usuarios de prueba**. Añade ahí a cada gestor nuevo.
+- Para publicarla (no es necesario), Google pide una página principal y una política de
+  privacidad públicas.
+
+## Claves y secretos
+
+| Dato                           | Dónde vive                                          | ¿Es secreto?                       |
+| ------------------------------ | --------------------------------------------------- | ---------------------------------- |
+| URL del proyecto de Supabase   | `web/src/environments/*.ts`                         | No                                 |
+| Publishable key                | `web/src/environments/*.ts`                         | No: está pensada para ir en la web |
+| Secret key de Supabase         | Secretos de GitHub (para el scraper)                | **Sí**                             |
+| Contraseña de la base de datos | Gestor de contraseñas                               | **Sí**                             |
+| Client secret de Google        | Supabase (proveedor Google) y gestor de contraseñas | **Sí**                             |
+
+Los secretos nunca se escriben en el repositorio ni se comparten por chat. Si alguno se
+filtra, se regenera en su panel (Supabase o Google Cloud) y se actualiza donde se usa.
+
+## Integración continua
+
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) se ejecuta en cada push y pull
+request: linter, formato, tests y compilación de producción. El resultado se ve en la pestaña
+**Actions** de GitHub. [Dependabot](../.github/dependabot.yml) abre pull requests cuando hay
+actualizaciones de dependencias.
