@@ -1,0 +1,40 @@
+<div class="fila">
+  <p class="nombre" [id]="idNombre()">
+    {{ jugador().nombreMostrar }}
+    @if (jugador().convocado) {
+      <span class="convocado">Convocado</span>
+    }
+  </p>
+
+  <div
+    class="opciones"
+    role="radiogroup"
+    [attr.aria-labelledby]="idNombre()"
+    [attr.aria-describedby]="error() ? idError() : null"
+    [attr.aria-busy]="guardando()"
+  >
+    @for (opcion of opciones; track opcion.etiqueta) {
+      <label
+        class="opcion"
+        [class.opcion--elegida]="jugador().respuesta === opcion.valor"
+        [class.opcion--si]="opcion.valor === 'si'"
+        [class.opcion--no]="opcion.valor === 'no'"
+      >
+        <input
+          class="solo-lector"
+          type="radio"
+          [name]="idNombre()"
+          [checked]="jugador().respuesta === opcion.valor"
+          [disabled]="guardando()"
+          (change)="responder.emit(opcion.valor)"
+        />
+        <span aria-hidden="true">{{ opcion.etiqueta }}</span>
+        <span class="solo-lector">{{ opcion.descripcion }}</span>
+      </label>
+    }
+  </div>
+</div>
+
+@if (error(); as mensaje) {
+  <p class="error" role="alert" [id]="idError()">{{ mensaje }}</p>
+}
