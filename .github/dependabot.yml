@@ -1,0 +1,20 @@
+# Avisa con una pull request cuando hay versiones nuevas de dependencias.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /web
+    schedule:
+      interval: weekly
+    groups:
+      angular:
+        patterns: ['@angular/*', '@angular-devkit/*', 'angular-eslint']
+      herramientas:
+        patterns: ['eslint', '@eslint/*', 'typescript-eslint', 'prettier', 'vitest', 'jsdom']
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
