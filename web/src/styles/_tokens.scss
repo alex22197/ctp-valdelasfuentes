@@ -1,0 +1,57 @@
+// Sistema de diseño: única fuente de colores, tipografía, espacios y radios.
+// Los componentes usan estas variables; nunca valores sueltos.
+
+:root {
+  // Color: verdes del escudo del club y la pista de pádel.
+  --color-fondo: #f4f6f2;
+  --color-superficie: #ffffff;
+  --color-tinta: #14211a;
+  --color-tinta-suave: #3c4a41;
+  --color-tinta-tenue: #4e5b53;
+  --color-borde: #dce2da;
+  --color-borde-fuerte: #c6cfc4;
+
+  --color-pista: #1f7a30; // principal: césped de la pista
+  --color-pista-oscuro: #175e25;
+  --color-pista-suave: #e2efdd;
+  --color-mixto: #a8c61e; // lima del escudo
+  --color-bola: #f2e330; // marca a nuestro equipo
+  --color-destacado: #e9f1c9; // fila de nuestro equipo
+  --color-derrota: #d9662b;
+  --color-derrota-texto: #b4501c;
+  --color-sobre-pista: #ffffff;
+  --color-sobre-pista-suave: rgb(255 255 255 / 86%);
+
+  // Tipografía: Archivo, con su eje de anchura para los textos tipo marcador.
+  --fuente: 'Archivo', 'Helvetica Neue', helvetica, arial, sans-serif;
+  --anchura-condensada: 66%;
+  --anchura-titulo: 85%;
+
+  --texto-xs: 0.8125rem; // 13px
+  --texto-s: 0.875rem; // 14px
+  --texto-m: 1rem; // 16px
+  --texto-l: 1.4375rem; // 23px
+  --texto-xl: 2.75rem; // 44px
+  --texto-xxl: 4.5rem; // 72px
+
+  // Espaciado (escala de 4px).
+  --espacio-1: 0.25rem;
+  --espacio-2: 0.5rem;
+  --espacio-3: 0.75rem;
+  --espacio-4: 1rem;
+  --espacio-5: 1.25rem;
+  --espacio-6: 1.5rem;
+  --espacio-8: 2rem;
+  --espacio-10: 2.5rem;
+  --espacio-12: 3rem;
+
+  // Radios: jerarquía de contenedor a control.
+  --radio-pista: 1.125rem;
+  --radio-contenedor: 0.75rem;
+  --radio-control: 0.625rem;
+  --radio-pildora: 999px;
+
+  --ancho-contenido: 72rem;
+  --alto-navegacion-inferior: 4.5rem;
+  --minimo-tactil: 2.75rem; // 44px
+}
