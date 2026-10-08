@@ -2,7 +2,7 @@ import type { Tables } from '@core/supabase/interfaces/database.types';
 import type { JugadorAlineado } from './interfaces/jugador-alineado.interface';
 import type { PartidoAlineacion } from './interfaces/partido-alineacion.interface';
 
-type FilaParticipacion = Pick<Tables<'participacion'>, 'lado'> & {
+export type FilaParticipacion = Pick<Tables<'participacion'>, 'lado'> & {
   jugador: Pick<Tables<'jugador'>, 'id' | 'nombre_mostrar'>;
 };
 
@@ -20,7 +20,8 @@ export function mapearPartidoAlineacion(fila: FilaPartidoAlineacion): PartidoAli
   };
 }
 
-function jugadorEnLado(
+/** Jugador que ocupa un lado de la pista en un partido, o `null` si está vacío. */
+export function jugadorEnLado(
   participaciones: readonly FilaParticipacion[],
   lado: FilaParticipacion['lado'],
 ): JugadorAlineado | null {
