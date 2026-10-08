@@ -1,0 +1,113 @@
+@use 'breakpoints' as bp;
+
+// Borde izquierdo con el color de la pista: verde en los partidos de un sexo, lima en el mixto.
+.partido {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-4);
+  padding: var(--espacio-4);
+  border: 1px solid var(--color-borde);
+  border-left: 6px solid var(--color-pista);
+  border-radius: var(--radio-contenedor);
+  background: var(--color-superficie);
+}
+
+.partido--mixto {
+  border-left-color: var(--color-mixto);
+}
+
+.cabecera {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.titulo {
+  font-size: var(--texto-l);
+  font-weight: 800;
+  font-stretch: var(--anchura-titulo);
+  line-height: 1.1;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-4);
+}
+
+.grupo {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.etiqueta-grupo {
+  margin-bottom: var(--espacio-2);
+  padding: 0;
+  font-size: var(--texto-s);
+  font-weight: 700;
+}
+
+.opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-2);
+}
+
+// Píldoras: el radio real queda oculto pero accesible, y el foco se marca en la píldora.
+.opcion {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--minimo-tactil);
+  padding: 0 var(--espacio-4);
+  border: 1.5px solid var(--color-borde-fuerte);
+  border-radius: var(--radio-pildora);
+  color: var(--color-tinta-suave);
+  font-size: var(--texto-s);
+  font-weight: 600;
+  cursor: pointer;
+
+  &:has(:focus-visible) {
+    outline: 3px solid var(--color-pista);
+    outline-offset: 2px;
+  }
+}
+
+.opcion--elegida {
+  border-color: var(--color-pista);
+  background: var(--color-pista);
+  color: var(--color-sobre-pista);
+}
+
+.sets {
+  display: grid;
+  gap: var(--espacio-3);
+
+  @include bp.desde(tablet) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espacio-3) var(--espacio-4);
+}
+
+.error {
+  color: var(--color-derrota-texto);
+  font-size: var(--texto-s);
+  font-weight: 600;
+}
+
+.estado {
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+}
+
+.estado--guardado {
+  color: var(--color-pista);
+  font-weight: 700;
+}

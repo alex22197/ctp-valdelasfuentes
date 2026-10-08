@@ -33,6 +33,15 @@
   font-weight: 700;
 }
 
+.enlace-resultados {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: var(--minimo-tactil);
+  font-size: var(--texto-s);
+  font-weight: 600;
+}
+
 .marcador {
   color: var(--color-pista);
   font-size: 1.5rem;
