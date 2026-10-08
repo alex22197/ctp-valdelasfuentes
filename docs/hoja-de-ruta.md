@@ -26,6 +26,10 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
   marcador con las mismas reglas que la base de datos. El marcador global se calcula a partir
   de los partidos ([ADR 0008](decisiones/0008-marcador-de-la-confrontacion-calculado.md)).
   Migración probada en un PostgreSQL local (33 casos) y aplicada en Supabase.
+- **Pasar lista** (#6, paso 2.2): página `/pasar-lista/:id` para gestores, enlazada desde el
+  calendario en las jornadas sin jugar. Un toque por jugador (Sí, No o ?) que se guarda al
+  momento con `guardar_respuesta_encuesta`, sin perder la convocatoria de quien ya está
+  convocado. Migración probada en un PostgreSQL local (11 casos).
 
 ## 1. Configuración pendiente (Alex, desde los paneles)
 
@@ -33,6 +37,8 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
 - [x] Supabase → Authentication → URL Configuration: Site URL `http://localhost:4200` y
       Redirect URL `http://localhost:4200/**`.
 - [x] Iniciar sesión en local y darse rol `admin` (SQL en [`operativa.md`](operativa.md)).
+- [ ] Aplicar la migración de pasar lista (`npm run db:migrar`) y regenerar los tipos
+      (`npm run db:tipos`). Hasta entonces, la pantalla de pasar lista no puede guardar.
 - [ ] (#5) Desplegar en Cloudflare siguiendo [`despliegue.md`](despliegue.md) y añadir la URL de
       `workers.dev` a Site URL y Redirect URLs de Supabase.
 
@@ -42,11 +48,12 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
 **sábado 10 de octubre de 2026**, así que el orden importa.
 
 1. ~~**Resultados de una confrontación**~~: hecho (ver arriba).
-2. (#6) **Pasar lista**, según el boceto. Guarda en `disponibilidad` al instante y excluye a los
-   comodines.
+2. ~~(#6) **Pasar lista**~~: hecho (ver arriba).
 3. (#7) **Convocatoria y alineación**, según el boceto. Elegir convocados entre los que pueden y
    colocarlos en cada pista (revés y drive), «Copiar para WhatsApp» con el formato del capitán
    (ver [`contexto.md`](contexto.md)) y recordatorio para quien no ha respondido.
+   - El botón final de pasar lista pasará a ser «Guardar y hacer la convocatoria» y llevará a
+     esta pantalla (ahora vuelve al inicio, porque la convocatoria aún no existe).
    - **Hace falta una migración**: un campo para marcar la convocatoria como **publicada**.
      Ahora la portada muestra cualquier alineación guardada, así que un borrador se vería en
      público.

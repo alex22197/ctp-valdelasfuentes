@@ -2,8 +2,18 @@
 
 Qué hay que hacer cada semana de jornada y las tareas de administración puntuales.
 
-> La pantalla de **resultados** ya está en la web. Pasar lista y la convocatoria están en
-> desarrollo; mientras tanto, esos datos se editan desde el **Table Editor** de Supabase.
+> **Pasar lista** y **resultados** ya están en la web. La convocatoria está en desarrollo;
+> mientras tanto, se edita desde el **Table Editor** de Supabase.
+
+## Pasar lista
+
+1. Entra con tu cuenta de gestor y ve al **Inicio**.
+2. En el **Calendario**, pulsa **Pasar lista** en la jornada.
+3. Según vayan contestando en WhatsApp, toca **Sí**, **No** o **?** (sin responder) en cada
+   jugador. Se guarda al momento; no hay botón de guardar.
+
+Las respuestas son privadas: solo las ven los gestores. Los comodines no aparecen en la lista.
+Si un jugador ya convocado pasa a «?», sigue convocado; solo se borra su respuesta.
 
 ## Meter los resultados de una jornada
 
