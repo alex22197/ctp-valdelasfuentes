@@ -1,0 +1,61 @@
+:host {
+  --pista-fondo: var(--color-pista);
+  --pista-texto: var(--color-sobre-pista);
+  --pista-texto-suave: var(--color-sobre-pista-suave);
+
+  display: block;
+}
+
+:host(.mixto) {
+  --pista-fondo: var(--color-mixto);
+  --pista-texto: var(--color-tinta);
+  --pista-texto-suave: var(--color-tinta-suave);
+}
+
+.pista {
+  margin: 0;
+}
+
+.titulo {
+  margin-bottom: var(--espacio-2);
+  font-size: var(--texto-s);
+  font-weight: 700;
+}
+
+// Red arriba, línea de saque y línea central hasta el saque.
+.cesped {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  height: 9rem;
+  padding-top: 4.25rem;
+  overflow: hidden;
+  border-radius: var(--radio-control);
+  background:
+    linear-gradient(var(--color-sobre-pista), var(--color-sobre-pista)) top / 100% 5px no-repeat,
+    linear-gradient(rgb(255 255 255 / 55%), rgb(255 255 255 / 55%)) 0 3.6rem / 100% 1.5px no-repeat,
+    linear-gradient(rgb(255 255 255 / 55%), rgb(255 255 255 / 55%)) 50% 0 / 1.5px 3.6rem no-repeat,
+    var(--pista-fondo);
+  color: var(--pista-texto);
+}
+
+.lado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: var(--espacio-2) var(--espacio-1);
+  text-align: center;
+}
+
+.jugador {
+  overflow-wrap: anywhere;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.posicion {
+  color: var(--pista-texto-suave);
+  font-size: var(--texto-xs);
+}

@@ -1,0 +1,37 @@
+@let partido = confrontacion();
+<section class="pista" aria-labelledby="titulo-proximo-partido">
+  <h2 id="titulo-proximo-partido" class="antetitulo">
+    Próximo partido{{ partido.jornada ? ', jornada ' + partido.jornada : '' }}
+  </h2>
+
+  <p class="equipo">
+    <span class="equipo-nombre">
+      {{ partido.local.nombre }}
+      @if (partido.local.esNuestro) {
+        <span class="bola" aria-hidden="true"></span>
+      }
+    </span>
+    <span class="equipo-condicion">Local</span>
+  </p>
+  <div class="red" aria-hidden="true"></div>
+  <p class="equipo">
+    <span class="equipo-nombre">
+      {{ partido.visitante.nombre }}
+      @if (partido.visitante.esNuestro) {
+        <span class="bola" aria-hidden="true"></span>
+      }
+    </span>
+    <span class="equipo-condicion">Visitante</span>
+  </p>
+
+  <ul class="detalles">
+    <li class="detalle">
+      <ctp-icono nombre="calendario" />
+      {{ partido | fechaConfrontacion }}
+    </li>
+    <li class="detalle">
+      <ctp-icono nombre="ubicacion" />
+      {{ partido.sede ?? 'Sede por confirmar' }}
+    </li>
+  </ul>
+</section>
