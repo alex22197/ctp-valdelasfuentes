@@ -150,7 +150,8 @@ Detalle en [`docs/base-de-datos.md`](docs/base-de-datos.md).
   `feature/pasar-lista`, `fix/marcador-en-wo`, `docs/guia-de-despliegue`,
   `chore/actualizar-angular`.
 - Al terminar la tarea se integra con `git merge --no-ff <rama>` (mensaje por defecto,
-  `Merge branch '<rama>' into develop`) y se borra la rama.
+  `Merge branch '<rama>' into develop`).
+- Las ramas integradas se conservan, para ver en el árbol el nombre de cada tarea.
 
 ### Commits
 
