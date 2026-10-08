@@ -137,6 +137,10 @@ Detalle en [`docs/arquitectura.md`](docs/arquitectura.md).
 - Las reglas de la normativa se aplican en la base de datos (restricciones y triggers),
   no solo en la web.
 - Tras aplicar la migración, `npm run db:tipos`.
+- Quien termina una tarea con migración la aplica en Supabase (`npm run db:migrar`) después
+  de probarla en local, si solo añade (funciones, vistas, tablas o columnas nuevas). Si
+  borra, renombra o transforma datos existentes, lo confirma antes con Alex: aún no hay
+  copia de seguridad ni entorno de desarrollo separado.
 
 Detalle en [`docs/base-de-datos.md`](docs/base-de-datos.md).
 

@@ -29,7 +29,7 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
 - **Pasar lista** (#6, paso 2.2): página `/pasar-lista/:id` para gestores, enlazada desde el
   calendario en las jornadas sin jugar. Un toque por jugador (Sí, No o ?) que se guarda al
   momento con `guardar_respuesta_encuesta`, sin perder la convocatoria de quien ya está
-  convocado. Migración probada en un PostgreSQL local (11 casos).
+  convocado. Migración probada en un PostgreSQL local (11 casos) y aplicada en Supabase.
 
 ## 1. Configuración pendiente (Alex, desde los paneles)
 
@@ -37,8 +37,6 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
 - [x] Supabase → Authentication → URL Configuration: Site URL `http://localhost:4200` y
       Redirect URL `http://localhost:4200/**`.
 - [x] Iniciar sesión en local y darse rol `admin` (SQL en [`operativa.md`](operativa.md)).
-- [ ] Aplicar la migración de pasar lista (`npm run db:migrar`) y regenerar los tipos
-      (`npm run db:tipos`). Hasta entonces, la pantalla de pasar lista no puede guardar.
 - [ ] (#5) Desplegar en Cloudflare siguiendo [`despliegue.md`](despliegue.md) y añadir la URL de
       `workers.dev` a Site URL y Redirect URLs de Supabase.
 
