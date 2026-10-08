@@ -1,0 +1,7 @@
+<p
+  class="mensaje"
+  [class.mensaje--error]="tipo() === 'error'"
+  [attr.role]="tipo() === 'error' ? 'alert' : 'status'"
+>
+  {{ texto() }}
+</p>

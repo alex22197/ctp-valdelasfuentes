@@ -1,0 +1,46 @@
+{
+  "name": "ctp-valdelasfuentes-web",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "build:cloudflare": "npm run lint && npm run test:ci && ng build",
+    "test": "ng test",
+    "test:ci": "ng test --watch=false",
+    "lint": "ng lint --max-warnings=0",
+    "formatear": "prettier --write .",
+    "formatear:comprobar": "prettier --check .",
+    "formatear:tipos": "prettier --write src/app/core/supabase/interfaces/database.types.ts",
+    "verificar": "npm run lint && npm run formatear:comprobar && npm run test:ci && npm run build"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "^22.2.0",
+    "@angular/compiler": "^22.2.0",
+    "@angular/core": "^22.2.0",
+    "@angular/forms": "^22.2.0",
+    "@angular/platform-browser": "^22.2.0",
+    "@angular/router": "^22.2.0",
+    "@supabase/supabase-js": "^2.117.3",
+    "ctp-valdelasfuentes": "file:..",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^22.2.2",
+    "@angular/cli": "^22.2.2",
+    "@angular/compiler-cli": "^22.2.0",
+    "@eslint/js": "^10.0.1",
+    "angular-eslint": "22.5.0",
+    "eslint": "^10.9.1",
+    "jsdom": "^30.0.0",
+    "prettier": "^3.8.1",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "8.69.0",
+    "vitest": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=22.22.3 <23 || >=24.15.0"
+  }
+}

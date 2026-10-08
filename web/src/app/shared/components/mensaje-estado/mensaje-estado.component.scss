@@ -1,0 +1,10 @@
+.mensaje {
+  padding: var(--espacio-4) 0;
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+}
+
+.mensaje--error {
+  color: var(--color-derrota-texto);
+  font-weight: 600;
+}
