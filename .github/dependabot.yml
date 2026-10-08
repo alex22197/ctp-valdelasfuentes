@@ -6,6 +6,10 @@ updates:
     target-branch: develop
     schedule:
       interval: weekly
+    ignore:
+      # Angular 22 exige TypeScript 6. Quitar cuando Angular admita TypeScript 7.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
     groups:
       angular:
         patterns: ["@angular/*", "@angular-devkit/*", "angular-eslint"]
