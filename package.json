@@ -1,0 +1,16 @@
+{
+  "name": "ctp-valdelasfuentes",
+  "private": true,
+  "description": "Web del equipo CTPA Valdelasfuentes: calendario, convocatorias, resultados y estadísticas.",
+  "scripts": {
+    "prepare": "husky",
+    "db:migrar": "supabase db push",
+    "db:nueva-migracion": "supabase migration new",
+    "db:tipos": "supabase gen types typescript --linked --schema public > web/src/app/core/supabase/interfaces/database.types.ts && npm --prefix web run formatear:tipos"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "supabase": "^2.120.0"
+  }
+}
