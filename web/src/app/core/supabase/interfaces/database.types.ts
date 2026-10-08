@@ -1,96 +1,94 @@
-/**
- * Tipos de la base de datos de Supabase.
- *
- * FICHERO GENERADO: no editar a mano. Se regenera desde la raíz del repositorio con
- * `npm run db:tipos` después de aplicar una migración nueva.
- */
-
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: '14.18';
+  };
   public: {
     Tables: {
       competicion: {
         Row: {
+          activa: boolean;
+          created_at: string;
+          formato: Json;
           id: string;
           nombre: string;
           temporada: string;
-          formato: Json;
-          activa: boolean;
-          created_at: string;
           updated_at: string;
         };
         Insert: {
+          activa?: boolean;
+          created_at?: string;
+          formato?: Json;
           id?: string;
           nombre: string;
           temporada: string;
-          formato?: Json;
-          activa?: boolean;
-          created_at?: string;
           updated_at?: string;
         };
         Update: {
+          activa?: boolean;
+          created_at?: string;
+          formato?: Json;
           id?: string;
           nombre?: string;
           temporada?: string;
-          formato?: Json;
-          activa?: boolean;
-          created_at?: string;
           updated_at?: string;
         };
         Relationships: [];
       };
       confrontacion: {
         Row: {
-          id: string;
-          fase_id: string;
-          jornada: number | null;
-          local_id: string;
-          visitante_id: string;
-          fecha_prevista: string | null;
-          fecha_hora: string | null;
-          sede: string | null;
-          num_pistas: number | null;
-          estado: Database['public']['Enums']['estado_confrontacion'];
-          partidos_local: number | null;
-          partidos_visitante: number | null;
           acta_enviada: boolean;
           created_at: string;
+          estado: Database['public']['Enums']['estado_confrontacion'];
+          fase_id: string;
+          fecha_hora: string | null;
+          fecha_prevista: string | null;
+          id: string;
+          jornada: number | null;
+          local_id: string;
+          num_pistas: number | null;
+          partidos_local: number | null;
+          partidos_visitante: number | null;
+          sede: string | null;
           updated_at: string;
+          visitante_id: string;
         };
         Insert: {
-          id?: string;
+          acta_enviada?: boolean;
+          created_at?: string;
+          estado?: Database['public']['Enums']['estado_confrontacion'];
           fase_id: string;
+          fecha_hora?: string | null;
+          fecha_prevista?: string | null;
+          id?: string;
           jornada?: number | null;
           local_id: string;
-          visitante_id: string;
-          fecha_prevista?: string | null;
-          fecha_hora?: string | null;
-          sede?: string | null;
           num_pistas?: number | null;
-          estado?: Database['public']['Enums']['estado_confrontacion'];
           partidos_local?: number | null;
           partidos_visitante?: number | null;
-          acta_enviada?: boolean;
-          created_at?: string;
+          sede?: string | null;
           updated_at?: string;
+          visitante_id: string;
         };
         Update: {
-          id?: string;
-          fase_id?: string;
-          jornada?: number | null;
-          local_id?: string;
-          visitante_id?: string;
-          fecha_prevista?: string | null;
-          fecha_hora?: string | null;
-          sede?: string | null;
-          num_pistas?: number | null;
-          estado?: Database['public']['Enums']['estado_confrontacion'];
-          partidos_local?: number | null;
-          partidos_visitante?: number | null;
           acta_enviada?: boolean;
           created_at?: string;
+          estado?: Database['public']['Enums']['estado_confrontacion'];
+          fase_id?: string;
+          fecha_hora?: string | null;
+          fecha_prevista?: string | null;
+          id?: string;
+          jornada?: number | null;
+          local_id?: string;
+          num_pistas?: number | null;
+          partidos_local?: number | null;
+          partidos_visitante?: number | null;
+          sede?: string | null;
           updated_at?: string;
+          visitante_id?: string;
         };
         Relationships: [
           {
@@ -119,26 +117,26 @@ export type Database = {
       disponibilidad: {
         Row: {
           confrontacion_id: string;
-          jugador_id: string;
-          respuesta: Database['public']['Enums']['respuesta_encuesta'] | null;
           convocado: boolean;
           created_at: string;
+          jugador_id: string;
+          respuesta: Database['public']['Enums']['respuesta_encuesta'] | null;
           updated_at: string;
         };
         Insert: {
           confrontacion_id: string;
-          jugador_id: string;
-          respuesta?: Database['public']['Enums']['respuesta_encuesta'] | null;
           convocado?: boolean;
           created_at?: string;
+          jugador_id: string;
+          respuesta?: Database['public']['Enums']['respuesta_encuesta'] | null;
           updated_at?: string;
         };
         Update: {
           confrontacion_id?: string;
-          jugador_id?: string;
-          respuesta?: Database['public']['Enums']['respuesta_encuesta'] | null;
           convocado?: boolean;
           created_at?: string;
+          jugador_id?: string;
+          respuesta?: Database['public']['Enums']['respuesta_encuesta'] | null;
           updated_at?: string;
         };
         Relationships: [
@@ -148,6 +146,13 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: 'confrontacion';
             referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'disponibilidad_confrontacion_id_fkey';
+            columns: ['confrontacion_id'];
+            isOneToOne: false;
+            referencedRelation: 'confrontacion_marcador';
+            referencedColumns: ['confrontacion_id'];
           },
           {
             foreignKeyName: 'disponibilidad_jugador_id_fkey';
@@ -160,91 +165,91 @@ export type Database = {
       };
       ejecucion_scraper: {
         Row: {
-          id: string;
           fecha: string;
-          ok: boolean;
+          id: string;
           mensaje: string | null;
+          ok: boolean;
         };
         Insert: {
-          id?: string;
           fecha?: string;
-          ok: boolean;
+          id?: string;
           mensaje?: string | null;
+          ok: boolean;
         };
         Update: {
-          id?: string;
           fecha?: string;
-          ok?: boolean;
+          id?: string;
           mensaje?: string | null;
+          ok?: boolean;
         };
         Relationships: [];
       };
       equipo: {
         Row: {
+          created_at: string;
+          es_nuestro: boolean;
           id: string;
           nombre: string;
           nombre_web: string | null;
           sede: string | null;
-          es_nuestro: boolean;
-          created_at: string;
           updated_at: string;
         };
         Insert: {
+          created_at?: string;
+          es_nuestro?: boolean;
           id?: string;
           nombre: string;
           nombre_web?: string | null;
           sede?: string | null;
-          es_nuestro?: boolean;
-          created_at?: string;
           updated_at?: string;
         };
         Update: {
+          created_at?: string;
+          es_nuestro?: boolean;
           id?: string;
           nombre?: string;
           nombre_web?: string | null;
           sede?: string | null;
-          es_nuestro?: boolean;
-          created_at?: string;
           updated_at?: string;
         };
         Relationships: [];
       };
       fase: {
         Row: {
-          id: string;
           competicion_id: string;
-          tipo: Database['public']['Enums']['tipo_fase'];
+          created_at: string;
+          fin: string | null;
+          id: string;
+          inicio: string | null;
           nombre: string;
           orden: number;
-          url_grupo: string | null;
-          inicio: string | null;
-          fin: string | null;
-          created_at: string;
+          tipo: Database['public']['Enums']['tipo_fase'];
           updated_at: string;
+          url_grupo: string | null;
         };
         Insert: {
-          id?: string;
           competicion_id: string;
-          tipo: Database['public']['Enums']['tipo_fase'];
+          created_at?: string;
+          fin?: string | null;
+          id?: string;
+          inicio?: string | null;
           nombre: string;
           orden: number;
-          url_grupo?: string | null;
-          inicio?: string | null;
-          fin?: string | null;
-          created_at?: string;
+          tipo: Database['public']['Enums']['tipo_fase'];
           updated_at?: string;
+          url_grupo?: string | null;
         };
         Update: {
-          id?: string;
           competicion_id?: string;
-          tipo?: Database['public']['Enums']['tipo_fase'];
+          created_at?: string;
+          fin?: string | null;
+          id?: string;
+          inicio?: string | null;
           nombre?: string;
           orden?: number;
-          url_grupo?: string | null;
-          inicio?: string | null;
-          fin?: string | null;
-          created_at?: string;
+          tipo?: Database['public']['Enums']['tipo_fase'];
           updated_at?: string;
+          url_grupo?: string | null;
         };
         Relationships: [
           {
@@ -258,34 +263,34 @@ export type Database = {
       };
       fase_equipo: {
         Row: {
-          fase_id: string;
+          actualizado_en: string | null;
+          empatados: number;
           equipo_id: string;
+          fase_id: string;
+          ganados: number;
+          perdidos: number;
           posicion: number | null;
           puntos: number;
-          ganados: number;
-          empatados: number;
-          perdidos: number;
-          actualizado_en: string | null;
         };
         Insert: {
-          fase_id: string;
+          actualizado_en?: string | null;
+          empatados?: number;
           equipo_id: string;
+          fase_id: string;
+          ganados?: number;
+          perdidos?: number;
           posicion?: number | null;
           puntos?: number;
-          ganados?: number;
-          empatados?: number;
-          perdidos?: number;
-          actualizado_en?: string | null;
         };
         Update: {
-          fase_id?: string;
+          actualizado_en?: string | null;
+          empatados?: number;
           equipo_id?: string;
+          fase_id?: string;
+          ganados?: number;
+          perdidos?: number;
           posicion?: number | null;
           puntos?: number;
-          ganados?: number;
-          empatados?: number;
-          perdidos?: number;
-          actualizado_en?: string | null;
         };
         Relationships: [
           {
@@ -306,27 +311,27 @@ export type Database = {
       };
       jugador: {
         Row: {
+          created_at: string;
           id: string;
+          lado_preferido: Database['public']['Enums']['lado'] | null;
           nombre_mostrar: string;
           sexo: Database['public']['Enums']['sexo'];
-          lado_preferido: Database['public']['Enums']['lado'] | null;
-          created_at: string;
           updated_at: string;
         };
         Insert: {
+          created_at?: string;
           id?: string;
+          lado_preferido?: Database['public']['Enums']['lado'] | null;
           nombre_mostrar: string;
           sexo: Database['public']['Enums']['sexo'];
-          lado_preferido?: Database['public']['Enums']['lado'] | null;
-          created_at?: string;
           updated_at?: string;
         };
         Update: {
+          created_at?: string;
           id?: string;
+          lado_preferido?: Database['public']['Enums']['lado'] | null;
           nombre_mostrar?: string;
           sexo?: Database['public']['Enums']['sexo'];
-          lado_preferido?: Database['public']['Enums']['lado'] | null;
-          created_at?: string;
           updated_at?: string;
         };
         Relationships: [];
@@ -359,19 +364,19 @@ export type Database = {
       };
       participacion: {
         Row: {
-          partido_id: string;
           jugador_id: string;
           lado: Database['public']['Enums']['lado'];
+          partido_id: string;
         };
         Insert: {
-          partido_id: string;
           jugador_id: string;
           lado: Database['public']['Enums']['lado'];
+          partido_id: string;
         };
         Update: {
-          partido_id?: string;
           jugador_id?: string;
           lado?: Database['public']['Enums']['lado'];
+          partido_id?: string;
         };
         Relationships: [
           {
@@ -388,40 +393,47 @@ export type Database = {
             referencedRelation: 'partido';
             referencedColumns: ['id'];
           },
+          {
+            foreignKeyName: 'participacion_partido_id_fkey';
+            columns: ['partido_id'];
+            isOneToOne: false;
+            referencedRelation: 'partido_resultado';
+            referencedColumns: ['partido_id'];
+          },
         ];
       };
       partido: {
         Row: {
-          id: string;
           confrontacion_id: string;
-          tipo: Database['public']['Enums']['tipo_partido'];
-          numero: number;
-          resultado: Database['public']['Enums']['resultado_partido'] | null;
-          ganado: boolean | null;
-          pareja_rival: string | null;
           created_at: string;
+          ganado: boolean | null;
+          id: string;
+          numero: number;
+          pareja_rival: string | null;
+          resultado: Database['public']['Enums']['resultado_partido'] | null;
+          tipo: Database['public']['Enums']['tipo_partido'];
           updated_at: string;
         };
         Insert: {
-          id?: string;
           confrontacion_id: string;
-          tipo: Database['public']['Enums']['tipo_partido'];
-          numero: number;
-          resultado?: Database['public']['Enums']['resultado_partido'] | null;
-          ganado?: boolean | null;
-          pareja_rival?: string | null;
           created_at?: string;
+          ganado?: boolean | null;
+          id?: string;
+          numero: number;
+          pareja_rival?: string | null;
+          resultado?: Database['public']['Enums']['resultado_partido'] | null;
+          tipo: Database['public']['Enums']['tipo_partido'];
           updated_at?: string;
         };
         Update: {
-          id?: string;
           confrontacion_id?: string;
-          tipo?: Database['public']['Enums']['tipo_partido'];
-          numero?: number;
-          resultado?: Database['public']['Enums']['resultado_partido'] | null;
-          ganado?: boolean | null;
-          pareja_rival?: string | null;
           created_at?: string;
+          ganado?: boolean | null;
+          id?: string;
+          numero?: number;
+          pareja_rival?: string | null;
+          resultado?: Database['public']['Enums']['resultado_partido'] | null;
+          tipo?: Database['public']['Enums']['tipo_partido'];
           updated_at?: string;
         };
         Relationships: [
@@ -432,29 +444,36 @@ export type Database = {
             referencedRelation: 'confrontacion';
             referencedColumns: ['id'];
           },
+          {
+            foreignKeyName: 'partido_confrontacion_id_fkey';
+            columns: ['confrontacion_id'];
+            isOneToOne: false;
+            referencedRelation: 'confrontacion_marcador';
+            referencedColumns: ['confrontacion_id'];
+          },
         ];
       };
       perfil: {
         Row: {
-          user_id: string;
-          rol: Database['public']['Enums']['rol_usuario'];
-          jugador_id: string | null;
           created_at: string;
+          jugador_id: string | null;
+          rol: Database['public']['Enums']['rol_usuario'];
           updated_at: string;
+          user_id: string;
         };
         Insert: {
-          user_id: string;
-          rol: Database['public']['Enums']['rol_usuario'];
-          jugador_id?: string | null;
           created_at?: string;
+          jugador_id?: string | null;
+          rol: Database['public']['Enums']['rol_usuario'];
           updated_at?: string;
+          user_id: string;
         };
         Update: {
-          user_id?: string;
-          rol?: Database['public']['Enums']['rol_usuario'];
-          jugador_id?: string | null;
           created_at?: string;
+          jugador_id?: string | null;
+          rol?: Database['public']['Enums']['rol_usuario'];
           updated_at?: string;
+          user_id?: string;
         };
         Relationships: [
           {
@@ -468,33 +487,33 @@ export type Database = {
       };
       plantilla: {
         Row: {
-          competicion_id: string;
-          jugador_id: string;
-          comodin: boolean;
-          inscrito_oficial: boolean | null;
           alta: string | null;
           baja: string | null;
+          comodin: boolean;
+          competicion_id: string;
           created_at: string;
+          inscrito_oficial: boolean | null;
+          jugador_id: string;
           updated_at: string;
         };
         Insert: {
-          competicion_id: string;
-          jugador_id: string;
-          comodin?: boolean;
-          inscrito_oficial?: boolean | null;
           alta?: string | null;
           baja?: string | null;
+          comodin?: boolean;
+          competicion_id: string;
           created_at?: string;
+          inscrito_oficial?: boolean | null;
+          jugador_id: string;
           updated_at?: string;
         };
         Update: {
-          competicion_id?: string;
-          jugador_id?: string;
-          comodin?: boolean;
-          inscrito_oficial?: boolean | null;
           alta?: string | null;
           baja?: string | null;
+          comodin?: boolean;
+          competicion_id?: string;
           created_at?: string;
+          inscrito_oficial?: boolean | null;
+          jugador_id?: string;
           updated_at?: string;
         };
         Relationships: [
@@ -516,26 +535,26 @@ export type Database = {
       };
       set_partido: {
         Row: {
-          partido_id: string;
-          numero: number;
           juegos_nuestros: number;
           juegos_rival: number;
+          numero: number;
+          partido_id: string;
           tiebreak_nuestros: number | null;
           tiebreak_rival: number | null;
         };
         Insert: {
-          partido_id: string;
-          numero: number;
           juegos_nuestros: number;
           juegos_rival: number;
+          numero: number;
+          partido_id: string;
           tiebreak_nuestros?: number | null;
           tiebreak_rival?: number | null;
         };
         Update: {
-          partido_id?: string;
-          numero?: number;
           juegos_nuestros?: number;
           juegos_rival?: number;
+          numero?: number;
+          partido_id?: string;
           tiebreak_nuestros?: number | null;
           tiebreak_rival?: number | null;
         };
@@ -547,31 +566,87 @@ export type Database = {
             referencedRelation: 'partido';
             referencedColumns: ['id'];
           },
+          {
+            foreignKeyName: 'set_partido_partido_id_fkey';
+            columns: ['partido_id'];
+            isOneToOne: false;
+            referencedRelation: 'partido_resultado';
+            referencedColumns: ['partido_id'];
+          },
         ];
       };
     };
     Views: {
-      partido_resultado: {
+      confrontacion_marcador: {
         Row: {
-          partido_id: string | null;
           confrontacion_id: string | null;
-          tipo: Database['public']['Enums']['tipo_partido'] | null;
-          numero: number | null;
-          resultado: Database['public']['Enums']['resultado_partido'] | null;
-          sets_nuestros: number | null;
-          sets_rival: number | null;
-          juegos_nuestros: number | null;
-          juegos_rival: number | null;
-          ganado: boolean | null;
+          partidos_ganados: number | null;
+          partidos_pendientes: number | null;
+          partidos_perdidos: number | null;
         };
         Relationships: [];
       };
+      partido_resultado: {
+        Row: {
+          confrontacion_id: string | null;
+          ganado: boolean | null;
+          juegos_nuestros: number | null;
+          juegos_rival: number | null;
+          numero: number | null;
+          partido_id: string | null;
+          resultado: Database['public']['Enums']['resultado_partido'] | null;
+          sets_nuestros: number | null;
+          sets_rival: number | null;
+          tipo: Database['public']['Enums']['tipo_partido'] | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'partido_confrontacion_id_fkey';
+            columns: ['confrontacion_id'];
+            isOneToOne: false;
+            referencedRelation: 'confrontacion';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'partido_confrontacion_id_fkey';
+            columns: ['confrontacion_id'];
+            isOneToOne: false;
+            referencedRelation: 'confrontacion_marcador';
+            referencedColumns: ['confrontacion_id'];
+          },
+        ];
+      };
     };
     Functions: {
-      competicion_de_confrontacion: { Args: { p_confrontacion: string }; Returns: string };
+      competicion_de_confrontacion: {
+        Args: { p_confrontacion: string };
+        Returns: string;
+      };
       es_admin: { Args: never; Returns: boolean };
       es_gestor: { Args: never; Returns: boolean };
-      juega_nuestro_equipo: { Args: { p_confrontacion: string }; Returns: boolean };
+      guardar_resultado_partido: {
+        Args: {
+          p_confrontacion: string;
+          p_ganado?: boolean;
+          p_numero: number;
+          p_resultado?: Database['public']['Enums']['resultado_partido'];
+          p_sets: Json;
+          p_tipo: Database['public']['Enums']['tipo_partido'];
+        };
+        Returns: string;
+      };
+      juega_nuestro_equipo: {
+        Args: { p_confrontacion: string };
+        Returns: boolean;
+      };
+      validar_marcador: {
+        Args: {
+          p_ganado: boolean;
+          p_resultado: Database['public']['Enums']['resultado_partido'];
+          p_sets: Json;
+        };
+        Returns: undefined;
+      };
     };
     Enums: {
       estado_confrontacion:
@@ -584,19 +659,134 @@ export type Database = {
       tipo_fase: 'apertura' | 'retos' | 'clausura' | 'previa_playoff' | 'playoff' | 'masters';
       tipo_partido: 'masculino' | 'femenino' | 'mixto';
     };
-    CompositeTypes: Record<never, never>;
+    CompositeTypes: {
+      [_ in never]: never;
+    };
   };
 };
 
-type EsquemaPublico = Database['public'];
+type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>;
 
-/** Fila de una tabla o vista: `Tables<'jugador'>`. */
-export type Tables<T extends keyof EsquemaPublico['Tables'] | keyof EsquemaPublico['Views']> =
-  T extends keyof EsquemaPublico['Tables']
-    ? EsquemaPublico['Tables'][T]['Row']
-    : T extends keyof EsquemaPublico['Views']
-      ? EsquemaPublico['Views'][T]['Row']
-      : never;
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>];
 
-/** Valores posibles de un enum: `Enums<'tipo_partido'>`. */
-export type Enums<T extends keyof EsquemaPublico['Enums']> = EsquemaPublico['Enums'][T];
+export type Tables<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals;
+  }
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])
+    : never) = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals;
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])[TableName] extends {
+      Row: infer R;
+    }
+    ? R
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
+    ? (DefaultSchema['Tables'] & DefaultSchema['Views'])[DefaultSchemaTableNameOrOptions] extends {
+        Row: infer R;
+      }
+      ? R
+      : never
+    : never;
+
+export type TablesInsert<
+  DefaultSchemaTableNameOrOptions extends
+    keyof DefaultSchema['Tables'] | { schema: keyof DatabaseWithoutInternals },
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals;
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    : never) = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals;
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+      Insert: infer I;
+    }
+    ? I
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
+    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+        Insert: infer I;
+      }
+      ? I
+      : never
+    : never;
+
+export type TablesUpdate<
+  DefaultSchemaTableNameOrOptions extends
+    keyof DefaultSchema['Tables'] | { schema: keyof DatabaseWithoutInternals },
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals;
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    : never) = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals;
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+      Update: infer U;
+    }
+    ? U
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
+    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+        Update: infer U;
+      }
+      ? U
+      : never
+    : never;
+
+export type Enums<
+  DefaultSchemaEnumNameOrOptions extends
+    keyof DefaultSchema['Enums'] | { schema: keyof DatabaseWithoutInternals },
+  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals;
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums']
+    : never) = never,
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals;
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums'][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema['Enums']
+    ? DefaultSchema['Enums'][DefaultSchemaEnumNameOrOptions]
+    : never;
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    keyof DefaultSchema['CompositeTypes'] | { schema: keyof DatabaseWithoutInternals },
+  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals;
+  }
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
+    : never) = never,
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals;
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema['CompositeTypes']
+    ? DefaultSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
+    : never;
+
+export const Constants = {
+  public: {
+    Enums: {
+      estado_confrontacion: ['programada', 'aplazada', 'suspendida', 'jugada', 'no_comparecencia'],
+      lado: ['reves', 'drive'],
+      respuesta_encuesta: ['si', 'no'],
+      resultado_partido: ['normal', 'wo_favor', 'wo_contra', 'abandono', 'suspendido'],
+      rol_usuario: ['admin', 'capitan'],
+      sexo: ['masculino', 'femenino'],
+      tipo_fase: ['apertura', 'retos', 'clausura', 'previa_playoff', 'playoff', 'masters'],
+      tipo_partido: ['masculino', 'femenino', 'mixto'],
+    },
+  },
+} as const;
