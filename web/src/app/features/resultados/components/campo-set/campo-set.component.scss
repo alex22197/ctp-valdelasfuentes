@@ -1,0 +1,72 @@
+.set {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+  min-width: 0;
+  margin: 0;
+  padding: var(--espacio-3);
+  border: 1.5px solid var(--color-borde);
+  border-radius: var(--radio-control);
+}
+
+.set--error {
+  border-color: var(--color-derrota);
+}
+
+.titulo {
+  padding: 0 var(--espacio-1);
+  font-size: var(--texto-s);
+  font-weight: 700;
+}
+
+.marcador {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--espacio-2);
+}
+
+.campo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  min-width: 0;
+}
+
+.etiqueta {
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-xs);
+}
+
+// Números grandes y condensados, como en un marcador.
+.numero {
+  width: 100%;
+  min-height: var(--minimo-tactil);
+  padding: 0 var(--espacio-2);
+  border: 1.5px solid var(--color-borde-fuerte);
+  border-radius: var(--radio-control);
+  background: var(--color-superficie);
+  color: var(--color-tinta);
+  font: inherit;
+  font-size: var(--texto-l);
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.marcador--tiebreak .numero {
+  font-size: var(--texto-m);
+}
+
+.guion {
+  padding-bottom: var(--espacio-2);
+  color: var(--color-tinta-tenue);
+  font-weight: 700;
+}
+
+.error {
+  color: var(--color-derrota-texto);
+  font-size: var(--texto-s);
+  font-weight: 600;
+}

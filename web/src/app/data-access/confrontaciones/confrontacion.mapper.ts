@@ -18,12 +18,21 @@ export type FilaConfrontacion = Pick<
   | 'partidos_visitante'
 > & { local: FilaEquipo; visitante: FilaEquipo };
 
+export type FilaMarcadorCalculado = Pick<
+  Tables<'confrontacion_marcador'>,
+  'partidos_ganados' | 'partidos_perdidos' | 'partidos_pendientes'
+>;
+
 /**
  * Convierte una confrontación al punto de vista de nuestro equipo.
  * Devuelve `null` si nuestro equipo no juega en ella.
+ *
+ * El marcador sale de nuestros partidos (vista `confrontacion_marcador`) cuando todos tienen
+ * ganador; si no, del que trae el scraper de la web de la liga (ADR 0008).
  */
 export function mapearConfrontacionNuestroEquipo(
   fila: FilaConfrontacion,
+  marcadorCalculado: FilaMarcadorCalculado | null = null,
 ): ConfrontacionNuestroEquipo | null {
   const local = mapearEquipoResumen(fila.local);
   const visitante = mapearEquipoResumen(fila.visitante);
@@ -44,11 +53,24 @@ export function mapearConfrontacionNuestroEquipo(
     fechaHora: fila.fecha_hora,
     sede: fila.sede,
     numeroPistas: fila.num_pistas,
-    marcador: mapearMarcador(fila, jugamosEnCasa),
+    marcador: mapearMarcadorCalculado(marcadorCalculado) ?? mapearMarcadorLiga(fila, jugamosEnCasa),
   };
 }
 
-function mapearMarcador(
+function mapearMarcadorCalculado(
+  calculado: FilaMarcadorCalculado | null,
+): MarcadorConfrontacion | null {
+  if (
+    calculado?.partidos_pendientes !== 0 ||
+    calculado.partidos_ganados === null ||
+    calculado.partidos_perdidos === null
+  ) {
+    return null;
+  }
+  return { nuestros: calculado.partidos_ganados, rival: calculado.partidos_perdidos };
+}
+
+function mapearMarcadorLiga(
   fila: FilaConfrontacion,
   jugamosEnCasa: boolean,
 ): MarcadorConfrontacion | null {

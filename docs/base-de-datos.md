@@ -22,8 +22,23 @@ PostgreSQL gestionado por Supabase (región West EU, Irlanda). El esquema está 
 | `perfil`            | Rol (admin o capitán) de cada usuario con permisos.                               | Solo el propio |
 | `ejecucion_scraper` | Registro de cada ejecución del scraper.                                           | **No**         |
 
-Vista `partido_resultado`: sets, juegos y si se ganó cada partido, calculado a partir de
-`set_partido` y del tipo de resultado (los WO no tienen sets).
+Vistas:
+
+- `partido_resultado`: sets, juegos y si se ganó cada partido, calculado a partir de
+  `set_partido` y del tipo de resultado (los WO no tienen sets).
+- `confrontacion_marcador`: partidos ganados, perdidos y pendientes de cada confrontación
+  nuestra, calculados a partir de `partido_resultado`
+  ([ADR 0008](decisiones/0008-marcador-de-la-confrontacion-calculado.md)).
+
+## Funciones que llama la web
+
+| Función                     | Qué hace                                                                                                                                                                                                                | Quién    |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `guardar_resultado_partido` | Guarda el resultado y los sets de un partido en una sola transacción. Crea el partido si no existe, quita la pareja en un WO en contra y marca la confrontación como `jugada` cuando todos sus partidos tienen ganador. | Gestores |
+
+La comprueba `validar_marcador`, que aplica las reglas de los sets de la normativa. La web
+repite esas reglas en `data-access/resultados/validar-marcador.ts` para mostrar el error junto
+al set sin esperar al servidor; si cambian, se cambian en los dos sitios.
 
 ## Reglas de la normativa en la base de datos
 
@@ -38,6 +53,9 @@ La base de datos rechaza, con un mensaje en castellano:
 - Sets en un partido con WO, o jugadores en un WO en contra.
 - Juegos fuera de 0–7 o un tie-break en un set que no es 7-6.
 - `ganado` en un partido que no es un abandono (en el resto se calcula; ver la vista).
+- Al guardar con `guardar_resultado_partido`: sets que no terminan (6-5) en un partido
+  jugado, marcadores imposibles (7-3), tie-breaks fuera de un 7-6 o mal ganados, sets de más
+  o de menos, y abandonos sin indicar quién ganó.
 - Borrar a un jugador que ya ha jugado algún partido.
 
 ## Seguridad
@@ -69,10 +87,11 @@ Reglas:
 
 ## Migraciones existentes
 
-| Migración                            | Contenido                                                                                       |
-| ------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| `20261008120000_esquema_inicial.sql` | Tablas, validaciones, vista de resultados, RLS y permisos.                                      |
-| `20261008120100_datos_iniciales.sql` | Competición, grupo, equipos, plantilla, calendario de la apertura y alineación de la jornada 1. |
+| Migración                                     | Contenido                                                                                       |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `20261008120000_esquema_inicial.sql`          | Tablas, validaciones, vista de resultados, RLS y permisos.                                      |
+| `20261008120100_datos_iniciales.sql`          | Competición, grupo, equipos, plantilla, calendario de la apertura y alineación de la jornada 1. |
+| `20261008130000_resultados_confrontacion.sql` | Vista `confrontacion_marcador` y funciones `validar_marcador` y `guardar_resultado_partido`.    |
 
 ## Pendiente
 

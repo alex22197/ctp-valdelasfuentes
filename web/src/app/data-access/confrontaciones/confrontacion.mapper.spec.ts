@@ -39,6 +39,22 @@ describe('mapearConfrontacionNuestroEquipo', () => {
     expect(mapearConfrontacionNuestroEquipo(fila({ partidos_local: 3 }))?.marcador).toBeNull();
   });
 
+  it('usa el marcador calculado de nuestros partidos cuando todos tienen ganador', () => {
+    const resultado = mapearConfrontacionNuestroEquipo(
+      fila({ partidos_local: 3, partidos_visitante: 3 }),
+      { partidos_ganados: 4, partidos_perdidos: 2, partidos_pendientes: 0 },
+    );
+    expect(resultado?.marcador).toEqual({ nuestros: 4, rival: 2 });
+  });
+
+  it('usa el de la liga mientras falte algún partido por meter', () => {
+    const resultado = mapearConfrontacionNuestroEquipo(
+      fila({ partidos_local: 2, partidos_visitante: 4 }),
+      { partidos_ganados: 3, partidos_perdidos: 1, partidos_pendientes: 2 },
+    );
+    expect(resultado?.marcador).toEqual({ nuestros: 4, rival: 2 });
+  });
+
   it('descarta las confrontaciones en las que no jugamos', () => {
     expect(mapearConfrontacionNuestroEquipo(fila({ visitante: padelgon }))).toBeNull();
   });

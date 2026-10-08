@@ -1,4 +1,5 @@
 import type { Routes } from '@angular/router';
+import { gestorGuard } from '@core/auth/gestor.guard';
 
 /**
  * Rutas de la aplicación. Cada página se carga solo cuando se visita (carga diferida).
@@ -18,6 +19,15 @@ export const routes: Routes = [
     loadComponent: () =>
       import('@features/clasificacion/pages/clasificacion-page/clasificacion-page.component').then(
         (m) => m.ClasificacionPageComponent,
+      ),
+  },
+  {
+    path: 'resultados/:idConfrontacion',
+    title: 'Resultados',
+    canActivate: [gestorGuard],
+    loadComponent: () =>
+      import('@features/resultados/pages/resultados-confrontacion-page/resultados-confrontacion-page.component').then(
+        (m) => m.ResultadosConfrontacionPageComponent,
       ),
   },
   {

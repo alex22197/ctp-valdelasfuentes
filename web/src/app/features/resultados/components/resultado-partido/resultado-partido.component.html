@@ -1,0 +1,97 @@
+<article class="partido" [class.partido--mixto]="partido().tipo === 'mixto'">
+  <header class="cabecera">
+    <h2 class="titulo">{{ titulo() }}</h2>
+    <p class="texto-secundario">{{ pareja() }}</p>
+  </header>
+
+  <form class="formulario" novalidate (submit)="enviar($event)">
+    <fieldset class="grupo">
+      <legend class="etiqueta-grupo">Cómo terminó</legend>
+      <div class="opciones">
+        @for (opcion of opciones; track opcion.etiqueta) {
+          <label class="opcion" [class.opcion--elegida]="resultado() === opcion.valor">
+            <input
+              class="solo-lector"
+              type="radio"
+              [name]="nombreGrupo()"
+              [checked]="resultado() === opcion.valor"
+              (change)="resultado.set(opcion.valor)"
+            />
+            {{ opcion.etiqueta }}
+          </label>
+        }
+      </div>
+    </fieldset>
+
+    @if (llevaSets()) {
+      <div class="sets">
+        @for (set of sets(); track $index) {
+          <ctp-campo-set
+            [numeroSet]="$index + 1"
+            [valor]="set"
+            (valorChange)="cambiarSet($index, $event)"
+            [error]="errorDeSet($index + 1)"
+          />
+        }
+      </div>
+    }
+
+    @if (resultado() === 'abandono') {
+      <fieldset class="grupo">
+        <legend class="etiqueta-grupo">Quién ganó</legend>
+        <div class="opciones">
+          <label class="opcion" [class.opcion--elegida]="ganado() === true">
+            <input
+              class="solo-lector"
+              type="radio"
+              [name]="nombreGrupo() + '-ganado'"
+              [checked]="ganado() === true"
+              (change)="ganado.set(true)"
+            />
+            Nosotros
+          </label>
+          <label class="opcion" [class.opcion--elegida]="ganado() === false">
+            <input
+              class="solo-lector"
+              type="radio"
+              [name]="nombreGrupo() + '-ganado'"
+              [checked]="ganado() === false"
+              (change)="ganado.set(false)"
+            />
+            El rival
+          </label>
+        </div>
+      </fieldset>
+    }
+
+    @if (resultado() === 'wo_contra' && tienePareja()) {
+      <p class="texto-secundario">
+        Al guardar se quitará la pareja de este partido: en un WO en contra no juega nadie.
+      </p>
+    }
+
+    @if (errorValidacion(); as error) {
+      @if (error.numeroSet === null) {
+        <p class="error" role="alert">{{ error.mensaje }}.</p>
+      }
+    }
+
+    <div class="pie">
+      <button
+        type="submit"
+        class="boton boton--principal"
+        [disabled]="estado().tipo === 'guardando'"
+      >
+        {{ estado().tipo === 'guardando' ? 'Guardando…' : 'Guardar' }}
+      </button>
+
+      @if (mensajeError(); as mensaje) {
+        <p class="error" role="alert">{{ mensaje }}</p>
+      } @else if (hayCambios()) {
+        <p class="estado" role="status">Cambios sin guardar</p>
+      } @else if (estado().tipo === 'guardado') {
+        <p class="estado estado--guardado" role="status">Guardado</p>
+      }
+    </div>
+  </form>
+</article>

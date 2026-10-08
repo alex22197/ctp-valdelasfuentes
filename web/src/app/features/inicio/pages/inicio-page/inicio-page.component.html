@@ -47,7 +47,10 @@
       @if (datos.calendario.error()) {
         <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar el calendario." />
       } @else {
-        <ctp-calendario-fase [confrontaciones]="datos.jornadas()" />
+        <ctp-calendario-fase
+          [confrontaciones]="datos.jornadas()"
+          [enlacesResultados]="auth.esGestor()"
+        />
       }
     </section>
   </div>

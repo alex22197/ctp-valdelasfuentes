@@ -13,6 +13,12 @@
             {{ jornada.rival.nombre }}
           </span>
           <span class="texto-secundario">{{ jornada | fechaConfrontacion }}</span>
+          @if (enlacesResultados()) {
+            <a class="enlace-resultados" [routerLink]="['/resultados', jornada.id]">
+              {{ jornada.marcador ? 'Editar resultados' : 'Meter resultados' }}
+              <span class="solo-lector"> de la jornada {{ jornada.jornada }}</span>
+            </a>
+          }
         </span>
         @if (jornada.marcador; as marcador) {
           <span
