@@ -142,13 +142,20 @@ Detalle en [`docs/base-de-datos.md`](docs/base-de-datos.md).
 
 ## Git
 
+### Issues
+
+- Cada tarea pendiente es una issue en GitHub, con su milestone (sección de la hoja de
+  ruta) y etiquetas de área y prioridad. Las tareas nuevas se crean primero como issue.
+- Las etiquetas «tarea de Alex» marcan lo que se hace desde paneles o hablando con el
+  equipo; «mejora futura», las ideas sin fecha.
+
 ### Ramas
 
 - `main`: solo lo que está desplegado. Recibe `develop` cuando se publica.
 - `develop`: rama principal de trabajo. Siempre pasa `npm run verificar --prefix web`.
-- Una rama por tarea, creada desde `develop`, en castellano y `kebab-case`:
-  `feature/pasar-lista`, `fix/marcador-en-wo`, `docs/guia-de-despliegue`,
-  `chore/actualizar-angular`.
+- Una rama por tarea, creada desde `develop`, en castellano y `kebab-case`, con el número
+  de su issue: `feature/6-pasar-lista`, `fix/31-marcador-en-wo`,
+  `docs/guia-de-despliegue` (las tareas sin issue, sin número).
 - Al terminar la tarea se integra con `git merge --no-ff <rama>` (mensaje por defecto,
   `Merge branch '<rama>' into develop`).
 - Las ramas integradas se conservan, para ver en el árbol el nombre de cada tarea.
@@ -162,7 +169,13 @@ Siempre con este formato, en castellano:
 
 - Qué cambia y por qué, en viñetas.
 - Una viñeta por idea.
+
+Closes #<issue>
 ```
+
+- **Pie** (`Closes #N`): solo en el commit que completa la issue. GitHub la cierra sola al
+  llegar ese commit a `develop`, que es la rama por defecto. `Refs #N` en los commits
+  intermedios.
 
 - **Tipo**: `feat` (funcionalidad), `fix` (corrección), `docs`, `refactor`, `test`,
   `style` (formato), `perf`, `ci`, `build` o `chore` (mantenimiento).
