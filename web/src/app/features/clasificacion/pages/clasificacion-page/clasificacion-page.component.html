@@ -1,0 +1,30 @@
+<header class="cabecera">
+  <h1 class="titulo-pagina">Clasificación</h1>
+  @if (fase(); as fase) {
+    <p class="texto-secundario">{{ fase.nombre }}</p>
+  }
+</header>
+
+@if (faseActual.isLoading() || clasificacion.isLoading()) {
+  <ctp-mensaje-estado tipo="cargando" texto="Cargando la clasificación…" />
+} @else if (faseActual.error() || clasificacion.error()) {
+  <ctp-mensaje-estado
+    tipo="error"
+    texto="No se ha podido cargar la clasificación. Recarga la página para volver a intentarlo."
+  />
+} @else if (filas().length === 0) {
+  <ctp-mensaje-estado
+    tipo="vacio"
+    texto="La clasificación de esta fase todavía no está publicada."
+  />
+} @else {
+  <ctp-tabla-clasificacion [filas]="filas()" />
+  <p class="nota texto-secundario">
+    Datos oficiales de la web de la liga, que se actualizan cada miércoles.
+    @if (fase()?.urlGrupo; as urlGrupo) {
+      <a [href]="urlGrupo" target="_blank" rel="noopener noreferrer"
+        >Ver el grupo en la web de la liga</a
+      >
+    }
+  </p>
+}
