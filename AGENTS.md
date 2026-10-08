@@ -142,8 +142,36 @@ Detalle en [`docs/base-de-datos.md`](docs/base-de-datos.md).
 
 ## Git
 
-- Commits en castellano con prefijo convencional: `feat:`, `fix:`, `docs:`, `refactor:`,
-  `test:`, `chore:`. Ejemplo: `feat: pantalla de pasar lista`.
+### Ramas
+
+- `main`: solo lo que está desplegado. Recibe `develop` cuando se publica.
+- `develop`: rama principal de trabajo. Siempre pasa `npm run verificar --prefix web`.
+- Una rama por tarea, creada desde `develop`, en castellano y `kebab-case`:
+  `feature/pasar-lista`, `fix/marcador-en-wo`, `docs/guia-de-despliegue`,
+  `chore/actualizar-angular`.
+- Al terminar la tarea se integra con `git merge --no-ff <rama>` (mensaje por defecto,
+  `Merge branch '<rama>' into develop`) y se borra la rama.
+
+### Commits
+
+Siempre con este formato, en castellano:
+
+```
+<tipo>(<ámbito>): <resumen>
+
+- Qué cambia y por qué, en viñetas.
+- Una viñeta por idea.
+```
+
+- **Tipo**: `feat` (funcionalidad), `fix` (corrección), `docs`, `refactor`, `test`,
+  `style` (formato), `perf`, `ci`, `build` o `chore` (mantenimiento).
+- **Ámbito** (opcional): la parte afectada, como `db`, `web`, `auth`, `data-access`,
+  `inicio`, `resultados` o `calidad`.
+- **Resumen**: en minúscula, sin punto final y con 72 caracteres como máximo.
+  Ejemplo: `feat(resultados): pantalla para meter los resultados de una jornada`.
+- **Cuerpo**: líneas de 72 caracteres como máximo. Se puede omitir en cambios triviales.
+- Un commit es un cambio coherente que pasa `verificar`; si mezcla dos cosas, son dos commits.
+- Sin líneas de coautoría (`Co-Authored-By`) ni firmas de herramientas.
 - El hook de pre-commit pasa ESLint y Prettier a los ficheros modificados.
 - Nunca se suben secretos: la clave secreta de Supabase y la contraseña de la base de datos
   solo viven en los secretos de GitHub y en el gestor de contraseñas.
