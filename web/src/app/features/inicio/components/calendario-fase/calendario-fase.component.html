@@ -13,11 +13,19 @@
             {{ jornada.rival.nombre }}
           </span>
           <span class="texto-secundario">{{ jornada | fechaConfrontacion }}</span>
-          @if (enlacesResultados()) {
-            <a class="enlace-resultados" [routerLink]="['/resultados', jornada.id]">
-              {{ jornada.marcador ? 'Editar resultados' : 'Meter resultados' }}
-              <span class="solo-lector"> de la jornada {{ jornada.jornada }}</span>
-            </a>
+          @if (enlacesGestion()) {
+            <span class="enlaces-gestion">
+              @if (jornada.estado !== 'jugada') {
+                <a class="enlace-gestion" [routerLink]="['/pasar-lista', jornada.id]">
+                  Pasar lista
+                  <span class="solo-lector"> de la jornada {{ jornada.jornada }}</span>
+                </a>
+              }
+              <a class="enlace-gestion" [routerLink]="['/resultados', jornada.id]">
+                {{ jornada.marcador ? 'Editar resultados' : 'Meter resultados' }}
+                <span class="solo-lector"> de la jornada {{ jornada.jornada }}</span>
+              </a>
+            </span>
           }
         </span>
         @if (jornada.marcador; as marcador) {

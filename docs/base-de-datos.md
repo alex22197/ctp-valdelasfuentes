@@ -32,9 +32,10 @@ Vistas:
 
 ## Funciones que llama la web
 
-| Función                     | Qué hace                                                                                                                                                                                                                | Quién    |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `guardar_resultado_partido` | Guarda el resultado y los sets de un partido en una sola transacción. Crea el partido si no existe, quita la pareja en un WO en contra y marca la confrontación como `jugada` cuando todos sus partidos tienen ganador. | Gestores |
+| Función                      | Qué hace                                                                                                                                                                                                                 | Quién    |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| `guardar_resultado_partido`  | Guarda el resultado y los sets de un partido en una sola transacción. Crea el partido si no existe, quita la pareja en un WO en contra y marca la confrontación como `jugada` cuando todos sus partidos tienen ganador.  | Gestores |
+| `guardar_respuesta_encuesta` | Guarda lo que un jugador respondió a la encuesta de una jornada (Sí o No) sin tocar si está convocado. Volver a «sin responder» borra la fila, salvo que el jugador ya esté convocado: entonces solo vacía la respuesta. | Gestores |
 
 La comprueba `validar_marcador`, que aplica las reglas de los sets de la normativa. La web
 repite esas reglas en `data-access/resultados/validar-marcador.ts` para mostrar el error junto
@@ -87,11 +88,12 @@ Reglas:
 
 ## Migraciones existentes
 
-| Migración                                     | Contenido                                                                                       |
-| --------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `20261008120000_esquema_inicial.sql`          | Tablas, validaciones, vista de resultados, RLS y permisos.                                      |
-| `20261008120100_datos_iniciales.sql`          | Competición, grupo, equipos, plantilla, calendario de la apertura y alineación de la jornada 1. |
-| `20261008130000_resultados_confrontacion.sql` | Vista `confrontacion_marcador` y funciones `validar_marcador` y `guardar_resultado_partido`.    |
+| Migración                                       | Contenido                                                                                       |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `20261008120000_esquema_inicial.sql`            | Tablas, validaciones, vista de resultados, RLS y permisos.                                      |
+| `20261008120100_datos_iniciales.sql`            | Competición, grupo, equipos, plantilla, calendario de la apertura y alineación de la jornada 1. |
+| `20261008130000_resultados_confrontacion.sql`   | Vista `confrontacion_marcador` y funciones `validar_marcador` y `guardar_resultado_partido`.    |
+| `20261008211955_guardar_respuesta_encuesta.sql` | Función `guardar_respuesta_encuesta` para pasar lista.                                          |
 
 ## Pendiente
 

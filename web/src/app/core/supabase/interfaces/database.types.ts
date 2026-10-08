@@ -624,6 +624,14 @@ export type Database = {
       };
       es_admin: { Args: never; Returns: boolean };
       es_gestor: { Args: never; Returns: boolean };
+      guardar_respuesta_encuesta: {
+        Args: {
+          p_confrontacion: string;
+          p_jugador: string;
+          p_respuesta?: Database['public']['Enums']['respuesta_encuesta'];
+        };
+        Returns: undefined;
+      };
       guardar_resultado_partido: {
         Args: {
           p_confrontacion: string;
