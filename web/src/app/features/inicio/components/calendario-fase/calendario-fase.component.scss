@@ -1,0 +1,62 @@
+.jornadas {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jornada {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-4);
+  padding: var(--espacio-4) 0;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.numero {
+  width: 2.25rem;
+  color: var(--color-pista);
+  font-size: 1.875rem;
+  font-weight: 800;
+  font-stretch: 62%;
+}
+
+.datos {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rival {
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.marcador {
+  color: var(--color-pista);
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-stretch: 62%;
+  font-variant-numeric: tabular-nums;
+}
+
+.marcador--derrota {
+  color: var(--color-derrota-texto);
+}
+
+.condicion {
+  padding: var(--espacio-1) var(--espacio-3);
+  border: 1.5px solid var(--color-borde-fuerte);
+  border-radius: var(--radio-pildora);
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.condicion--casa {
+  border-color: var(--color-pista);
+  background: var(--color-pista);
+  color: var(--color-sobre-pista);
+}

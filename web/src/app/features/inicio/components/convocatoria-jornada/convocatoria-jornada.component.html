@@ -1,0 +1,12 @@
+<ul class="pistas">
+  @for (partido of partidos(); track partido.id) {
+    <li>
+      <ctp-pista-alineacion
+        [titulo]="etiquetaPartido(partido.tipo, partido.numero)"
+        [jugadorReves]="partido.reves?.nombreMostrar ?? null"
+        [jugadorDrive]="partido.drive?.nombreMostrar ?? null"
+        [variante]="partido.tipo === 'mixto' ? 'mixto' : 'normal'"
+      />
+    </li>
+  }
+</ul>
