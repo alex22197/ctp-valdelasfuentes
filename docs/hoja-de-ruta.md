@@ -15,14 +15,20 @@ Contexto de cada decisión en [`contexto.md`](contexto.md).
   convocatoria, clasificación y calendario), clasificación, acceso y página no encontrada.
 - Calidad: TypeScript estricto, ESLint con las normas del proyecto, Prettier, hook de
   pre-commit, 22 tests, integración continua y Dependabot.
-- Documentación: `README.md`, `AGENTS.md`, `docs/` y 7 decisiones de arquitectura.
+- Documentación: `README.md`, `AGENTS.md`, `docs/` y 8 decisiones de arquitectura.
+- **Resultados de una confrontación** (paso 2.1): página `/resultados/:id` para gestores,
+  enlazada desde el calendario de la portada. Cada partido se guarda con la función
+  `guardar_resultado_partido` (partido y sets en una sola operación) y la web valida el
+  marcador con las mismas reglas que la base de datos. El marcador global se calcula a partir
+  de los partidos ([ADR 0008](decisiones/0008-marcador-de-la-confrontacion-calculado.md)).
+  Migración probada en un PostgreSQL local (33 casos) y aplicada en Supabase.
 
 ## 1. Configuración pendiente (Alex, desde los paneles)
 
-- [ ] Primer commit y push del proyecto.
-- [ ] Supabase → Authentication → URL Configuration: Site URL `http://localhost:4200` y
+- [x] Primer commit y push del proyecto (rama `develop`; flujo de ramas en `AGENTS.md`).
+- [x] Supabase → Authentication → URL Configuration: Site URL `http://localhost:4200` y
       Redirect URL `http://localhost:4200/**`.
-- [ ] Iniciar sesión en local y darse rol `admin` (SQL en [`operativa.md`](operativa.md)).
+- [x] Iniciar sesión en local y darse rol `admin` (SQL en [`operativa.md`](operativa.md)).
 - [ ] Desplegar en Cloudflare siguiendo [`despliegue.md`](despliegue.md) y añadir la URL de
       `workers.dev` a Site URL y Redirect URLs de Supabase.
 
@@ -31,15 +37,7 @@ Contexto de cada decisión en [`contexto.md`](contexto.md).
 Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se juega el
 **sábado 10 de octubre de 2026**, así que el orden importa.
 
-1. **Resultados de una confrontación** (primero, para meter la jornada 1 nada más jugarla).
-   - Para cada uno de los 6 partidos: tipo de resultado (normal, WO a favor, WO en contra,
-     abandono, suspendido) y los sets, con el tie-break cuando hay 7-6.
-   - Guardar partido y sets **en una sola operación** mediante una función de PostgreSQL
-     (RPC), para que nunca queden a medias.
-   - Mostrar los errores de la base de datos (que ya vienen en castellano) junto al campo.
-   - Decidir si el resultado global de nuestras confrontaciones (`partidos_local` y
-     `partidos_visitante`) se calcula desde los partidos o lo trae el scraper. Propuesta:
-     calcularlo con una vista y usar el del scraper solo para comprobar.
+1. ~~**Resultados de una confrontación**~~: hecho (ver arriba).
 2. **Pasar lista**, según el boceto. Guarda en `disponibilidad` al instante y excluye a los
    comodines.
 3. **Convocatoria y alineación**, según el boceto. Elegir convocados entre los que pueden y
