@@ -16,6 +16,7 @@ export type FilaConfrontacion = Pick<
   | 'num_pistas'
   | 'partidos_local'
   | 'partidos_visitante'
+  | 'convocatoria_publicada'
 > & { local: FilaEquipo; visitante: FilaEquipo };
 
 export type FilaMarcadorCalculado = Pick<
@@ -53,6 +54,7 @@ export function mapearConfrontacionNuestroEquipo(
     fechaHora: fila.fecha_hora,
     sede: fila.sede,
     numeroPistas: fila.num_pistas,
+    convocatoriaPublicada: fila.convocatoria_publicada,
     marcador: mapearMarcadorCalculado(marcadorCalculado) ?? mapearMarcadorLiga(fila, jugamosEnCasa),
   };
 }

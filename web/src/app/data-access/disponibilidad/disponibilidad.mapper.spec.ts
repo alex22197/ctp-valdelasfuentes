@@ -1,6 +1,7 @@
 import {
   type FilaDisponibilidad,
   type FilaPlantillaEncuesta,
+  mapearConvocables,
   mapearListaEncuesta,
 } from './disponibilidad.mapper';
 
@@ -11,6 +12,7 @@ function enPlantilla(
   return {
     comodin: false,
     baja: null,
+    inscrito_oficial: null,
     jugador: { id, nombre_mostrar: id, sexo: 'masculino' },
     ...cambios,
   };
@@ -56,5 +58,31 @@ describe('mapearListaEncuesta', () => {
       HOY,
     );
     expect(lista.map((j) => j.id)).toEqual(['baja-manana']);
+  });
+});
+
+describe('mapearConvocables', () => {
+  it('incluye a los comodines con su inscripción oficial', () => {
+    const lista = mapearConvocables(
+      [enPlantilla('jess', { comodin: true, inscrito_oficial: false }), enPlantilla('diego')],
+      [],
+      HOY,
+    );
+    expect(lista.map((j) => [j.id, j.comodin, j.inscritoOficial])).toEqual([
+      ['jess', true, false],
+      ['diego', false, null],
+    ]);
+  });
+
+  it('conserva a quien se dio de baja si ya está convocado', () => {
+    const lista = mapearConvocables(
+      [
+        enPlantilla('baja-convocado', { baja: '2026-10-01' }),
+        enPlantilla('baja', { baja: '2026-10-01' }),
+      ],
+      [{ jugador_id: 'baja-convocado', respuesta: 'si', convocado: true }],
+      HOY,
+    );
+    expect(lista.map((j) => j.id)).toEqual(['baja-convocado']);
   });
 });

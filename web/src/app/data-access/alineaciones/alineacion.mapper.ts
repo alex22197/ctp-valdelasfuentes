@@ -1,6 +1,7 @@
-import type { Tables } from '@core/supabase/interfaces/database.types';
+import type { Json, Tables } from '@core/supabase/interfaces/database.types';
 import type { JugadorAlineado } from './interfaces/jugador-alineado.interface';
 import type { PartidoAlineacion } from './interfaces/partido-alineacion.interface';
+import type { ParejaAlineacion } from './interfaces/pareja-alineacion.interface';
 
 export type FilaParticipacion = Pick<Tables<'participacion'>, 'lado'> & {
   jugador: Pick<Tables<'jugador'>, 'id' | 'nombre_mostrar'>;
@@ -29,4 +30,14 @@ export function jugadorEnLado(
   return participacion
     ? { id: participacion.jugador.id, nombreMostrar: participacion.jugador.nombre_mostrar }
     : null;
+}
+
+/** Parámetro `p_parejas` de `guardar_alineacion`. */
+export function mapearParejasAParametros(parejas: readonly ParejaAlineacion[]): Json {
+  return parejas.map((pareja) => ({
+    tipo: pareja.tipo,
+    numero: pareja.numero,
+    reves: pareja.idReves,
+    drive: pareja.idDrive,
+  }));
 }

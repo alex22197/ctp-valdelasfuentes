@@ -15,6 +15,7 @@ function fila(cambios: Partial<FilaConfrontacion> = {}): FilaConfrontacion {
     num_pistas: 6,
     partidos_local: null,
     partidos_visitante: null,
+    convocatoria_publicada: false,
     local: soto,
     visitante: nosotros,
     ...cambios,

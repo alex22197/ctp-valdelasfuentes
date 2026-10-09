@@ -10,7 +10,7 @@ import type { ConfrontacionNuestroEquipo } from './interfaces/confrontacion-nues
 
 const COLUMNAS_CONFRONTACION = `
   id, jornada, estado, fecha_prevista, fecha_hora, sede, num_pistas,
-  partidos_local, partidos_visitante,
+  partidos_local, partidos_visitante, convocatoria_publicada,
   local:equipo!confrontacion_local_id_fkey(id, nombre, es_nuestro),
   visitante:equipo!confrontacion_visitante_id_fkey(id, nombre, es_nuestro)
 `;
