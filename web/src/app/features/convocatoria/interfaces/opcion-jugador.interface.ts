@@ -1,6 +1,11 @@
-/** Un jugador en el desplegable de un lado de la pista. */
+import type { EstadoOpcion } from './estado-opcion.type';
+
+/** Un jugador en el panel para elegir quién juega en un lado de la pista. */
 export interface OpcionJugador {
   readonly id: string;
-  /** Nombre y, si ya está en otra pista, cuál: «Sergio (en Masculino 1)». */
-  readonly etiqueta: string;
+  readonly nombre: string;
+  readonly iniciales: string;
+  readonly estado: EstadoOpcion;
+  /** Pista en la que ya está («M2», «Mixto»), o `null` si está libre. */
+  readonly otraPista: string | null;
 }

@@ -1,14 +1,23 @@
 import type { TipoPartido } from '@data-access/alineaciones/interfaces/tipo-partido.type';
 import type { JugadorConvocable } from '@data-access/disponibilidad/interfaces/jugador-convocable.interface';
-import { clavePartido, nombrePista } from '@shared/utils/etiquetas-partido';
+import { clavePartido, codigoPista } from '@shared/utils/etiquetas-partido';
+import { iniciales } from '@shared/utils/iniciales';
+import type { EstadoOpcion } from '../interfaces/estado-opcion.type';
 import type { GrupoOpciones } from '../interfaces/grupo-opciones.interface';
 import type { HuecoAlineacion } from '../interfaces/hueco-alineacion.interface';
+
+const GRUPOS: readonly { estado: EstadoOpcion; titulo: string }[] = [
+  { estado: 'pueden', titulo: 'Pueden' },
+  { estado: 'sin-responder', titulo: 'Sin responder' },
+  { estado: 'no-pueden', titulo: 'No pueden' },
+  { estado: 'comodin', titulo: 'Comodines' },
+];
 
 /**
  * Jugadores que se pueden elegir en una pista, agrupados por lo que respondieron:
  * primero los que pueden, después los que no han contestado, los que no pueden y, al
  * final, los comodines. En masculino solo chicos y en femenino solo chicas. Quien ya está
- * en otra pista lo indica, para que se vea antes de moverlo.
+ * en otra pista lo indica («M2»): si se elige, se mueve de allí.
  */
 export function opcionesParaPista(
   tipo: TipoPartido,
@@ -23,7 +32,7 @@ export function opcionesParaPista(
     }
     for (const id of [hueco.idReves, hueco.idDrive]) {
       if (id) {
-        pistaDe.set(id, nombrePista(hueco.tipo, hueco.numero));
+        pistaDe.set(id, codigoPista(hueco.tipo, hueco.numero));
       }
     }
   }
@@ -31,21 +40,52 @@ export function opcionesParaPista(
   const candidatos = convocables
     .filter((jugador) => tipo === 'mixto' || jugador.sexo === tipo)
     .sort((a, b) => a.nombreMostrar.localeCompare(b.nombreMostrar, 'es'));
-  const grupo = (titulo: string, filtro: (j: JugadorConvocable) => boolean): GrupoOpciones => ({
-    titulo,
-    opciones: candidatos.filter(filtro).map((jugador) => {
-      const otraPista = pistaDe.get(jugador.id);
-      return {
-        id: jugador.id,
-        etiqueta: otraPista ? `${jugador.nombreMostrar} (en ${otraPista})` : jugador.nombreMostrar,
-      };
-    }),
-  });
 
-  return [
-    grupo('Pueden', (j) => !j.comodin && j.respuesta === 'si'),
-    grupo('Sin responder', (j) => !j.comodin && j.respuesta === null),
-    grupo('No pueden', (j) => !j.comodin && j.respuesta === 'no'),
-    grupo('Comodines', (j) => j.comodin),
-  ].filter((g) => g.opciones.length > 0);
+  return GRUPOS.map(({ estado, titulo }) => ({
+    estado,
+    titulo,
+    opciones: candidatos
+      .filter((jugador) => estadoDe(jugador) === estado)
+      .map((jugador) => ({
+        id: jugador.id,
+        nombre: jugador.nombreMostrar,
+        iniciales: iniciales(jugador.nombreMostrar),
+        estado,
+        otraPista: pistaDe.get(jugador.id) ?? null,
+      })),
+  })).filter((grupo) => grupo.opciones.length > 0);
+}
+
+/** Deja en cada grupo solo a quien coincide con la búsqueda (sin tildes ni mayúsculas). */
+export function filtrarOpciones(
+  grupos: readonly GrupoOpciones[],
+  busqueda: string,
+): GrupoOpciones[] {
+  const texto = normalizar(busqueda.trim());
+  if (!texto) {
+    return [...grupos];
+  }
+  return grupos
+    .map((grupo) => ({
+      ...grupo,
+      opciones: grupo.opciones.filter((opcion) => normalizar(opcion.nombre).includes(texto)),
+    }))
+    .filter((grupo) => grupo.opciones.length > 0);
+}
+
+function estadoDe(jugador: JugadorConvocable): EstadoOpcion {
+  if (jugador.comodin) {
+    return 'comodin';
+  }
+  if (jugador.respuesta === 'si') {
+    return 'pueden';
+  }
+  return jugador.respuesta === 'no' ? 'no-pueden' : 'sin-responder';
+}
+
+function normalizar(texto: string): string {
+  return texto
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase();
 }

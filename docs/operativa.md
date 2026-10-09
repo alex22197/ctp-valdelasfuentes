@@ -19,9 +19,10 @@ Si un jugador ya convocado pasa a «?», sigue convocado; solo se borra su respu
 
 1. En el **Calendario**, pulsa **Convocatoria** en la jornada (o, al terminar de pasar lista,
    **Guardar y hacer la convocatoria**).
-2. Elige en cada pista quién juega de **revés** (izquierda) y de **drive** (derecha). En cada
-   desplegable salen primero los que pueden, después los que no han contestado, los que no
-   pueden y los comodines.
+2. Toca cada lado de la pista para elegir quién juega de **revés** (izquierda) y de **drive**
+   (derecha). En el panel salen primero los que pueden, después los que no han contestado, los
+   que no pueden y los comodines; puedes buscar por nombre. Si eliges a alguien que ya está en
+   otra pista, se mueve y deja ese hueco libre.
 3. Revisa la **comprobación de normativa**: los errores (alguien en dos pistas, un chico en un
    partido femenino…) impiden guardar; los avisos (huecos sin cubrir, un comodín sin inscribir)
    no.

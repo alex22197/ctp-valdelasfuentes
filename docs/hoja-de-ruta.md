@@ -19,7 +19,7 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
   convocatoria, clasificación y calendario), clasificación, acceso y página no encontrada.
 - Calidad: TypeScript estricto, ESLint con las normas del proyecto, Prettier, hook de
   pre-commit, 22 tests, integración continua y Dependabot.
-- Documentación: `README.md`, `AGENTS.md`, `docs/` y 9 decisiones de arquitectura.
+- Documentación: `README.md`, `AGENTS.md`, `docs/` y 10 decisiones de arquitectura.
 - **Resultados de una confrontación** (paso 2.1): página `/resultados/:id` para gestores,
   enlazada desde el calendario de la portada. Cada partido se guarda con la función
   `guardar_resultado_partido` (partido y sets en una sola operación) y la web valida el
