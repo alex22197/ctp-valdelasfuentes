@@ -40,6 +40,15 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'convocatoria/:idConfrontacion',
+    title: 'Convocatoria',
+    canActivate: [gestorGuard],
+    loadComponent: () =>
+      import('@features/convocatoria/pages/convocatoria-page/convocatoria-page.component').then(
+        (m) => m.ConvocatoriaPageComponent,
+      ),
+  },
+  {
     path: 'acceso',
     title: 'Acceso',
     loadComponent: () =>

@@ -54,7 +54,9 @@
       />
     }
 
-    <a class="boton boton--principal terminar" routerLink="/">Listo, volver al inicio</a>
+    <a class="boton boton--principal terminar" [routerLink]="['/convocatoria', confrontacion.id]">
+      Guardar y hacer la convocatoria
+    </a>
   }
 } @else {
   <ctp-mensaje-estado

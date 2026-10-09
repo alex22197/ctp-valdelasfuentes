@@ -32,7 +32,7 @@ clasificación, calendario y nombres.
 - **Clasificación** del grupo, con nuestra fila resaltada.
 - **Calendario** de la fase: «J1», rival, fecha y una etiqueta «Fuera» o «En casa».
 
-**Jornada y convocatoria, vista de capitán** (pendiente)
+**Jornada y convocatoria, vista de capitán** (construida; solo gestores)
 
 - Rival en grande, fecha y sede.
 - Alineación sobre las 6 mini pistas, con estado «Borrador» o «Publicada».
@@ -44,7 +44,7 @@ clasificación, calendario y nombres.
   **Pueden ir, sin convocar** (verde claro), **No pueden** (borde naranja) y **Sin responder**
   (borde discontinuo), más «Copiar recordatorio para WhatsApp» para los que no han contestado.
 
-**Pasar lista** (pendiente; solo gestores)
+**Pasar lista** (construida; solo gestores)
 
 - Título «Pasar lista», con la indicación «Solo lo veis tú y el capitán» y un candado.
 - Recuento arriba (Pueden, No pueden, Sin responder) que se actualiza al tocar.

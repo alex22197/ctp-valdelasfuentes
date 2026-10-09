@@ -17,6 +17,7 @@ function jornada(numero: number, estado: EstadoConfrontacion): ConfrontacionNues
     fechaHora: null,
     sede: null,
     numeroPistas: null,
+    convocatoriaPublicada: false,
     marcador: null,
   };
 }
