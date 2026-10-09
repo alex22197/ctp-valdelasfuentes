@@ -41,6 +41,7 @@ export type Database = {
       confrontacion: {
         Row: {
           acta_enviada: boolean;
+          convocatoria_publicada: boolean;
           created_at: string;
           estado: Database['public']['Enums']['estado_confrontacion'];
           fase_id: string;
@@ -58,6 +59,7 @@ export type Database = {
         };
         Insert: {
           acta_enviada?: boolean;
+          convocatoria_publicada?: boolean;
           created_at?: string;
           estado?: Database['public']['Enums']['estado_confrontacion'];
           fase_id: string;
@@ -75,6 +77,7 @@ export type Database = {
         };
         Update: {
           acta_enviada?: boolean;
+          convocatoria_publicada?: boolean;
           created_at?: string;
           estado?: Database['public']['Enums']['estado_confrontacion'];
           fase_id?: string;
@@ -624,6 +627,10 @@ export type Database = {
       };
       es_admin: { Args: never; Returns: boolean };
       es_gestor: { Args: never; Returns: boolean };
+      guardar_alineacion: {
+        Args: { p_confrontacion: string; p_parejas: Json };
+        Returns: undefined;
+      };
       guardar_respuesta_encuesta: {
         Args: {
           p_confrontacion: string;
@@ -646,6 +653,10 @@ export type Database = {
       juega_nuestro_equipo: {
         Args: { p_confrontacion: string };
         Returns: boolean;
+      };
+      publicar_convocatoria: {
+        Args: { p_confrontacion: string; p_publicada?: boolean };
+        Returns: undefined;
       };
       validar_marcador: {
         Args: {
