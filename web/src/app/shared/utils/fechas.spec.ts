@@ -1,4 +1,4 @@
-import { describirFechaConfrontacion, fechaIsoEnMadrid } from './fechas';
+import { describirFechaConfrontacion, describirFechaCorta, fechaIsoEnMadrid } from './fechas';
 
 describe('fechas', () => {
   describe('fechaIsoEnMadrid', () => {
@@ -22,6 +22,17 @@ describe('fechas', () => {
 
     it('avisa de que falta la fecha cuando no hay ninguna', () => {
       expect(describirFechaConfrontacion(null, null)).toBe('Fecha por confirmar');
+    });
+  });
+
+  describe('describirFechaCorta', () => {
+    it('da el día de la semana y la hora en Madrid, como en WhatsApp', () => {
+      expect(describirFechaCorta('2026-10-10T10:00:00Z', '2026-10-10')).toBe('sábado 12:00');
+    });
+
+    it('recurre al fin de semana o a «por confirmar» en minúscula', () => {
+      expect(describirFechaCorta(null, '2026-10-17')).toBe('fin de semana del 17 de octubre');
+      expect(describirFechaCorta(null, null)).toBe('fecha por confirmar');
     });
   });
 });

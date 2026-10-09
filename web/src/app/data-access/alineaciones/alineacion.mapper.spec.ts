@@ -1,4 +1,4 @@
-import { mapearPartidoAlineacion } from './alineacion.mapper';
+import { mapearParejasAParametros, mapearPartidoAlineacion } from './alineacion.mapper';
 
 describe('mapearPartidoAlineacion', () => {
   it('coloca a cada jugador en su lado', () => {
@@ -24,5 +24,13 @@ describe('mapearPartidoAlineacion', () => {
     });
     expect(partido.reves).toBeNull();
     expect(partido.drive).toBeNull();
+  });
+});
+
+describe('mapearParejasAParametros', () => {
+  it('pasa cada pareja al formato de guardar_alineacion', () => {
+    expect(
+      mapearParejasAParametros([{ tipo: 'mixto', numero: 1, idReves: 'rocio', idDrive: null }]),
+    ).toEqual([{ tipo: 'mixto', numero: 1, reves: 'rocio', drive: null }]);
   });
 });

@@ -5,7 +5,7 @@ import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaj
 import { FechaConfrontacionPipe } from '@shared/pipes/fecha-confrontacion.pipe';
 import { ResultadoPartidoComponent } from '../../components/resultado-partido/resultado-partido.component';
 import { DatosResultadosService } from '../../services/datos-resultados.service';
-import { clavePartido } from '../../utils/formulario-resultado';
+import { clavePartido } from '@shared/utils/etiquetas-partido';
 
 /** Resultados de los partidos de una confrontación, para meterlos nada más jugar. Solo gestores. */
 @Component({

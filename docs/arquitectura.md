@@ -34,6 +34,7 @@ data-access/
 shared/
   components/       Componentes visuales reutilizables (icono, tabla, pista…)
   pipes/            Transformaciones para plantillas
+  services/         Servicios del navegador sin datos del equipo (portapapeles)
   utils/            Funciones puras (fechas, etiquetas)
 features/
   <seccion>/

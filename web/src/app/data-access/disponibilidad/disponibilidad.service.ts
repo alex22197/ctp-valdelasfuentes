@@ -2,7 +2,13 @@ import { Injectable, inject } from '@angular/core';
 import { SupabaseClientService } from '@core/supabase/supabase-client.service';
 import { ErrorAccesoDatos, lanzarSiHayError } from '@core/supabase/error-acceso-datos';
 import { fechaIsoEnMadrid } from '@shared/utils/fechas';
-import { mapearListaEncuesta } from './disponibilidad.mapper';
+import {
+  type FilaDisponibilidad,
+  type FilaPlantillaEncuesta,
+  mapearConvocables,
+  mapearListaEncuesta,
+} from './disponibilidad.mapper';
+import type { JugadorConvocable } from './interfaces/jugador-convocable.interface';
 import type { JugadorEncuesta } from './interfaces/jugador-encuesta.interface';
 import type { RespuestaEncuesta } from './interfaces/respuesta-encuesta.type';
 
@@ -25,6 +31,27 @@ export class DisponibilidadService {
     idConfrontacion: string,
     hoy: Date = new Date(),
   ): Promise<JugadorEncuesta[]> {
+    const filas = await this.obtenerFilas(idConfrontacion);
+    return mapearListaEncuesta(filas.plantilla, filas.disponibilidad, fechaIsoEnMadrid(hoy));
+  }
+
+  /**
+   * Jugadores que se pueden convocar en una confrontación (plantilla y comodines) con su
+   * respuesta a la encuesta. Vacío si la confrontación no existe.
+   */
+  async obtenerConvocables(
+    idConfrontacion: string,
+    hoy: Date = new Date(),
+  ): Promise<JugadorConvocable[]> {
+    const filas = await this.obtenerFilas(idConfrontacion);
+    return mapearConvocables(filas.plantilla, filas.disponibilidad, fechaIsoEnMadrid(hoy));
+  }
+
+  /** Plantilla de la competición de la confrontación y sus filas de disponibilidad. */
+  private async obtenerFilas(idConfrontacion: string): Promise<{
+    plantilla: FilaPlantillaEncuesta[];
+    disponibilidad: FilaDisponibilidad[];
+  }> {
     const { data: confrontacion, error: errorConfrontacion } = await this.supabase
       .from('confrontacion')
       .select('fase(competicion_id)')
@@ -32,13 +59,13 @@ export class DisponibilidadService {
       .maybeSingle();
     lanzarSiHayError(errorConfrontacion, 'No se ha podido cargar la jornada.');
     if (!confrontacion) {
-      return [];
+      return { plantilla: [], disponibilidad: [] };
     }
 
     const [plantilla, disponibilidad] = await Promise.all([
       this.supabase
         .from('plantilla')
-        .select('comodin, baja, jugador(id, nombre_mostrar, sexo)')
+        .select('comodin, baja, inscrito_oficial, jugador(id, nombre_mostrar, sexo)')
         .eq('competicion_id', confrontacion.fase.competicion_id),
       this.supabase
         .from('disponibilidad')
@@ -47,12 +74,7 @@ export class DisponibilidadService {
     ]);
     lanzarSiHayError(plantilla.error, 'No se ha podido cargar la plantilla.');
     lanzarSiHayError(disponibilidad.error, 'No se han podido cargar las respuestas.');
-
-    return mapearListaEncuesta(
-      plantilla.data ?? [],
-      disponibilidad.data ?? [],
-      fechaIsoEnMadrid(hoy),
-    );
+    return { plantilla: plantilla.data ?? [], disponibilidad: disponibilidad.data ?? [] };
   }
 
   /** Guarda la respuesta de un jugador; `null` lo devuelve a «sin responder». */

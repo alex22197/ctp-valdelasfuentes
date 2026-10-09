@@ -24,6 +24,30 @@ export function describirFechaConfrontacion(
   return 'Fecha por confirmar';
 }
 
+/**
+ * Fecha corta para mensajes, como la escribe el capitán en WhatsApp:
+ * «sábado 12:00», «fin de semana del 17 de octubre» o «fecha por confirmar».
+ */
+export function describirFechaCorta(
+  fechaHora: string | null,
+  fechaPrevista: string | null,
+): string {
+  if (fechaHora) {
+    const partes = new Intl.DateTimeFormat('es-ES', {
+      timeZone: ZONA_HORARIA,
+      weekday: 'long',
+      hour: '2-digit',
+      minute: '2-digit',
+      hourCycle: 'h23',
+    }).formatToParts(new Date(fechaHora));
+    const parte = (tipo: Intl.DateTimeFormatPartTypes): string =>
+      partes.find((p) => p.type === tipo)?.value ?? '';
+    return `${parte('weekday')} ${parte('hour')}:${parte('minute')}`;
+  }
+  const larga = describirFechaConfrontacion(null, fechaPrevista);
+  return larga.charAt(0).toLowerCase() + larga.slice(1);
+}
+
 function describirDiaYHora(fecha: Date): string {
   const partes = new Intl.DateTimeFormat('es-ES', {
     timeZone: ZONA_HORARIA,

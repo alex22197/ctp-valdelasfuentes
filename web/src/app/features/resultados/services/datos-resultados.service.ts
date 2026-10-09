@@ -7,7 +7,7 @@ import type { MarcadorPartido } from '@data-access/resultados/interfaces/marcado
 import type { PartidoConResultado } from '@data-access/resultados/interfaces/partido-con-resultado.interface';
 import { ResultadosService } from '@data-access/resultados/resultados.service';
 import type { EstadoGuardado } from '../interfaces/estado-guardado.type';
-import { clavePartido } from '../utils/formulario-resultado';
+import { clavePartido } from '@shared/utils/etiquetas-partido';
 
 const INACTIVO: EstadoGuardado = { tipo: 'inactivo' };
 

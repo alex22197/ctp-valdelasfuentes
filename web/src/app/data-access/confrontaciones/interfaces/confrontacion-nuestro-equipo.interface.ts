@@ -18,6 +18,8 @@ export interface ConfrontacionNuestroEquipo {
   readonly fechaHora: string | null;
   readonly sede: string | null;
   readonly numeroPistas: number | null;
+  /** Si la alineación ya se ha mandado al equipo; mientras es un borrador no se muestra. */
+  readonly convocatoriaPublicada: boolean;
   /** `null` mientras no haya resultado. */
   readonly marcador: MarcadorConfrontacion | null;
 }

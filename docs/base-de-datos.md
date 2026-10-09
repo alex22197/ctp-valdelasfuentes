@@ -5,22 +5,22 @@ PostgreSQL gestionado por Supabase (región West EU, Irlanda). El esquema está 
 
 ## Tablas
 
-| Tabla               | Qué guarda                                                                        | Pública        |
-| ------------------- | --------------------------------------------------------------------------------- | -------------- |
-| `competicion`       | Una liga en una temporada y su formato (partidos de cada tipo).                   | Sí             |
-| `fase`              | Apertura, retos, clausura, play-off… con la URL de su grupo en la web de la liga. | Sí             |
-| `equipo`            | Equipos del grupo. `nombre_web` es el texto exacto de la liga, para el scraper.   | Sí             |
-| `fase_equipo`       | Clasificación oficial de cada grupo.                                              | Sí             |
-| `jugador`           | Nombre para mostrar, sexo y lado preferido.                                       | Sí             |
-| `jugador_privado`   | Nombre completo.                                                                  | **No**         |
-| `plantilla`         | Quién está inscrito en cada competición y si es comodín.                          | Sí             |
-| `confrontacion`     | Cada jornada entre dos equipos: fecha, sede, estado y resultado global.           | Sí             |
-| `disponibilidad`    | Respuestas a la encuesta de WhatsApp y quién fue convocado.                       | **No**         |
-| `partido`           | Los 6 partidos de cada confrontación de nuestro equipo.                           | Sí             |
-| `set_partido`       | Marcador de cada set, con el tie-break si lo hubo.                                | Sí             |
-| `participacion`     | Quién jugó cada partido y en qué lado.                                            | Sí             |
-| `perfil`            | Rol (admin o capitán) de cada usuario con permisos.                               | Solo el propio |
-| `ejecucion_scraper` | Registro de cada ejecución del scraper.                                           | **No**         |
+| Tabla               | Qué guarda                                                                                                 | Pública        |
+| ------------------- | ---------------------------------------------------------------------------------------------------------- | -------------- |
+| `competicion`       | Una liga en una temporada y su formato (partidos de cada tipo).                                            | Sí             |
+| `fase`              | Apertura, retos, clausura, play-off… con la URL de su grupo en la web de la liga.                          | Sí             |
+| `equipo`            | Equipos del grupo. `nombre_web` es el texto exacto de la liga, para el scraper.                            | Sí             |
+| `fase_equipo`       | Clasificación oficial de cada grupo.                                                                       | Sí             |
+| `jugador`           | Nombre para mostrar, sexo y lado preferido.                                                                | Sí             |
+| `jugador_privado`   | Nombre completo.                                                                                           | **No**         |
+| `plantilla`         | Quién está inscrito en cada competición y si es comodín.                                                   | Sí             |
+| `confrontacion`     | Cada jornada entre dos equipos: fecha, sede, estado, resultado global y si su convocatoria está publicada. | Sí             |
+| `disponibilidad`    | Respuestas a la encuesta de WhatsApp y quién fue convocado.                                                | **No**         |
+| `partido`           | Los 6 partidos de cada confrontación de nuestro equipo.                                                    | Sí             |
+| `set_partido`       | Marcador de cada set, con el tie-break si lo hubo.                                                         | Sí             |
+| `participacion`     | Quién jugó cada partido y en qué lado.                                                                     | Sí             |
+| `perfil`            | Rol (admin o capitán) de cada usuario con permisos.                                                        | Solo el propio |
+| `ejecucion_scraper` | Registro de cada ejecución del scraper.                                                                    | **No**         |
 
 Vistas:
 
@@ -32,10 +32,12 @@ Vistas:
 
 ## Funciones que llama la web
 
-| Función                      | Qué hace                                                                                                                                                                                                                 | Quién    |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| `guardar_resultado_partido`  | Guarda el resultado y los sets de un partido en una sola transacción. Crea el partido si no existe, quita la pareja en un WO en contra y marca la confrontación como `jugada` cuando todos sus partidos tienen ganador.  | Gestores |
-| `guardar_respuesta_encuesta` | Guarda lo que un jugador respondió a la encuesta de una jornada (Sí o No) sin tocar si está convocado. Volver a «sin responder» borra la fila, salvo que el jugador ya esté convocado: entonces solo vacía la respuesta. | Gestores |
+| Función                      | Qué hace                                                                                                                                                                                                                                         | Quién    |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| `guardar_resultado_partido`  | Guarda el resultado y los sets de un partido en una sola transacción. Crea el partido si no existe, quita la pareja en un WO en contra y marca la confrontación como `jugada` cuando todos sus partidos tienen ganador.                          | Gestores |
+| `guardar_respuesta_encuesta` | Guarda lo que un jugador respondió a la encuesta de una jornada (Sí o No) sin tocar si está convocado. Volver a «sin responder» borra la fila, salvo que el jugador ya esté convocado: entonces solo vacía la respuesta.                         | Gestores |
+| `guardar_alineacion`         | Guarda todas las parejas de una confrontación en una sola transacción: crea los partidos que falten, sustituye las participaciones y marca como convocados a los colocados ([ADR 0009](decisiones/0009-convocados-son-los-de-la-alineacion.md)). | Gestores |
+| `publicar_convocatoria`      | Publica la convocatoria para que se vea en la portada, o la devuelve a borrador.                                                                                                                                                                 | Gestores |
 
 La comprueba `validar_marcador`, que aplica las reglas de los sets de la normativa. La web
 repite esas reglas en `data-access/resultados/validar-marcador.ts` para mostrar el error junto
@@ -88,12 +90,13 @@ Reglas:
 
 ## Migraciones existentes
 
-| Migración                                       | Contenido                                                                                       |
-| ----------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `20261008120000_esquema_inicial.sql`            | Tablas, validaciones, vista de resultados, RLS y permisos.                                      |
-| `20261008120100_datos_iniciales.sql`            | Competición, grupo, equipos, plantilla, calendario de la apertura y alineación de la jornada 1. |
-| `20261008130000_resultados_confrontacion.sql`   | Vista `confrontacion_marcador` y funciones `validar_marcador` y `guardar_resultado_partido`.    |
-| `20261008211955_guardar_respuesta_encuesta.sql` | Función `guardar_respuesta_encuesta` para pasar lista.                                          |
+| Migración                                       | Contenido                                                                                                                                |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `20261008120000_esquema_inicial.sql`            | Tablas, validaciones, vista de resultados, RLS y permisos.                                                                               |
+| `20261008120100_datos_iniciales.sql`            | Competición, grupo, equipos, plantilla, calendario de la apertura y alineación de la jornada 1.                                          |
+| `20261008130000_resultados_confrontacion.sql`   | Vista `confrontacion_marcador` y funciones `validar_marcador` y `guardar_resultado_partido`.                                             |
+| `20261008211955_guardar_respuesta_encuesta.sql` | Función `guardar_respuesta_encuesta` para pasar lista.                                                                                   |
+| `20261009114304_convocatoria_y_alineacion.sql`  | Columna `confrontacion.convocatoria_publicada` (la jornada 1 nace publicada) y funciones `guardar_alineacion` y `publicar_convocatoria`. |
 
 ## Pendiente
 

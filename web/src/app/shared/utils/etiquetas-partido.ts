@@ -10,3 +10,13 @@ const NOMBRE_TIPO: Record<TipoPartido, string> = {
 export function etiquetaPartido(tipo: TipoPartido, numero: number): string {
   return tipo === 'mixto' ? NOMBRE_TIPO.mixto : `${NOMBRE_TIPO[tipo]}, pareja ${numero}`;
 }
+
+/** «Masculino 2», «Femenino 1» o «Mixto»: el nombre corto que se usa en WhatsApp. */
+export function nombrePista(tipo: TipoPartido, numero: number): string {
+  return tipo === 'mixto' ? NOMBRE_TIPO.mixto : `${NOMBRE_TIPO[tipo]} ${numero}`;
+}
+
+/** Identificador de un partido dentro de su confrontación: «masculino-2». */
+export function clavePartido(partido: { tipo: TipoPartido; numero: number }): string {
+  return `${partido.tipo}-${partido.numero}`;
+}

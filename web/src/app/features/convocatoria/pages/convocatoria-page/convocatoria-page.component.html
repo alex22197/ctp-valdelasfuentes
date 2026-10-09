@@ -1,0 +1,150 @@
+<a class="volver" routerLink="/">
+  <ctp-icono nombre="volver" />
+  Volver al inicio
+</a>
+
+@if (datos.confrontacion.error()) {
+  <ctp-mensaje-estado
+    tipo="error"
+    texto="No se ha podido cargar la jornada. Recarga la página para volver a intentarlo."
+  />
+} @else if (!datos.confrontacion.hasValue()) {
+  <ctp-mensaje-estado tipo="cargando" texto="Cargando la jornada…" />
+} @else if (datos.confrontacionActual(); as confrontacion) {
+  <header class="cabecera">
+    <p class="texto-secundario">
+      Convocatoria{{ confrontacion.jornada ? ', jornada ' + confrontacion.jornada : '' }}
+    </p>
+    <h1 class="titulo-pagina">{{ confrontacion.rival.nombre }}</h1>
+    <p class="texto-secundario">
+      {{ confrontacion | fechaConfrontacion }}, {{ confrontacion.sede ?? 'sede por confirmar' }}
+    </p>
+    <p class="estado" [class.estado--publicada]="confrontacion.convocatoriaPublicada">
+      {{ confrontacion.convocatoriaPublicada ? 'Publicada' : 'Borrador' }}
+    </p>
+  </header>
+
+  @if (datos.partidos.error() || datos.convocables.error()) {
+    <ctp-mensaje-estado
+      tipo="error"
+      texto="No se ha podido cargar la alineación. Recarga la página para volver a intentarlo."
+    />
+  } @else if (!datos.partidos.hasValue() || !datos.convocables.hasValue()) {
+    <ctp-mensaje-estado tipo="cargando" texto="Cargando la alineación…" />
+  } @else {
+    <section class="seccion" aria-labelledby="titulo-alineacion">
+      <h2 id="titulo-alineacion" class="titulo-seccion">Alineación</h2>
+      <ul class="pistas">
+        @for (hueco of datos.huecos(); track clavePartido(hueco)) {
+          <li>
+            <ctp-pista-editable
+              [hueco]="hueco"
+              [opciones]="opciones(hueco)"
+              [errores]="errores(hueco)"
+              [deshabilitada]="datos.ocupado()"
+              (cambiar)="datos.cambiarHueco($event)"
+            />
+          </li>
+        }
+      </ul>
+
+      <ctp-comprobacion-alineacion [problemas]="datos.problemas()" />
+
+      <div class="acciones">
+        @if (datos.hayCambios()) {
+          <button
+            type="button"
+            class="boton boton--principal"
+            [disabled]="datos.ocupado() || datos.hayErrores()"
+            (click)="datos.guardar()"
+          >
+            Guardar alineación
+          </button>
+          <button
+            type="button"
+            class="boton"
+            [disabled]="datos.ocupado()"
+            (click)="datos.descartarCambios()"
+          >
+            Descartar cambios
+          </button>
+        } @else {
+          @if (confrontacion.convocatoriaPublicada) {
+            <button
+              type="button"
+              class="boton"
+              [disabled]="datos.ocupado()"
+              (click)="datos.cambiarPublicacion(false)"
+            >
+              Volver a borrador
+            </button>
+          } @else {
+            <button
+              type="button"
+              class="boton boton--principal"
+              [disabled]="datos.ocupado()"
+              (click)="datos.cambiarPublicacion(true)"
+            >
+              Publicar en la portada
+            </button>
+          }
+          <button
+            type="button"
+            class="boton"
+            (click)="copiar(datos.textoConvocatoria(), 'Convocatoria copiada. Pégala en WhatsApp.')"
+          >
+            Copiar para WhatsApp
+          </button>
+        }
+      </div>
+      @if (datos.hayCambios()) {
+        <p class="texto-secundario">
+          Guarda los cambios para publicar la convocatoria o copiarla para WhatsApp.
+        </p>
+      }
+      @if (datos.error(); as mensaje) {
+        <p class="error" role="alert">{{ mensaje }}</p>
+      }
+    </section>
+
+    <section class="seccion" aria-labelledby="titulo-respuestas">
+      <div class="cabecera-seccion">
+        <h2 id="titulo-respuestas" class="titulo-seccion">Respuestas a la encuesta</h2>
+        <a class="enlace" [routerLink]="['/pasar-lista', confrontacion.id]">Pasar lista</a>
+      </div>
+      <ctp-respuestas-convocatoria [grupos]="datos.grupos()" />
+      @if (datos.textoRecordatorio(); as recordatorio) {
+        <button
+          type="button"
+          class="boton"
+          (click)="copiar(recordatorio, 'Recordatorio copiado. Pégalo en WhatsApp.')"
+        >
+          Copiar recordatorio para WhatsApp
+        </button>
+      }
+    </section>
+
+    @if (copiado(); as mensaje) {
+      <p class="copiado" role="status">{{ mensaje }}</p>
+    }
+    @if (textoManual(); as texto) {
+      <div class="manual">
+        <label for="texto-manual">
+          Tu navegador no deja copiar automáticamente. Selecciona el texto y cópialo:
+        </label>
+        <textarea
+          id="texto-manual"
+          class="texto-manual"
+          readonly
+          rows="9"
+          [value]="texto"
+        ></textarea>
+      </div>
+    }
+  }
+} @else {
+  <ctp-mensaje-estado
+    tipo="vacio"
+    texto="Esta jornada no existe o no es de nuestro equipo. Vuelve al inicio y elígela en el calendario."
+  />
+}

@@ -1,5 +1,4 @@
 import type { JugadorAlineado } from '@data-access/alineaciones/interfaces/jugador-alineado.interface';
-import type { TipoPartido } from '@data-access/alineaciones/interfaces/tipo-partido.type';
 import type { MarcadorPartido } from '@data-access/resultados/interfaces/marcador-partido.interface';
 import type { SetPartido } from '@data-access/resultados/interfaces/set-partido.interface';
 import type { TipoResultadoPartido } from '@data-access/resultados/interfaces/tipo-resultado-partido.type';
@@ -25,11 +24,6 @@ const SET_VACIO: SetFormulario = {
   tiebreakNuestros: '',
   tiebreakRival: '',
 };
-
-/** Identificador de un partido dentro de su confrontación: «masculino-2». */
-export function clavePartido(partido: { tipo: TipoPartido; numero: number }): string {
-  return `${partido.tipo}-${partido.numero}`;
-}
 
 /** Los WO y los partidos por jugar no tienen sets. */
 export function resultadoLlevaSets(resultado: TipoResultadoPartido | null): boolean {

@@ -1,0 +1,24 @@
+<div class="comprobacion" role="status" aria-live="polite">
+  @if (problemas().length === 0) {
+    <p class="correcta">
+      Cumple la normativa: las parejas están completas y nadie juega dos partidos.
+    </p>
+  } @else {
+    @if (errores().length > 0) {
+      <p class="titulo titulo--error">No cumple la normativa. Corrígelo para poder guardar:</p>
+      <ul class="lista lista--error">
+        @for (problema of errores(); track problema.mensaje) {
+          <li>{{ problema.mensaje }}.</li>
+        }
+      </ul>
+    }
+    @if (avisos().length > 0) {
+      <p class="titulo">Revisa antes de publicar:</p>
+      <ul class="lista">
+        @for (problema of avisos(); track problema.mensaje) {
+          <li>{{ problema.mensaje }}.</li>
+        }
+      </ul>
+    }
+  }
+</div>
