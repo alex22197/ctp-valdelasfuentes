@@ -1,0 +1,53 @@
+<fieldset
+  class="pista"
+  [class.pista--error]="errores().length > 0"
+  [attr.aria-describedby]="errores().length > 0 ? idErrores() : null"
+>
+  <legend class="titulo">{{ titulo() }}</legend>
+
+  @if (hueco().bloqueado) {
+    <p class="bloqueada">WO en contra: no juega nadie.</p>
+  } @else {
+    <div class="cesped">
+      <label class="lado">
+        <span class="posicion">Revés</span>
+        <select class="jugador" [disabled]="deshabilitada()" (change)="elegir('reves', $event)">
+          <option value="" [selected]="hueco().idReves === null">Sin asignar</option>
+          @for (grupo of opciones(); track grupo.titulo) {
+            <optgroup [label]="grupo.titulo">
+              @for (opcion of grupo.opciones; track opcion.id) {
+                <option [value]="opcion.id" [selected]="hueco().idReves === opcion.id">
+                  {{ opcion.etiqueta }}
+                </option>
+              }
+            </optgroup>
+          }
+        </select>
+      </label>
+
+      <label class="lado">
+        <span class="posicion">Drive</span>
+        <select class="jugador" [disabled]="deshabilitada()" (change)="elegir('drive', $event)">
+          <option value="" [selected]="hueco().idDrive === null">Sin asignar</option>
+          @for (grupo of opciones(); track grupo.titulo) {
+            <optgroup [label]="grupo.titulo">
+              @for (opcion of grupo.opciones; track opcion.id) {
+                <option [value]="opcion.id" [selected]="hueco().idDrive === opcion.id">
+                  {{ opcion.etiqueta }}
+                </option>
+              }
+            </optgroup>
+          }
+        </select>
+      </label>
+    </div>
+  }
+
+  @if (errores().length > 0) {
+    <ul class="errores" [id]="idErrores()">
+      @for (mensaje of errores(); track mensaje) {
+        <li>{{ mensaje }}.</li>
+      }
+    </ul>
+  }
+</fieldset>

@@ -1,0 +1,87 @@
+// Misma pista que en la portada: verde, lima en el mixto, revés a la izquierda.
+:host {
+  --pista-fondo: var(--color-pista);
+  --pista-texto: var(--color-sobre-pista);
+  --pista-texto-suave: var(--color-sobre-pista-suave);
+
+  display: block;
+}
+
+:host(.mixto) {
+  --pista-fondo: var(--color-mixto);
+  --pista-texto: var(--color-tinta);
+  --pista-texto-suave: var(--color-tinta-suave);
+}
+
+.pista {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.titulo {
+  margin-bottom: var(--espacio-2);
+  padding: 0;
+  font-size: var(--texto-s);
+  font-weight: 700;
+}
+
+// Red arriba y línea central, como la pista de la convocatoria pública.
+.cesped {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--espacio-2);
+  padding: var(--espacio-5) var(--espacio-2) var(--espacio-3);
+  border-radius: var(--radio-control);
+  background:
+    linear-gradient(var(--color-sobre-pista), var(--color-sobre-pista)) top / 100% 5px no-repeat,
+    var(--pista-fondo);
+}
+
+.pista--error .cesped {
+  outline: 3px solid var(--color-derrota);
+  outline-offset: 2px;
+}
+
+.lado {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  min-width: 0;
+}
+
+.posicion {
+  color: var(--pista-texto-suave);
+  font-size: var(--texto-xs);
+  text-align: center;
+}
+
+.jugador {
+  width: 100%;
+  min-height: var(--minimo-tactil);
+  padding: 0 var(--espacio-2);
+  border: 0;
+  border-radius: var(--radio-control);
+  background: var(--color-superficie);
+  color: var(--color-tinta);
+  font: inherit;
+  font-weight: 700;
+}
+
+.bloqueada {
+  padding: var(--espacio-4);
+  border: 1.5px dashed var(--color-borde-fuerte);
+  border-radius: var(--radio-control);
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+}
+
+.errores {
+  margin: var(--espacio-2) 0 0;
+  padding: 0;
+  color: var(--color-derrota-texto);
+  font-size: var(--texto-s);
+  font-weight: 600;
+  list-style: none;
+}
