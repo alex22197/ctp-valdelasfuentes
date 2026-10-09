@@ -10,12 +10,11 @@ import type { ErrorMarcador } from '@data-access/resultados/interfaces/error-mar
 import type { MarcadorPartido } from '@data-access/resultados/interfaces/marcador-partido.interface';
 import type { PartidoConResultado } from '@data-access/resultados/interfaces/partido-con-resultado.interface';
 import { validarMarcador } from '@data-access/resultados/validar-marcador';
-import { etiquetaPartido } from '@shared/utils/etiquetas-partido';
+import { clavePartido, etiquetaPartido } from '@shared/utils/etiquetas-partido';
 import type { EstadoGuardado } from '../../interfaces/estado-guardado.type';
 import type { SetFormulario } from '../../interfaces/set-formulario.interface';
 import {
   OPCIONES_RESULTADO,
-  clavePartido,
   construirMarcador,
   describirPareja,
   marcadoresIguales,
