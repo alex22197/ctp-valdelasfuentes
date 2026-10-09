@@ -1,8 +1,6 @@
-import type { Lado } from '@data-access/alineaciones/interfaces/lado.type';
+import type { PosicionHueco } from './posicion-hueco.interface';
 
-/** Lo que emite una pista al cambiar uno de sus desplegables. */
-export interface CambioHueco {
-  readonly clave: string;
-  readonly lado: Lado;
+/** Quién pasa a ocupar un lado de una pista; `null` lo deja sin asignar. */
+export interface CambioHueco extends PosicionHueco {
   readonly idJugador: string | null;
 }
