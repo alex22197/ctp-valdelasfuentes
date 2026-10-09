@@ -41,8 +41,12 @@ export class DatosInicioService {
 
   readonly proximaConfrontacion = computed(() => elegirProximaConfrontacion(this.jornadas()));
 
+  /** Solo la alineación publicada: un borrador del capitán no se enseña en público. */
   readonly alineacion = resource({
-    params: () => this.proximaConfrontacion()?.id,
+    params: () => {
+      const proxima = this.proximaConfrontacion();
+      return proxima?.convocatoriaPublicada ? proxima.id : undefined;
+    },
     loader: ({ params: idConfrontacion }) => this.alineaciones.obtenerAlineacion(idConfrontacion),
   });
 
