@@ -19,7 +19,7 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
   convocatoria, clasificación y calendario), clasificación, acceso y página no encontrada.
 - Calidad: TypeScript estricto, ESLint con las normas del proyecto, Prettier, hook de
   pre-commit, 22 tests, integración continua y Dependabot.
-- Documentación: `README.md`, `AGENTS.md`, `docs/` y 8 decisiones de arquitectura.
+- Documentación: `README.md`, `AGENTS.md`, `docs/` y 9 decisiones de arquitectura.
 - **Resultados de una confrontación** (paso 2.1): página `/resultados/:id` para gestores,
   enlazada desde el calendario de la portada. Cada partido se guarda con la función
   `guardar_resultado_partido` (partido y sets en una sola operación) y la web valida el
@@ -30,6 +30,13 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
   calendario en las jornadas sin jugar. Un toque por jugador (Sí, No o ?) que se guarda al
   momento con `guardar_respuesta_encuesta`, sin perder la convocatoria de quien ya está
   convocado. Migración probada en un PostgreSQL local (11 casos) y aplicada en Supabase.
+- **Convocatoria y alineación** (#7, paso 2.3): página `/convocatoria/:id` para gestores. La
+  alineación se edita sobre las 6 pistas con la comprobación de normativa visible, se guarda
+  entera con `guardar_alineacion` y se publica en la portada; los borradores no se ven. Textos
+  para WhatsApp con el formato del capitán y recordatorio para quien no ha contestado. Los
+  convocados son los de la alineación
+  ([ADR 0009](decisiones/0009-convocados-son-los-de-la-alineacion.md)). Migración probada en un
+  PostgreSQL local (20 casos) y aplicada en Supabase.
 - **Web publicada** (#5, versión 0.1.0): <https://ctp-valdelasfuentes.padel-ctp.workers.dev>.
   Cloudflare publica cada cambio que llega a `main`; el login de Google funciona en la web
   publicada. Aún no se comparte con el equipo (#19, #20).
@@ -50,14 +57,7 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
 
 1. ~~**Resultados de una confrontación**~~: hecho (ver arriba).
 2. ~~(#6) **Pasar lista**~~: hecho (ver arriba).
-3. (#7) **Convocatoria y alineación**, según el boceto. Elegir convocados entre los que pueden y
-   colocarlos en cada pista (revés y drive), «Copiar para WhatsApp» con el formato del capitán
-   (ver [`contexto.md`](contexto.md)) y recordatorio para quien no ha respondido.
-   - El botón final de pasar lista pasará a ser «Guardar y hacer la convocatoria» y llevará a
-     esta pantalla (ahora vuelve al inicio, porque la convocatoria aún no existe).
-   - **Hace falta una migración**: un campo para marcar la convocatoria como **publicada**.
-     Ahora la portada muestra cualquier alineación guardada, así que un borrador se vería en
-     público.
+3. ~~(#7) **Convocatoria y alineación**~~: hecho (ver arriba).
 4. (#8) **Plantilla**: alta y edición de jugadores (nombre para mostrar y completo, sexo, lado
    preferido, comodín, inscrito oficialmente).
 5. (#9) **Acceso a la gestión desde el menú**: entrada «Gestión» visible solo para gestores.

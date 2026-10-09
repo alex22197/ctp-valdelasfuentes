@@ -16,6 +16,7 @@ y se marca la antigua como «Sustituida por NNNN».
 | [0006](0006-wo-fuera-de-estadisticas-individuales.md)  | Los WO no cuentan en las estadísticas de cada jugador         | Aceptada |
 | [0007](0007-sufijos-de-tipo-en-los-ficheros.md)        | Sufijos de tipo en los nombres de fichero                     | Aceptada |
 | [0008](0008-marcador-de-la-confrontacion-calculado.md) | El marcador de nuestras confrontaciones se calcula            | Aceptada |
+| [0009](0009-convocados-son-los-de-la-alineacion.md)    | Los convocados son los de la alineación                       | Aceptada |
 
 Plantilla para una nueva: copia cualquiera y conserva las secciones _Contexto_, _Decisión_
 y _Consecuencias_.
