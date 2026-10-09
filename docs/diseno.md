@@ -11,8 +11,11 @@ clasificación, calendario y nombres.
 
 - **Pensado para el móvil**: casi todo el equipo entrará desde WhatsApp. En escritorio el
   menú sube a la cabecera.
-- **La pista de pádel es el elemento característico**, y solo ella lleva el protagonismo: el
-  resto de la interfaz es sobrio.
+- **La pista de pádel es el elemento característico**: alineaciones, fichas de jugador y la bola
+  amarilla salen de ella.
+- **Animada con propósito** ([ADR 0010](decisiones/0010-animacion-con-proposito.md)): lo que
+  cambia se mueve para explicar de dónde viene y adónde va, todo responde al tocar y nada se
+  anima si el móvil tiene activado «reducir movimiento».
 - Tiene que parecer hecho a mano para este equipo, no una plantilla. Evitar: tarjetas
   idénticas con sombra para todo, etiquetas en MAYÚSCULAS, textos unidos con puntos medios
   («A · B · C»), flechas «→» en botones, degradados decorativos.
@@ -33,6 +36,11 @@ clasificación, calendario y nombres.
 - **Calendario** de la fase: «J1», rival, fecha y una etiqueta «Fuera» o «En casa».
 
 **Jornada y convocatoria, vista de capitán** (construida; solo gestores)
+
+- Cada lado de la pista es una ficha con las iniciales y el nombre del jugador, o un hueco
+  con «+». Al tocarla sube desde abajo un panel con los jugadores como fichas, agrupados por
+  lo que respondieron, con buscador y la pista en la que ya está cada uno. Al elegir, la ficha
+  vuela del panel a su sitio en la pista.
 
 - Rival en grande, fecha y sede.
 - Alineación sobre las 6 mini pistas, con estado «Borrador» o «Publicada».

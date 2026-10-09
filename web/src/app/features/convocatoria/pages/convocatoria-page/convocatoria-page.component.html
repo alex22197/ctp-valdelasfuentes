@@ -39,10 +39,11 @@
           <li>
             <ctp-pista-editable
               [hueco]="hueco"
-              [opciones]="opciones(hueco)"
+              [nombres]="datos.nombres()"
               [errores]="errores(hueco)"
               [deshabilitada]="datos.ocupado()"
-              (cambiar)="datos.cambiarHueco($event)"
+              [enVuelo]="enVuelo()"
+              (abrir)="abierto.set($event)"
             />
           </li>
         }
@@ -148,3 +149,13 @@
     texto="Esta jornada no existe o no es de nuestro equipo. Vuelve al inicio y elígela en el calendario."
   />
 }
+
+<ctp-selector-jugadores
+  [abierto]="abierto() !== null"
+  [titulo]="tituloSelector()"
+  [grupos]="opcionesSelector()"
+  [idSeleccionado]="idSeleccionado()"
+  [idEnVuelo]="enVuelo()?.idJugador ?? null"
+  (elegir)="elegir($event)"
+  (cerrar)="abierto.set(null)"
+/>

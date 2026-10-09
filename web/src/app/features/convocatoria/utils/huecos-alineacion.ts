@@ -15,19 +15,30 @@ export function huecosDesdePartidos(partidos: readonly PartidoConResultado[]): H
   }));
 }
 
-/** Aplica el cambio de un desplegable sin tocar el resto de pistas. */
+/**
+ * Coloca a un jugador en un lado de una pista. Si ya estaba en otro sitio, se mueve: su
+ * hueco anterior queda libre (no se intercambia con nadie). Las pistas que no cambian
+ * conservan el mismo objeto.
+ */
 export function aplicarCambio(
   huecos: readonly HuecoAlineacion[],
   cambio: CambioHueco,
 ): HuecoAlineacion[] {
+  const { idJugador } = cambio;
   return huecos.map((hueco) => {
-    if (clavePartido(hueco) !== cambio.clave) {
-      return hueco;
-    }
-    return cambio.lado === 'reves'
-      ? { ...hueco, idReves: cambio.idJugador }
-      : { ...hueco, idDrive: cambio.idJugador };
+    const esDestino = clavePartido(hueco) === cambio.clave;
+    const reves =
+      esDestino && cambio.lado === 'reves' ? idJugador : liberarSiEs(hueco.idReves, idJugador);
+    const drive =
+      esDestino && cambio.lado === 'drive' ? idJugador : liberarSiEs(hueco.idDrive, idJugador);
+    return reves === hueco.idReves && drive === hueco.idDrive
+      ? hueco
+      : { ...hueco, idReves: reves, idDrive: drive };
   });
+}
+
+function liberarSiEs(actual: string | null, idMovido: string | null): string | null {
+  return idMovido !== null && actual === idMovido ? null : actual;
 }
 
 /** Lo que se envía a guardar: las pistas bloqueadas por WO en contra van vacías. */

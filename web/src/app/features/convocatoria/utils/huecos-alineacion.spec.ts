@@ -53,6 +53,48 @@ describe('aplicarCambio y mismasParejas', () => {
   });
 });
 
+describe('aplicarCambio al mover a un jugador', () => {
+  it('lo saca de su pista anterior en lugar de duplicarlo', () => {
+    const huecos = huecosDesdePartidos([
+      partido('masculino', 1, 'Sergio'),
+      partido('masculino', 2, null),
+    ]);
+    const movidos = aplicarCambio(huecos, {
+      clave: 'masculino-2',
+      lado: 'drive',
+      idJugador: 'Sergio',
+    });
+    expect(movidos.map((h) => [h.idReves, h.idDrive])).toEqual([
+      [null, null],
+      [null, 'Sergio'],
+    ]);
+  });
+
+  it('lo cambia de lado dentro de la misma pista', () => {
+    const huecos = huecosDesdePartidos([partido('masculino', 1, 'Sergio')]);
+    const movidos = aplicarCambio(huecos, {
+      clave: 'masculino-1',
+      lado: 'drive',
+      idJugador: 'Sergio',
+    });
+    expect(movidos[0]).toMatchObject({ idReves: null, idDrive: 'Sergio' });
+  });
+
+  it('dejar un lado sin asignar no toca el resto', () => {
+    const huecos = huecosDesdePartidos([
+      partido('masculino', 1, 'Sergio'),
+      partido('masculino', 2, 'Alex'),
+    ]);
+    const cambiados = aplicarCambio(huecos, {
+      clave: 'masculino-1',
+      lado: 'reves',
+      idJugador: null,
+    });
+    expect(cambiados[0]).toMatchObject({ idReves: null });
+    expect(cambiados[1]).toBe(huecos[1]);
+  });
+});
+
 describe('parejasParaGuardar', () => {
   it('no envía jugadores en una pista bloqueada', () => {
     expect(

@@ -9,37 +9,25 @@
     <p class="bloqueada">WO en contra: no juega nadie.</p>
   } @else {
     <div class="cesped">
-      <label class="lado">
-        <span class="posicion">Revés</span>
-        <select class="jugador" [disabled]="deshabilitada()" (change)="elegir('reves', $event)">
-          <option value="" [selected]="hueco().idReves === null">Sin asignar</option>
-          @for (grupo of opciones(); track grupo.titulo) {
-            <optgroup [label]="grupo.titulo">
-              @for (opcion of grupo.opciones; track opcion.id) {
-                <option [value]="opcion.id" [selected]="hueco().idReves === opcion.id">
-                  {{ opcion.etiqueta }}
-                </option>
-              }
-            </optgroup>
+      @for (ficha of fichas(); track ficha.lado) {
+        <button
+          type="button"
+          class="ficha"
+          [class.ficha--vacia]="ficha.nombre === null"
+          [disabled]="deshabilitada()"
+          [attr.aria-label]="ficha.etiquetaAccesible"
+          (click)="abrir.emit({ clave: clave(), lado: ficha.lado })"
+        >
+          <!-- Se vuelve a crear al cambiar de jugador, para que aparezca con su animación. -->
+          @for (id of [ficha.idJugador]; track id) {
+            <span class="avatar" [style.view-transition-name]="nombreTransicion(ficha)">
+              {{ ficha.iniciales }}
+            </span>
           }
-        </select>
-      </label>
-
-      <label class="lado">
-        <span class="posicion">Drive</span>
-        <select class="jugador" [disabled]="deshabilitada()" (change)="elegir('drive', $event)">
-          <option value="" [selected]="hueco().idDrive === null">Sin asignar</option>
-          @for (grupo of opciones(); track grupo.titulo) {
-            <optgroup [label]="grupo.titulo">
-              @for (opcion of grupo.opciones; track opcion.id) {
-                <option [value]="opcion.id" [selected]="hueco().idDrive === opcion.id">
-                  {{ opcion.etiqueta }}
-                </option>
-              }
-            </optgroup>
-          }
-        </select>
-      </label>
+          <span class="nombre">{{ ficha.nombre ?? 'Elegir' }}</span>
+          <span class="posicion">{{ ficha.posicion }}</span>
+        </button>
+      }
     </div>
   }
 

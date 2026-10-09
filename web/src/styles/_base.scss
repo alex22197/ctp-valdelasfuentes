@@ -49,6 +49,11 @@ button {
   outline-offset: 2px;
 }
 
+// Mientras hay un panel abierto, la página de detrás no se desplaza (en iOS hace falta).
+.sin-desplazamiento {
+  overflow: hidden;
+}
+
 // Texto solo para lectores de pantalla.
 .solo-lector {
   position: absolute;

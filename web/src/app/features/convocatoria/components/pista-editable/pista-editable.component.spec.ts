@@ -1,27 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-import type { CambioHueco } from '../../interfaces/cambio-hueco.interface';
 import type { HuecoAlineacion } from '../../interfaces/hueco-alineacion.interface';
+import type { PosicionHueco } from '../../interfaces/posicion-hueco.interface';
 import { PistaEditableComponent } from './pista-editable.component';
 
-const opciones = [
-  {
-    titulo: 'Pueden',
-    opciones: [
-      { id: 'sergio', etiqueta: 'Sergio' },
-      { id: 'jorge', etiqueta: 'Jorge' },
-    ],
-  },
-];
+const nombres = new Map([['sergio', 'Sergio']]);
 
 async function crear(hueco: HuecoAlineacion, errores: string[] = []) {
   const fixture = TestBed.createComponent(PistaEditableComponent);
   fixture.componentRef.setInput('hueco', hueco);
-  fixture.componentRef.setInput('opciones', opciones);
+  fixture.componentRef.setInput('nombres', nombres);
   fixture.componentRef.setInput('errores', errores);
-  const cambios: CambioHueco[] = [];
-  fixture.componentInstance.cambiar.subscribe((cambio) => cambios.push(cambio));
+  const abiertos: PosicionHueco[] = [];
+  fixture.componentInstance.abrir.subscribe((posicion) => abiertos.push(posicion));
   await fixture.whenStable();
-  return { elemento: fixture.nativeElement as HTMLElement, cambios };
+  const elemento = fixture.nativeElement as HTMLElement;
+  return { elemento, abiertos, fichas: [...elemento.querySelectorAll('button')] };
 }
 
 const masculino1: HuecoAlineacion = {
@@ -33,31 +26,35 @@ const masculino1: HuecoAlineacion = {
 };
 
 describe('PistaEditableComponent', () => {
-  it('muestra a cada jugador en su lado', async () => {
-    const { elemento } = await crear(masculino1);
-    const [reves, drive] = [...elemento.querySelectorAll('select')];
-    expect(reves?.value).toBe('sergio');
-    expect(drive?.value).toBe('');
+  it('muestra la ficha del jugador y un hueco para elegir', async () => {
+    const { fichas } = await crear(masculino1);
+    const parte = (ficha: Element, clase: string): string | undefined =>
+      ficha.querySelector(clase)?.textContent?.trim();
+    expect(
+      fichas.map((f) => [parte(f, '.avatar'), parte(f, '.nombre'), parte(f, '.posicion')]),
+    ).toEqual([
+      ['Se', 'Sergio', 'Revés'],
+      ['+', 'Elegir', 'Drive'],
+    ]);
+    expect(fichas[0]?.getAttribute('aria-label')).toBe(
+      'Revés de Masculino, pareja 1: Sergio. Cambiar',
+    );
+    expect(fichas[1]?.getAttribute('aria-label')).toBe(
+      'Drive de Masculino, pareja 1: sin asignar. Elegir',
+    );
   });
 
-  it('emite el jugador elegido, y null al dejar el lado sin asignar', async () => {
-    const { elemento, cambios } = await crear(masculino1);
-    const [reves, drive] = [...elemento.querySelectorAll('select')];
-    drive!.value = 'jorge';
-    drive!.dispatchEvent(new Event('change'));
-    reves!.value = '';
-    reves!.dispatchEvent(new Event('change'));
-    expect(cambios).toEqual([
-      { clave: 'masculino-1', lado: 'drive', idJugador: 'jorge' },
-      { clave: 'masculino-1', lado: 'reves', idJugador: null },
-    ]);
+  it('pide abrir el panel del lado tocado', async () => {
+    const { fichas, abiertos } = await crear(masculino1);
+    fichas[1]!.click();
+    expect(abiertos).toEqual([{ clave: 'masculino-1', lado: 'drive' }]);
   });
 
   it('bloquea la pista con WO en contra y muestra sus errores', async () => {
-    const { elemento } = await crear({ ...masculino1, bloqueado: true }, [
+    const { elemento, fichas } = await crear({ ...masculino1, bloqueado: true }, [
       'Sergio ya juega en Mixto',
     ]);
-    expect(elemento.querySelectorAll('select')).toHaveLength(0);
+    expect(fichas).toHaveLength(0);
     expect(elemento.textContent).toContain('WO en contra');
     expect(elemento.textContent).toContain('Sergio ya juega en Mixto.');
   });

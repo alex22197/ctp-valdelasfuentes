@@ -3,6 +3,8 @@
   --pista-fondo: var(--color-pista);
   --pista-texto: var(--color-sobre-pista);
   --pista-texto-suave: var(--color-sobre-pista-suave);
+  --ficha-fondo: var(--color-superficie);
+  --ficha-texto: var(--color-pista-oscuro);
 
   display: block;
 }
@@ -27,46 +29,102 @@
   font-weight: 700;
 }
 
-// Red arriba y línea central, como la pista de la convocatoria pública.
+// Red arriba y línea central hasta el saque, como la pista de la convocatoria pública.
 .cesped {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--espacio-2);
-  padding: var(--espacio-5) var(--espacio-2) var(--espacio-3);
+  padding: var(--espacio-5) 0 var(--espacio-3);
   border-radius: var(--radio-control);
   background:
     linear-gradient(var(--color-sobre-pista), var(--color-sobre-pista)) top / 100% 5px no-repeat,
+    linear-gradient(rgb(255 255 255 / 55%), rgb(255 255 255 / 55%)) 50% 0 / 1.5px 100% no-repeat,
     var(--pista-fondo);
-}
-
-.pista--error .cesped {
-  outline: 3px solid var(--color-derrota);
+  transition: outline-color var(--duracion-media);
+  outline: 3px solid transparent;
   outline-offset: 2px;
 }
 
-.lado {
+.pista--error .cesped {
+  outline-color: var(--color-derrota);
+}
+
+// Cada lado es un botón grande: fácil de acertar con el pulgar.
+.ficha {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--espacio-1);
   min-width: 0;
+  min-height: var(--minimo-tactil);
+  padding: var(--espacio-2) var(--espacio-1);
+  border: 0;
+  background: none;
+  color: var(--pista-texto);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  &:disabled {
+    cursor: progress;
+    opacity: 0.7;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--color-bola);
+    outline-offset: -3px;
+    border-radius: var(--radio-control);
+  }
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background: var(--ficha-fondo);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 18%);
+  color: var(--ficha-texto);
+  font-size: var(--texto-m);
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+  animation: aparecer-con-rebote var(--duracion-media) var(--curva-rebote);
+  transition: transform var(--duracion-rapida) var(--curva-salida);
+
+  .ficha:active:not(:disabled) & {
+    transform: scale(0.92);
+  }
+}
+
+// Mientras vuela otra ficha, la de destino no hace además su propio rebote.
+:root:active-view-transition .avatar {
+  animation: none;
+}
+
+.ficha--vacia .avatar {
+  border: 2px dashed var(--pista-texto-suave);
+  background: transparent;
+  box-shadow: none;
+  color: var(--pista-texto);
+  font-size: var(--texto-l);
+  font-weight: 400;
+}
+
+.nombre {
+  max-width: 100%;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.ficha--vacia .nombre {
+  color: var(--pista-texto-suave);
+  font-weight: 600;
 }
 
 .posicion {
   color: var(--pista-texto-suave);
   font-size: var(--texto-xs);
-  text-align: center;
-}
-
-.jugador {
-  width: 100%;
-  min-height: var(--minimo-tactil);
-  padding: 0 var(--espacio-2);
-  border: 0;
-  border-radius: var(--radio-control);
-  background: var(--color-superficie);
-  color: var(--color-tinta);
-  font: inherit;
-  font-weight: 700;
 }
 
 .bloqueada {
