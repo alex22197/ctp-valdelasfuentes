@@ -30,6 +30,9 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
   calendario en las jornadas sin jugar. Un toque por jugador (Sí, No o ?) que se guarda al
   momento con `guardar_respuesta_encuesta`, sin perder la convocatoria de quien ya está
   convocado. Migración probada en un PostgreSQL local (11 casos) y aplicada en Supabase.
+- **Web publicada** (#5, versión 0.1.0): <https://ctp-valdelasfuentes.padel-ctp.workers.dev>.
+  Cloudflare publica cada cambio que llega a `main`; el login de Google funciona en la web
+  publicada. Aún no se comparte con el equipo (#19, #20).
 
 ## 1. Configuración pendiente (Alex, desde los paneles)
 
@@ -37,7 +40,7 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
 - [x] Supabase → Authentication → URL Configuration: Site URL `http://localhost:4200` y
       Redirect URL `http://localhost:4200/**`.
 - [x] Iniciar sesión en local y darse rol `admin` (SQL en [`operativa.md`](operativa.md)).
-- [ ] (#5) Desplegar en Cloudflare siguiendo [`despliegue.md`](despliegue.md) y añadir la URL de
+- [x] (#5) Desplegar en Cloudflare siguiendo [`despliegue.md`](despliegue.md) y añadir la URL de
       `workers.dev` a Site URL y Redirect URLs de Supabase.
 
 ## 2. Pantallas de gestión (prioridad alta)
