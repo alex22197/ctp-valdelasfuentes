@@ -1,0 +1,92 @@
+@use 'breakpoints' as bp;
+
+.cabecera {
+  border-bottom: 1px solid var(--color-borde);
+  background: var(--color-superficie);
+  padding-top: env(safe-area-inset-top, 0);
+}
+
+.interior {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-6);
+  max-width: var(--ancho-contenido);
+  min-height: 4.25rem;
+  margin: 0 auto;
+  padding: 0 var(--espacio-5);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  color: var(--color-tinta);
+  text-decoration: none;
+}
+
+.escudo {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.nombre {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.nombre-club {
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-xs);
+  font-weight: 500;
+}
+
+.nombre-equipo {
+  font-size: 1.3125rem;
+  font-weight: 800;
+  font-stretch: 75%;
+}
+
+.navegacion {
+  display: none;
+  gap: var(--espacio-1);
+
+  @include bp.desde(tablet) {
+    display: flex;
+  }
+}
+
+.enlace {
+  padding: var(--espacio-3) var(--espacio-3);
+  color: var(--color-tinta-tenue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.enlace--activo {
+  color: var(--color-pista);
+  box-shadow: inset 0 -3px 0 var(--color-pista);
+}
+
+.cuenta {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  min-width: var(--minimo-tactil);
+  min-height: var(--minimo-tactil);
+  margin-left: auto;
+  padding: 0 var(--espacio-3);
+  border: 1.5px solid var(--color-borde-fuerte);
+  border-radius: var(--radio-pildora);
+  color: var(--color-tinta);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cuenta-texto {
+  display: none;
+
+  @include bp.desde(tablet) {
+    display: inline;
+  }
+}

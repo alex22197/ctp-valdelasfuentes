@@ -1,0 +1,7 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espacio-4);
+  padding: var(--espacio-4) var(--espacio-2) 0;
+}

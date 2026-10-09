@@ -1,0 +1,33 @@
+<h1 class="titulo-pagina">{{ auth.estaAutenticado() ? 'Tu cuenta' : 'Acceso para gestores' }}</h1>
+
+@if (!auth.lista()) {
+  <ctp-mensaje-estado tipo="cargando" texto="Comprobando tu sesión…" />
+} @else if (auth.sesion(); as sesion) {
+  <p>
+    Has iniciado sesión como <strong>{{ sesion.email }}</strong
+    >.
+  </p>
+  @if (nombreRol(); as rol) {
+    <p class="texto-secundario">Tienes permisos de {{ rol }}.</p>
+  } @else {
+    <p class="texto-secundario">
+      Tu cuenta todavía no tiene permisos de gestión. Pide al administrador del equipo que te los
+      dé.
+    </p>
+  }
+  <button type="button" class="boton" [disabled]="enCurso()" (click)="salir()">
+    Cerrar sesión
+  </button>
+} @else {
+  <p class="texto-secundario explicacion">
+    La web es pública y no necesitas cuenta para verla. Solo hace falta entrar para gestionar el
+    equipo: pasar lista, hacer convocatorias y meter resultados.
+  </p>
+  <button type="button" class="boton boton--principal" [disabled]="enCurso()" (click)="entrar()">
+    Entrar con Google
+  </button>
+}
+
+@if (error(); as mensaje) {
+  <ctp-mensaje-estado tipo="error" [texto]="mensaje" />
+}

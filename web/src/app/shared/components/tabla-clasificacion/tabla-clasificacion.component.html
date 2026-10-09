@@ -1,0 +1,26 @@
+<div class="contenedor">
+  <table class="tabla">
+    <thead>
+      <tr>
+        <th scope="col" class="columna-posicion"><abbr title="Posición">#</abbr></th>
+        <th scope="col" class="columna-equipo">Equipo</th>
+        <th scope="col" class="columna-numero"><abbr title="Puntos">Pts</abbr></th>
+        <th scope="col" class="columna-numero"><abbr title="Ganadas">G</abbr></th>
+        <th scope="col" class="columna-numero"><abbr title="Empatadas">E</abbr></th>
+        <th scope="col" class="columna-numero"><abbr title="Perdidas">P</abbr></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (fila of filas(); track fila.equipo.id) {
+        <tr [class.fila--nuestra]="fila.equipo.esNuestro">
+          <td class="columna-posicion">{{ fila.posicion ?? '–' }}</td>
+          <th scope="row" class="columna-equipo">{{ fila.equipo.nombre }}</th>
+          <td class="columna-numero columna-puntos">{{ fila.puntos }}</td>
+          <td class="columna-numero">{{ fila.ganados }}</td>
+          <td class="columna-numero">{{ fila.empatados }}</td>
+          <td class="columna-numero">{{ fila.perdidos }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

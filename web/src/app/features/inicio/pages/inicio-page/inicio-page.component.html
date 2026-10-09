@@ -1,0 +1,59 @@
+<h1 class="solo-lector">CTPA Valdelasfuentes</h1>
+
+@if (datos.faseActual.isLoading()) {
+  <ctp-mensaje-estado tipo="cargando" texto="Cargando la temporada…" />
+} @else if (datos.faseActual.error()) {
+  <ctp-mensaje-estado
+    tipo="error"
+    texto="No se ha podido cargar la temporada. Recarga la página para volver a intentarlo."
+  />
+} @else if (datos.fase(); as faseActual) {
+  <div class="secciones">
+    @if (datos.proximaConfrontacion(); as proxima) {
+      <ctp-proximo-partido class="seccion-ancha" [confrontacion]="proxima" />
+
+      <section class="seccion seccion-ancha" aria-labelledby="titulo-convocatoria">
+        <h2 id="titulo-convocatoria" class="titulo-seccion">Convocatoria</h2>
+        @if (datos.alineacion.isLoading()) {
+          <ctp-mensaje-estado tipo="cargando" texto="Cargando la convocatoria…" />
+        } @else if (datos.alineacion.error()) {
+          <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar la convocatoria." />
+        } @else if (datos.partidosAlineacion().length === 0) {
+          <ctp-mensaje-estado
+            tipo="vacio"
+            texto="Todavía no está publicada. Aparecerá aquí, con la alineación, en cuanto el capitán la cierre."
+          />
+        } @else {
+          <ctp-convocatoria-jornada [partidos]="datos.partidosAlineacion()" />
+        }
+      </section>
+    }
+
+    <section class="seccion" aria-labelledby="titulo-clasificacion">
+      <div class="cabecera-seccion">
+        <h2 id="titulo-clasificacion" class="titulo-seccion">Clasificación</h2>
+        <a routerLink="/clasificacion" class="texto-secundario">Ver detalle</a>
+      </div>
+      <p class="texto-secundario">{{ faseActual.fase.nombre }}</p>
+      @if (datos.clasificacion.error()) {
+        <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar la clasificación." />
+      } @else {
+        <ctp-tabla-clasificacion [filas]="datos.filasClasificacion()" />
+      }
+    </section>
+
+    <section class="seccion" aria-labelledby="titulo-calendario">
+      <h2 id="titulo-calendario" class="titulo-seccion">Calendario</h2>
+      @if (datos.calendario.error()) {
+        <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar el calendario." />
+      } @else {
+        <ctp-calendario-fase
+          [confrontaciones]="datos.jornadas()"
+          [enlacesGestion]="auth.esGestor()"
+        />
+      }
+    </section>
+  </div>
+} @else {
+  <ctp-mensaje-estado tipo="vacio" texto="Todavía no hay ninguna competición en marcha." />
+}

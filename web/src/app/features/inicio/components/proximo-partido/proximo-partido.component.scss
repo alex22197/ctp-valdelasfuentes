@@ -1,0 +1,100 @@
+@use 'breakpoints' as bp;
+
+:host {
+  display: block;
+}
+
+// Césped con el borde de la pista dibujado dentro.
+.pista {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--espacio-6) var(--espacio-5);
+  overflow: hidden;
+  border-radius: var(--radio-pista);
+  background: var(--color-pista);
+  color: var(--color-sobre-pista);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0.625rem;
+    border: 1.5px solid rgb(255 255 255 / 26%);
+    border-radius: var(--radio-contenedor);
+    pointer-events: none;
+  }
+
+  @include bp.desde(tablet) {
+    padding: var(--espacio-8) var(--espacio-10);
+  }
+}
+
+.antetitulo {
+  margin-bottom: var(--espacio-5);
+  color: var(--color-sobre-pista-suave);
+  font-size: var(--texto-s);
+  font-weight: 500;
+}
+
+.equipo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--espacio-1) var(--espacio-3);
+}
+
+.equipo-nombre {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--espacio-3);
+  min-width: 0;
+  overflow-wrap: break-word;
+  font-size: clamp(2rem, 9vw, 4rem);
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+  line-height: 0.92;
+}
+
+.bola {
+  flex: none;
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 50%;
+  background: var(--color-bola);
+}
+
+.equipo-condicion {
+  padding-bottom: var(--espacio-1);
+  color: var(--color-sobre-pista-suave);
+  font-size: var(--texto-xs);
+  font-weight: 600;
+}
+
+// La red cruza la pista de lado a lado.
+.red {
+  height: 4px;
+  margin: var(--espacio-4) calc(-1 * var(--espacio-5));
+  background: var(--color-sobre-pista);
+
+  @include bp.desde(tablet) {
+    margin-inline: calc(-1 * var(--espacio-10));
+  }
+}
+
+.detalles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+  margin: var(--espacio-6) 0 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 500;
+}
+
+.detalle {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+}

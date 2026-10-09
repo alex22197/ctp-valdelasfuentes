@@ -1,0 +1,12 @@
+.cabecera {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+}
+
+.jugadores {
+  margin: var(--espacio-2) 0 0;
+  padding: 0;
+  list-style: none;
+}

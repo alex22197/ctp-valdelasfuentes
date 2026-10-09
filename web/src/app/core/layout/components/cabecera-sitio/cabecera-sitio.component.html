@@ -1,0 +1,35 @@
+<header class="cabecera">
+  <div class="interior">
+    <a class="marca" routerLink="/">
+      <img class="escudo" src="/imagenes/escudo-ctp-alcobendas.png" alt="" width="40" height="40" />
+      <span class="nombre">
+        <span class="nombre-club">CTPA</span>
+        <span class="nombre-equipo">Valdelasfuentes</span>
+      </span>
+      <span class="solo-lector">, ir al inicio</span>
+    </a>
+
+    <nav class="navegacion" aria-label="Secciones">
+      @for (enlace of enlaces; track enlace.ruta) {
+        <a
+          class="enlace"
+          [routerLink]="enlace.ruta"
+          routerLinkActive="enlace--activo"
+          ariaCurrentWhenActive="page"
+          [routerLinkActiveOptions]="{ exact: enlace.coincidenciaExacta }"
+        >
+          {{ enlace.etiqueta }}
+        </a>
+      }
+    </nav>
+
+    <a
+      class="cuenta"
+      routerLink="/acceso"
+      [attr.aria-label]="auth.estaAutenticado() ? 'Tu cuenta' : 'Entrar como gestor'"
+    >
+      <ctp-icono nombre="usuario" />
+      <span class="cuenta-texto">{{ auth.estaAutenticado() ? 'Tu cuenta' : 'Entrar' }}</span>
+    </a>
+  </div>
+</header>

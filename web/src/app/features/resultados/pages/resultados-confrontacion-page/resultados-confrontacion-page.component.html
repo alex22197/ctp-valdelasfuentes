@@ -1,0 +1,70 @@
+<a class="volver" routerLink="/">
+  <ctp-icono nombre="volver" />
+  Volver al inicio
+</a>
+
+@if (datos.confrontacion.error()) {
+  <ctp-mensaje-estado
+    tipo="error"
+    texto="No se ha podido cargar la jornada. Recarga la página para volver a intentarlo."
+  />
+} @else if (!datos.confrontacion.hasValue()) {
+  <ctp-mensaje-estado tipo="cargando" texto="Cargando la jornada…" />
+} @else if (datos.confrontacionActual(); as confrontacion) {
+  <header class="cabecera">
+    <h1 class="titulo-pagina">Resultados</h1>
+    <p class="rival">
+      @if (confrontacion.jornada) {
+        Jornada {{ confrontacion.jornada }} contra {{ confrontacion.rival.nombre }}
+      } @else {
+        Contra {{ confrontacion.rival.nombre }}
+      }
+    </p>
+    <p class="texto-secundario">
+      {{ confrontacion | fechaConfrontacion }},
+      {{ confrontacion.condicion === 'local' ? 'en casa' : 'fuera' }}
+    </p>
+
+    @if (confrontacion.marcador; as marcador) {
+      <p
+        class="marcador"
+        [class.marcador--derrota]="marcador.nuestros < marcador.rival"
+        [attr.aria-label]="'Resultado: ' + marcador.nuestros + ' a ' + marcador.rival"
+      >
+        {{ marcador.nuestros }}-{{ marcador.rival }}
+      </p>
+    } @else if (datos.partidos().length > 0) {
+      <p class="progreso">
+        {{ datos.partidosConResultado() }} de {{ datos.partidos().length }} partidos con resultado
+      </p>
+    }
+  </header>
+
+  <p class="texto-secundario explicacion">
+    Cada partido se guarda por separado. Si alguno se suspende o falta por jugar, puedes volver más
+    tarde a completarlo.
+  </p>
+
+  @if (datos.resultados.error()) {
+    <ctp-mensaje-estado tipo="error" texto="No se han podido cargar los partidos." />
+  } @else if (!datos.resultados.hasValue()) {
+    <ctp-mensaje-estado tipo="cargando" texto="Cargando los partidos…" />
+  } @else {
+    <ul class="partidos">
+      @for (partido of datos.partidos(); track clavePartido(partido)) {
+        <li>
+          <ctp-resultado-partido
+            [partido]="partido"
+            [estado]="datos.estadoDe(partido)"
+            (guardar)="datos.guardar(partido, $event)"
+          />
+        </li>
+      }
+    </ul>
+  }
+} @else {
+  <ctp-mensaje-estado
+    tipo="vacio"
+    texto="Esta jornada no existe o no es de nuestro equipo. Vuelve al inicio y elígela en el calendario."
+  />
+}

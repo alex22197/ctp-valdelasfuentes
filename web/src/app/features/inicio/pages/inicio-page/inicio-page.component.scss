@@ -1,0 +1,29 @@
+@use 'breakpoints' as bp;
+
+.secciones {
+  display: grid;
+  gap: var(--espacio-10) var(--espacio-10);
+
+  @include bp.desde(escritorio) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.seccion-ancha {
+  @include bp.desde(escritorio) {
+    grid-column: 1 / -1;
+  }
+}
+
+.seccion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+  padding: 0 var(--espacio-2);
+}
+
+.cabecera-seccion {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}

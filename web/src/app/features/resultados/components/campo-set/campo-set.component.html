@@ -1,0 +1,67 @@
+<fieldset
+  class="set"
+  [class.set--error]="error()"
+  [attr.aria-describedby]="error() ? idError : null"
+>
+  <legend class="titulo">Set {{ numeroSet() }}</legend>
+
+  <div class="marcador">
+    <label class="campo">
+      <span class="etiqueta">Nosotros</span>
+      <input
+        class="numero"
+        type="number"
+        inputmode="numeric"
+        min="0"
+        max="7"
+        [value]="valor().juegosNuestros"
+        (input)="cambiar('juegosNuestros', $event)"
+      />
+    </label>
+    <span class="guion" aria-hidden="true">–</span>
+    <label class="campo">
+      <span class="etiqueta">Rival</span>
+      <input
+        class="numero"
+        type="number"
+        inputmode="numeric"
+        min="0"
+        max="7"
+        [value]="valor().juegosRival"
+        (input)="cambiar('juegosRival', $event)"
+      />
+    </label>
+  </div>
+
+  @if (hayTiebreak()) {
+    <div class="marcador marcador--tiebreak">
+      <label class="campo">
+        <span class="etiqueta">Tie-break nosotros</span>
+        <input
+          class="numero"
+          type="number"
+          inputmode="numeric"
+          min="0"
+          [value]="valor().tiebreakNuestros"
+          (input)="cambiar('tiebreakNuestros', $event)"
+        />
+      </label>
+      <span class="guion" aria-hidden="true">–</span>
+      <label class="campo">
+        <span class="etiqueta">Tie-break rival</span>
+        <input
+          class="numero"
+          type="number"
+          inputmode="numeric"
+          min="0"
+          [value]="valor().tiebreakRival"
+          (input)="cambiar('tiebreakRival', $event)"
+        />
+      </label>
+    </div>
+  }
+
+  @if (error(); as mensaje) {
+    <p class="error" [id]="idError">{{ mensaje }}.</p>
+  }
+</fieldset>
