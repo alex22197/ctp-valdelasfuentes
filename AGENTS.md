@@ -155,7 +155,9 @@ Detalle en [`docs/base-de-datos.md`](docs/base-de-datos.md).
 
 ### Ramas
 
-- `main`: solo lo que está desplegado. Recibe `develop` cuando se publica.
+- `main`: solo lo que está desplegado; Cloudflare publica cada cambio que llega. Recibe
+  `develop` mediante una pull request «Publicación X.Y.Z» y se etiqueta `vX.Y.Z`
+  (detalle en [`docs/despliegue.md`](docs/despliegue.md)).
 - `develop`: rama principal de trabajo. Siempre pasa `npm run verificar --prefix web`.
 - Una rama por tarea, creada desde `develop`, en castellano y `kebab-case`, con el número
   de su issue: `feature/6-pasar-lista`, `fix/31-marcador-en-wo`,

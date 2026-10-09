@@ -12,13 +12,30 @@ pasen el linter y los tests.
    | Campo                              | Valor                      |
    | ---------------------------------- | -------------------------- |
    | Project name                       | `ctp-valdelasfuentes`      |
+   | Production branch                  | `main`                     |
    | Root directory                     | `web`                      |
    | Build command                      | `npm run build:cloudflare` |
    | Deploy command                     | `npx wrangler deploy`      |
    | Variable de entorno de compilación | `NODE_VERSION` = `24`      |
 
-3. Guarda y despliega. La web quedará en
+   Si **Root directory** se queda vacío, Cloudflare compila desde la raíz del repositorio y
+   falla con `Missing script: "build:cloudflare"`.
+
+3. Desactiva **Builds for non-production branches**: solo se publica lo que llega a `main`.
+4. Guarda y despliega. La web quedará en
    `https://ctp-valdelasfuentes.<tu-subdominio>.workers.dev`.
+
+## Publicar una versión
+
+1. Pull request de `develop` a `main` titulada «Publicación X.Y.Z», con la lista de lo que
+   entra.
+2. Cuando la integración continua está en verde, se integra con un merge commit y se etiqueta
+   `main` con `vX.Y.Z`.
+3. Cloudflare compila y publica solo. Si el linter o los tests fallan, no se publica nada y
+   la versión anterior sigue en línea.
+
+Versiones: la cifra del medio sube con funcionalidades nuevas (0.2.0) y la última con
+correcciones (0.2.1).
 
 `build:cloudflare` ejecuta linter y tests antes de compilar: si algo falla, no se publica.
 La configuración del sitio está en [`web/wrangler.jsonc`](../web/wrangler.jsonc); la opción
