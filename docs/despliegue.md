@@ -22,8 +22,8 @@ pasen el linter y los tests.
    falla con `Missing script: "build:cloudflare"`.
 
 3. Desactiva **Builds for non-production branches**: solo se publica lo que llega a `main`.
-4. Guarda y despliega. La web quedará en
-   `https://ctp-valdelasfuentes.<tu-subdominio>.workers.dev`.
+4. Guarda y despliega. La web queda en
+   `https://ctp-valdelasfuentes.padel-ctp.workers.dev`.
 
 ## Publicar una versión
 
@@ -46,10 +46,10 @@ funcione al recargar la página.
 
 En **Authentication** → **URL Configuration**:
 
-| Campo         | Valor                                                                                     |
-| ------------- | ----------------------------------------------------------------------------------------- |
-| Site URL      | `https://ctp-valdelasfuentes.<tu-subdominio>.workers.dev`                                 |
-| Redirect URLs | `https://ctp-valdelasfuentes.<tu-subdominio>.workers.dev/**` y `http://localhost:4200/**` |
+| Campo         | Valor                                                                               |
+| ------------- | ----------------------------------------------------------------------------------- |
+| Site URL      | `https://ctp-valdelasfuentes.padel-ctp.workers.dev`                                 |
+| Redirect URLs | `https://ctp-valdelasfuentes.padel-ctp.workers.dev/**` y `http://localhost:4200/**` |
 
 Sin esto, después de iniciar sesión con Google Supabase no sabría a qué web devolverte.
 

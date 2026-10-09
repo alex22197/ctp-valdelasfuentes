@@ -3,6 +3,8 @@
 Web del equipo **CTPA Valdelasfuentes** en la Liga MasterPadel: calendario, clasificación,
 convocatorias, alineaciones y, más adelante, estadísticas de cada jugador.
 
+- **En línea** en <https://ctp-valdelasfuentes.padel-ctp.workers.dev> (Cloudflare Workers,
+  publicada desde `main`).
 - **Pública**: cualquiera con el enlace puede verla, sin cuenta.
 - **Gestión con login de Google**: solo el administrador y el capitán pueden modificar datos.
 
