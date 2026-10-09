@@ -9,15 +9,15 @@ pasen el linter y los tests.
    y conecta tu cuenta de GitHub dando acceso al repositorio `ctp-valdelasfuentes`.
 2. Configura la compilación:
 
-   | Campo                              | Valor                      |
-   | ---------------------------------- | -------------------------- |
-   | Project name                       | `ctp-valdelasfuentes`      |
-   | Production branch                  | `main`                     |
-   | Root directory                     | `web`                      |
-   | Build command                      | `npm run build:cloudflare` |
-   | Deploy command                     | `npx wrangler deploy`      |
-   | Variable de entorno de compilación | `NODE_VERSION` = `24`      |
+   | Campo             | Valor                      |
+   | ----------------- | -------------------------- |
+   | Project name      | `ctp-valdelasfuentes`      |
+   | Production branch | `main`                     |
+   | Root directory    | `web`                      |
+   | Build command     | `npm run build:cloudflare` |
+   | Deploy command    | `npx wrangler deploy`      |
 
+   La versión de Node la toma de `web/.nvmrc`; no hace falta ninguna variable de entorno.
    Si **Root directory** se queda vacío, Cloudflare compila desde la raíz del repositorio y
    falla con `Missing script: "build:cloudflare"`.
 
