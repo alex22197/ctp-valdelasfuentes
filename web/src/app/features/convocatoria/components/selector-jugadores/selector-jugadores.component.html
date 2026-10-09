@@ -1,0 +1,78 @@
+<!-- El clic en el propio <dialog> es el fondo oscuro; Escape llega por el evento «cancel». -->
+<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+<dialog
+  #dialogo
+  class="hoja"
+  aria-labelledby="titulo-selector"
+  (cancel)="cancelar($event)"
+  (click)="tocarFondo($event)"
+>
+  <div class="contenido">
+    <header #cabecera class="cabecera">
+      <span class="asa" aria-hidden="true"></span>
+      <div class="fila-titulo">
+        <h2 id="titulo-selector" class="titulo" tabindex="-1">{{ titulo() }}</h2>
+        <button type="button" class="cerrar" (click)="cerrar.emit()">Cerrar</button>
+      </div>
+      <label class="buscador">
+        <span class="solo-lector">Buscar jugador por nombre</span>
+        <input
+          class="campo-busqueda"
+          type="search"
+          placeholder="Buscar por nombre"
+          autocomplete="off"
+          [value]="busqueda()"
+          (input)="buscar($event)"
+        />
+      </label>
+    </header>
+
+    <div class="lista">
+      @for (grupo of filtrados(); track grupo.estado) {
+        <section class="grupo" [attr.aria-labelledby]="'grupo-' + grupo.estado">
+          <h3 class="titulo-grupo" [id]="'grupo-' + grupo.estado">
+            {{ grupo.titulo }}
+            <span class="contador">{{ grupo.opciones.length }}</span>
+          </h3>
+          <ul class="opciones">
+            @for (opcion of grupo.opciones; track opcion.id; let i = $index) {
+              <li class="entrada" [style.--orden]="i">
+                <button
+                  type="button"
+                  class="opcion"
+                  [class]="'opcion--' + opcion.estado"
+                  [attr.aria-pressed]="opcion.id === idSeleccionado()"
+                  (click)="elegir.emit(opcion.id)"
+                >
+                  <span
+                    class="avatar"
+                    [style.view-transition-name]="
+                      opcion.id === idEnVuelo() ? 'ficha-en-vuelo' : null
+                    "
+                  >
+                    {{ opcion.iniciales }}
+                  </span>
+                  <span class="nombre">{{ opcion.nombre }}</span>
+                  @if (opcion.otraPista) {
+                    <span class="otra-pista">
+                      <span class="solo-lector">, ya juega en </span>
+                      <span aria-hidden="true">en </span>{{ opcion.otraPista }}
+                    </span>
+                  }
+                </button>
+              </li>
+            }
+          </ul>
+        </section>
+      } @empty {
+        <p class="sin-resultados">Nadie se llama así. Prueba con otro nombre.</p>
+      }
+    </div>
+
+    <footer class="pie">
+      <button type="button" class="boton dejar-vacio" (click)="elegir.emit(null)">
+        Dejar sin asignar
+      </button>
+    </footer>
+  </div>
+</dialog>

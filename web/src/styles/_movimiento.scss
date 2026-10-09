@@ -1,0 +1,35 @@
+// Animaciones compartidas (ADR 0010). La regla de «reducir movimiento» de _base.scss las anula.
+
+// View Transitions: el resto de la página cambia al instante, sin destello, y solo se
+// anima lo que tiene nombre de transición.
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+// La ficha elegida vuela del panel a su sitio en la pista.
+::view-transition-group(ficha-en-vuelo) {
+  animation-duration: var(--duracion-lenta);
+  animation-timing-function: var(--curva-salida);
+}
+
+// Una ficha que aparece crece con un pequeño rebote.
+@keyframes aparecer-con-rebote {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

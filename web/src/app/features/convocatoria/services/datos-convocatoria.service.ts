@@ -54,6 +54,10 @@ export class DatosConvocatoriaService {
   readonly jugadores = computed(() =>
     this.convocables.hasValue() ? this.convocables.value() : [],
   );
+  /** Nombre para mostrar de cada jugador, por id. */
+  readonly nombres = computed<ReadonlyMap<string, string>>(
+    () => new Map(this.jugadores().map((jugador) => [jugador.id, jugador.nombreMostrar])),
+  );
   readonly huecosGuardados = computed(() =>
     huecosDesdePartidos(this.partidos.hasValue() ? this.partidos.value() : []),
   );

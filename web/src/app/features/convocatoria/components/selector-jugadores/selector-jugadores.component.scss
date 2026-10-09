@@ -1,0 +1,266 @@
+@use 'breakpoints' as bp;
+
+// Hoja inferior en el móvil: ocupa el ancho, sube desde abajo y deja ver la pista arriba.
+.hoja {
+  width: 100%;
+  max-width: 100%;
+  max-height: 85dvh;
+  margin: auto 0 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radio-pista) var(--radio-pista) 0 0;
+  background: var(--color-fondo);
+  box-shadow: var(--sombra-panel);
+  color: var(--color-tinta);
+  overscroll-behavior: contain;
+  translate: 0 100%;
+  transition:
+    translate var(--duracion-media) var(--curva-salida),
+    overlay var(--duracion-media) allow-discrete,
+    display var(--duracion-media) allow-discrete;
+
+  &[open] {
+    translate: 0 0;
+
+    @starting-style {
+      translate: 0 100%;
+    }
+  }
+
+  &::backdrop {
+    background: transparent;
+    transition:
+      background-color var(--duracion-media),
+      overlay var(--duracion-media) allow-discrete,
+      display var(--duracion-media) allow-discrete;
+  }
+
+  &[open]::backdrop {
+    background: var(--color-velo);
+
+    @starting-style {
+      background: transparent;
+    }
+  }
+
+  // En pantallas grandes, ventana centrada que aparece con un leve zoom.
+  @include bp.desde(tablet) {
+    width: min(36rem, 100% - 2 * var(--espacio-8));
+    max-height: 80dvh;
+    margin: auto;
+    border-radius: var(--radio-pista);
+    translate: 0 var(--espacio-8);
+    opacity: 0;
+    transition-property: translate, opacity, overlay, display;
+
+    &[open] {
+      translate: 0 0;
+      opacity: 1;
+
+      @starting-style {
+        translate: 0 var(--espacio-8);
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.contenido {
+  display: flex;
+  flex-direction: column;
+  max-height: inherit;
+}
+
+.cabecera {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+  padding: var(--espacio-2) var(--espacio-4) var(--espacio-3);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+// Asa decorativa: indica que es una hoja que sale de abajo.
+.asa {
+  align-self: center;
+  width: 2.5rem;
+  height: 0.3rem;
+  border-radius: var(--radio-pildora);
+  background: var(--color-borde-fuerte);
+
+  @include bp.desde(tablet) {
+    display: none;
+  }
+}
+
+.fila-titulo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+}
+
+.titulo {
+  font-size: var(--texto-m);
+  font-weight: 800;
+  outline: none;
+}
+
+.cerrar {
+  min-height: var(--minimo-tactil);
+  padding: 0 var(--espacio-3);
+  border: 0;
+  background: none;
+  color: var(--color-pista);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.campo-busqueda {
+  width: 100%;
+  min-height: var(--minimo-tactil);
+  padding: 0 var(--espacio-4);
+  border: 1.5px solid var(--color-borde-fuerte);
+  border-radius: var(--radio-pildora);
+  background: var(--color-superficie);
+  color: var(--color-tinta);
+  font: inherit;
+}
+
+.lista {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--espacio-5);
+  padding: var(--espacio-4);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.titulo-grupo {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  margin-bottom: var(--espacio-2);
+  color: var(--color-tinta-suave);
+  font-size: var(--texto-s);
+  font-weight: 700;
+}
+
+.contador {
+  padding: 0 var(--espacio-2);
+  border-radius: var(--radio-pildora);
+  background: var(--color-borde);
+  font-size: var(--texto-xs);
+}
+
+// Cuadrícula de fichas: tres o cuatro por fila en el móvil.
+.opciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5.25rem, 1fr));
+  gap: var(--espacio-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// Las fichas entran una tras otra al abrir el panel.
+.entrada {
+  animation: aparecer-con-rebote var(--duracion-media) var(--curva-rebote) backwards;
+  animation-delay: calc(var(--orden, 0) * 25ms);
+}
+
+.opcion {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-1);
+  width: 100%;
+  min-height: var(--minimo-tactil);
+  padding: var(--espacio-2) var(--espacio-1);
+  border: 2px solid transparent;
+  border-radius: var(--radio-control);
+  background: var(--color-superficie);
+  color: var(--color-tinta);
+  cursor: pointer;
+  transition:
+    transform var(--duracion-rapida) var(--curva-salida),
+    border-color var(--duracion-rapida);
+  -webkit-tap-highlight-color: transparent;
+
+  &:active {
+    transform: scale(0.94);
+  }
+
+  &[aria-pressed='true'] {
+    border-color: var(--color-pista);
+  }
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+}
+
+// Cada grupo con su forma, igual que en las respuestas: relleno, claro, naranja, discontinuo.
+.opcion--pueden .avatar {
+  background: var(--color-pista);
+  color: var(--color-sobre-pista);
+}
+
+.opcion--sin-responder .avatar {
+  border: 2px dashed var(--color-borde-fuerte);
+  color: var(--color-tinta-suave);
+}
+
+.opcion--no-pueden .avatar {
+  border: 2px solid var(--color-derrota);
+  color: var(--color-derrota-texto);
+}
+
+.opcion--comodin .avatar {
+  background: var(--color-mixto);
+  color: var(--color-tinta);
+}
+
+.nombre {
+  max-width: 100%;
+  font-size: var(--texto-s);
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+// Etiqueta de la otra pista, como una pegatina en la esquina.
+.otra-pista {
+  position: absolute;
+  top: var(--espacio-1);
+  right: var(--espacio-1);
+  padding: 0 var(--espacio-1);
+  border-radius: var(--radio-pildora);
+  background: var(--color-bola);
+  color: var(--color-tinta);
+  font-size: var(--texto-xs);
+  font-weight: 700;
+}
+
+.sin-resultados {
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+}
+
+.pie {
+  padding: var(--espacio-3) var(--espacio-4) calc(var(--espacio-3) + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-borde);
+}
+
+.dejar-vacio {
+  width: 100%;
+}
