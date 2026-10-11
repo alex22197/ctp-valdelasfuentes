@@ -1,0 +1,48 @@
+:host {
+  display: block;
+}
+
+// Media pista vista desde arriba: red arriba, línea de saque y línea central.
+.cesped {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: var(--espacio-8) 0 var(--espacio-4);
+  list-style: none;
+  border-radius: var(--radio-pista);
+  background:
+    linear-gradient(var(--color-sobre-pista), var(--color-sobre-pista)) top / 100% 5px no-repeat,
+    linear-gradient(rgb(255 255 255 / 55%), rgb(255 255 255 / 55%)) 50% 0 / 1.5px 100% no-repeat,
+    var(--color-pista);
+  color: var(--color-sobre-pista);
+}
+
+.mitad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0 var(--espacio-2);
+  text-align: center;
+}
+
+.nombre {
+  font-weight: 700;
+}
+
+.cifra {
+  font-size: var(--texto-xl);
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.detalle {
+  color: var(--color-sobre-pista-suave);
+  font-size: var(--texto-xs);
+}
+
+.vacia .nombre {
+  color: var(--color-sobre-pista-suave);
+}

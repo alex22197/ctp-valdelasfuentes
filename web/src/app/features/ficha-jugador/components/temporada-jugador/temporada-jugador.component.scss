@@ -1,0 +1,78 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-4);
+}
+
+.nombre-fase {
+  margin-bottom: var(--espacio-2);
+  font-size: var(--texto-m);
+  font-weight: 800;
+}
+
+.filas {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fila {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--espacio-3);
+  padding: var(--espacio-3) 0;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+// G oscuro y relleno, P claro con borde, y vacío discontinuo: se distinguen sin color.
+.insignia {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 2px dashed var(--color-borde-fuerte);
+  border-radius: 50%;
+  font-weight: 800;
+}
+
+.fila--ganado .insignia {
+  border: 2px solid var(--color-pista-oscuro);
+  background: var(--color-pista-oscuro);
+  color: var(--color-sobre-pista);
+}
+
+.fila--perdido .insignia {
+  border: 2px solid var(--color-derrota);
+  background: var(--color-superficie);
+  color: var(--color-derrota-texto);
+}
+
+.rival {
+  font-weight: 700;
+}
+
+.jornada {
+  margin-right: var(--espacio-1);
+  color: var(--color-tinta-tenue);
+}
+
+.condicion,
+.detalle {
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+  font-weight: 400;
+}
+
+.fila--no-jugo .rival {
+  color: var(--color-tinta-suave);
+  font-weight: 600;
+}
+
+.sets {
+  font-weight: 700;
+  font-stretch: var(--anchura-titulo);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  word-spacing: 0.4em;
+}

@@ -4,6 +4,7 @@ import { ClasificacionService } from '@data-access/clasificacion/clasificacion.s
 import { CompeticionesService } from '@data-access/competiciones/competiciones.service';
 import { ConfrontacionesService } from '@data-access/confrontaciones/confrontaciones.service';
 import { elegirProximaConfrontacion } from '@data-access/confrontaciones/proxima-confrontacion';
+import { JugadoresService } from '@data-access/jugadores/jugadores.service';
 
 /**
  * Datos de la página de inicio y sus dependencias: primero la fase actual, después su
@@ -16,6 +17,7 @@ export class DatosInicioService {
   private readonly clasificaciones = inject(ClasificacionService);
   private readonly confrontaciones = inject(ConfrontacionesService);
   private readonly alineaciones = inject(AlineacionesService);
+  private readonly jugadores = inject(JugadoresService);
 
   readonly faseActual = resource({
     loader: () => this.competiciones.obtenerFaseActual(),
@@ -52,5 +54,15 @@ export class DatosInicioService {
 
   readonly partidosAlineacion = computed(() =>
     this.alineacion.hasValue() ? this.alineacion.value() : [],
+  );
+
+  /** Comodines de la competición: sus nombres en la convocatoria no llevan a ninguna ficha. */
+  private readonly comodines = resource({
+    params: () => this.fase()?.competicion.id,
+    loader: ({ params: idCompeticion }) => this.jugadores.obtenerIdsComodines(idCompeticion),
+  });
+
+  readonly idsComodines = computed<ReadonlySet<string>>(() =>
+    this.comodines.hasValue() ? this.comodines.value() : new Set(),
   );
 }

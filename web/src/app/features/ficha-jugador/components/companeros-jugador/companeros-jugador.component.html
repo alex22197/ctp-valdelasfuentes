@@ -1,0 +1,14 @@
+<ul class="lista">
+  @for (companero of companeros(); track companero.id) {
+    <li class="companero">
+      @if (!companero.comodin || enlazarComodines()) {
+        <a class="nombre" [routerLink]="['/jugadores', companero.id]">{{
+          companero.nombreMostrar
+        }}</a>
+      } @else {
+        <span class="nombre">{{ companero.nombreMostrar }}</span>
+      }
+      <ctp-barra-victorias [balance]="companero" />
+    </li>
+  }
+</ul>

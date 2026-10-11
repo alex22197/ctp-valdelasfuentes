@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.puesto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  padding-left: var(--espacio-3);
+  border-left: 4px solid var(--color-pista);
+}
+
+// El mixto, con el lima del escudo como en las alineaciones.
+.mixto {
+  border-left-color: var(--color-mixto);
+}
+
+.nombre {
+  font-weight: 700;
+}

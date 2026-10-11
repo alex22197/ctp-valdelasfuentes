@@ -1,0 +1,30 @@
+@for (fase of fases(); track fase.nombre) {
+  <section class="fase">
+    @if (fases().length > 1) {
+      <h3 class="nombre-fase">{{ fase.nombre }}</h3>
+    }
+    <ol class="filas">
+      @for (fila of fase.filas; track fila.confrontacionId) {
+        <li class="fila" [class]="'fila--' + fila.resultado">
+          <span class="insignia" aria-hidden="true">{{ letra[fila.resultado] }}</span>
+          @if (fila.resultado !== 'no-jugo') {
+            <span class="solo-lector">{{ texto[fila.resultado] }}.</span>
+          }
+          <div class="cuerpo">
+            <p class="rival">
+              @if (fila.jornada) {
+                <span class="jornada">J{{ fila.jornada }}</span>
+              }
+              {{ fila.rival }}
+              <span class="condicion">{{ fila.condicion === 'local' ? 'en casa' : 'fuera' }}</span>
+            </p>
+            <p class="detalle">{{ fila.detalle ?? 'No jugó' }}</p>
+          </div>
+          @if (fila.marcador) {
+            <span class="sets">{{ fila.marcador }}</span>
+          }
+        </li>
+      }
+    </ol>
+  </section>
+}

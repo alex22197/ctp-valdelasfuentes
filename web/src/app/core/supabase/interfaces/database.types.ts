@@ -679,6 +679,8 @@ export type Database = {
           condicion: string | null;
           confrontacion_id: string | null;
           fase_id: string | null;
+          fase_nombre: string | null;
+          fase_orden: number | null;
           fecha_hora: string | null;
           fecha_prevista: string | null;
           jornada: number | null;
@@ -860,14 +862,14 @@ export type Database = {
           },
           {
             foreignKeyName: 'participacion_jugador_id_fkey';
-            columns: ['jugador_a_id'];
+            columns: ['jugador_b_id'];
             isOneToOne: false;
             referencedRelation: 'jugador';
             referencedColumns: ['id'];
           },
           {
             foreignKeyName: 'participacion_jugador_id_fkey';
-            columns: ['jugador_b_id'];
+            columns: ['jugador_a_id'];
             isOneToOne: false;
             referencedRelation: 'jugador';
             referencedColumns: ['id'];
@@ -931,6 +933,7 @@ export type Database = {
           juegos_perdidos: number | null;
           jugador_id: string | null;
           lado: Database['public']['Enums']['lado'] | null;
+          marcador: string | null;
           nombre_mostrar: string | null;
           numero: number | null;
           partido_id: string | null;

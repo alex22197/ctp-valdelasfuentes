@@ -49,6 +49,14 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'jugadores/:idJugador',
+    title: 'Jugador',
+    loadComponent: () =>
+      import('@features/ficha-jugador/pages/ficha-jugador-page/ficha-jugador-page.component').then(
+        (m) => m.FichaJugadorPageComponent,
+      ),
+  },
+  {
     path: 'reglamento',
     title: 'Reglamento',
     loadComponent: () =>

@@ -1,12 +1,15 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import type { VariantePista } from './interfaces/variante-pista.type';
 
 /**
  * Media pista vista desde arriba, con la red al fondo: el jugador de revés a la izquierda
  * y el de drive a la derecha, como lo escribe el capitán en la convocatoria.
+ * Con `enlaceReves` o `enlaceDrive`, el nombre lleva a esa dirección (su ficha).
  */
 @Component({
   selector: 'ctp-pista-alineacion',
+  imports: [RouterLink],
   templateUrl: './pista-alineacion.component.html',
   styleUrl: './pista-alineacion.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,5 +19,7 @@ export class PistaAlineacionComponent {
   readonly titulo = input.required<string>();
   readonly jugadorReves = input<string | null>(null);
   readonly jugadorDrive = input<string | null>(null);
+  readonly enlaceReves = input<string | null>(null);
+  readonly enlaceDrive = input<string | null>(null);
   readonly variante = input<VariantePista>('normal');
 }

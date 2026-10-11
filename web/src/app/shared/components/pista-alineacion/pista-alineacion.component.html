@@ -2,11 +2,19 @@
   <figcaption class="titulo">{{ titulo() }}</figcaption>
   <div class="cesped">
     <div class="lado">
-      <span class="jugador">{{ jugadorReves() ?? 'Sin asignar' }}</span>
+      @if (jugadorReves() && enlaceReves(); as enlace) {
+        <a class="jugador enlace" [routerLink]="enlace">{{ jugadorReves() }}</a>
+      } @else {
+        <span class="jugador">{{ jugadorReves() ?? 'Sin asignar' }}</span>
+      }
       <span class="posicion">Revés</span>
     </div>
     <div class="lado">
-      <span class="jugador">{{ jugadorDrive() ?? 'Sin asignar' }}</span>
+      @if (jugadorDrive() && enlaceDrive(); as enlace) {
+        <a class="jugador enlace" [routerLink]="enlace">{{ jugadorDrive() }}</a>
+      } @else {
+        <span class="jugador">{{ jugadorDrive() ?? 'Sin asignar' }}</span>
+      }
       <span class="posicion">Drive</span>
     </div>
   </div>

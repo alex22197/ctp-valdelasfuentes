@@ -55,6 +55,24 @@
   line-height: 1.15;
 }
 
+// Nombre con enlace a su ficha: zona táctil de 44 px y subrayado discreto.
+.enlace {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--minimo-tactil);
+  padding: 0 var(--espacio-2);
+  border-radius: var(--radio-control);
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+
+  &:focus-visible {
+    outline: 3px solid var(--color-bola);
+    outline-offset: 0;
+  }
+}
+
 .posicion {
   color: var(--pista-texto-suave);
   font-size: var(--texto-xs);
