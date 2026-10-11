@@ -109,11 +109,39 @@ export type Database = {
             referencedColumns: ['id'];
           },
           {
+            foreignKeyName: 'confrontacion_local_id_fkey';
+            columns: ['local_id'];
+            isOneToOne: false;
+            referencedRelation: 'estadistica_jornada';
+            referencedColumns: ['rival_id'];
+          },
+          {
+            foreignKeyName: 'confrontacion_local_id_fkey';
+            columns: ['local_id'];
+            isOneToOne: false;
+            referencedRelation: 'estadistica_partido_jugador';
+            referencedColumns: ['rival_id'];
+          },
+          {
             foreignKeyName: 'confrontacion_visitante_id_fkey';
             columns: ['visitante_id'];
             isOneToOne: false;
             referencedRelation: 'equipo';
             referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'confrontacion_visitante_id_fkey';
+            columns: ['visitante_id'];
+            isOneToOne: false;
+            referencedRelation: 'estadistica_jornada';
+            referencedColumns: ['rival_id'];
+          },
+          {
+            foreignKeyName: 'confrontacion_visitante_id_fkey';
+            columns: ['visitante_id'];
+            isOneToOne: false;
+            referencedRelation: 'estadistica_partido_jugador';
+            referencedColumns: ['rival_id'];
           },
         ];
       };
@@ -155,6 +183,20 @@ export type Database = {
             columns: ['confrontacion_id'];
             isOneToOne: false;
             referencedRelation: 'confrontacion_marcador';
+            referencedColumns: ['confrontacion_id'];
+          },
+          {
+            foreignKeyName: 'disponibilidad_confrontacion_id_fkey';
+            columns: ['confrontacion_id'];
+            isOneToOne: false;
+            referencedRelation: 'estadistica_jornada';
+            referencedColumns: ['confrontacion_id'];
+          },
+          {
+            foreignKeyName: 'disponibilidad_confrontacion_id_fkey';
+            columns: ['confrontacion_id'];
+            isOneToOne: false;
+            referencedRelation: 'estadistica_partido_jugador';
             referencedColumns: ['confrontacion_id'];
           },
           {
@@ -304,6 +346,20 @@ export type Database = {
             referencedColumns: ['id'];
           },
           {
+            foreignKeyName: 'fase_equipo_equipo_id_fkey';
+            columns: ['equipo_id'];
+            isOneToOne: false;
+            referencedRelation: 'estadistica_jornada';
+            referencedColumns: ['rival_id'];
+          },
+          {
+            foreignKeyName: 'fase_equipo_equipo_id_fkey';
+            columns: ['equipo_id'];
+            isOneToOne: false;
+            referencedRelation: 'estadistica_partido_jugador';
+            referencedColumns: ['rival_id'];
+          },
+          {
             foreignKeyName: 'fase_equipo_fase_id_fkey';
             columns: ['fase_id'];
             isOneToOne: false;
@@ -393,6 +449,13 @@ export type Database = {
             foreignKeyName: 'participacion_partido_id_fkey';
             columns: ['partido_id'];
             isOneToOne: false;
+            referencedRelation: 'estadistica_partido_jugador';
+            referencedColumns: ['partido_id'];
+          },
+          {
+            foreignKeyName: 'participacion_partido_id_fkey';
+            columns: ['partido_id'];
+            isOneToOne: false;
             referencedRelation: 'partido';
             referencedColumns: ['id'];
           },
@@ -452,6 +515,20 @@ export type Database = {
             columns: ['confrontacion_id'];
             isOneToOne: false;
             referencedRelation: 'confrontacion_marcador';
+            referencedColumns: ['confrontacion_id'];
+          },
+          {
+            foreignKeyName: 'partido_confrontacion_id_fkey';
+            columns: ['confrontacion_id'];
+            isOneToOne: false;
+            referencedRelation: 'estadistica_jornada';
+            referencedColumns: ['confrontacion_id'];
+          },
+          {
+            foreignKeyName: 'partido_confrontacion_id_fkey';
+            columns: ['confrontacion_id'];
+            isOneToOne: false;
+            referencedRelation: 'estadistica_partido_jugador';
             referencedColumns: ['confrontacion_id'];
           },
         ];
@@ -566,6 +643,13 @@ export type Database = {
             foreignKeyName: 'set_partido_partido_id_fkey';
             columns: ['partido_id'];
             isOneToOne: false;
+            referencedRelation: 'estadistica_partido_jugador';
+            referencedColumns: ['partido_id'];
+          },
+          {
+            foreignKeyName: 'set_partido_partido_id_fkey';
+            columns: ['partido_id'];
+            isOneToOne: false;
             referencedRelation: 'partido';
             referencedColumns: ['id'];
           },
@@ -588,6 +672,336 @@ export type Database = {
           partidos_perdidos: number | null;
         };
         Relationships: [];
+      };
+      estadistica_jornada: {
+        Row: {
+          competicion_id: string | null;
+          condicion: string | null;
+          confrontacion_id: string | null;
+          fase_id: string | null;
+          fecha_hora: string | null;
+          fecha_prevista: string | null;
+          jornada: number | null;
+          partidos_ganados: number | null;
+          partidos_pendientes: number | null;
+          partidos_perdidos: number | null;
+          puntos: number | null;
+          rival_id: string | null;
+          rival_nombre: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'confrontacion_fase_id_fkey';
+            columns: ['fase_id'];
+            isOneToOne: false;
+            referencedRelation: 'fase';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fase_competicion_id_fkey';
+            columns: ['competicion_id'];
+            isOneToOne: false;
+            referencedRelation: 'competicion';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      estadistica_jugador: {
+        Row: {
+          comodin: boolean | null;
+          competicion_id: string | null;
+          fase_id: string | null;
+          ganados: number | null;
+          jornadas: number | null;
+          juegos_ganados: number | null;
+          juegos_perdidos: number | null;
+          jugador_id: string | null;
+          nombre_mostrar: string | null;
+          partidos: number | null;
+          perdidos: number | null;
+          porcentaje_victorias: number | null;
+          sets_ganados: number | null;
+          sets_perdidos: number | null;
+          toda_la_competicion: boolean | null;
+          wo_a_favor: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'confrontacion_fase_id_fkey';
+            columns: ['fase_id'];
+            isOneToOne: false;
+            referencedRelation: 'fase';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fase_competicion_id_fkey';
+            columns: ['competicion_id'];
+            isOneToOne: false;
+            referencedRelation: 'competicion';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'participacion_jugador_id_fkey';
+            columns: ['jugador_id'];
+            isOneToOne: false;
+            referencedRelation: 'jugador';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      estadistica_jugador_lado: {
+        Row: {
+          comodin: boolean | null;
+          competicion_id: string | null;
+          fase_id: string | null;
+          ganados: number | null;
+          jugador_id: string | null;
+          lado: Database['public']['Enums']['lado'] | null;
+          nombre_mostrar: string | null;
+          partidos: number | null;
+          perdidos: number | null;
+          porcentaje_victorias: number | null;
+          toda_la_competicion: boolean | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'confrontacion_fase_id_fkey';
+            columns: ['fase_id'];
+            isOneToOne: false;
+            referencedRelation: 'fase';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fase_competicion_id_fkey';
+            columns: ['competicion_id'];
+            isOneToOne: false;
+            referencedRelation: 'competicion';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'participacion_jugador_id_fkey';
+            columns: ['jugador_id'];
+            isOneToOne: false;
+            referencedRelation: 'jugador';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      estadistica_jugador_puesto: {
+        Row: {
+          comodin: boolean | null;
+          competicion_id: string | null;
+          fase_id: string | null;
+          ganados: number | null;
+          jugador_id: string | null;
+          nombre_mostrar: string | null;
+          numero: number | null;
+          partidos: number | null;
+          perdidos: number | null;
+          porcentaje_victorias: number | null;
+          tipo: Database['public']['Enums']['tipo_partido'] | null;
+          toda_la_competicion: boolean | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'confrontacion_fase_id_fkey';
+            columns: ['fase_id'];
+            isOneToOne: false;
+            referencedRelation: 'fase';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fase_competicion_id_fkey';
+            columns: ['competicion_id'];
+            isOneToOne: false;
+            referencedRelation: 'competicion';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'participacion_jugador_id_fkey';
+            columns: ['jugador_id'];
+            isOneToOne: false;
+            referencedRelation: 'jugador';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      estadistica_pareja: {
+        Row: {
+          competicion_id: string | null;
+          fase_id: string | null;
+          ganados: number | null;
+          jugador_a_comodin: boolean | null;
+          jugador_a_id: string | null;
+          jugador_a_nombre: string | null;
+          jugador_b_comodin: boolean | null;
+          jugador_b_id: string | null;
+          jugador_b_nombre: string | null;
+          partidos: number | null;
+          perdidos: number | null;
+          porcentaje_victorias: number | null;
+          tipo: Database['public']['Enums']['tipo_partido'] | null;
+          toda_la_competicion: boolean | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'confrontacion_fase_id_fkey';
+            columns: ['fase_id'];
+            isOneToOne: false;
+            referencedRelation: 'fase';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fase_competicion_id_fkey';
+            columns: ['competicion_id'];
+            isOneToOne: false;
+            referencedRelation: 'competicion';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'participacion_jugador_id_fkey';
+            columns: ['jugador_a_id'];
+            isOneToOne: false;
+            referencedRelation: 'jugador';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'participacion_jugador_id_fkey';
+            columns: ['jugador_b_id'];
+            isOneToOne: false;
+            referencedRelation: 'jugador';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      estadistica_participacion: {
+        Row: {
+          competicion_id: string | null;
+          confrontaciones: number | null;
+          disponible_sin_jugar: number | null;
+          fase_id: string | null;
+          jugadas: number | null;
+          jugador_id: string | null;
+          no_disponible: number | null;
+          nombre_mostrar: string | null;
+          porcentaje_jugadas: number | null;
+          sin_responder: number | null;
+          toda_la_competicion: boolean | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'confrontacion_fase_id_fkey';
+            columns: ['fase_id'];
+            isOneToOne: false;
+            referencedRelation: 'fase';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fase_competicion_id_fkey';
+            columns: ['competicion_id'];
+            isOneToOne: false;
+            referencedRelation: 'competicion';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'plantilla_jugador_id_fkey';
+            columns: ['jugador_id'];
+            isOneToOne: false;
+            referencedRelation: 'jugador';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      estadistica_partido_jugador: {
+        Row: {
+          comodin: boolean | null;
+          companero_comodin: boolean | null;
+          companero_id: string | null;
+          companero_nombre: string | null;
+          competicion_id: string | null;
+          condicion: string | null;
+          confrontacion_id: string | null;
+          es_wo: boolean | null;
+          fase_id: string | null;
+          fecha_hora: string | null;
+          fecha_prevista: string | null;
+          ganado: boolean | null;
+          jornada: number | null;
+          juegos_ganados: number | null;
+          juegos_perdidos: number | null;
+          jugador_id: string | null;
+          lado: Database['public']['Enums']['lado'] | null;
+          nombre_mostrar: string | null;
+          numero: number | null;
+          partido_id: string | null;
+          resultado: Database['public']['Enums']['resultado_partido'] | null;
+          rival_id: string | null;
+          rival_nombre: string | null;
+          sets_ganados: number | null;
+          sets_perdidos: number | null;
+          tipo: Database['public']['Enums']['tipo_partido'] | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'confrontacion_fase_id_fkey';
+            columns: ['fase_id'];
+            isOneToOne: false;
+            referencedRelation: 'fase';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fase_competicion_id_fkey';
+            columns: ['competicion_id'];
+            isOneToOne: false;
+            referencedRelation: 'competicion';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'participacion_jugador_id_fkey';
+            columns: ['companero_id'];
+            isOneToOne: false;
+            referencedRelation: 'jugador';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'participacion_jugador_id_fkey';
+            columns: ['jugador_id'];
+            isOneToOne: false;
+            referencedRelation: 'jugador';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      estadistica_puesto: {
+        Row: {
+          competicion_id: string | null;
+          fase_id: string | null;
+          ganados: number | null;
+          numero: number | null;
+          partidos: number | null;
+          perdidos: number | null;
+          porcentaje_victorias: number | null;
+          tipo: Database['public']['Enums']['tipo_partido'] | null;
+          toda_la_competicion: boolean | null;
+          wo_a_favor: number | null;
+          wo_en_contra: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'confrontacion_fase_id_fkey';
+            columns: ['fase_id'];
+            isOneToOne: false;
+            referencedRelation: 'fase';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'fase_competicion_id_fkey';
+            columns: ['competicion_id'];
+            isOneToOne: false;
+            referencedRelation: 'competicion';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       partido_resultado: {
         Row: {
@@ -615,6 +1029,20 @@ export type Database = {
             columns: ['confrontacion_id'];
             isOneToOne: false;
             referencedRelation: 'confrontacion_marcador';
+            referencedColumns: ['confrontacion_id'];
+          },
+          {
+            foreignKeyName: 'partido_confrontacion_id_fkey';
+            columns: ['confrontacion_id'];
+            isOneToOne: false;
+            referencedRelation: 'estadistica_jornada';
+            referencedColumns: ['confrontacion_id'];
+          },
+          {
+            foreignKeyName: 'partido_confrontacion_id_fkey';
+            columns: ['confrontacion_id'];
+            isOneToOne: false;
+            referencedRelation: 'estadistica_partido_jugador';
             referencedColumns: ['confrontacion_id'];
           },
         ];
