@@ -18,6 +18,7 @@ y se marca la antigua como «Sustituida por NNNN».
 | [0008](0008-marcador-de-la-confrontacion-calculado.md) | El marcador de nuestras confrontaciones se calcula            | Aceptada |
 | [0009](0009-convocados-son-los-de-la-alineacion.md)    | Los convocados son los de la alineación                       | Aceptada |
 | [0010](0010-animacion-con-proposito.md)                | Animación con propósito                                       | Aceptada |
+| [0011](0011-de-la-liga-solo-datos-de-equipo.md)        | De la web de la liga solo se importan datos de equipo         | Aceptada |
 
 Plantilla para una nueva: copia cualquiera y conserva las secciones _Contexto_, _Decisión_
 y _Consecuencias_.

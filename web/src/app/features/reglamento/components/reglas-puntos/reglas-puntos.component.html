@@ -1,0 +1,127 @@
+<ctp-seccion-reglamento
+  ancla="puntos"
+  titulo="Puntos y clasificación"
+  enCorto="Ganar la jornada da 2 puntos, empatar 1 y perder 0. Gana la jornada quien gana más de los 6 partidos."
+>
+  <div class="tabla">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Resultado de la jornada</th>
+          <th scope="col">Puntos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ganada (4-2, 5-1 o 6-0)</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Empatada (3-3)</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>Perdida</td>
+          <td>0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    A esos puntos se restan las sanciones por WO y por no enviar el acta a tiempo, así que un equipo
+    puede llegar a tener puntos negativos.
+  </p>
+
+  <h3>Empates en la clasificación</h3>
+  <ul>
+    <li>
+      <strong>Entre dos equipos</strong>: manda el enfrentamiento directo entre ellos, mirando
+      primero la diferencia de sets y después la de juegos; si hace falta, el balance de partidos
+      ganados y perdidos entre los dos. Si siguen empatados, el balance total de la liga regular:
+      primero de partidos, después de sets, y así sucesivamente.
+    </li>
+    <li>
+      <strong>Entre tres equipos</strong>: manda el balance total de la liga regular de partidos
+      ganados y perdidos; después, el de sets y, si hace falta, el de juegos.
+    </li>
+    <li>
+      En los retos, la fase previa de play-off y el play-off final hay una regla especial para los
+      empates (ver <a routerLink="/reglamento" fragment="fases">Fases de la temporada</a>).
+    </li>
+  </ul>
+  <p>
+    La clasificación oficial es la que publica la liga en su web cada semana, cuando recibe las
+    actas. La que ves en esta web es una copia de esa.
+  </p>
+</ctp-seccion-reglamento>
+
+<ctp-seccion-reglamento
+  ancla="wo"
+  titulo="WO y no presentarse"
+  enCorto="Si falta una pareja, avisad al rival con 24 horas: así solo se pierde ese partido. Sin aviso, además se restan puntos."
+>
+  <p>
+    Un <strong>WO</strong> es un partido que se pierde sin jugarlo porque una pareja no se presenta.
+    No es lo mismo avisar a tiempo que no avisar:
+  </p>
+  <div class="tabla">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Qué pasa</th>
+          <th scope="col">Consecuencia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>WO de una pareja, avisado con 24 horas</td>
+          <td>Se pierde ese partido</td>
+        </tr>
+        <tr>
+          <td>Primer WO de una pareja sin avisar con 24 horas</td>
+          <td>−2 puntos sobre el resultado final</td>
+        </tr>
+        <tr>
+          <td>Segundo WO de una pareja sin avisar</td>
+          <td>−1 punto más (−3 en total)</td>
+        </tr>
+        <tr>
+          <td>El equipo se presenta con 3 parejas o menos</td>
+          <td>Cuenta como WO: se pierde la jornada 6-0</td>
+        </tr>
+        <tr>
+          <td>El equipo no se presenta (primera vez)</td>
+          <td>−1 punto en la clasificación general</td>
+        </tr>
+        <tr>
+          <td>El equipo no se presenta (segunda vez)</td>
+          <td>−2 puntos en la clasificación general</td>
+        </tr>
+        <tr>
+          <td>El equipo no se presenta (tercera vez)</td>
+          <td>Exclusión de la competición</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Cómo se avisa de un WO</h3>
+  <ol>
+    <li>
+      Por <strong>correo y por teléfono</strong> al capitán del otro equipo, al menos
+      <strong>24 horas antes</strong> de la jornada.
+    </li>
+    <li>
+      Por <strong>correo a la organización el día antes</strong>, con copia al capitán rival. Este
+      paso es obligatorio.
+    </li>
+  </ol>
+  <p>
+    El WO siempre cae en la <strong>última pareja</strong> de ese tipo: las demás suben (ver
+    <a routerLink="/reglamento" fragment="alineacion">La alineación</a>).
+  </p>
+  <p class="aviso">
+    <strong>Ojo:</strong> si no vas a poder ir, dilo cuanto antes. Avisando a tiempo solo se pierde
+    un partido; sin avisar, un único WO resta además 2 puntos.
+  </p>
+</ctp-seccion-reglamento>

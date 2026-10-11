@@ -108,10 +108,12 @@ Nombres para mostrar tal como los pasó Alex. Los nombres completos van en `juga
   interactivas**. Librería elegida: **Apache ECharts** (`ngx-echarts`).
 - **Scraping**: la web de la liga no tiene API. Se hará scraping del HTML (tablas simples)
   una vez por semana, los miércoles por la tarde, después de que venza la validación de actas
-  (miércoles 14:00). Se traen calendario, resultados de todo el grupo y clasificación. El
-  detalle de los partidos (parejas, sets) no lo publica la liga; se mete a mano solo para
-  nuestro equipo. Hay que comprobar si la web publica también las actas o la lista oficial
-  de inscritos.
+  (miércoles 14:00). Se traen **solo datos de equipo**: calendario, resultado global de las
+  confrontaciones del grupo y clasificación. **Nunca datos de jugadores**: en el acta no
+  siempre constan los que juegan de verdad
+  ([ADR 0011](decisiones/0011-de-la-liga-solo-datos-de-equipo.md)). Quién juega y cómo quedan
+  nuestros partidos se mete a mano. Hay que comprobar si la web publica la lista oficial de
+  inscritos.
 
 ## Preferencias de Alex sobre el código
 

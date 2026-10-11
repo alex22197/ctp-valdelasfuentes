@@ -1,0 +1,29 @@
+@use 'breakpoints' as bp;
+
+.glosario {
+  display: grid;
+  gap: var(--espacio-3);
+  margin: 0;
+
+  @include bp.desde(tablet) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.termino {
+  padding: var(--espacio-3) var(--espacio-4);
+  border-radius: var(--radio-control);
+  background: var(--color-superficie);
+}
+
+dt {
+  color: var(--color-pista-oscuro);
+  font-weight: 800;
+}
+
+dd {
+  margin: var(--espacio-1) 0 0;
+  color: var(--color-tinta-suave);
+  font-size: var(--texto-s);
+  line-height: 1.5;
+}

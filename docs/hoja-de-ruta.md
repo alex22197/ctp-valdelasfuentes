@@ -19,7 +19,7 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
   convocatoria, clasificación y calendario), clasificación, acceso y página no encontrada.
 - Calidad: TypeScript estricto, ESLint con las normas del proyecto, Prettier, hook de
   pre-commit, 22 tests, integración continua y Dependabot.
-- Documentación: `README.md`, `AGENTS.md`, `docs/` y 10 decisiones de arquitectura.
+- Documentación: `README.md`, `AGENTS.md`, `docs/` y 11 decisiones de arquitectura.
 - **Resultados de una confrontación** (paso 2.1): página `/resultados/:id` para gestores,
   enlazada desde el calendario de la portada. Cada partido se guarda con la función
   `guardar_resultado_partido` (partido y sets en una sola operación) y la web valida el
@@ -37,6 +37,11 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
   convocados son los de la alineación
   ([ADR 0009](decisiones/0009-convocados-son-los-de-la-alineacion.md)). Migración probada en un
   PostgreSQL local (20 casos) y aplicada en Supabase.
+- **Selector de jugadores con fichas** (#33, versión 0.3.0): en la convocatoria, cada lado de
+  la pista es una ficha; al tocarla sube un panel con los jugadores agrupados y buscador, y la
+  ficha elegida vuela a su sitio. Probado por Alex en el móvil.
+- **Reglamento explicado** (#36): página pública `/reglamento` en el menú, con la normativa
+  2026-27 resumida en lenguaje llano, ejemplos, glosario y enlaces directos a cada tema.
 - **Web publicada** (#5, versión 0.1.0): <https://ctp-valdelasfuentes.padel-ctp.workers.dev>.
   Cloudflare publica cada cambio que llega a `main`; el login de Google funciona en la web
   publicada. Aún no se comparte con el equipo (#19, #20).
@@ -68,11 +73,12 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
 - (#10) Carpeta `scraper/` con un script de Node que lee la página del grupo de cada fase activa
   (`fase.url_grupo`) y actualiza `equipo` (por `nombre_web`), `confrontacion` (por fase,
   jornada, local y visitante) y `fase_equipo`. Registra cada ejecución en `ejecucion_scraper`.
+  **Solo datos de equipo, nunca de jugadores**
+  ([ADR 0011](decisiones/0011-de-la-liga-solo-datos-de-equipo.md)).
 - GitHub Actions programado los **miércoles por la tarde** (después de las 14:00 de Madrid;
   ojo con el cambio de hora al escribir el cron en UTC). Secretos: URL de Supabase y secret key.
 - Una sola petición por semana a la web de la liga; revisar antes su aviso legal y `robots.txt`.
-- (#12) Comprobar si la web publica las actas o la lista oficial de inscritos; si es así, traerlas
-  para rellenar `plantilla.inscrito_oficial` y avisar de convocados no inscritos.
+- (#12) Comprobar si la web publica la lista oficial de inscritos; si es así, traerla para rellenar `plantilla.inscrito_oficial` y avisar de convocados no inscritos.
 - Si falla, no rompe nada: queda registrado y los datos se pueden corregir a mano.
 - (#11) En el mismo flujo, copia de seguridad semanal con `pg_dump`, guardada de forma privada.
 - La actividad semanal evita que Supabase pause el proyecto por inactividad.
