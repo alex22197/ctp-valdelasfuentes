@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+.pildoras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-2);
+}
+
+.pildora {
+  min-height: var(--minimo-tactil);
+  padding: 0 var(--espacio-4);
+  border: 1.5px solid var(--color-borde-fuerte);
+  border-radius: var(--radio-pildora);
+  background: var(--color-superficie);
+  color: var(--color-tinta);
+  font: inherit;
+  font-size: var(--texto-s);
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color var(--duracion-rapida),
+    color var(--duracion-rapida),
+    transform var(--duracion-rapida) var(--curva-salida);
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+  &[aria-pressed='true'] {
+    border-color: var(--color-tinta);
+    background: var(--color-tinta);
+    color: var(--color-superficie);
+  }
+}

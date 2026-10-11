@@ -101,6 +101,10 @@ clasificación, calendario y nombres.
 **Estadísticas** (construida; pública, en el menú)
 
 - Filtro en píldoras: «Toda la liga» y cada fase de la competición.
+- **Evolución de la temporada**: barras claras con los partidos ganados en cada jornada y una
+  línea por fase con los puntos acumulados (sin sanciones; vuelven a cero en cada fase y una
+  jornada con partidos pendientes queda como hueco). Al tocar una jornada se ven sus seis
+  pistas debajo; al entrar, la última.
 - **Jornada a jornada**: 6 casillas por jornada según el formato (M1-M3, F1-F2, mixto). Ganado:
   verde oscuro relleno; perdido: borde naranja; pendiente o suspendido: borde discontinuo. Los
   WO llevan escrito «WO». Debajo, el marcador y los puntos («puntos pendientes» si falta algún
@@ -113,6 +117,18 @@ clasificación, calendario y nombres.
   que la fila de cada jugador muestre a todos sus compañeros; en el mixto, chicos en filas y
   chicas en columnas. Los comodines llevan un asterisco. Si no cabe, se desplaza ella sola.
 - **Parejas más repetidas**: las 5 que más han jugado juntas, con la barra de victorias.
+- **Ranking de jugadores**: barras horizontales de chicos o chicas, ordenadas por partidos, %
+  de victorias o diferencia de juegos (en naranja si es negativa).
+- **Revés contra drive**: barras en mariposa, revés a la izquierda y drive a la derecha, con el %
+  de victorias de cada lado al tocar.
+- **Jugador resaltado**: tocar a un jugador en el ranking, la mariposa o la matriz (una casilla
+  resalta al jugador de su fila; un nombre, a ese jugador) lo resalta en todas: lo demás se
+  atenúa, también en parejas más repetidas. Abajo aparece «Resaltando a Sergio.» con «Ver su
+  ficha» y un botón para quitarlo; tocar al mismo jugador otra vez también lo quita. Así se
+  combinan las gráficas enlazadas con ir a la ficha sin salir de la página al primer toque.
+  Los comodines se pueden resaltar, pero solo los gestores ven su ficha.
+- En las tablas de datos, cada nombre lleva a su ficha: un camino sin canvas para teclado y
+  lectores de pantalla.
 - **Respuestas y participación** (solo gestores, con candado): barras apiladas por jugador con
   jugó / podía sin convocar / no podía / sin responder.
 - Cada gráfica tiene descripción para lectores de pantalla y «Ver los datos en una tabla». La

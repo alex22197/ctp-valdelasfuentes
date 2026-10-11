@@ -2,7 +2,13 @@ import type { BalancePuestoEquipo } from '@data-access/estadisticas/interfaces/b
 import type { ParticipacionJugador } from '@data-access/estadisticas/interfaces/participacion-jugador.interface';
 import type { MatrizParejas } from '../interfaces/matriz-parejas.interface';
 import { leerColoresGraficas } from '@shared/utils/graficas/opciones-comunes';
-import { describirCelda, nombreEnEje, opcionesMatriz } from './opciones-matriz';
+import {
+  OPACIDAD_ATENUADA,
+  datosMatriz,
+  describirCelda,
+  nombreEnEje,
+  opcionesMatriz,
+} from './opciones-matriz';
 import { opcionesParticipacion } from './opciones-participacion';
 import { describirPuesto, opcionesPuestos } from './opciones-puestos';
 
@@ -72,9 +78,18 @@ describe('opcionesMatriz', () => {
     expect(parte<Eje>(opciones, 'xAxis').data).toEqual(['Rocio*']);
     expect(parte<Serie[]>(opciones, 'series')[0]?.data[0]).toEqual({
       value: [0, 0, 50, 2],
-      label: { color: '--color-sobre-pista' },
+      itemStyle: { opacity: 1 },
+      label: { opacity: 1, color: '--color-sobre-pista' },
     });
     expect(parte<boolean>(opciones, 'animation')).toBe(false);
+  });
+
+  it('al resaltar a un jugador atenúa las parejas que no son suyas', () => {
+    const dato = (id: string): { itemStyle: { opacity: number } } =>
+      datosMatriz(matriz, COLORES, id)[0] as { itemStyle: { opacity: number } };
+    expect(dato('r').itemStyle.opacity).toBe(1);
+    expect(dato('a').itemStyle.opacity).toBe(1);
+    expect(dato('otro').itemStyle.opacity).toBe(OPACIDAD_ATENUADA);
   });
 
   it('describe cada casilla', () => {
