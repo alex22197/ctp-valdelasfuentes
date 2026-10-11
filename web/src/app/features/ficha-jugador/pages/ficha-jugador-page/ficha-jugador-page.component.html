@@ -44,6 +44,9 @@
       @if (datos.datos(); as estadisticas) {
         @if (estadisticas.resumen; as resumen) {
           <ctp-marcador-jugador [resumen]="resumen" />
+          @if (resumen.partidos > 0) {
+            <ctp-balance-jugador [resumen]="resumen" />
+          }
         } @else {
           <ctp-mensaje-estado
             tipo="vacio"
@@ -79,6 +82,9 @@
       @if (datos.temporada().length > 0) {
         <section class="seccion" aria-labelledby="titulo-temporada">
           <h2 id="titulo-temporada" class="titulo-seccion">Su temporada</h2>
+          @if (datos.datos()?.resumen?.partidos) {
+            <ctp-grafica-temporada [fases]="datos.temporada()" />
+          }
           <ctp-temporada-jugador [fases]="datos.temporada()" />
         </section>
       }

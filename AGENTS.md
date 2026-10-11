@@ -114,7 +114,8 @@ Detalle en [`docs/arquitectura.md`](docs/arquitectura.md).
 - Clases globales reutilizables en `web/src/styles/_tipografia.scss`
   (`titulo-pagina`, `titulo-seccion`, `texto-secundario`, `boton`), `_prosa.scss` (`prosa`,
   textos largos) y `_datos.scss` (`datos`, la tabla plegada bajo cada gráfica).
-- Gráficas con ECharts (`ngx-echarts`), registrando solo las piezas usadas y provisto en la
+- Gráficas con ECharts (`ngx-echarts`) mediante `ctp-grafica-estadistica`
+  (`shared/components`), con las piezas registradas en `shared/utils/graficas` y provisto en la
   página que las usa. Pintan en un canvas, así que sus colores se leen de los tokens en tiempo
   de ejecución; nunca colores sueltos en el TypeScript.
 

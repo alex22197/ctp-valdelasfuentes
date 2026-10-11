@@ -1,0 +1,12 @@
+@use 'breakpoints' as bp;
+
+// Anillo y barras uno debajo de otro en el móvil; lado a lado desde tablet.
+:host {
+  display: grid;
+  gap: var(--espacio-2);
+  align-items: center;
+
+  @include bp.desde(tablet) {
+    grid-template-columns: 14rem minmax(0, 1fr);
+  }
+}

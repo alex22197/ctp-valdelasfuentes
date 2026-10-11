@@ -67,7 +67,7 @@ export class EstadisticasService {
       this.supabase
         .from('estadistica_partido_jugador')
         .select(
-          'confrontacion_id, tipo, numero, lado, ganado, es_wo, marcador, companero_id, companero_nombre',
+          'confrontacion_id, tipo, numero, lado, ganado, es_wo, marcador, juegos_ganados, juegos_perdidos, companero_id, companero_nombre',
         )
         .eq('competicion_id', idCompeticion)
         .eq('jugador_id', idJugador),

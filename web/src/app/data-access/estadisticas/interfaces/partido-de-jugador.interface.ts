@@ -12,5 +12,8 @@ export interface PartidoDeJugador {
   readonly esWo: boolean;
   /** Juegos de cada set desde nuestro lado: «6-3 4-6». `null` en los WO. */
   readonly marcador: string | null;
+  /** Juegos de todos los sets; 0 en los WO. */
+  readonly juegosGanados: number;
+  readonly juegosPerdidos: number;
   readonly companero: JugadorAlineado | null;
 }

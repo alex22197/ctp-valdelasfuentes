@@ -12,4 +12,7 @@ export interface FilaTemporada {
   readonly detalle: string | null;
   /** «6-3 4-6 6-2», «WO a favor» o `null` si no jugó. */
   readonly marcador: string | null;
+  /** Juegos ganados menos perdidos; `null` si no jugó o fue WO. */
+  readonly diferenciaJuegos: number | null;
+  readonly esWo: boolean;
 }
