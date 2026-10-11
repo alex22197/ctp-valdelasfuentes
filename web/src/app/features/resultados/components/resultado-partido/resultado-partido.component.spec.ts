@@ -88,4 +88,20 @@ describe('ResultadoPartidoComponent', () => {
     const primerSet = tarjeta.elemento.querySelector('ctp-campo-set');
     expect(primerSet?.textContent).toContain('Con 6-5 el set no ha terminado');
   });
+
+  it('avisa de un set imposible mientras se escribe, sin pulsar «Guardar»', async () => {
+    const tarjeta = await crearTarjeta();
+    await tarjeta.elegir('Jugado');
+    await tarjeta.escribirJuegos(['7', '2']);
+    expect(tarjeta.elemento.querySelector('ctp-campo-set .error')?.textContent).toContain(
+      '7-2 no es posible',
+    );
+    expect(
+      tarjeta.elemento.querySelector('ctp-campo-set input')?.getAttribute('aria-invalid'),
+    ).toBe('true');
+    expect(tarjeta.emitidos).toEqual([]);
+
+    await tarjeta.escribirJuegos(['7', '5']);
+    expect(tarjeta.elemento.querySelector('ctp-campo-set .error')).toBeNull();
+  });
 });

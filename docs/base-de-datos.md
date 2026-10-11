@@ -89,6 +89,9 @@ La base de datos rechaza, con un mensaje en castellano:
 - Jugadores que no están en la plantilla de la competición.
 - Sets en un partido con WO, o jugadores en un WO en contra.
 - Juegos fuera de 0–7 o un tie-break en un set que no es 7-6.
+- Un set imposible en el pádel aunque no se use la web: a 7 juegos solo se llega con 7-5 o 7-6
+  (`set_posible`), y el tie-break se gana a 7 con 2 de diferencia por la pareja que gana el set
+  (`tiebreak_posible`). Un set a medias (3-2, 6-6) sigue valiendo para abandonos y suspendidos.
 - `ganado` en un partido que no es un abandono (en el resto se calcula; ver la vista).
 - Al guardar con `guardar_resultado_partido`: sets que no terminan (6-5) en un partido
   jugado, marcadores imposibles (7-3), tie-breaks fuera de un 7-6 o mal ganados, sets de más
@@ -133,6 +136,7 @@ Reglas:
 | `20261009114304_convocatoria_y_alineacion.sql`       | Columna `confrontacion.convocatoria_publicada` (la jornada 1 nace publicada) y funciones `guardar_alineacion` y `publicar_convocatoria`. |
 | `20261011133401_vistas_de_estadisticas.sql`          | Vistas `estadistica_*` de jugadores, parejas, puestos, jornadas y participación.                                                         |
 | `20261011134423_marcador_y_fase_en_estadisticas.sql` | Columnas `marcador` en `estadistica_partido_jugador` y `fase_nombre` y `fase_orden` en `estadistica_jornada`.                            |
+| `20261011171259_set_posible_en_padel.sql`            | Restricciones `set_posible` y `tiebreak_posible` en `set_partido`.                                                                       |
 
 ## Pendiente
 

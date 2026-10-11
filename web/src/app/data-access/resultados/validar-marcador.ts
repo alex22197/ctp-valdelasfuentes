@@ -85,7 +85,8 @@ export function setConTiebreak(juegosNuestros: number, juegosRival: number): boo
   return Math.max(juegosNuestros, juegosRival) === 7 && Math.min(juegosNuestros, juegosRival) === 6;
 }
 
-function validarSet(set: SetPartido): string | null {
+/** Error de un set suelto (juegos y tie-break), o `null` si es posible en el pádel. */
+export function validarSet(set: SetPartido): string | null {
   const { juegosNuestros, juegosRival, tiebreakNuestros, tiebreakRival } = set;
   if (![juegosNuestros, juegosRival].every((juegos) => Number.isInteger(juegos))) {
     return 'Faltan los juegos de alguna pareja';
