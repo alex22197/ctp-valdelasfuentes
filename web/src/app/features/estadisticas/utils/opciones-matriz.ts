@@ -4,6 +4,9 @@ import type { ColoresGraficas } from '@shared/utils/graficas/interfaces/colores-
 import type { MatrizParejas } from '../interfaces/matriz-parejas.interface';
 import { contarPartidos, opcionesComunes } from '@shared/utils/graficas/opciones-comunes';
 
+/** Opacidad de lo que no está resaltado en las gráficas de jugadores. */
+export const OPACIDAD_ATENUADA = 0.25;
+
 /** Alto de cada fila de la matriz en píxeles: deja tocar cada casilla con el dedo. */
 export const ALTO_FILA_MATRIZ = 44;
 
@@ -34,6 +37,7 @@ export function opcionesMatriz(
     xAxis: {
       type: 'category',
       position: 'top',
+      triggerEvent: true,
       data: matriz.columnas.map(nombreEnEje),
       axisTick: { show: false },
       axisLine: { show: false },
@@ -42,6 +46,7 @@ export function opcionesMatriz(
     yAxis: {
       type: 'category',
       inverse: true,
+      triggerEvent: true,
       data: matriz.filas.map(nombreEnEje),
       axisTick: { show: false },
       axisLine: { show: false },
@@ -57,12 +62,7 @@ export function opcionesMatriz(
     series: [
       {
         type: 'heatmap',
-        data: matriz.celdas.map((celda) => ({
-          value: [celda.columna, celda.fila, celda.porcentajeVictorias ?? 0, celda.partidos],
-          label: {
-            color: (celda.porcentajeVictorias ?? 0) >= 50 ? colores.sobrePista : colores.tinta,
-          },
-        })),
+        data: datosMatriz(matriz, colores, null),
         label: {
           show: true,
           fontWeight: 700,
@@ -72,6 +72,32 @@ export function opcionesMatriz(
       },
     ],
   };
+}
+
+/**
+ * Casillas de la matriz. Con un jugador resaltado, solo sus parejas (su fila o su columna)
+ * quedan a plena opacidad. Se usan al dibujar y al cambiar el resaltado.
+ */
+export function datosMatriz(
+  matriz: MatrizParejas,
+  colores: ColoresGraficas,
+  idResaltado: string | null,
+): object[] {
+  return matriz.celdas.map((celda) => {
+    const suya =
+      idResaltado === null ||
+      matriz.filas[celda.fila]?.id === idResaltado ||
+      matriz.columnas[celda.columna]?.id === idResaltado;
+    const opacidad = suya ? 1 : OPACIDAD_ATENUADA;
+    return {
+      value: [celda.columna, celda.fila, celda.porcentajeVictorias ?? 0, celda.partidos],
+      itemStyle: { opacity: opacidad },
+      label: {
+        opacity: opacidad,
+        color: (celda.porcentajeVictorias ?? 0) >= 50 ? colores.sobrePista : colores.tinta,
+      },
+    };
+  });
 }
 
 /** «Sergio y Jorge: 3 partidos, 67 % ganados». */

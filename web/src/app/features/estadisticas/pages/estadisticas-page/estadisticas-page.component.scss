@@ -27,3 +27,8 @@
 .nota {
   max-width: 60ch;
 }
+
+// Con un jugador resaltado, hueco abajo para que el aviso fijo no tape el final.
+:host(.con-resaltado) {
+  padding-bottom: 6rem;
+}

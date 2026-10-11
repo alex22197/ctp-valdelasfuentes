@@ -1,0 +1,23 @@
+<div class="contenedor" aria-live="polite">
+  @if (jugador(); as jugador) {
+    <div class="barra">
+      <p class="texto">
+        Resaltando a <strong>{{ jugador.nombreMostrar }}</strong
+        >.
+      </p>
+      @if (!jugador.comodin || enlazarComodines()) {
+        <a class="boton boton--principal accion" [routerLink]="['/jugadores', jugador.id]">
+          Ver su ficha
+        </a>
+      }
+      <button
+        type="button"
+        class="boton quitar"
+        aria-label="Quitar el resaltado"
+        (click)="quitar.emit()"
+      >
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+  }
+</div>

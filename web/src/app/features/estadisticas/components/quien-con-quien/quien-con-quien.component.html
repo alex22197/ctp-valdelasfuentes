@@ -1,21 +1,11 @@
-<div class="tipos" role="group" aria-label="Tipo de partido">
-  @for (opcion of tipos; track opcion.tipo) {
-    <button
-      type="button"
-      class="tipo"
-      [attr.aria-pressed]="tipo() === opcion.tipo"
-      (click)="tipo.set(opcion.tipo)"
-    >
-      {{ opcion.nombre }}
-    </button>
-  }
-</div>
+<ctp-selector-pildoras nombre="Tipo de partido" [opciones]="tipos" [(valor)]="tipo" />
 
 @if (matriz().celdas.length === 0) {
   <p class="texto-secundario">Todavía no ha jugado ninguna pareja de este tipo.</p>
 } @else {
   <p class="leyenda texto-secundario">
-    Cada casilla dice cuántos partidos han jugado juntos. Cuanto más oscura, más victorias.
+    Cada casilla dice cuántos partidos han jugado juntos. Cuanto más oscura, más victorias. Toca una
+    casilla o un nombre para resaltar a ese jugador.
     @if (hayComodines()) {
       El asterisco (*) marca a los comodines.
     }
@@ -24,8 +14,10 @@
     <ctp-grafica-estadistica
       [style.min-width.px]="ancho()"
       [opciones]="opciones()"
+      [cambios]="cambios()"
       [alto]="alto()"
       descripcion="Matriz de parejas: partidos jugados juntos y porcentaje de victorias. Los datos están en la tabla de debajo."
+      (tocar)="alTocar($event)"
     />
   </div>
   <details class="datos">
@@ -43,7 +35,20 @@
           @for (pareja of parejasDelTipo(); track pareja.jugadorA.id + pareja.jugadorB.id) {
             <tr>
               <th scope="row">
-                {{ pareja.jugadorA.nombreMostrar }} y {{ pareja.jugadorB.nombreMostrar }}
+                @for (
+                  jugador of [pareja.jugadorA, pareja.jugadorB];
+                  track jugador.id;
+                  let ultimo = $last
+                ) {
+                  @if (enlazable(jugador)) {
+                    <a [routerLink]="['/jugadores', jugador.id]">{{ jugador.nombreMostrar }}</a>
+                  } @else {
+                    {{ jugador.nombreMostrar }}
+                  }
+                  @if (!ultimo) {
+                    y
+                  }
+                }
               </th>
               <td>{{ pareja.partidos }}</td>
               <td>{{ pareja.porcentajeVictorias ?? 0 }}&nbsp;%</td>
