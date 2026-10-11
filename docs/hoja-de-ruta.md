@@ -93,7 +93,8 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
   de la portada; los comodines solo la tienen para los gestores.
 - (#14) Página de estadísticas según el boceto, con gráficas interactivas de ECharts
   (`ngx-echarts`).
-- (#16) Añadir «Jornadas» y «Plantilla» al menú cuando existan sus páginas públicas.
+- (#16) Páginas públicas en el menú: ~~«Plantilla»~~ hecha (`/plantilla`, chicos, chicas y
+  comodines con su balance y enlace a la ficha); falta «Jornadas».
 
 ## 5. Calidad pendiente
 

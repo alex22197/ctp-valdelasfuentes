@@ -27,6 +27,17 @@ export class JugadoresService {
     return data ? mapearJugadorPlantilla(data) : null;
   }
 
+  /** Jugadores en la plantilla de una competición que no se han dado de baja. */
+  async obtenerPlantilla(idCompeticion: string): Promise<JugadorPlantilla[]> {
+    const { data, error } = await this.supabase
+      .from('plantilla')
+      .select('comodin, jugador(id, nombre_mostrar, sexo, lado_preferido)')
+      .eq('competicion_id', idCompeticion)
+      .is('baja', null);
+    lanzarSiHayError(error, 'No se ha podido cargar la plantilla.');
+    return (data ?? []).map(mapearJugadorPlantilla);
+  }
+
   /** Ids de los comodines de una competición: no tienen ficha pública. */
   async obtenerIdsComodines(idCompeticion: string): Promise<ReadonlySet<string>> {
     const { data, error } = await this.supabase
