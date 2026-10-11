@@ -4,6 +4,7 @@ import type { JornadaJugada } from './interfaces/jornada-jugada.interface';
 export type FilaJornada = Pick<
   Tables<'estadistica_jornada'>,
   | 'confrontacion_id'
+  | 'fase_id'
   | 'fase_nombre'
   | 'fase_orden'
   | 'jornada'
@@ -11,15 +12,21 @@ export type FilaJornada = Pick<
   | 'condicion'
   | 'partidos_ganados'
   | 'partidos_perdidos'
+  | 'puntos'
 >;
 
 /** Las jornadas jugadas; una fila sin confrontación, fase o rival se descarta. */
 export function mapearJornadasJugadas(filas: readonly FilaJornada[]): JornadaJugada[] {
   return filas.flatMap((fila) =>
-    fila.confrontacion_id && fila.fase_nombre && fila.fase_orden !== null && fila.rival_nombre
+    fila.confrontacion_id &&
+    fila.fase_id &&
+    fila.fase_nombre &&
+    fila.fase_orden !== null &&
+    fila.rival_nombre
       ? [
           {
             confrontacionId: fila.confrontacion_id,
+            faseId: fila.fase_id,
             faseNombre: fila.fase_nombre,
             faseOrden: fila.fase_orden,
             jornada: fila.jornada,
@@ -27,6 +34,7 @@ export function mapearJornadasJugadas(filas: readonly FilaJornada[]): JornadaJug
             condicion: fila.condicion === 'local' ? 'local' : 'visitante',
             partidosGanados: fila.partidos_ganados ?? 0,
             partidosPerdidos: fila.partidos_perdidos ?? 0,
+            puntos: fila.puntos,
           },
         ]
       : [],
