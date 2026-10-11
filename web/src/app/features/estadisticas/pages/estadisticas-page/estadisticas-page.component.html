@@ -1,0 +1,101 @@
+<header class="cabecera">
+  <h1 class="titulo-pagina">Estadísticas</h1>
+  @if (datos.activa(); as activa) {
+    <p class="texto-secundario">
+      {{ activa.competicion.nombre }} {{ activa.competicion.temporada }}
+    </p>
+  }
+</header>
+
+@switch (datos.estado()) {
+  @case ('cargando') {
+    <ctp-mensaje-estado tipo="cargando" texto="Cargando las estadísticas…" />
+  }
+  @case ('error') {
+    <ctp-mensaje-estado
+      tipo="error"
+      texto="No se han podido cargar las estadísticas. Recarga la página para volver a intentarlo."
+    />
+  }
+  @case ('sin-competicion') {
+    <ctp-mensaje-estado tipo="vacio" texto="Ahora mismo no hay ninguna temporada en marcha." />
+  }
+  @default {
+    @if (datos.activa(); as activa) {
+      <ctp-filtro-fase [fases]="activa.fases" [(seleccion)]="datos.idFase" />
+    }
+
+    <section class="seccion" aria-labelledby="titulo-jornadas">
+      <h2 id="titulo-jornadas" class="titulo-seccion">Jornada a jornada</h2>
+      @switch (datos.estadoCuadricula()) {
+        @case ('cargando') {
+          <ctp-mensaje-estado tipo="cargando" texto="Cargando las jornadas…" />
+        }
+        @case ('error') {
+          <ctp-mensaje-estado tipo="error" texto="No se han podido cargar las jornadas." />
+        }
+        @default {
+          @if (datos.cuadricula().length === 0) {
+            <ctp-mensaje-estado tipo="vacio" texto="Todavía no se ha jugado ninguna jornada." />
+          } @else {
+            <ctp-cuadricula-jornadas [filas]="datos.cuadricula()" />
+          }
+        }
+      }
+    </section>
+
+    <section class="seccion" aria-labelledby="titulo-puestos">
+      <h2 id="titulo-puestos" class="titulo-seccion">Por partido</h2>
+      <p class="texto-secundario">Porcentaje de victorias del equipo en cada pista.</p>
+      @if (datos.puestos.error()) {
+        <ctp-mensaje-estado tipo="error" texto="No se han podido cargar los partidos." />
+      } @else if (!datos.puestos.hasValue()) {
+        <ctp-mensaje-estado tipo="cargando" texto="Cargando los partidos…" />
+      } @else if (datos.puestos.value().length === 0) {
+        <ctp-mensaje-estado tipo="vacio" texto="Todavía no hay partidos jugados." />
+      } @else {
+        <ctp-rendimiento-puestos [puestos]="datos.puestos.value()" />
+      }
+    </section>
+
+    @if (datos.parejas.error()) {
+      <ctp-mensaje-estado tipo="error" texto="No se han podido cargar las parejas." />
+    } @else if (!datos.parejas.hasValue()) {
+      <ctp-mensaje-estado tipo="cargando" texto="Cargando las parejas…" />
+    } @else if (datos.parejas.value().length > 0) {
+      <section class="seccion" aria-labelledby="titulo-parejas">
+        <h2 id="titulo-parejas" class="titulo-seccion">Quién con quién</h2>
+        <ctp-quien-con-quien [parejas]="datos.parejas.value()" [sexos]="datos.sexos()" />
+      </section>
+
+      <section class="seccion" aria-labelledby="titulo-repetidas">
+        <h2 id="titulo-repetidas" class="titulo-seccion">Parejas más repetidas</h2>
+        <ctp-parejas-repetidas [parejas]="datos.parejas.value()" />
+      </section>
+    }
+
+    @if (datos.esGestor()) {
+      <section class="seccion" aria-labelledby="titulo-participacion">
+        <h2 id="titulo-participacion" class="titulo-seccion">Respuestas y participación</h2>
+        <p class="solo-gestores texto-secundario">
+          <ctp-icono nombre="candado" />
+          Solo lo veis los gestores: sale de la encuesta de cada jornada.
+        </p>
+        @if (datos.participacion.error()) {
+          <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar la participación." />
+        } @else if (!datos.participacion.hasValue()) {
+          <ctp-mensaje-estado tipo="cargando" texto="Cargando la participación…" />
+        } @else if (datos.participacion.value().length === 0) {
+          <ctp-mensaje-estado tipo="vacio" texto="Todavía no hay jornadas jugadas." />
+        } @else {
+          <ctp-participacion-equipo [participacion]="datos.participacion.value()" />
+        }
+      </section>
+    }
+
+    <p class="nota texto-secundario">
+      Los WO cuentan para el equipo (jornada a jornada y por partido), pero no en las parejas, que
+      solo suman los partidos jugados.
+    </p>
+  }
+}

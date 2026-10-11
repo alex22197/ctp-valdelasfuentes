@@ -9,6 +9,12 @@ export const ENLACES_NAVEGACION: readonly EnlaceNavegacion[] = [
     icono: 'clasificacion',
     coincidenciaExacta: false,
   },
+  {
+    ruta: '/estadisticas',
+    etiqueta: 'Estadísticas',
+    icono: 'estadisticas',
+    coincidenciaExacta: false,
+  },
   { ruta: '/plantilla', etiqueta: 'Plantilla', icono: 'plantilla', coincidenciaExacta: false },
   { ruta: '/reglamento', etiqueta: 'Reglamento', icono: 'reglamento', coincidenciaExacta: false },
 ];

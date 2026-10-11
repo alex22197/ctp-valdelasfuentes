@@ -1,0 +1,56 @@
+<div class="tipos" role="group" aria-label="Tipo de partido">
+  @for (opcion of tipos; track opcion.tipo) {
+    <button
+      type="button"
+      class="tipo"
+      [attr.aria-pressed]="tipo() === opcion.tipo"
+      (click)="tipo.set(opcion.tipo)"
+    >
+      {{ opcion.nombre }}
+    </button>
+  }
+</div>
+
+@if (matriz().celdas.length === 0) {
+  <p class="texto-secundario">Todavía no ha jugado ninguna pareja de este tipo.</p>
+} @else {
+  <p class="leyenda texto-secundario">
+    Cada casilla dice cuántos partidos han jugado juntos. Cuanto más oscura, más victorias.
+    @if (hayComodines()) {
+      El asterisco (*) marca a los comodines.
+    }
+  </p>
+  <div class="desplazable">
+    <ctp-grafica-estadistica
+      [style.min-width.px]="ancho()"
+      [opciones]="opciones()"
+      [alto]="alto()"
+      descripcion="Matriz de parejas: partidos jugados juntos y porcentaje de victorias. Los datos están en la tabla de debajo."
+    />
+  </div>
+  <details class="datos">
+    <summary>Ver los datos en una tabla</summary>
+    <div class="desplazable">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Pareja</th>
+            <th scope="col">Partidos</th>
+            <th scope="col">Victorias</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (pareja of parejasDelTipo(); track pareja.jugadorA.id + pareja.jugadorB.id) {
+            <tr>
+              <th scope="row">
+                {{ pareja.jugadorA.nombreMostrar }} y {{ pareja.jugadorB.nombreMostrar }}
+              </th>
+              <td>{{ pareja.partidos }}</td>
+              <td>{{ pareja.porcentajeVictorias ?? 0 }}&nbsp;%</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </details>
+}

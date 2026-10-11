@@ -1,0 +1,12 @@
+<ol class="lista">
+  @for (pareja of primeras(); track pareja.jugadorA.id + pareja.jugadorB.id) {
+    <li class="pareja" [class.mixto]="pareja.tipo === 'mixto'">
+      <p class="nombres">
+        {{ pareja.jugadorA.nombreMostrar }}{{ pareja.jugadorA.comodin ? ' (comodín)' : '' }} y
+        {{ pareja.jugadorB.nombreMostrar }}{{ pareja.jugadorB.comodin ? ' (comodín)' : '' }}
+        <span class="tipo">{{ nombreTipo[pareja.tipo] }}</span>
+      </p>
+      <ctp-barra-victorias [balance]="pareja" />
+    </li>
+  }
+</ol>
