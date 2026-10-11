@@ -70,15 +70,20 @@ clasificación, calendario y nombres.
 - Se guarda solo. Botón final: «Guardar y hacer la convocatoria».
 - Los comodines no aparecen aquí.
 
-**Ficha de jugador** (pendiente)
+**Ficha de jugador** (construida; pública, en `/jugadores/:id`)
 
-- Nombre en grande, sexo y lado habitual.
-- Marcador con partidos, ganados y sets (por ejemplo «6–5»).
+- Nombre en grande y una frase con los partidos en los que juega y su lado habitual: el
+  preferido de la plantilla o, si no hay, el lado en el que más ha jugado.
+- Marcador sobre la pista con partidos, ganados y sets (por ejemplo «6–5»); los números entran
+  con un pequeño rebote.
 - Por lado: media pista partida en revés y drive con partidos y victorias en cada uno.
-- Con quién juega: compañeros con barra de porcentaje de victorias.
-- Por número de pareja (1, 2, 3).
-- Su temporada: una fila por jornada con G (ganado), P (perdido) o vacío (no jugó), rival,
-  detalle («Pareja 1 con Sergio, de revés») y sets.
+- Con quién juega: compañeros con barra de porcentaje de victorias (verde oscuro sobre naranja,
+  que crece al aparecer) y enlace a su ficha.
+- Por número de pareja («Masculino 1», «Mixto»), con la misma barra.
+- Su temporada: una fila por jornada con G (círculo verde relleno), P (borde naranja) o vacío
+  discontinuo (no jugó), rival, detalle («Masculino 1 con Sergio, de revés») y sets.
+- Se llega desde los nombres de la convocatoria de la portada. Los comodines no tienen ficha
+  pública ni enlace; los gestores sí la ven, con el aviso «Es comodín».
 
 **Estadísticas, escritorio** (pendiente)
 

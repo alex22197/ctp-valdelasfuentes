@@ -52,6 +52,10 @@ Vistas de estadísticas (#13). Todos los cálculos se hacen aquí; la web solo l
 - Quedan fuera los partidos suspendidos y los que están por jugar. De un abandono cuentan
   todos los juegos, pero solo los sets terminados.
 - Porcentaje: `round(100 * ganados / partidos)`, entero; nulo sin partidos.
+- `estadistica_partido_jugador.marcador`: juegos de cada set desde nuestro lado («6-3 4-6»),
+  con el set a medias de un abandono; nulo en los WO. `estadistica_jornada` lleva
+  `fase_nombre` y `fase_orden`, porque el número de jornada se repite en cada fase.
+- En la ficha, una jornada con el partido suspendido o en WO en contra sale como «no jugó».
 - Los comodines llevan `comodin` = true (en parejas, uno por jugador): la web los separa.
 - `estadistica_jornada.puntos` (2, 1 o 0) solo aparece sin partidos pendientes y no incluye
   sanciones: la clasificación oficial es `fase_equipo`.
@@ -120,14 +124,15 @@ Reglas:
 
 ## Migraciones existentes
 
-| Migración                                       | Contenido                                                                                                                                |
-| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `20261008120000_esquema_inicial.sql`            | Tablas, validaciones, vista de resultados, RLS y permisos.                                                                               |
-| `20261008120100_datos_iniciales.sql`            | Competición, grupo, equipos, plantilla, calendario de la apertura y alineación de la jornada 1.                                          |
-| `20261008130000_resultados_confrontacion.sql`   | Vista `confrontacion_marcador` y funciones `validar_marcador` y `guardar_resultado_partido`.                                             |
-| `20261008211955_guardar_respuesta_encuesta.sql` | Función `guardar_respuesta_encuesta` para pasar lista.                                                                                   |
-| `20261009114304_convocatoria_y_alineacion.sql`  | Columna `confrontacion.convocatoria_publicada` (la jornada 1 nace publicada) y funciones `guardar_alineacion` y `publicar_convocatoria`. |
-| `20261011133401_vistas_de_estadisticas.sql`     | Vistas `estadistica_*` de jugadores, parejas, puestos, jornadas y participación.                                                         |
+| Migración                                            | Contenido                                                                                                                                |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `20261008120000_esquema_inicial.sql`                 | Tablas, validaciones, vista de resultados, RLS y permisos.                                                                               |
+| `20261008120100_datos_iniciales.sql`                 | Competición, grupo, equipos, plantilla, calendario de la apertura y alineación de la jornada 1.                                          |
+| `20261008130000_resultados_confrontacion.sql`        | Vista `confrontacion_marcador` y funciones `validar_marcador` y `guardar_resultado_partido`.                                             |
+| `20261008211955_guardar_respuesta_encuesta.sql`      | Función `guardar_respuesta_encuesta` para pasar lista.                                                                                   |
+| `20261009114304_convocatoria_y_alineacion.sql`       | Columna `confrontacion.convocatoria_publicada` (la jornada 1 nace publicada) y funciones `guardar_alineacion` y `publicar_convocatoria`. |
+| `20261011133401_vistas_de_estadisticas.sql`          | Vistas `estadistica_*` de jugadores, parejas, puestos, jornadas y participación.                                                         |
+| `20261011134423_marcador_y_fase_en_estadisticas.sql` | Columnas `marcador` en `estadistica_partido_jugador` y `fase_nombre` y `fase_orden` en `estadistica_jornada`.                            |
 
 ## Pendiente
 

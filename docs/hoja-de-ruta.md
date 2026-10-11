@@ -89,8 +89,10 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
   puesto del equipo, jornada a jornada y participación (solo gestores). Excluyen los WO de las
   estadísticas individuales ([ADR 0006](decisiones/0006-wo-fuera-de-estadisticas-individuales.md))
   y marcan a los comodines. Detalle en [base-de-datos.md](base-de-datos.md).
-- (#14, #15) Página de estadísticas y ficha de jugador según los bocetos, con gráficas interactivas de
-  ECharts (`ngx-echarts`).
+- ~~(#15) Ficha de jugador~~: hecho. Pública en `/jugadores/:id`, enlazada desde la convocatoria
+  de la portada; los comodines solo la tienen para los gestores.
+- (#14) Página de estadísticas según el boceto, con gráficas interactivas de ECharts
+  (`ngx-echarts`).
 - (#16) Añadir «Jornadas» y «Plantilla» al menú cuando existan sus páginas públicas.
 
 ## 5. Calidad pendiente
