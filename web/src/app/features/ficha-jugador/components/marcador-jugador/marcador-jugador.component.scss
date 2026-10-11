@@ -1,0 +1,52 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+}
+
+// Marcador de pista: césped con la red arriba y los números en blanco condensado.
+.marcador {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: var(--espacio-5) var(--espacio-2) var(--espacio-4);
+  border-radius: var(--radio-pista);
+  background:
+    linear-gradient(var(--color-sobre-pista), var(--color-sobre-pista)) top / 100% 5px no-repeat,
+    var(--color-pista);
+  color: var(--color-sobre-pista);
+}
+
+// El número va encima de su nombre, aunque en el HTML el nombre (dt) vaya primero.
+.dato {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  animation: aparecer-con-rebote var(--duracion-lenta) var(--curva-rebote) both;
+
+  &:nth-child(2) {
+    animation-delay: 80ms;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 160ms;
+  }
+
+  & + & {
+    border-left: 1.5px solid rgb(255 255 255 / 35%);
+  }
+}
+
+dt {
+  color: var(--color-sobre-pista-suave);
+  font-size: var(--texto-s);
+}
+
+dd {
+  margin: 0;
+  font-size: var(--texto-xl);
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
