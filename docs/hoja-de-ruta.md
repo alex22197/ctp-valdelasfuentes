@@ -37,6 +37,9 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
   convocados son los de la alineación
   ([ADR 0009](decisiones/0009-convocados-son-los-de-la-alineacion.md)). Migración probada en un
   PostgreSQL local (20 casos) y aplicada en Supabase.
+- **Selector de jugadores con fichas** (#33, versión 0.3.0): en la convocatoria, cada lado de
+  la pista es una ficha; al tocarla sube un panel con los jugadores agrupados y buscador, y la
+  ficha elegida vuela a su sitio. Probado por Alex en el móvil.
 - **Reglamento explicado** (#36): página pública `/reglamento` en el menú, con la normativa
   2026-27 resumida en lenguaje llano, ejemplos, glosario y enlaces directos a cada tema.
 - **Web publicada** (#5, versión 0.1.0): <https://ctp-valdelasfuentes.padel-ctp.workers.dev>.
