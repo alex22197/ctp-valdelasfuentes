@@ -1,0 +1,66 @@
+:host {
+  display: block;
+}
+
+// Dos columnas en el móvil: nombres cortos, como fichas de jugador.
+.lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: var(--espacio-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ficha {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: var(--espacio-3);
+  align-items: center;
+  height: 100%;
+  min-height: 3.75rem;
+  padding: var(--espacio-3);
+  border: 1.5px solid var(--color-borde);
+  border-radius: var(--radio-contenedor);
+  background: var(--color-superficie);
+  color: var(--color-tinta);
+  text-decoration: none;
+  transition:
+    transform var(--duracion-rapida) var(--curva-salida),
+    border-color var(--duracion-rapida);
+}
+
+a.ficha {
+  &:hover {
+    border-color: var(--color-pista);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.avatar {
+  display: grid;
+  grid-row: span 2;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--color-pista);
+  color: var(--color-sobre-pista);
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+}
+
+.nombre {
+  overflow-wrap: anywhere;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.balance {
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-xs);
+}

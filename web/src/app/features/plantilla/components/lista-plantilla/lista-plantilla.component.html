@@ -1,0 +1,27 @@
+<ul class="lista">
+  @for (fila of filas(); track fila.id) {
+    <li>
+      @if (enlazar()) {
+        <a class="ficha" [routerLink]="['/jugadores', fila.id]">
+          <ng-container [ngTemplateOutlet]="contenido" />
+        </a>
+      } @else {
+        <div class="ficha">
+          <ng-container [ngTemplateOutlet]="contenido" />
+        </div>
+      }
+      <ng-template #contenido>
+        <span class="avatar" aria-hidden="true">{{ fila.iniciales }}</span>
+        <span class="nombre">{{ fila.nombreMostrar }}</span>
+        <span class="balance">
+          @if (fila.partidos === 0) {
+            Sin partidos
+          } @else {
+            {{ fila.partidos }}&nbsp;{{ fila.partidos === 1 ? 'partido' : 'partidos' }},
+            {{ fila.porcentajeVictorias }}&nbsp;% ganados
+          }
+        </span>
+      </ng-template>
+    </li>
+  }
+</ul>
