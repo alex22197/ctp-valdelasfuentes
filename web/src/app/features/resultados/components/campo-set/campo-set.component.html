@@ -11,6 +11,7 @@
       <input
         class="numero"
         type="number"
+        [attr.aria-invalid]="error() ? true : null"
         inputmode="numeric"
         min="0"
         max="7"
@@ -24,6 +25,7 @@
       <input
         class="numero"
         type="number"
+        [attr.aria-invalid]="error() ? true : null"
         inputmode="numeric"
         min="0"
         max="7"
@@ -40,6 +42,7 @@
         <input
           class="numero"
           type="number"
+          [attr.aria-invalid]="error() ? true : null"
           inputmode="numeric"
           min="0"
           [value]="valor().tiebreakNuestros"
@@ -52,6 +55,7 @@
         <input
           class="numero"
           type="number"
+          [attr.aria-invalid]="error() ? true : null"
           inputmode="numeric"
           min="0"
           [value]="valor().tiebreakRival"
@@ -61,7 +65,10 @@
     </div>
   }
 
-  @if (error(); as mensaje) {
-    <p class="error" [id]="idError">{{ mensaje }}.</p>
-  }
+  <!-- Siempre presente para que el error se anuncie al aparecer mientras se escribe. -->
+  <div aria-live="polite">
+    @if (error(); as mensaje) {
+      <p class="error" [id]="idError">{{ mensaje }}.</p>
+    }
+  </div>
 </fieldset>
