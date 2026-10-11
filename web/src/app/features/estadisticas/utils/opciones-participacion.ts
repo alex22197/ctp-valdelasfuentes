@@ -1,7 +1,7 @@
 import type { EChartsCoreOption } from 'echarts/core';
 import type { ParticipacionJugador } from '@data-access/estadisticas/interfaces/participacion-jugador.interface';
-import type { ColoresGraficas } from '../interfaces/colores-graficas.interface';
-import { opcionesComunes } from './opciones-comunes';
+import type { ColoresGraficas } from '@shared/utils/graficas/interfaces/colores-graficas.interface';
+import { opcionesComunes } from '@shared/utils/graficas/opciones-comunes';
 
 /** Alto de cada barra de jugador en píxeles. */
 export const ALTO_FILA_PARTICIPACION = 32;

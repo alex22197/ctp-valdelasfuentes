@@ -9,8 +9,8 @@ import { ParticipacionEquipoComponent } from '../../components/participacion-equ
 import { QuienConQuienComponent } from '../../components/quien-con-quien/quien-con-quien.component';
 import { RendimientoPuestosComponent } from '../../components/rendimiento-puestos/rendimiento-puestos.component';
 import { DatosEstadisticasService } from '../../services/datos-estadisticas.service';
-import { TemaGraficasService } from '../../services/tema-graficas.service';
-import { echarts } from '../../utils/echarts-configurado';
+import { TemaGraficasService } from '@shared/services/tema-graficas.service';
+import { echarts } from '@shared/utils/graficas/echarts-configurado';
 
 /**
  * Estadísticas del equipo: jornada a jornada, por partido, quién con quién y parejas más

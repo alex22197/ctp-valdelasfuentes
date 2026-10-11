@@ -4,5 +4,7 @@
   role="img"
   [attr.aria-label]="descripcion()"
   [options]="opciones()"
+  [merge]="cambios()"
   [style.height.px]="alto()"
+  (chartClick)="alTocar($event)"
 ></div>

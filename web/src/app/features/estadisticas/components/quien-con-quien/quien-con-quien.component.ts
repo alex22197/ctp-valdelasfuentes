@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, signal } f
 import type { TipoPartido } from '@data-access/alineaciones/interfaces/tipo-partido.type';
 import type { BalancePareja } from '@data-access/estadisticas/interfaces/balance-pareja.interface';
 import type { Sexo } from '@data-access/jugadores/interfaces/sexo.type';
-import { TemaGraficasService } from '../../services/tema-graficas.service';
+import { TemaGraficasService } from '@shared/services/tema-graficas.service';
 import { construirMatriz } from '../../utils/matriz-parejas';
 import { ALTO_FILA_MATRIZ, opcionesMatriz } from '../../utils/opciones-matriz';
-import { GraficaEstadisticaComponent } from '../grafica-estadistica/grafica-estadistica.component';
+import { GraficaEstadisticaComponent } from '@shared/components/grafica-estadistica/grafica-estadistica.component';
 
 const TIPOS: readonly { tipo: TipoPartido; nombre: string }[] = [
   { tipo: 'masculino', nombre: 'Chicos' },

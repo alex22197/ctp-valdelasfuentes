@@ -1,6 +1,6 @@
 import { DOCUMENT, Injectable, inject } from '@angular/core';
-import type { ColoresGraficas } from '../interfaces/colores-graficas.interface';
-import { leerColoresGraficas } from '../utils/opciones-comunes';
+import type { ColoresGraficas } from '../utils/graficas/interfaces/colores-graficas.interface';
+import { leerColoresGraficas } from '../utils/graficas/opciones-comunes';
 
 /**
  * Colores de las gráficas (los tokens del sistema de diseño) y si se pueden animar.
