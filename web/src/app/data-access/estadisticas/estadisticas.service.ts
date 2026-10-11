@@ -9,10 +9,13 @@ import {
   mapearResumenJugador,
 } from './estadisticas-jugador.mapper';
 import { mapearJornadasJugadas } from './jornada-jugada.mapper';
+import { mapearResumenesPorJugador } from './resumenes-jugadores.mapper';
 import type { EstadisticasJugador } from './interfaces/estadisticas-jugador.interface';
 import type { JornadaJugada } from './interfaces/jornada-jugada.interface';
+import type { ResumenJugador } from './interfaces/resumen-jugador.interface';
 
 const COLUMNAS_BALANCE = 'partidos, ganados, perdidos, porcentaje_victorias';
+const COLUMNAS_RESUMEN = `${COLUMNAS_BALANCE}, sets_ganados, sets_perdidos, juegos_ganados, juegos_perdidos, jornadas, wo_a_favor`;
 const MENSAJE_ERROR = 'No se han podido cargar las estadísticas.';
 
 /**
@@ -31,9 +34,7 @@ export class EstadisticasService {
     const [resumen, lados, puestos, parejas, partidos] = await Promise.all([
       this.supabase
         .from('estadistica_jugador')
-        .select(
-          `${COLUMNAS_BALANCE}, sets_ganados, sets_perdidos, juegos_ganados, juegos_perdidos, jornadas, wo_a_favor`,
-        )
+        .select(COLUMNAS_RESUMEN)
         .eq('competicion_id', idCompeticion)
         .eq('toda_la_competicion', true)
         .eq('jugador_id', idJugador)
@@ -84,12 +85,25 @@ export class EstadisticasService {
     };
   }
 
+  /** Resumen de la competición entera de cada jugador que ha jugado, por su id. */
+  async obtenerResumenesJugadores(
+    idCompeticion: string,
+  ): Promise<ReadonlyMap<string, ResumenJugador>> {
+    const { data, error } = await this.supabase
+      .from('estadistica_jugador')
+      .select(`jugador_id, ${COLUMNAS_RESUMEN}`)
+      .eq('competicion_id', idCompeticion)
+      .eq('toda_la_competicion', true);
+    lanzarSiHayError(error, MENSAJE_ERROR);
+    return mapearResumenesPorJugador(data ?? []);
+  }
+
   /** Confrontaciones nuestras ya jugadas, por fase y jornada. */
   async obtenerJornadasJugadas(idCompeticion: string): Promise<JornadaJugada[]> {
     const { data, error } = await this.supabase
       .from('estadistica_jornada')
       .select(
-        'confrontacion_id, fase_nombre, fase_orden, jornada, rival_nombre, condicion, partidos_ganados, partidos_perdidos',
+        'confrontacion_id, fase_id, fase_nombre, fase_orden, jornada, rival_nombre, condicion, partidos_ganados, partidos_perdidos, puntos',
       )
       .eq('competicion_id', idCompeticion)
       .order('fase_orden')

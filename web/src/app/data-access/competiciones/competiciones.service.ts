@@ -2,8 +2,9 @@ import { Injectable, inject } from '@angular/core';
 import { SupabaseClientService } from '@core/supabase/supabase-client.service';
 import { lanzarSiHayError } from '@core/supabase/error-acceso-datos';
 import { fechaIsoEnMadrid } from '@shared/utils/fechas';
-import { mapearCompeticion, mapearFase } from './competicion.mapper';
+import { mapearCompeticion, mapearFase, mapearFormato } from './competicion.mapper';
 import { elegirFaseActual } from './fase-actual';
+import type { CompeticionActiva } from './interfaces/competicion-activa.interface';
 import type { Competicion } from './interfaces/competicion.interface';
 import type { FaseActual } from './interfaces/fase-actual.interface';
 
@@ -40,5 +41,25 @@ export class CompeticionesService {
       .maybeSingle();
     lanzarSiHayError(error, 'No se ha podido cargar la competición.');
     return data ? mapearCompeticion(data) : null;
+  }
+
+  /** Competición activa con sus fases por orden y su formato. `null` si no hay ninguna. */
+  async obtenerCompeticionActivaConFases(): Promise<CompeticionActiva | null> {
+    const { data, error } = await this.supabase
+      .from('competicion')
+      .select('id, nombre, temporada, formato, fase(id, tipo, nombre, orden, url_grupo, inicio)')
+      .eq('activa', true)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    lanzarSiHayError(error, 'No se ha podido cargar la competición.');
+    if (!data) {
+      return null;
+    }
+    return {
+      competicion: mapearCompeticion(data),
+      fases: data.fase.map(mapearFase).sort((a, b) => a.orden - b.orden),
+      formato: mapearFormato(data.formato),
+    };
   }
 }

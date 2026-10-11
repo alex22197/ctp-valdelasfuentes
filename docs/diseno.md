@@ -70,6 +70,14 @@ clasificación, calendario y nombres.
 - Se guarda solo. Botón final: «Guardar y hacer la convocatoria».
 - Los comodines no aparecen aquí.
 
+**Plantilla** (construida; pública, en el menú)
+
+- Chicos, chicas y comodines, por orden alfabético, en dos columnas en el móvil.
+- Cada jugador es una ficha con sus iniciales en un círculo verde, el nombre y «3 partidos, 67 %
+  ganados» (o «Sin partidos»). Al tocarla lleva a su ficha.
+- Los comodines salen aparte, con «No tienen ficha pública», y sin enlace salvo para los
+  gestores.
+
 **Ficha de jugador** (construida; pública, en `/jugadores/:id`)
 
 - Nombre en grande y una frase con los partidos en los que juega y su lado habitual: el
@@ -82,22 +90,30 @@ clasificación, calendario y nombres.
 - Por número de pareja («Masculino 1», «Mixto»), con la misma barra.
 - Su temporada: una fila por jornada con G (círculo verde relleno), P (borde naranja) o vacío
   discontinuo (no jugó), rival, detalle («Masculino 1 con Sergio, de revés») y sets.
-- Se llega desde los nombres de la convocatoria de la portada. Los comodines no tienen ficha
+- Se llega desde la plantilla y desde los nombres de la convocatoria de la portada. Los comodines no tienen ficha
   pública ni enlace; los gestores sí la ven, con el aviso «Es comodín».
 
-**Estadísticas, escritorio** (pendiente)
+**Estadísticas** (construida; pública, en el menú)
 
-- Filtro «Toda la liga / Apertura / Clausura».
-- **Jornada a jornada**: cuadrícula de 6 casillas por jornada (M1-M3, F1-F2, mixto), verde si
-  se ganó y naranja si se perdió, con el resultado y los puntos debajo.
-- **Quién con quién**: matriz de parejas (chicos, chicas o mixto) con el número de partidos
-  juntos; el color, de oscuro a claro, indica el porcentaje de victorias, para que se entienda
-  aunque no se distinga bien el verde del naranja.
-- **Por partido**: porcentaje de victorias en M1, M2, M3, F1, F2 y mixto.
-- **Parejas más repetidas**.
-- **Respuestas y participación** (solo gestores): barra por jugador con jugó / podía sin
-  convocar / no podía / sin responder.
-- En la web real las gráficas serán interactivas con ECharts.
+- Filtro en píldoras: «Toda la liga» y cada fase de la competición.
+- **Jornada a jornada**: 6 casillas por jornada según el formato (M1-M3, F1-F2, mixto). Ganado:
+  verde oscuro relleno; perdido: borde naranja; pendiente o suspendido: borde discontinuo. Los
+  WO llevan escrito «WO». Debajo, el marcador y los puntos («puntos pendientes» si falta algún
+  partido).
+- **Por partido**: barras de ECharts con el porcentaje de victorias en M1, M2, M3, F1, F2 y
+  mixto (este en lima). Los WO cuentan, porque suman o restan al equipo.
+- **Quién con quién**: matriz de ECharts por chicos, chicas o mixto con el número de partidos
+  juntos; el color, de claro a oscuro, indica el porcentaje de victorias, para que se entienda
+  aunque no se distinga el color. En chicos y chicas cada pareja sale en las dos mitades, para
+  que la fila de cada jugador muestre a todos sus compañeros; en el mixto, chicos en filas y
+  chicas en columnas. Los comodines llevan un asterisco. Si no cabe, se desplaza ella sola.
+- **Parejas más repetidas**: las 5 que más han jugado juntas, con la barra de victorias.
+- **Respuestas y participación** (solo gestores, con candado): barras apiladas por jugador con
+  jugó / podía sin convocar / no podía / sin responder.
+- Cada gráfica tiene descripción para lectores de pantalla y «Ver los datos en una tabla». La
+  ayuda sale al tocar, los colores salen de los tokens y no se anima con «reducir movimiento».
+- La barra inferior del móvil tiene cinco secciones: sus etiquetas usan la letra condensada
+  para caber en 320 px.
 
 ## Sistema visual
 

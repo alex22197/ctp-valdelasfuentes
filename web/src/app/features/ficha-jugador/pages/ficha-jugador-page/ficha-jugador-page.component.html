@@ -1,6 +1,6 @@
-<a class="volver" routerLink="/">
+<a class="volver" routerLink="/plantilla">
   <ctp-icono nombre="volver" />
-  Volver al inicio
+  Volver a la plantilla
 </a>
 
 @switch (datos.estado()) {
@@ -19,7 +19,7 @@
   @case ('no-encontrado') {
     <ctp-mensaje-estado
       tipo="vacio"
-      texto="Este jugador no está en la plantilla de esta temporada. Revisa el enlace o vuelve al inicio."
+      texto="Este jugador no está en el equipo esta temporada. Revisa el enlace o búscalo en la plantilla."
     />
   }
   @case ('comodin') {

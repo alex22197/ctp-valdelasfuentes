@@ -1,0 +1,29 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-6);
+  max-width: 48rem;
+  padding: 0 var(--espacio-2);
+}
+
+.cabecera {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+}
+
+.seccion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.solo-gestores {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+}
+
+.nota {
+  max-width: 60ch;
+}

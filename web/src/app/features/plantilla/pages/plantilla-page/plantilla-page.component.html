@@ -1,0 +1,43 @@
+<header class="cabecera">
+  <h1 class="titulo-pagina">Plantilla</h1>
+  @if (competicion.hasValue() && competicion.value(); as competicion) {
+    <p class="texto-secundario">{{ competicion.nombre }} {{ competicion.temporada }}</p>
+  }
+</header>
+
+@if (cargando()) {
+  <ctp-mensaje-estado tipo="cargando" texto="Cargando la plantilla…" />
+} @else if (error()) {
+  <ctp-mensaje-estado
+    tipo="error"
+    texto="No se ha podido cargar la plantilla. Recarga la página para volver a intentarlo."
+  />
+} @else if (competicion.value() === null) {
+  <ctp-mensaje-estado tipo="vacio" texto="Ahora mismo no hay ninguna temporada en marcha." />
+} @else {
+  <p class="explicacion">Toca a un jugador para ver su ficha y cómo le va la temporada.</p>
+
+  @if (grupos().chicos.length > 0) {
+    <section class="seccion" aria-labelledby="titulo-chicos">
+      <h2 id="titulo-chicos" class="titulo-seccion">Chicos</h2>
+      <ctp-lista-plantilla [filas]="grupos().chicos" />
+    </section>
+  }
+
+  @if (grupos().chicas.length > 0) {
+    <section class="seccion" aria-labelledby="titulo-chicas">
+      <h2 id="titulo-chicas" class="titulo-seccion">Chicas</h2>
+      <ctp-lista-plantilla [filas]="grupos().chicas" />
+    </section>
+  }
+
+  @if (grupos().comodines.length > 0) {
+    <section class="seccion" aria-labelledby="titulo-comodines">
+      <h2 id="titulo-comodines" class="titulo-seccion">Comodines</h2>
+      <p class="texto-secundario">
+        Refuerzan al equipo cuando hace falta. No tienen ficha pública.
+      </p>
+      <ctp-lista-plantilla [filas]="grupos().comodines" [enlazar]="enlazarComodines()" />
+    </section>
+  }
+}

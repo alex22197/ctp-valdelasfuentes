@@ -1,0 +1,20 @@
+<div class="pildoras" role="group" aria-label="Fase de la liga">
+  <button
+    type="button"
+    class="pildora"
+    [attr.aria-pressed]="seleccion() === null"
+    (click)="seleccion.set(null)"
+  >
+    Toda la liga
+  </button>
+  @for (fase of fases(); track fase.id) {
+    <button
+      type="button"
+      class="pildora"
+      [attr.aria-pressed]="seleccion() === fase.id"
+      (click)="seleccion.set(fase.id)"
+    >
+      {{ fase.nombre }}
+    </button>
+  }
+</div>
