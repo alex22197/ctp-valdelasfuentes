@@ -1,0 +1,16 @@
+<ul class="cesped">
+  @for (mitad of mitades(); track mitad.lado) {
+    <li class="mitad" [class.vacia]="mitad.partidos === 0">
+      <span class="nombre">{{ mitad.nombre }}</span>
+      @if (mitad.partidos === 0) {
+        <span class="detalle">Sin partidos</span>
+      } @else {
+        <span class="cifra">{{ mitad.partidos }}</span>
+        <span class="detalle">
+          {{ mitad.partidos === 1 ? 'partido' : 'partidos' }}, {{ mitad.ganados }}
+          {{ mitad.ganados === 1 ? 'ganado' : 'ganados' }}
+        </span>
+      }
+    </li>
+  }
+</ul>

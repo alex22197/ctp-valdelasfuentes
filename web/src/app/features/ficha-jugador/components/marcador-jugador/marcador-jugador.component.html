@@ -1,0 +1,23 @@
+@let r = resumen();
+<dl class="marcador">
+  <div class="dato">
+    <dt>Partidos</dt>
+    <dd>{{ r.partidos }}</dd>
+  </div>
+  <div class="dato">
+    <dt>Ganados</dt>
+    <dd>{{ r.ganados }}</dd>
+  </div>
+  <div class="dato">
+    <dt>Sets</dt>
+    <dd [attr.aria-label]="r.setsGanados + ' ganados y ' + r.setsPerdidos + ' perdidos'">
+      {{ r.setsGanados }}–{{ r.setsPerdidos }}
+    </dd>
+  </div>
+</dl>
+@if (r.woAFavor > 0) {
+  <p class="texto-secundario">
+    Además, {{ r.woAFavor === 1 ? 'un WO' : r.woAFavor + ' WO' }} a favor, que no
+    {{ r.woAFavor === 1 ? 'cuenta' : 'cuentan' }} en sus estadísticas.
+  </p>
+}

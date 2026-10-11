@@ -1,0 +1,38 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+}
+
+// Fondo naranja (derrotas) y relleno verde oscuro (victorias): se distinguen también por
+// la claridad, no solo por el color.
+.barra {
+  height: 0.625rem;
+  overflow: hidden;
+  border-radius: var(--radio-pildora);
+  background: var(--color-derrota);
+}
+
+.relleno {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-pista-oscuro);
+  transition: width var(--duracion-lenta) var(--curva-salida);
+
+  // La barra crece desde cero al aparecer.
+  @starting-style {
+    width: 0;
+  }
+}
+
+.texto {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-tinta-suave);
+  font-size: var(--texto-s);
+
+  strong {
+    color: var(--color-tinta);
+    font-variant-numeric: tabular-nums;
+  }
+}

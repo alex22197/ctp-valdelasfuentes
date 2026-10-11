@@ -85,12 +85,14 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
 
 ## 4. Estadísticas
 
-- (#13) Vistas en PostgreSQL (nunca cálculos en el navegador): por jugador, por pareja, por lado,
-  por número de pareja, jornada a jornada y participación. Excluyen los WO de las estadísticas
-  individuales ([ADR 0006](decisiones/0006-wo-fuera-de-estadisticas-individuales.md)) y
-  muestran a los comodines aparte.
-- (#14, #15) Página de estadísticas y ficha de jugador según los bocetos, con gráficas interactivas de
-  ECharts (`ngx-echarts`).
+- ~~(#13) Vistas en PostgreSQL~~: hecho. Por jugador, por pareja, por lado, por puesto, por
+  puesto del equipo, jornada a jornada y participación (solo gestores). Excluyen los WO de las
+  estadísticas individuales ([ADR 0006](decisiones/0006-wo-fuera-de-estadisticas-individuales.md))
+  y marcan a los comodines. Detalle en [base-de-datos.md](base-de-datos.md).
+- ~~(#15) Ficha de jugador~~: hecho. Pública en `/jugadores/:id`, enlazada desde la convocatoria
+  de la portada; los comodines solo la tienen para los gestores.
+- (#14) Página de estadísticas según el boceto, con gráficas interactivas de ECharts
+  (`ngx-echarts`).
 - (#16) Añadir «Jornadas» y «Plantilla» al menú cuando existan sus páginas públicas.
 
 ## 5. Calidad pendiente

@@ -1,0 +1,92 @@
+<a class="volver" routerLink="/">
+  <ctp-icono nombre="volver" />
+  Volver al inicio
+</a>
+
+@switch (datos.estado()) {
+  @case ('cargando') {
+    <ctp-mensaje-estado tipo="cargando" texto="Cargando la ficha…" />
+  }
+  @case ('error') {
+    <ctp-mensaje-estado
+      tipo="error"
+      texto="No se ha podido cargar la ficha. Recarga la página para volver a intentarlo."
+    />
+  }
+  @case ('sin-competicion') {
+    <ctp-mensaje-estado tipo="vacio" texto="Ahora mismo no hay ninguna temporada en marcha." />
+  }
+  @case ('no-encontrado') {
+    <ctp-mensaje-estado
+      tipo="vacio"
+      texto="Este jugador no está en la plantilla de esta temporada. Revisa el enlace o vuelve al inicio."
+    />
+  }
+  @case ('comodin') {
+    <ctp-mensaje-estado
+      tipo="vacio"
+      [texto]="
+        datos.jugador()?.nombreMostrar +
+        ' juega con nosotros como comodín y no tiene ficha pública.'
+      "
+    />
+  }
+  @default {
+    @if (datos.jugador(); as jugador) {
+      <header class="cabecera">
+        <h1 class="titulo-pagina">{{ jugador.nombreMostrar }}</h1>
+        <p class="texto-secundario">{{ descripcion() }}</p>
+        @if (jugador.comodin) {
+          <p class="aviso-comodin">Es comodín: esta ficha solo la veis los gestores.</p>
+        }
+      </header>
+
+      @if (datos.datos(); as estadisticas) {
+        @if (estadisticas.resumen; as resumen) {
+          <ctp-marcador-jugador [resumen]="resumen" />
+        } @else {
+          <ctp-mensaje-estado
+            tipo="vacio"
+            texto="Todavía no ha jugado ningún partido esta temporada."
+          />
+        }
+
+        @if (estadisticas.lados.length > 0) {
+          <section class="seccion" aria-labelledby="titulo-lados">
+            <h2 id="titulo-lados" class="titulo-seccion">Por lado</h2>
+            <ctp-lados-jugador [lados]="estadisticas.lados" />
+          </section>
+        }
+
+        @if (estadisticas.companeros.length > 0) {
+          <section class="seccion" aria-labelledby="titulo-companeros">
+            <h2 id="titulo-companeros" class="titulo-seccion">Con quién juega</h2>
+            <ctp-companeros-jugador
+              [companeros]="estadisticas.companeros"
+              [enlazarComodines]="datos.enlazarComodines()"
+            />
+          </section>
+        }
+
+        @if (estadisticas.puestos.length > 0) {
+          <section class="seccion" aria-labelledby="titulo-puestos">
+            <h2 id="titulo-puestos" class="titulo-seccion">Por número de pareja</h2>
+            <ctp-puestos-jugador [puestos]="estadisticas.puestos" />
+          </section>
+        }
+      }
+
+      @if (datos.temporada().length > 0) {
+        <section class="seccion" aria-labelledby="titulo-temporada">
+          <h2 id="titulo-temporada" class="titulo-seccion">Su temporada</h2>
+          <ctp-temporada-jugador [fases]="datos.temporada()" />
+        </section>
+      }
+
+      <p class="nota texto-secundario">
+        Solo cuentan los partidos que se han jugado: los WO no entran en las estadísticas de cada
+        jugador.
+      </p>
+    }
+  }
+}

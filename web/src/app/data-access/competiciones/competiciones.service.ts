@@ -4,6 +4,7 @@ import { lanzarSiHayError } from '@core/supabase/error-acceso-datos';
 import { fechaIsoEnMadrid } from '@shared/utils/fechas';
 import { mapearCompeticion, mapearFase } from './competicion.mapper';
 import { elegirFaseActual } from './fase-actual';
+import type { Competicion } from './interfaces/competicion.interface';
 import type { FaseActual } from './interfaces/fase-actual.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -26,5 +27,18 @@ export class CompeticionesService {
 
     const fase = elegirFaseActual(data.fase.map(mapearFase), fechaIsoEnMadrid(hoy));
     return fase ? { competicion: mapearCompeticion(data), fase } : null;
+  }
+
+  /** Competición activa, aunque ninguna de sus fases esté en juego. `null` si no hay. */
+  async obtenerCompeticionActiva(): Promise<Competicion | null> {
+    const { data, error } = await this.supabase
+      .from('competicion')
+      .select('id, nombre, temporada')
+      .eq('activa', true)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    lanzarSiHayError(error, 'No se ha podido cargar la competición.');
+    return data ? mapearCompeticion(data) : null;
   }
 }

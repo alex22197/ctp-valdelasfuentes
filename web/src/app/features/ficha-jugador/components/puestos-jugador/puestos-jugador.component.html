@@ -1,0 +1,8 @@
+<ul class="lista">
+  @for (puesto of puestos(); track puesto.tipo + puesto.numero) {
+    <li class="puesto" [class.mixto]="puesto.tipo === 'mixto'">
+      <span class="nombre">{{ nombrePista(puesto.tipo, puesto.numero) }}</span>
+      <ctp-barra-victorias [balance]="puesto" />
+    </li>
+  }
+</ul>

@@ -1,0 +1,9 @@
+<div class="barra" aria-hidden="true">
+  <div class="relleno" [style.width.%]="balance().porcentajeVictorias ?? 0"></div>
+</div>
+<p class="texto">
+  {{ balance().ganados }} de {{ balance().partidos }} ganados
+  @if (balance().porcentajeVictorias !== null) {
+    <strong>{{ balance().porcentajeVictorias }} %</strong>
+  }
+</p>

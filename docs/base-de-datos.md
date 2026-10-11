@@ -30,6 +30,40 @@ Vistas:
   nuestra, calculados a partir de `partido_resultado`
   ([ADR 0008](decisiones/0008-marcador-de-la-confrontacion-calculado.md)).
 
+Vistas de estadísticas (#13). Todos los cálculos se hacen aquí; la web solo los lee:
+
+| Vista                         | Una fila por                                         | Quién la ve |
+| ----------------------------- | ---------------------------------------------------- | ----------- |
+| `estadistica_partido_jugador` | Partido decidido de un jugador (base del resto)      | Todos       |
+| `estadistica_jugador`         | Jugador: partidos, sets, juegos, %, WO a favor       | Todos       |
+| `estadistica_jugador_lado`    | Jugador y lado (drive o revés)                       | Todos       |
+| `estadistica_jugador_puesto`  | Jugador y puesto (Masculino 1, Femenino 2…)          | Todos       |
+| `estadistica_pareja`          | Pareja (`jugador_a_id` < `jugador_b_id`)             | Todos       |
+| `estadistica_puesto`          | Puesto del equipo, con WO a favor y en contra        | Todos       |
+| `estadistica_jornada`         | Confrontación nuestra jugada, con marcador y puntos  | Todos       |
+| `estadistica_participacion`   | Jugador: jornadas jugadas y por qué no jugó el resto | Gestores    |
+
+- Las agrupadas tienen una fila por fase y otra de toda la competición
+  (`toda_la_competicion` = true, `fase_id` nulo). Nunca mezclan competiciones.
+- Las individuales no cuentan los WO
+  ([ADR 0006](decisiones/0006-wo-fuera-de-estadisticas-individuales.md)); los WO a favor salen
+  aparte en `estadistica_jugador`. Un WO en contra no tiene jugadores. Las del equipo sí cuentan
+  los WO.
+- Quedan fuera los partidos suspendidos y los que están por jugar. De un abandono cuentan
+  todos los juegos, pero solo los sets terminados.
+- Porcentaje: `round(100 * ganados / partidos)`, entero; nulo sin partidos.
+- `estadistica_partido_jugador.marcador`: juegos de cada set desde nuestro lado («6-3 4-6»),
+  con el set a medias de un abandono; nulo en los WO. `estadistica_jornada` lleva
+  `fase_nombre` y `fase_orden`, porque el número de jornada se repite en cada fase.
+- En la ficha, una jornada con el partido suspendido o en WO en contra sale como «no jugó».
+- Los comodines llevan `comodin` = true (en parejas, uno por jugador): la web los separa.
+- `estadistica_jornada.puntos` (2, 1 o 0) solo aparece sin partidos pendientes y no incluye
+  sanciones: la clasificación oficial es `fase_equipo`.
+- `estadistica_participacion` usa la encuesta: los visitantes no pueden leerla y a quien no es
+  gestor le sale vacía. Cada jornada cuenta en una sola categoría: jugada (estaba en la
+  alineación, aunque fuera WO a favor o se suspendiera), disponible sin jugar, no disponible o
+  sin responder. Sin comodines.
+
 ## Funciones que llama la web
 
 | Función                      | Qué hace                                                                                                                                                                                                                                         | Quién    |
@@ -90,17 +124,18 @@ Reglas:
 
 ## Migraciones existentes
 
-| Migración                                       | Contenido                                                                                                                                |
-| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `20261008120000_esquema_inicial.sql`            | Tablas, validaciones, vista de resultados, RLS y permisos.                                                                               |
-| `20261008120100_datos_iniciales.sql`            | Competición, grupo, equipos, plantilla, calendario de la apertura y alineación de la jornada 1.                                          |
-| `20261008130000_resultados_confrontacion.sql`   | Vista `confrontacion_marcador` y funciones `validar_marcador` y `guardar_resultado_partido`.                                             |
-| `20261008211955_guardar_respuesta_encuesta.sql` | Función `guardar_respuesta_encuesta` para pasar lista.                                                                                   |
-| `20261009114304_convocatoria_y_alineacion.sql`  | Columna `confrontacion.convocatoria_publicada` (la jornada 1 nace publicada) y funciones `guardar_alineacion` y `publicar_convocatoria`. |
+| Migración                                            | Contenido                                                                                                                                |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `20261008120000_esquema_inicial.sql`                 | Tablas, validaciones, vista de resultados, RLS y permisos.                                                                               |
+| `20261008120100_datos_iniciales.sql`                 | Competición, grupo, equipos, plantilla, calendario de la apertura y alineación de la jornada 1.                                          |
+| `20261008130000_resultados_confrontacion.sql`        | Vista `confrontacion_marcador` y funciones `validar_marcador` y `guardar_resultado_partido`.                                             |
+| `20261008211955_guardar_respuesta_encuesta.sql`      | Función `guardar_respuesta_encuesta` para pasar lista.                                                                                   |
+| `20261009114304_convocatoria_y_alineacion.sql`       | Columna `confrontacion.convocatoria_publicada` (la jornada 1 nace publicada) y funciones `guardar_alineacion` y `publicar_convocatoria`. |
+| `20261011133401_vistas_de_estadisticas.sql`          | Vistas `estadistica_*` de jugadores, parejas, puestos, jornadas y participación.                                                         |
+| `20261011134423_marcador_y_fase_en_estadisticas.sql` | Columnas `marcador` en `estadistica_partido_jugador` y `fase_nombre` y `fase_orden` en `estadistica_jornada`.                            |
 
 ## Pendiente
 
 - Convertir las comprobaciones manuales de la normativa en tests automáticos de base de datos
   (pgTAP con `supabase test db`).
-- Vistas de estadísticas (por jugador, por pareja, por posición).
 - Copia de seguridad semanal con `pg_dump` desde GitHub Actions.
