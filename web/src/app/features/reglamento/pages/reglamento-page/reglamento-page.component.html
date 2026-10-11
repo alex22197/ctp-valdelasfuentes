@@ -1,0 +1,77 @@
+<header class="cabecera">
+  <h1 class="titulo-pagina">Reglamento</h1>
+  <p class="entradilla">
+    Las normas de la Liga MasterPadel explicadas para todo el equipo. Es un resumen de la normativa
+    de la temporada {{ temporada }}: ante cualquier duda, manda el
+    <a [href]="urlNormativa" target="_blank" rel="noopener">PDF oficial de la liga</a>.
+  </p>
+</header>
+
+<section class="esencial" aria-labelledby="titulo-esencial">
+  <h2 id="titulo-esencial" class="titulo-seccion">Lo esencial en un minuto</h2>
+  <ol class="claves">
+    <li>
+      Cada jornada son <strong>6 partidos</strong>: 3 masculinos, 2 femeninos y 1 mixto. Ganarla da
+      <strong>2 puntos</strong> y empatarla 3-3, <strong>1</strong>.
+    </li>
+    <li>
+      Cada uno juega <strong>un solo partido</strong> por jornada: quien juega el mixto no juega
+      otro.
+    </li>
+    <li>
+      Solo juegan los <strong>inscritos</strong> en el equipo. Lleva el <strong>DNI</strong>: si te
+      lo piden y no lo tienes, se pierde tu partido.
+    </li>
+    <li>
+      Partidos al <strong>mejor de 3 sets</strong>, con tie-break en todos y
+      <strong>punto de oro</strong>.
+    </li>
+    <li>
+      ¿No puedes ir? Avisa con tiempo: un WO avisado con <strong>24 horas</strong> solo pierde el
+      partido; sin avisar, además resta <strong>2 puntos</strong>.
+    </li>
+    <li>
+      Con <strong>3 parejas o menos</strong>, el equipo pierde la jornada <strong>6-0</strong>.
+    </li>
+    <li>Por lluvia, solo se aplaza <strong>90 minutos antes</strong> de empezar.</li>
+    <li>
+      El equipo local envía el <strong>acta antes del martes a las 14:00</strong>; si no, pierde 1
+      punto.
+    </li>
+  </ol>
+</section>
+
+<nav class="indice" aria-labelledby="titulo-indice">
+  <h2 id="titulo-indice" class="titulo-seccion">El reglamento, por temas</h2>
+  <ul class="enlaces">
+    <li><a routerLink="." fragment="jornada">Cómo es una jornada</a></li>
+    <li><a routerLink="." fragment="quien-juega">Quién puede jugar</a></li>
+    <li><a routerLink="." fragment="alineacion">La alineación</a></li>
+    <li><a routerLink="." fragment="partido">Cómo se juega cada partido</a></li>
+    <li><a routerLink="." fragment="puntos">Puntos y clasificación</a></li>
+    <li><a routerLink="." fragment="wo">WO y no presentarse</a></li>
+    <li><a routerLink="." fragment="lluvia">Lluvia y aplazamientos</a></li>
+    <li><a routerLink="." fragment="acta">El acta y las reclamaciones</a></li>
+    <li><a routerLink="." fragment="fases">Fases y calendario</a></li>
+    <li><a routerLink="." fragment="masters">Masters y premios</a></li>
+    <li><a routerLink="." fragment="quien-decide">Quién decide</a></li>
+  </ul>
+</nav>
+
+<div class="secciones">
+  <ctp-reglas-jornada />
+  <ctp-reglas-puntos />
+  <ctp-reglas-incidencias />
+  <ctp-reglas-temporada />
+</div>
+
+<section class="glosario" aria-labelledby="titulo-glosario">
+  <h2 id="titulo-glosario" class="titulo-seccion">Glosario</h2>
+  <ctp-glosario-reglamento />
+</section>
+
+<p class="pie texto-secundario">
+  Resumen hecho por el equipo a partir de la
+  <a [href]="urlNormativa" target="_blank" rel="noopener">normativa oficial {{ temporada }}</a
+  >. La liga puede cambiarla durante la temporada: si algo no cuadra, manda el PDF.
+</p>
