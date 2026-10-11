@@ -24,7 +24,10 @@
             texto="Todavía no está publicada. Aparecerá aquí, con la alineación, en cuanto el capitán la cierre."
           />
         } @else {
-          <ctp-convocatoria-jornada [partidos]="datos.partidosAlineacion()" />
+          <ctp-convocatoria-jornada
+            [partidos]="datos.partidosAlineacion()"
+            [idsComodines]="datos.idsComodines()"
+          />
         }
       </section>
     }

@@ -5,6 +5,8 @@
         [titulo]="etiquetaPartido(partido.tipo, partido.numero)"
         [jugadorReves]="partido.reves?.nombreMostrar ?? null"
         [jugadorDrive]="partido.drive?.nombreMostrar ?? null"
+        [enlaceReves]="enlaceFicha(partido.reves)"
+        [enlaceDrive]="enlaceFicha(partido.drive)"
         [variante]="partido.tipo === 'mixto' ? 'mixto' : 'normal'"
       />
     </li>
