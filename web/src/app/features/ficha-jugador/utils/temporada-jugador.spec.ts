@@ -23,6 +23,8 @@ const partido = (cambios: Partial<PartidoDeJugador> = {}): PartidoDeJugador => (
   ganado: true,
   esWo: false,
   marcador: '6-3 6-4',
+  juegosGanados: 12,
+  juegosPerdidos: 7,
   companero: { id: 'jorge', nombreMostrar: 'Jorge' },
   ...cambios,
 });
@@ -31,7 +33,7 @@ describe('construirTemporada', () => {
   it('pone cada partido en su jornada y deja vacías las que no jugó', () => {
     const [apertura] = construirTemporada(
       [jornada('j1', 1, 1), jornada('j2', 1, 2)],
-      [partido({ ganado: false, marcador: '3-6 4-6' })],
+      [partido({ ganado: false, marcador: '3-6 4-6', juegosGanados: 7, juegosPerdidos: 12 })],
     );
     expect(apertura?.filas).toEqual([
       {
@@ -42,6 +44,8 @@ describe('construirTemporada', () => {
         resultado: 'perdido',
         detalle: 'Masculino 1 con Jorge, de revés',
         marcador: '3-6 4-6',
+        diferenciaJuegos: -5,
+        esWo: false,
       },
       {
         confrontacionId: 'j2',
@@ -51,6 +55,8 @@ describe('construirTemporada', () => {
         resultado: 'no-jugo',
         detalle: null,
         marcador: null,
+        diferenciaJuegos: null,
+        esWo: false,
       },
     ]);
   });
@@ -70,6 +76,8 @@ describe('construirTemporada', () => {
     );
     expect(fase?.filas[0]?.resultado).toBe('ganado');
     expect(fase?.filas[0]?.marcador).toBe('WO a favor');
+    expect(fase?.filas[0]?.diferenciaJuegos).toBeNull();
+    expect(fase?.filas[0]?.esWo).toBe(true);
   });
 
   it('sin jornadas jugadas devuelve una lista vacía', () => {

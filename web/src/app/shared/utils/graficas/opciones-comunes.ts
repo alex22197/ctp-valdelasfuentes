@@ -1,5 +1,5 @@
 import type { EChartsCoreOption } from 'echarts/core';
-import type { ColoresGraficas } from '../interfaces/colores-graficas.interface';
+import type { ColoresGraficas } from './interfaces/colores-graficas.interface';
 
 const VARIABLES: Record<keyof ColoresGraficas, string> = {
   pista: '--color-pista',

@@ -1,7 +1,7 @@
 import type { BalancePuestoEquipo } from '@data-access/estadisticas/interfaces/balance-puesto-equipo.interface';
 import type { ParticipacionJugador } from '@data-access/estadisticas/interfaces/participacion-jugador.interface';
 import type { MatrizParejas } from '../interfaces/matriz-parejas.interface';
-import { leerColoresGraficas } from './opciones-comunes';
+import { leerColoresGraficas } from '@shared/utils/graficas/opciones-comunes';
 import { describirCelda, nombreEnEje, opcionesMatriz } from './opciones-matriz';
 import { opcionesParticipacion } from './opciones-participacion';
 import { describirPuesto, opcionesPuestos } from './opciones-puestos';

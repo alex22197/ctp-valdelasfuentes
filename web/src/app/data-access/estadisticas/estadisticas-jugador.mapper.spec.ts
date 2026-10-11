@@ -116,6 +116,8 @@ describe('mapearPartidosDeJugador', () => {
     ganado: true,
     es_wo: false,
     marcador: '6-3 6-4',
+    juegos_ganados: 12,
+    juegos_perdidos: 7,
     companero_id: 'p',
     companero_nombre: 'Pablo',
   };
@@ -130,6 +132,8 @@ describe('mapearPartidosDeJugador', () => {
         ganado: true,
         esWo: false,
         marcador: '6-3 6-4',
+        juegosGanados: 12,
+        juegosPerdidos: 7,
         companero: { id: 'p', nombreMostrar: 'Pablo' },
       },
     ]);

@@ -84,12 +84,17 @@ clasificación, calendario y nombres.
   preferido de la plantilla o, si no hay, el lado en el que más ha jugado.
 - Marcador sobre la pista con partidos, ganados y sets (por ejemplo «6–5»); los números entran
   con un pequeño rebote.
+- Si ha jugado: anillo de ECharts con ganados (verde oscuro) y perdidos (naranja) y el % en el
+  centro, y dos barras con sets y juegos ganados contra perdidos, repartidas en proporción y
+  con su número.
 - Por lado: media pista partida en revés y drive con partidos y victorias en cada uno.
 - Con quién juega: compañeros con barra de porcentaje de victorias (verde oscuro sobre naranja,
   que crece al aparecer) y enlace a su ficha.
 - Por número de pareja («Masculino 1», «Mixto»), con la misma barra.
 - Su temporada: una fila por jornada con G (círculo verde relleno), P (borde naranja) o vacío
-  discontinuo (no jugó), rival, detalle («Masculino 1 con Sergio, de revés») y sets.
+  discontinuo (no jugó), rival, detalle («Masculino 1 con Sergio, de revés») y sets. Encima, una
+  gráfica con los juegos ganados menos los perdidos de cada jornada (hacia arriba si ganó, hacia
+  abajo si perdió); las jornadas que no jugó quedan vacías y los WO llevan «WO».
 - Se llega desde la plantilla y desde los nombres de la convocatoria de la portada. Los comodines no tienen ficha
   pública ni enlace; los gestores sí la ven, con el aviso «Es comodín».
 

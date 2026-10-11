@@ -1,0 +1,31 @@
+@let r = resumen();
+<ctp-grafica-estadistica
+  class="anillo"
+  [opciones]="anillo()"
+  [alto]="200"
+  [descripcion]="
+    'Anillo: ' +
+    r.ganados +
+    ' partidos ganados y ' +
+    r.perdidos +
+    ' perdidos, el ' +
+    (r.porcentajeVictorias ?? 0) +
+    ' % de victorias.'
+  "
+/>
+<ctp-grafica-estadistica
+  class="barras"
+  [opciones]="setsJuegos()"
+  [alto]="150"
+  [descripcion]="
+    'Sets: ' +
+    r.setsGanados +
+    ' ganados y ' +
+    r.setsPerdidos +
+    ' perdidos. Juegos: ' +
+    r.juegosGanados +
+    ' ganados y ' +
+    r.juegosPerdidos +
+    ' perdidos.'
+  "
+/>

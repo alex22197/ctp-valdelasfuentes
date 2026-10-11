@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import type { ParticipacionJugador } from '@data-access/estadisticas/interfaces/participacion-jugador.interface';
-import { TemaGraficasService } from '../../services/tema-graficas.service';
+import { TemaGraficasService } from '@shared/services/tema-graficas.service';
 import { ALTO_FILA_PARTICIPACION, opcionesParticipacion } from '../../utils/opciones-participacion';
-import { GraficaEstadisticaComponent } from '../grafica-estadistica/grafica-estadistica.component';
+import { GraficaEstadisticaComponent } from '@shared/components/grafica-estadistica/grafica-estadistica.component';
 
 /** Espacio para la leyenda y el eje, en píxeles. */
 const MARGEN = 90;

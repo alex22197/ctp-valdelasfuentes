@@ -1,8 +1,8 @@
 import type { EChartsCoreOption } from 'echarts/core';
 import type { JugadorPareja } from '@data-access/estadisticas/interfaces/jugador-pareja.interface';
-import type { ColoresGraficas } from '../interfaces/colores-graficas.interface';
+import type { ColoresGraficas } from '@shared/utils/graficas/interfaces/colores-graficas.interface';
 import type { MatrizParejas } from '../interfaces/matriz-parejas.interface';
-import { contarPartidos, opcionesComunes } from './opciones-comunes';
+import { contarPartidos, opcionesComunes } from '@shared/utils/graficas/opciones-comunes';
 
 /** Alto de cada fila de la matriz en píxeles: deja tocar cada casilla con el dedo. */
 export const ALTO_FILA_MATRIZ = 44;
