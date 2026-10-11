@@ -37,6 +37,8 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
   convocados son los de la alineación
   ([ADR 0009](decisiones/0009-convocados-son-los-de-la-alineacion.md)). Migración probada en un
   PostgreSQL local (20 casos) y aplicada en Supabase.
+- **Reglamento explicado** (#36): página pública `/reglamento` en el menú, con la normativa
+  2026-27 resumida en lenguaje llano, ejemplos, glosario y enlaces directos a cada tema.
 - **Web publicada** (#5, versión 0.1.0): <https://ctp-valdelasfuentes.padel-ctp.workers.dev>.
   Cloudflare publica cada cambio que llega a `main`; el login de Google funciona en la web
   publicada. Aún no se comparte con el equipo (#19, #20).
