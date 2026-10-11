@@ -3,6 +3,7 @@ export type NombreIcono =
   | 'calendario'
   | 'candado'
   | 'clasificacion'
+  | 'estadisticas'
   | 'inicio'
   | 'plantilla'
   | 'reglamento'

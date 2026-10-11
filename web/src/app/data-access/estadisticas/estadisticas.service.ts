@@ -103,7 +103,7 @@ export class EstadisticasService {
     const { data, error } = await this.supabase
       .from('estadistica_jornada')
       .select(
-        'confrontacion_id, fase_nombre, fase_orden, jornada, rival_nombre, condicion, partidos_ganados, partidos_perdidos',
+        'confrontacion_id, fase_id, fase_nombre, fase_orden, jornada, rival_nombre, condicion, partidos_ganados, partidos_perdidos, puntos',
       )
       .eq('competicion_id', idCompeticion)
       .order('fase_orden')

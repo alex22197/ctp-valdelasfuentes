@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import type { BalanceCompanero } from '@data-access/estadisticas/interfaces/balance-companero.interface';
-import { BarraVictoriasComponent } from '../barra-victorias/barra-victorias.component';
+import { BarraVictoriasComponent } from '@shared/components/barra-victorias/barra-victorias.component';
 
 /** Con quién ha jugado, de más a menos partidos, con su porcentaje de victorias. */
 @Component({

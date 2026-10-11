@@ -4,6 +4,7 @@ import { construirTemporada, describirPartido } from './temporada-jugador';
 
 const jornada = (id: string, faseOrden: number, numero: number): JornadaJugada => ({
   confrontacionId: id,
+  faseId: `f${faseOrden}`,
   faseNombre: faseOrden === 1 ? 'Apertura' : 'Clausura',
   faseOrden,
   jornada: numero,
@@ -11,6 +12,7 @@ const jornada = (id: string, faseOrden: number, numero: number): JornadaJugada =
   condicion: 'visitante',
   partidosGanados: 3,
   partidosPerdidos: 3,
+  puntos: 1,
 });
 
 const partido = (cambios: Partial<PartidoDeJugador> = {}): PartidoDeJugador => ({

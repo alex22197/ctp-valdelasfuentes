@@ -49,6 +49,14 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'estadisticas',
+    title: 'Estadísticas',
+    loadComponent: () =>
+      import('@features/estadisticas/pages/estadisticas-page/estadisticas-page.component').then(
+        (m) => m.EstadisticasPageComponent,
+      ),
+  },
+  {
     path: 'plantilla',
     title: 'Plantilla',
     loadComponent: () =>

@@ -24,11 +24,21 @@
   align-items: center;
   justify-content: center;
   gap: var(--espacio-1);
+  min-width: 0;
   min-height: 3.375rem;
   color: var(--color-tinta-tenue);
   font-size: 0.75rem;
   font-weight: 600;
+  // Cinco secciones en 320 px: la letra condensada hace que «Clasificación» quepa entera.
+  font-stretch: var(--anchura-condensada);
   text-decoration: none;
+}
+
+.etiqueta {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .enlace--activo {
