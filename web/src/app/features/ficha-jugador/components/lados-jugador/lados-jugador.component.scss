@@ -2,7 +2,8 @@
   display: block;
 }
 
-// Media pista vista desde arriba: red arriba, línea de saque y línea central.
+// Media pista vista desde arriba: red arriba (una línea interior, para que no se corte con
+// las esquinas redondeadas) y línea central.
 .cesped {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -11,8 +12,10 @@
   list-style: none;
   border-radius: var(--radio-pista);
   background:
-    linear-gradient(var(--color-sobre-pista), var(--color-sobre-pista)) top / 100% 5px no-repeat,
-    linear-gradient(rgb(255 255 255 / 55%), rgb(255 255 255 / 55%)) 50% 0 / 1.5px 100% no-repeat,
+    linear-gradient(var(--color-sobre-pista), var(--color-sobre-pista)) 50% var(--espacio-2) /
+      calc(100% - 2 * var(--espacio-5)) 3px no-repeat,
+    linear-gradient(rgb(255 255 255 / 55%), rgb(255 255 255 / 55%)) 50% 100% / 1.5px
+      calc(100% - var(--espacio-2)) no-repeat,
     var(--color-pista);
   color: var(--color-sobre-pista);
 }
