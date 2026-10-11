@@ -1,0 +1,91 @@
+:host {
+  display: block;
+}
+
+.seccion {
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-contenedor);
+  background: var(--color-superficie);
+  // Deja sitio arriba al saltar a la sección desde un enlace.
+  scroll-margin-top: var(--espacio-4);
+  transition: border-color var(--duracion-media);
+
+  &[open] {
+    border-color: var(--color-pista);
+  }
+
+  // El contenido se despliega con una transición donde el navegador lo permite.
+  &::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size var(--duracion-media) var(--curva-salida),
+      content-visibility var(--duracion-media) allow-discrete;
+  }
+
+  &[open]::details-content {
+    block-size: auto;
+  }
+}
+
+// `interpolate-size` permite animar hasta la altura automática del contenido.
+:host {
+  interpolate-size: allow-keywords;
+}
+
+.resumen {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+  min-height: var(--minimo-tactil);
+  padding: var(--espacio-4);
+  list-style: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.cabecera {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  min-width: 0;
+}
+
+.titulo {
+  font-size: var(--texto-m);
+  font-weight: 800;
+}
+
+.en-corto {
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+  line-height: 1.4;
+}
+
+// Flecha dibujada con bordes: gira al abrir.
+.flecha {
+  flex-shrink: 0;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-right: 2.5px solid var(--color-pista);
+  border-bottom: 2.5px solid var(--color-pista);
+  rotate: 45deg;
+  translate: 0 -25%;
+  transition:
+    rotate var(--duracion-media) var(--curva-salida),
+    translate var(--duracion-media) var(--curva-salida);
+
+  .seccion[open] & {
+    rotate: 225deg;
+    translate: 0 25%;
+  }
+}
+
+.contenido {
+  padding: 0 var(--espacio-4) var(--espacio-5);
+}

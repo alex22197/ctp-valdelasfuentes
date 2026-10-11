@@ -49,6 +49,14 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'reglamento',
+    title: 'Reglamento',
+    loadComponent: () =>
+      import('@features/reglamento/pages/reglamento-page/reglamento-page.component').then(
+        (m) => m.ReglamentoPageComponent,
+      ),
+  },
+  {
     path: 'acceso',
     title: 'Acceso',
     loadComponent: () =>

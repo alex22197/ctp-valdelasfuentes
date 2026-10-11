@@ -1,0 +1,12 @@
+<details class="seccion" [id]="ancla()" [open]="abierta()">
+  <summary class="resumen">
+    <span class="cabecera">
+      <h2 class="titulo">{{ titulo() }}</h2>
+      <span class="en-corto">{{ enCorto() }}</span>
+    </span>
+    <span class="flecha" aria-hidden="true"></span>
+  </summary>
+  <div class="prosa contenido">
+    <ng-content />
+  </div>
+</details>

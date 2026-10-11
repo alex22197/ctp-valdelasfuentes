@@ -35,6 +35,15 @@ clasificación, calendario y nombres.
 - **Clasificación** del grupo, con nuestra fila resaltada.
 - **Calendario** de la fase: «J1», rival, fecha y una etiqueta «Fuera» o «En casa».
 
+**Reglamento** (construida; pública, en el menú)
+
+- «Lo esencial en un minuto» sobre fondo de pista, con cada clave numerada en una bola
+  amarilla.
+- Índice de temas en píldoras y once secciones desplegables, cada una con su resumen «en corto»,
+  ejemplos (recuadro verde) y avisos (borde naranja con «Ojo»). Cada sección tiene su enlace
+  (`/reglamento#wo`) para compartirlo por WhatsApp, y se abre sola al llegar desde él.
+- Glosario y enlace al PDF oficial arriba y abajo.
+
 **Jornada y convocatoria, vista de capitán** (construida; solo gestores)
 
 - Cada lado de la pista es una ficha con las iniciales y el nombre del jugador, o un hueco
