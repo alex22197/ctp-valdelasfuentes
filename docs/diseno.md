@@ -70,6 +70,14 @@ clasificación, calendario y nombres.
 - Se guarda solo. Botón final: «Guardar y hacer la convocatoria».
 - Los comodines no aparecen aquí.
 
+**Plantilla** (construida; pública, en el menú)
+
+- Chicos, chicas y comodines, por orden alfabético, en dos columnas en el móvil.
+- Cada jugador es una ficha con sus iniciales en un círculo verde, el nombre y «3 partidos, 67 %
+  ganados» (o «Sin partidos»). Al tocarla lleva a su ficha.
+- Los comodines salen aparte, con «No tienen ficha pública», y sin enlace salvo para los
+  gestores.
+
 **Ficha de jugador** (construida; pública, en `/jugadores/:id`)
 
 - Nombre en grande y una frase con los partidos en los que juega y su lado habitual: el
@@ -82,7 +90,7 @@ clasificación, calendario y nombres.
 - Por número de pareja («Masculino 1», «Mixto»), con la misma barra.
 - Su temporada: una fila por jornada con G (círculo verde relleno), P (borde naranja) o vacío
   discontinuo (no jugó), rival, detalle («Masculino 1 con Sergio, de revés») y sets.
-- Se llega desde los nombres de la convocatoria de la portada. Los comodines no tienen ficha
+- Se llega desde la plantilla y desde los nombres de la convocatoria de la portada. Los comodines no tienen ficha
   pública ni enlace; los gestores sí la ven, con el aviso «Es comodín».
 
 **Estadísticas, escritorio** (pendiente)
