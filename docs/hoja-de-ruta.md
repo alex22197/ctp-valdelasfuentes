@@ -95,8 +95,8 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
   (`ngx-echarts`) que solo se descargan al abrirla.
 - ~~(#41) Gráficas en la ficha~~: hecho. Anillo de ganados y perdidos, sets y juegos, y su
   temporada jornada a jornada.
-- (#40) Más gráficas en estadísticas: ranking de jugadores, evolución de la temporada, revés
-  contra drive y jugador resaltado en todas las gráficas.
+- ~~(#40) Más gráficas en estadísticas~~: hecho. Ranking de jugadores, evolución de la
+  temporada, revés contra drive y jugador resaltado en todas las gráficas.
 - (#16) Páginas públicas en el menú: ~~«Plantilla»~~ hecha (`/plantilla`, chicos, chicas y
   comodines con su balance y enlace a la ficha); falta «Jornadas».
 
