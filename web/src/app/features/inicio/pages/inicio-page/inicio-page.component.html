@@ -1,7 +1,7 @@
 <h1 class="solo-lector">CTPA Valdelasfuentes</h1>
 
 @if (datos.faseActual.isLoading()) {
-  <ctp-mensaje-estado tipo="cargando" texto="Cargando la temporada…" />
+  <ctp-mensaje-estado tipo="cargando" texto="Cargando la temporada…" esqueleto="portada" />
 } @else if (datos.faseActual.error()) {
   <ctp-mensaje-estado
     tipo="error"
@@ -15,7 +15,11 @@
       <section class="seccion seccion-ancha" aria-labelledby="titulo-convocatoria">
         <h2 id="titulo-convocatoria" class="titulo-seccion">Convocatoria</h2>
         @if (datos.alineacion.isLoading()) {
-          <ctp-mensaje-estado tipo="cargando" texto="Cargando la convocatoria…" />
+          <ctp-mensaje-estado
+            tipo="cargando"
+            texto="Cargando la convocatoria…"
+            esqueleto="parejas"
+          />
         } @else if (datos.alineacion.error()) {
           <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar la convocatoria." />
         } @else if (datos.partidosAlineacion().length === 0) {

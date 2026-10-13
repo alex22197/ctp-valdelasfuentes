@@ -1,0 +1,155 @@
+@use 'breakpoints' as bp;
+
+// Cada forma imita el contenido que sustituye, con las mismas rejillas y altos.
+:host {
+  display: block;
+  padding: var(--espacio-4) 0;
+}
+
+.h {
+  display: block;
+  height: var(--texto-m);
+  border-radius: var(--radio-control);
+  background: var(--color-borde);
+  animation: latir 1.2s ease-in-out infinite alternate;
+}
+
+.pila {
+  display: grid;
+  gap: var(--espacio-2);
+  min-width: 0;
+}
+
+.titulo {
+  width: 40%;
+  height: var(--texto-l);
+}
+
+.grande {
+  width: 70%;
+  height: var(--texto-xl);
+}
+
+.linea {
+  height: var(--texto-s);
+}
+
+.media {
+  width: 60%;
+}
+
+.corta {
+  width: 40%;
+}
+
+.fila-tabla {
+  height: 2.5rem;
+}
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: var(--espacio-2);
+}
+
+.caja {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  min-height: 3.75rem;
+  padding: var(--espacio-2);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-contenedor);
+
+  .pila {
+    flex: 1;
+  }
+}
+
+.circulo {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+.grafica {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--espacio-4);
+  height: 12rem;
+  padding: 0 var(--espacio-4);
+  border-bottom: 2px solid var(--color-borde);
+}
+
+.barra {
+  flex: 1;
+  border-radius: var(--radio-control) var(--radio-control) 0 0;
+}
+
+.barra-tumbada {
+  height: 1.5rem;
+}
+
+.cuadricula {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--espacio-1);
+  max-width: 24rem;
+}
+
+.casilla {
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.portada {
+  height: 13rem;
+  margin-bottom: var(--espacio-4);
+  border-radius: var(--radio-pista);
+}
+
+.parejas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--espacio-2);
+
+  @include bp.desde(tablet) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @include bp.desde(escritorio) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.pareja {
+  height: 5rem;
+}
+
+.marcador {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--espacio-2);
+}
+
+.cifra {
+  height: 5.5rem;
+}
+
+.tarjeta {
+  height: 8rem;
+  border-radius: var(--radio-contenedor);
+}
+
+.boton {
+  width: 12rem;
+  height: var(--minimo-tactil);
+  border-radius: var(--radio-pildora);
+}
+
+@keyframes latir {
+  to {
+    opacity: 0.45;
+  }
+}

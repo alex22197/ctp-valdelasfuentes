@@ -1,7 +1,12 @@
-<p
-  class="mensaje"
-  [class.mensaje--error]="tipo() === 'error'"
-  [attr.role]="tipo() === 'error' ? 'alert' : 'status'"
->
-  {{ texto() }}
-</p>
+@if (tipo() === 'cargando') {
+  <ctp-esqueleto [forma]="esqueleto()" />
+  <p class="solo-lector" role="status">{{ texto() }}</p>
+} @else {
+  <p
+    class="mensaje"
+    [class.mensaje--error]="tipo() === 'error'"
+    [attr.role]="tipo() === 'error' ? 'alert' : 'status'"
+  >
+    {{ texto() }}
+  </p>
+}

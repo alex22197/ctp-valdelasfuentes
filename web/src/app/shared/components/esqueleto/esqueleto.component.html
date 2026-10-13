@@ -1,0 +1,96 @@
+@switch (forma()) {
+  @case ('tabla') {
+    <div class="pila">
+      @for (fila of seis; track fila) {
+        <span class="h fila-tabla"></span>
+      }
+    </div>
+  }
+  @case ('jugadores') {
+    <div class="pila">
+      <span class="h titulo"></span>
+      <div class="rejilla">
+        @for (jugador of ocho; track jugador) {
+          <div class="caja">
+            <span class="h circulo"></span>
+            <div class="pila">
+              <span class="h linea"></span>
+              <span class="h linea corta"></span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+  @case ('grafica') {
+    <div class="grafica">
+      @for (alto of altosGrafica; track $index) {
+        <span class="h barra" [style.height.%]="alto"></span>
+      }
+    </div>
+  }
+  @case ('ranking') {
+    <div class="pila">
+      @for (largo of largosRanking; track $index) {
+        <span class="h barra-tumbada" [style.width.%]="largo"></span>
+      }
+    </div>
+  }
+  @case ('cuadricula') {
+    <div class="cuadricula">
+      @for (casilla of casillas; track casilla) {
+        <span class="h casilla"></span>
+      }
+    </div>
+  }
+  @case ('portada') {
+    <div class="pila">
+      <span class="h portada"></span>
+      <span class="h titulo"></span>
+      @for (fila of [1, 2, 3, 4]; track fila) {
+        <span class="h fila-tabla"></span>
+      }
+    </div>
+  }
+  @case ('parejas') {
+    <div class="parejas">
+      @for (pareja of seis; track pareja) {
+        <span class="h pareja"></span>
+      }
+    </div>
+  }
+  @case ('ficha') {
+    <div class="pila">
+      <span class="h titulo grande"></span>
+      <span class="h linea media"></span>
+      <div class="marcador">
+        @for (cifra of [1, 2, 3]; track cifra) {
+          <span class="h cifra"></span>
+        }
+      </div>
+      <span class="h tarjeta"></span>
+      <span class="h tarjeta"></span>
+    </div>
+  }
+  @case ('cuenta') {
+    <div class="pila">
+      <span class="h linea"></span>
+      <span class="h linea media"></span>
+      <span class="h boton"></span>
+    </div>
+  }
+  @case ('cabecera') {
+    <div class="pila">
+      <span class="h linea corta"></span>
+      <span class="h titulo grande"></span>
+      <span class="h linea media"></span>
+    </div>
+  }
+  @case ('tarjetas') {
+    <div class="pila">
+      @for (tarjeta of seis; track tarjeta) {
+        <span class="h tarjeta"></span>
+      }
+    </div>
+  }
+}

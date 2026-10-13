@@ -1,7 +1,7 @@
 <h1 class="titulo-pagina">{{ auth.estaAutenticado() ? 'Tu cuenta' : 'Acceso para gestores' }}</h1>
 
 @if (!auth.lista()) {
-  <ctp-mensaje-estado tipo="cargando" texto="Comprobando tu sesión…" />
+  <ctp-mensaje-estado tipo="cargando" texto="Comprobando tu sesión…" esqueleto="cuenta" />
 } @else if (auth.sesion(); as sesion) {
   <p>
     Has iniciado sesión como <strong>{{ sesion.email }}</strong
