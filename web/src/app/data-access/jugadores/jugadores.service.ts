@@ -3,6 +3,7 @@ import { SupabaseClientService } from '@core/supabase/supabase-client.service';
 import { lanzarSiHayError } from '@core/supabase/error-acceso-datos';
 import { esUuid } from '@shared/utils/es-uuid';
 import { mapearJugadorPlantilla } from './jugador.mapper';
+import { mapearNombresCompletos } from './nombres-completos.mapper';
 import type { JugadorPlantilla } from './interfaces/jugador-plantilla.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -47,5 +48,23 @@ export class JugadoresService {
       .eq('comodin', true);
     lanzarSiHayError(error, 'No se han podido cargar los comodines.');
     return new Set((data ?? []).map((fila) => fila.jugador_id));
+  }
+
+  /**
+   * Nombre completo de los jugadores indicados que lo tienen. Es privado: solo responde a
+   * los gestores; para el resto devuelve vacío.
+   */
+  async obtenerNombresCompletos(
+    idsJugador: readonly string[],
+  ): Promise<ReadonlyMap<string, string>> {
+    if (idsJugador.length === 0) {
+      return new Map();
+    }
+    const { data, error } = await this.supabase
+      .from('jugador_privado')
+      .select('jugador_id, nombre_completo')
+      .in('jugador_id', [...idsJugador]);
+    lanzarSiHayError(error, 'No se han podido cargar los nombres completos.');
+    return mapearNombresCompletos(data ?? []);
   }
 }
