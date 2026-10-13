@@ -22,7 +22,14 @@
     <section class="seccion" aria-labelledby="titulo-proxima">
       <h2 id="titulo-proxima" class="titulo-seccion">Próxima jornada</h2>
       @if (datos.organizadas().proxima; as proxima) {
-        <ctp-jornada-gestion class="destacada" [jornada]="proxima" />
+        <ctp-jornada-gestion class="destacada" [jornada]="proxima">
+          <ctp-datos-jornada
+            [jornada]="proxima"
+            [guardando]="datos.guardandoJornada()"
+            [error]="datos.errorJornada()"
+            (guardar)="datos.guardarDatosJornada(proxima.id, $event)"
+          />
+        </ctp-jornada-gestion>
       } @else {
         <ctp-mensaje-estado tipo="vacio" texto="No queda ninguna jornada por jugar en esta fase." />
       }

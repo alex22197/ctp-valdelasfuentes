@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IconoComponent } from '@shared/components/icono/icono.component';
+import { DatosJornadaComponent } from '@shared/components/datos-jornada/datos-jornada.component';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
 import { FechaConfrontacionPipe } from '@shared/pipes/fecha-confrontacion.pipe';
 import { TransicionVistaService } from '@shared/services/transicion-vista.service';
@@ -23,6 +24,7 @@ import { opcionesParaPista } from '../../utils/opciones-hueco';
 @Component({
   selector: 'ctp-convocatoria-page',
   imports: [
+    DatosJornadaComponent,
     RouterLink,
     IconoComponent,
     MensajeEstadoComponent,
