@@ -12,11 +12,13 @@
   list-style: none;
 }
 
+// Iniciales y nombre arriba; abajo, de lado a lado, los partidos y el % de victorias con su
+// barra. Todas las fichas tienen la misma forma, así que salen de la misma altura.
 .ficha {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  grid-template-rows: auto auto;
-  column-gap: var(--espacio-3);
+  grid-template-rows: 1fr auto auto;
+  gap: var(--espacio-2) var(--espacio-3);
   align-items: center;
   height: 100%;
   min-height: 3.75rem;
@@ -43,7 +45,6 @@ a.ficha {
 
 .avatar {
   display: grid;
-  grid-row: span 2;
   place-items: center;
   width: 2.5rem;
   height: 2.5rem;
@@ -61,6 +62,29 @@ a.ficha {
 }
 
 .balance {
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: space-between;
   color: var(--color-tinta-tenue);
   font-size: var(--texto-xs);
+}
+
+.porcentaje {
+  color: var(--color-tinta);
+}
+
+.barra {
+  display: block;
+  grid-column: 1 / -1;
+  height: 4px;
+  margin-top: calc(-1 * var(--espacio-1));
+  overflow: hidden;
+  border-radius: var(--radio-pildora);
+  background: var(--color-borde);
+}
+
+.barra-ganados {
+  display: block;
+  height: 100%;
+  background: var(--color-pista);
 }

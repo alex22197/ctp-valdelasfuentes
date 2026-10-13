@@ -9,12 +9,6 @@
   }
 }
 
-.seccion-ancha {
-  @include bp.desde(escritorio) {
-    grid-column: 1 / -1;
-  }
-}
-
 .seccion {
   display: flex;
   flex-direction: column;
@@ -24,6 +18,13 @@
 
 .cabecera-seccion {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
+
+  // «Ver detalle»: zona táctil de 44 px sin cambiar cómo se ve.
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--minimo-tactil);
+  }
 }

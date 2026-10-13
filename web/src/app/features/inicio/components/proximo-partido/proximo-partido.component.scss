@@ -2,6 +2,7 @@
 
 :host {
   display: block;
+  container-type: inline-size;
 }
 
 // Césped con el borde de la pista dibujado dentro.
@@ -51,7 +52,8 @@
   gap: var(--espacio-3);
   min-width: 0;
   overflow-wrap: break-word;
-  font-size: clamp(2rem, 9vw, 4rem);
+  // Según el ancho de la tarjeta: en escritorio comparte fila con la convocatoria.
+  font-size: clamp(var(--texto-cifra), 10cqi, var(--texto-xxl));
   font-weight: 800;
   font-stretch: var(--anchura-condensada);
   line-height: 0.92;
