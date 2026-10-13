@@ -55,8 +55,13 @@ clasificación, calendario y nombres.
 - Alineación sobre las 6 mini pistas, con estado «Borrador» o «Publicada».
 - Comprobación de normativa visible: «Cumple la normativa: las 6 parejas están completas y nadie
   del mixto repite».
-- Botones «Copiar para WhatsApp» (genera el texto de la convocatoria con el mismo formato que
-  usa el capitán) y «Editar alineación».
+- «Copiar para WhatsApp» copia una **imagen** con la tabla que usa el capitán: cabecera azul
+  claro «vs SOTO TORREJÓN SÁBADO 12:00 LOS 6 A LA VEZ» (o «EN 3 PISTAS», con las parejas en el
+  orden de juego) y una fila por pareja con su etiqueta de color (masculino naranja, femenino
+  amarillo, mixto violeta), revés y drive. Usa el nombre completo si está en la plantilla.
+- Solo se activa con todas las parejas completas y la alineación guardada; si no, dice por qué.
+  La imagen se enseña debajo para revisarla, con «Compartir» (si el móvil lo permite) y
+  «Descargar» por si no se puede copiar.
 - Sin respuestas a la encuesta: la web ya no la registra
   ([ADR 0012](decisiones/0012-sin-encuesta-en-la-web.md)). «Pasar lista» se retiró.
 
