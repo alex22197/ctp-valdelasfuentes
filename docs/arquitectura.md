@@ -73,6 +73,9 @@ InicioPageComponent
 - Los datos se cargan con `resource()`: cada uno expone `isLoading()`, `error()` y su valor,
   y se recarga solo cuando cambian sus parámetros.
 - Las plantillas muestran un `ctp-mensaje-estado` mientras cargan, si fallan o si no hay datos.
+  Mientras cargan, se ve un esqueleto con la forma de lo que va a salir (`esqueleto="tabla"`,
+  `"jugadores"`, `"grafica"`…) y el texto solo lo oyen los lectores de pantalla; si la espera
+  se alarga, Libra sale en una ventana delante del contenido.
 - Los componentes visuales reciben datos de dominio por `input()` y no saben de dónde vienen.
 
 ## Modelo de dominio frente a base de datos

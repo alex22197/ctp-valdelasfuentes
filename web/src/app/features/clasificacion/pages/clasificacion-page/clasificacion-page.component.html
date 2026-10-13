@@ -6,7 +6,7 @@
 </header>
 
 @if (faseActual.isLoading() || clasificacion.isLoading()) {
-  <ctp-mensaje-estado tipo="cargando" texto="Cargando la clasificación…" />
+  <ctp-mensaje-estado tipo="cargando" texto="Cargando la clasificación…" esqueleto="tabla" />
 } @else if (faseActual.error() || clasificacion.error()) {
   <ctp-mensaje-estado
     tipo="error"

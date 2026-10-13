@@ -9,7 +9,7 @@
     texto="No se ha podido cargar la jornada. Recarga la página para volver a intentarlo."
   />
 } @else if (!datos.confrontacion.hasValue()) {
-  <ctp-mensaje-estado tipo="cargando" texto="Cargando la jornada…" />
+  <ctp-mensaje-estado tipo="cargando" texto="Cargando la jornada…" esqueleto="cabecera" />
 } @else if (datos.confrontacionActual(); as confrontacion) {
   <header class="cabecera">
     <p class="texto-secundario">
@@ -30,7 +30,7 @@
       texto="No se ha podido cargar la alineación. Recarga la página para volver a intentarlo."
     />
   } @else if (!datos.partidos.hasValue() || !datos.convocables.hasValue()) {
-    <ctp-mensaje-estado tipo="cargando" texto="Cargando la alineación…" />
+    <ctp-mensaje-estado tipo="cargando" texto="Cargando la alineación…" esqueleto="tarjetas" />
   } @else {
     <section class="seccion" aria-labelledby="titulo-alineacion">
       <h2 id="titulo-alineacion" class="titulo-seccion">Alineación</h2>

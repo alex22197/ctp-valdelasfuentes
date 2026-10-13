@@ -6,7 +6,7 @@
 </header>
 
 @if (cargando()) {
-  <ctp-mensaje-estado tipo="cargando" texto="Cargando la plantilla…" />
+  <ctp-mensaje-estado tipo="cargando" texto="Cargando la plantilla…" esqueleto="jugadores" />
 } @else if (error()) {
   <ctp-mensaje-estado
     tipo="error"
