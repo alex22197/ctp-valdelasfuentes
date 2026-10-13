@@ -31,15 +31,6 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'pasar-lista/:idConfrontacion',
-    title: 'Pasar lista',
-    canActivate: [gestorGuard],
-    loadComponent: () =>
-      import('@features/pasar-lista/pages/pasar-lista-page/pasar-lista-page.component').then(
-        (m) => m.PasarListaPageComponent,
-      ),
-  },
-  {
     path: 'convocatoria/:idConfrontacion',
     title: 'Convocatoria',
     canActivate: [gestorGuard],

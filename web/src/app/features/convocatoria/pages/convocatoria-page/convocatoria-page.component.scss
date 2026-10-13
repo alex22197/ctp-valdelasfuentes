@@ -49,22 +49,6 @@
   gap: var(--espacio-4);
 }
 
-.cabecera-seccion {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--espacio-2);
-}
-
-.enlace {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--minimo-tactil);
-  font-size: var(--texto-s);
-  font-weight: 600;
-}
-
 .pistas {
   display: grid;
   gap: var(--espacio-4);

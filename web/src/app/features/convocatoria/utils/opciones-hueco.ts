@@ -7,16 +7,13 @@ import type { GrupoOpciones } from '../interfaces/grupo-opciones.interface';
 import type { HuecoAlineacion } from '../interfaces/hueco-alineacion.interface';
 
 const GRUPOS: readonly { estado: EstadoOpcion; titulo: string }[] = [
-  { estado: 'pueden', titulo: 'Pueden' },
-  { estado: 'sin-responder', titulo: 'Sin responder' },
-  { estado: 'no-pueden', titulo: 'No pueden' },
+  { estado: 'jugador', titulo: 'Jugadores' },
   { estado: 'comodin', titulo: 'Comodines' },
 ];
 
 /**
- * Jugadores que se pueden elegir en una pista, agrupados por lo que respondieron:
- * primero los que pueden, después los que no han contestado, los que no pueden y, al
- * final, los comodines. En masculino solo chicos y en femenino solo chicas. Quien ya está
+ * Jugadores que se pueden elegir en una pista: primero la plantilla y, al final, los
+ * comodines. En masculino solo chicos y en femenino solo chicas. Quien ya está
  * en otra pista lo indica («M2»): si se elige, se mueve de allí.
  */
 export function opcionesParaPista(
@@ -45,7 +42,7 @@ export function opcionesParaPista(
     estado,
     titulo,
     opciones: candidatos
-      .filter((jugador) => estadoDe(jugador) === estado)
+      .filter((jugador) => (jugador.comodin ? 'comodin' : 'jugador') === estado)
       .map((jugador) => ({
         id: jugador.id,
         nombre: jugador.nombreMostrar,
@@ -71,16 +68,6 @@ export function filtrarOpciones(
       opciones: grupo.opciones.filter((opcion) => normalizar(opcion.nombre).includes(texto)),
     }))
     .filter((grupo) => grupo.opciones.length > 0);
-}
-
-function estadoDe(jugador: JugadorConvocable): EstadoOpcion {
-  if (jugador.comodin) {
-    return 'comodin';
-  }
-  if (jugador.respuesta === 'si') {
-    return 'pueden';
-  }
-  return jugador.respuesta === 'no' ? 'no-pueden' : 'sin-responder';
 }
 
 function normalizar(texto: string): string {

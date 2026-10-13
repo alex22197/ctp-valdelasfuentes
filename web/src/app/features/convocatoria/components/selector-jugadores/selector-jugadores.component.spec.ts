@@ -4,11 +4,11 @@ import { SelectorJugadoresComponent } from './selector-jugadores.component';
 
 const grupos: GrupoOpciones[] = [
   {
-    estado: 'pueden',
-    titulo: 'Pueden',
+    estado: 'jugador',
+    titulo: 'Jugadores',
     opciones: [
-      { id: 'alvaro', nombre: 'Álvaro', iniciales: 'Ál', estado: 'pueden', otraPista: 'M2' },
-      { id: 'walter', nombre: 'Walter', iniciales: 'Wa', estado: 'pueden', otraPista: null },
+      { id: 'alvaro', nombre: 'Álvaro', iniciales: 'Ál', estado: 'jugador', otraPista: 'M2' },
+      { id: 'walter', nombre: 'Walter', iniciales: 'Wa', estado: 'jugador', otraPista: null },
     ],
   },
 ];

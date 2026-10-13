@@ -124,25 +124,6 @@
       </section>
     }
 
-    @if (datos.esGestor()) {
-      <section class="seccion" aria-labelledby="titulo-participacion">
-        <h2 id="titulo-participacion" class="titulo-seccion">Respuestas y participación</h2>
-        <p class="solo-gestores texto-secundario">
-          <ctp-icono nombre="candado" />
-          Solo lo veis los gestores: sale de la encuesta de cada jornada.
-        </p>
-        @if (datos.participacion.error()) {
-          <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar la participación." />
-        } @else if (!datos.participacion.hasValue()) {
-          <ctp-mensaje-estado tipo="cargando" texto="Cargando la participación…" />
-        } @else if (datos.participacion.value().length === 0) {
-          <ctp-mensaje-estado tipo="vacio" texto="Todavía no hay jornadas jugadas." />
-        } @else {
-          <ctp-participacion-equipo [participacion]="datos.participacion.value()" />
-        }
-      </section>
-    }
-
     <p class="nota texto-secundario">
       Los WO cuentan para el equipo (evolución, jornada a jornada y por partido), pero no en las
       estadísticas de cada jugador ni de las parejas, que solo suman los partidos jugados.

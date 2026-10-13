@@ -52,9 +52,6 @@ export function comprobarAlineacion(
         ),
       );
     }
-    if (jugador.respuesta === 'no') {
-      problemas.push(aviso(`${jugador.nombreMostrar} dijo que no puede ir`));
-    }
   }
 
   const huecosVacios = huecos

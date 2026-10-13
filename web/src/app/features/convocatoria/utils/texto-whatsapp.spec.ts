@@ -1,14 +1,13 @@
 import type { TipoPartido } from '@data-access/alineaciones/interfaces/tipo-partido.type';
 import type { JugadorConvocable } from '@data-access/disponibilidad/interfaces/jugador-convocable.interface';
 import type { HuecoAlineacion } from '../interfaces/hueco-alineacion.interface';
-import { textoConvocatoria, textoRecordatorio } from './texto-whatsapp';
+import { textoConvocatoria } from './texto-whatsapp';
 
 function jugador(nombreMostrar: string): JugadorConvocable {
   return {
     id: nombreMostrar,
     nombreMostrar,
     sexo: 'masculino',
-    respuesta: 'si',
     convocado: true,
     comodin: false,
     inscritoOficial: true,
@@ -89,19 +88,5 @@ describe('textoConvocatoria', () => {
         'Masculino 3: WO',
       ].join('\n'),
     );
-  });
-});
-
-describe('textoRecordatorio', () => {
-  it('nombra a quien falta por contestar', () => {
-    expect(
-      textoRecordatorio(jornada1, [jugador('Diego'), jugador('Juan'), jugador('Walter')]),
-    ).toBe(
-      'Falta por contestar a la encuesta del partido contra Soto Torrejón (sábado 12:00): Diego, Juan y Walter. ¿Podéis decir si vais?',
-    );
-  });
-
-  it('no genera nada si han contestado todos', () => {
-    expect(textoRecordatorio(jornada1, [])).toBe('');
   });
 });

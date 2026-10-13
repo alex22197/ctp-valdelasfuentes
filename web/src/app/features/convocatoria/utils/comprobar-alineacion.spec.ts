@@ -12,7 +12,6 @@ function jugador(
     id: nombreMostrar,
     nombreMostrar,
     sexo,
-    respuesta: 'si',
     convocado: false,
     comodin: false,
     inscritoOficial: true,
@@ -35,8 +34,7 @@ const plantilla = [
   jugador('Jorge', 'masculino'),
   jugador('Rocio', 'femenino'),
   jugador('Vir', 'femenino'),
-  jugador('Jess', 'femenino', { comodin: true, inscritoOficial: null, respuesta: null }),
-  jugador('Juan', 'masculino', { respuesta: 'no' }),
+  jugador('Jess', 'femenino', { comodin: true, inscritoOficial: null }),
 ];
 
 describe('comprobarAlineacion', () => {
@@ -76,14 +74,13 @@ describe('comprobarAlineacion', () => {
     expect(problemas).toEqual([{ gravedad: 'aviso', clave: null, mensaje: 'Falta 1 jugador' }]);
   });
 
-  it('avisa de un comodín sin inscripción comprobada y de quien dijo que no', () => {
+  it('avisa de un comodín sin inscripción comprobada', () => {
     const mensajes = comprobarAlineacion(
-      [hueco('femenino', 2, 'Vir', 'Jess'), hueco('masculino', 1, 'Juan', 'Jorge')],
+      [hueco('femenino', 2, 'Vir', 'Jess'), hueco('masculino', 1, 'Sergio', 'Jorge')],
       plantilla,
     ).map((p) => p.mensaje);
     expect(mensajes).toContain(
       'Jess es comodín y no consta como inscrito oficialmente: si el rival lo reclama, se pierde el partido',
     );
-    expect(mensajes).toContain('Juan dijo que no puede ir');
   });
 });

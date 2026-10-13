@@ -1,2 +1,2 @@
-/** Grupo de un jugador en el panel, según lo que respondió a la encuesta. */
-export type EstadoOpcion = 'pueden' | 'sin-responder' | 'no-pueden' | 'comodin';
+/** Grupo de un jugador en el panel: de la plantilla o comodín. */
+export type EstadoOpcion = 'jugador' | 'comodin';
