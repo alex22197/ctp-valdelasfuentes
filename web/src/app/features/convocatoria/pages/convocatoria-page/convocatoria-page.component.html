@@ -19,6 +19,15 @@
     <p class="texto-secundario">
       {{ confrontacion | fechaConfrontacion }}, {{ confrontacion.sede ?? 'sede por confirmar' }}
     </p>
+    @if (confrontacion.estado !== 'jugada') {
+      <ctp-datos-jornada
+        class="datos-jornada"
+        [jornada]="confrontacion"
+        [guardando]="datos.guardandoJornada()"
+        [error]="datos.errorJornada()"
+        (guardar)="datos.guardarDatosJornada($event)"
+      />
+    }
     <p class="estado" [class.estado--publicada]="confrontacion.convocatoriaPublicada">
       {{ confrontacion.convocatoriaPublicada ? 'Publicada' : 'Borrador' }}
     </p>

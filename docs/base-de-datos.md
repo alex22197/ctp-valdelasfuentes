@@ -107,7 +107,8 @@ La base de datos rechaza, con un mensaje en castellano:
 - El proyecto **no expone tablas automáticamente**: cada migración concede con `grant`
   exactamente lo que hace falta.
 - El scraper usará la clave secreta (`service_role`), que se salta RLS y solo vive en los
-  secretos de GitHub.
+  secretos de GitHub. No debe pisar `fecha_hora`, `sede` ni `num_pistas` de una jornada si ya
+  los ha puesto un gestor desde la web: solo los rellena cuando están vacíos.
 
 ## Cómo cambiar el esquema
 

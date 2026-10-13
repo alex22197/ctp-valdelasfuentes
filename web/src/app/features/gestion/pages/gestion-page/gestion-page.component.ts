@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { DatosJornadaComponent } from '@shared/components/datos-jornada/datos-jornada.component';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
 import { JornadaGestionComponent } from '../../components/jornada-gestion/jornada-gestion.component';
 import { DatosGestionService } from '../../services/datos-gestion.service';
@@ -9,7 +10,7 @@ import { DatosGestionService } from '../../services/datos-gestion.service';
  */
 @Component({
   selector: 'ctp-gestion-page',
-  imports: [MensajeEstadoComponent, JornadaGestionComponent],
+  imports: [DatosJornadaComponent, MensajeEstadoComponent, JornadaGestionComponent],
   providers: [DatosGestionService],
   templateUrl: './gestion-page.component.html',
   styleUrl: './gestion-page.component.scss',

@@ -58,9 +58,17 @@
   color: var(--color-sobre-pista);
 }
 
+.acciones,
+.extra {
+  grid-column: 1 / -1;
+}
+
+.extra:empty {
+  display: none;
+}
+
 .acciones {
   display: flex;
   flex-wrap: wrap;
-  grid-column: 1 / -1;
   gap: var(--espacio-2);
 }

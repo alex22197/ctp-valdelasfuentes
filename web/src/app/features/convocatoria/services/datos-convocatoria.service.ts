@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { AlineacionesService } from '@data-access/alineaciones/alineaciones.service';
 import { ConfrontacionesService } from '@data-access/confrontaciones/confrontaciones.service';
+import type { DatosConfrontacion } from '@data-access/confrontaciones/interfaces/datos-confrontacion.interface';
 import { DisponibilidadService } from '@data-access/disponibilidad/disponibilidad.service';
 import { JugadoresService } from '@data-access/jugadores/jugadores.service';
 import { ResultadosService } from '@data-access/resultados/resultados.service';
@@ -121,6 +122,27 @@ export class DatosConvocatoriaService {
       await this.alineaciones.publicarConvocatoria(id, publicada);
       this.confrontacion.reload();
     });
+  }
+
+  readonly guardandoJornada = signal(false);
+  readonly errorJornada = signal<string | null>(null);
+
+  /** Día y hora, sede y pistas: al recargar la jornada se ven en la cabecera y en la imagen. */
+  async guardarDatosJornada(datos: DatosConfrontacion): Promise<void> {
+    const id = this.id();
+    if (!id || this.guardandoJornada()) {
+      return;
+    }
+    this.guardandoJornada.set(true);
+    this.errorJornada.set(null);
+    try {
+      await this.confrontaciones.guardarDatos(id, datos);
+      this.confrontacion.reload();
+    } catch (error) {
+      this.errorJornada.set(error instanceof Error ? error.message : 'No se ha podido guardar.');
+    } finally {
+      this.guardandoJornada.set(false);
+    }
   }
 
   private async ejecutar(accion: (id: string) => Promise<void>): Promise<void> {

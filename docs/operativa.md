@@ -6,6 +6,15 @@ Qué hay que hacer cada semana de jornada y las tareas de administración puntua
 > hace en WhatsApp y no se pasa a la web. La plantilla aún se
 > edita desde el **Table Editor** de Supabase.
 
+## Poner la fecha, la hora y la sede
+
+1. Entra con tu cuenta de gestor y pulsa **Gestión**. En la **Próxima jornada**, pulsa **Poner
+   fecha, hora y sede** (también está en la cabecera de la **Convocatoria**).
+2. Escribe el día y la hora (la de aquí, aunque el móvil esté en otro huso), la sede y cuántas
+   pistas hay. Lo que no sepas, déjalo vacío y quedará «por confirmar».
+3. Pulsa **Guardar**. La portada, el calendario y la imagen de la convocatoria lo muestran al
+   momento; con menos de 6 pistas, la imagen dice «EN 3 PISTAS» y ordena las parejas por turno.
+
 ## Hacer la convocatoria
 
 1. Entra con tu cuenta de gestor, pulsa **Gestión** arriba a la derecha y, en la **Próxima
