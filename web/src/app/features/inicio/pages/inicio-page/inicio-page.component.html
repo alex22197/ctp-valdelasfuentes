@@ -1,6 +1,7 @@
 <h1 class="solo-lector">CTPA Valdelasfuentes</h1>
 
-@if (datos.faseActual.isLoading()) {
+<!-- El próximo partido sale del calendario: hasta tenerlo, la portada entera es esqueleto. -->
+@if (datos.faseActual.isLoading() || datos.calendario.isLoading()) {
   <ctp-mensaje-estado tipo="cargando" texto="Cargando la temporada…" esqueleto="portada" />
 } @else if (datos.faseActual.error()) {
   <ctp-mensaje-estado
@@ -44,6 +45,8 @@
       <p class="texto-secundario">{{ faseActual.fase.nombre }}</p>
       @if (datos.clasificacion.error()) {
         <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar la clasificación." />
+      } @else if (datos.clasificacion.isLoading()) {
+        <ctp-mensaje-estado tipo="cargando" texto="Cargando la clasificación…" esqueleto="tabla" />
       } @else {
         <ctp-tabla-clasificacion [filas]="datos.filasClasificacion()" />
       }
