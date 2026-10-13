@@ -3,8 +3,7 @@
 // la zancada y las orejas y la cola llegan con retraso, como algo flexible. Una zancada dura
 // 0,5 s; el resto de tiempos son múltiplos o fracciones de ella.
 :host {
-  display: block;
-  width: 9rem;
+  display: block; // ocupa el ancho que le dé quien la usa
 }
 
 svg {

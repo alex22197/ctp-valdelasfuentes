@@ -1,0 +1,46 @@
+// Ventana centrada sobre un velo que tapa toda la página (también la navegación) y no deja
+// tocar nada hasta que llega la respuesta.
+.velo {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: var(--espacio-4);
+  background: var(--color-velo);
+  transition: opacity var(--duracion-media) var(--curva-salida);
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.ventana {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-2);
+  width: min(100%, 20rem);
+  padding: var(--espacio-6) var(--espacio-5) var(--espacio-4);
+  border-radius: var(--radio-pista);
+  background: var(--color-superficie);
+  box-shadow: var(--sombra-panel);
+  transition: transform var(--duracion-media) var(--curva-rebote);
+
+  @starting-style {
+    transform: scale(0.9);
+  }
+}
+
+.texto {
+  color: var(--color-tinta-suave);
+  font-size: var(--texto-s);
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .velo,
+  .ventana {
+    transition: none;
+  }
+}
