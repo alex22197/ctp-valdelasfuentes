@@ -68,6 +68,8 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
 5. ~~(#9) **Acceso a la gestión desde el menú**~~: hecho. Botón «Gestión» en la cabecera, solo
    para gestores, que lleva a `/gestion`: la próxima jornada, los resultados por meter y
    todas las jornadas con su convocatoria y sus resultados.
+6. ~~(#50) **Fecha, hora y sede de una jornada**~~: hecho. Formulario en la convocatoria y en
+   la próxima jornada de Gestión, con día, hora (siempre en hora de Madrid), sede y pistas.
 
 ## 3. Scraper semanal y copia de seguridad
 
