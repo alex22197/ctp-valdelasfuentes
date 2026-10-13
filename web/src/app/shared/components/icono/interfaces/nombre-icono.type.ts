@@ -4,6 +4,7 @@ export type NombreIcono =
   | 'candado'
   | 'clasificacion'
   | 'estadisticas'
+  | 'gestion'
   | 'inicio'
   | 'plantilla'
   | 'reglamento'

@@ -40,6 +40,15 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'gestion',
+    title: 'Gestión',
+    canActivate: [gestorGuard],
+    loadComponent: () =>
+      import('@features/gestion/pages/gestion-page/gestion-page.component').then(
+        (m) => m.GestionPageComponent,
+      ),
+  },
+  {
     path: 'estadisticas',
     title: 'Estadísticas',
     loadComponent: () =>

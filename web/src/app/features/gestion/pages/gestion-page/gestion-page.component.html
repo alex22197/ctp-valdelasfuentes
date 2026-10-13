@@ -1,0 +1,60 @@
+<header class="cabecera">
+  <h1 class="titulo-pagina">Gestión</h1>
+  @if (datos.fase(); as fase) {
+    <p class="texto-secundario">{{ fase.fase.nombre }}</p>
+  }
+</header>
+
+@switch (datos.estado()) {
+  @case ('cargando') {
+    <ctp-mensaje-estado tipo="cargando" texto="Cargando las jornadas…" esqueleto="tarjetas" />
+  }
+  @case ('error') {
+    <ctp-mensaje-estado
+      tipo="error"
+      texto="No se han podido cargar las jornadas. Recarga la página para volver a intentarlo."
+    />
+  }
+  @case ('sin-competicion') {
+    <ctp-mensaje-estado tipo="vacio" texto="Ahora mismo no hay ninguna temporada en marcha." />
+  }
+  @default {
+    <section class="seccion" aria-labelledby="titulo-proxima">
+      <h2 id="titulo-proxima" class="titulo-seccion">Próxima jornada</h2>
+      @if (datos.organizadas().proxima; as proxima) {
+        <ctp-jornada-gestion class="destacada" [jornada]="proxima" />
+      } @else {
+        <ctp-mensaje-estado tipo="vacio" texto="No queda ninguna jornada por jugar en esta fase." />
+      }
+    </section>
+
+    <section class="seccion" aria-labelledby="titulo-resultados">
+      <h2 id="titulo-resultados" class="titulo-seccion">Resultados por meter</h2>
+      @if (datos.organizadas().sinResultados.length === 0) {
+        <ctp-mensaje-estado tipo="vacio" texto="Al día: no falta ningún resultado." />
+      } @else {
+        <ul class="lista">
+          @for (jornada of datos.organizadas().sinResultados; track jornada.id) {
+            <li><ctp-jornada-gestion [jornada]="jornada" /></li>
+          }
+        </ul>
+      }
+    </section>
+
+    <section class="seccion" aria-labelledby="titulo-todas">
+      <h2 id="titulo-todas" class="titulo-seccion">Todas las jornadas</h2>
+      @if (datos.jornadas().length === 0) {
+        <ctp-mensaje-estado
+          tipo="vacio"
+          texto="El calendario de esta fase todavía no está publicado."
+        />
+      } @else {
+        <ul class="lista">
+          @for (jornada of datos.jornadas(); track jornada.id) {
+            <li><ctp-jornada-gestion [jornada]="jornada" /></li>
+          }
+        </ul>
+      }
+    </section>
+  }
+}

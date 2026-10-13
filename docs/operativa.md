@@ -8,8 +8,8 @@ Qué hay que hacer cada semana de jornada y las tareas de administración puntua
 
 ## Hacer la convocatoria
 
-1. Entra con tu cuenta de gestor y, en el **Calendario** del **Inicio**, pulsa **Convocatoria**
-   en la jornada.
+1. Entra con tu cuenta de gestor, pulsa **Gestión** arriba a la derecha y, en la **Próxima
+   jornada**, pulsa **Convocatoria**. También está en el **Calendario** del **Inicio**.
 2. Toca cada lado de la pista para elegir quién juega de **revés** (izquierda) y de **drive**
    (derecha). En el panel sale la plantilla y, aparte, los comodines; puedes buscar por nombre. Si eliges a alguien que ya está en
    otra pista, se mueve y deja ese hueco libre.
@@ -29,8 +29,9 @@ Si cambias una convocatoria ya publicada, se ve en la portada en cuanto la guard
 
 ## Meter los resultados de una jornada
 
-1. Entra con tu cuenta de gestor y ve al **Inicio**.
-2. En el **Calendario**, pulsa **Meter resultados** en la jornada.
+1. Entra con tu cuenta de gestor y pulsa **Gestión** arriba a la derecha.
+2. En **Resultados por meter** (o en **Todas las jornadas**), pulsa **Meter resultados** en la
+   jornada. También está en el **Calendario** del **Inicio**.
 3. En cada partido elige cómo terminó (Jugado, WO a favor, WO en contra, Abandono o
    Suspendido), escribe los juegos de cada set (y el tie-break si un set acaba 7-6) y pulsa
    **Guardar**. Cada partido se guarda por separado.

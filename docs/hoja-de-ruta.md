@@ -65,8 +65,9 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
 3. ~~(#7) **Convocatoria y alineación**~~: hecho (ver arriba).
 4. (#8) **Plantilla**: alta y edición de jugadores (nombre para mostrar y completo, sexo, lado
    preferido, comodín, inscrito oficialmente).
-5. (#9) **Acceso a la gestión desde el menú**: entrada «Gestión» visible solo para gestores.
-   Ahora los resultados solo se encuentran desde el calendario de la portada.
+5. ~~(#9) **Acceso a la gestión desde el menú**~~: hecho. Botón «Gestión» en la cabecera, solo
+   para gestores, que lleva a `/gestion`: la próxima jornada, los resultados por meter y
+   todas las jornadas con su convocatoria y sus resultados.
 
 ## 3. Scraper semanal y copia de seguridad
 
