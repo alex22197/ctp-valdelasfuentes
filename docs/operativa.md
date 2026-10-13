@@ -19,8 +19,11 @@ Qué hay que hacer cada semana de jornada y las tareas de administración puntua
 4. Pulsa **Guardar alineación**. Los colocados quedan convocados; quien quitas, deja de estarlo.
 5. Pulsa **Publicar en la portada** cuando sea definitiva. Mientras es un borrador, la portada
    dice que la convocatoria todavía no está publicada.
-6. **Copiar para WhatsApp** copia la convocatoria con el formato del capitán para pegarla en el
-   grupo.
+6. **Copiar para WhatsApp** copia una imagen con la tabla de la convocatoria para pegarla en el
+   grupo. Solo se puede con todas las parejas puestas y guardadas. Si el móvil no deja copiar
+   imágenes, usa **Compartir** (elige WhatsApp) o **Descargar**, o mantén pulsada la imagen.
+   Los nombres completos salen de la plantilla: si alguien sale con su nombre corto, falta
+   ponerle el nombre completo.
 
 Si cambias una convocatoria ya publicada, se ve en la portada en cuanto la guardas.
 
