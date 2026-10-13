@@ -47,8 +47,8 @@ clasificación, calendario y nombres.
 **Jornada y convocatoria, vista de capitán** (construida; solo gestores)
 
 - Cada lado de la pista es una ficha con las iniciales y el nombre del jugador, o un hueco
-  con «+». Al tocarla sube desde abajo un panel con los jugadores como fichas, agrupados por
-  lo que respondieron, con buscador y la pista en la que ya está cada uno. Al elegir, la ficha
+  con «+». Al tocarla sube desde abajo un panel con los jugadores como fichas (la plantilla y,
+  aparte, los comodines), con buscador y la pista en la que ya está cada uno. Al elegir, la ficha
   vuela del panel a su sitio en la pista.
 
 - Rival en grande, fecha y sede.
@@ -57,18 +57,8 @@ clasificación, calendario y nombres.
   del mixto repite».
 - Botones «Copiar para WhatsApp» (genera el texto de la convocatoria con el mismo formato que
   usa el capitán) y «Editar alineación».
-- Respuestas a la encuesta en cuatro grupos con contador: **Convocados** (píldora verde),
-  **Pueden ir, sin convocar** (verde claro), **No pueden** (borde naranja) y **Sin responder**
-  (borde discontinuo), más «Copiar recordatorio para WhatsApp» para los que no han contestado.
-
-**Pasar lista** (construida; solo gestores)
-
-- Título «Pasar lista», con la indicación «Solo lo veis tú y el capitán» y un candado.
-- Recuento arriba (Pueden, No pueden, Sin responder) que se actualiza al tocar.
-- Lista de chicos y de chicas, cada jugador con tres botones: **Sí**, **No** y **?**
-  (sin responder). Todos empiezan en «?». Cada grupo indica «9 de 13 pueden».
-- Se guarda solo. Botón final: «Guardar y hacer la convocatoria».
-- Los comodines no aparecen aquí.
+- Sin respuestas a la encuesta: la web ya no la registra
+  ([ADR 0012](decisiones/0012-sin-encuesta-en-la-web.md)). «Pasar lista» se retiró.
 
 **Plantilla** (construida; pública, en el menú)
 

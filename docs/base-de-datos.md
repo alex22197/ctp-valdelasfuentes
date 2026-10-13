@@ -15,7 +15,7 @@ PostgreSQL gestionado por Supabase (región West EU, Irlanda). El esquema está 
 | `jugador_privado`   | Nombre completo.                                                                                           | **No**         |
 | `plantilla`         | Quién está inscrito en cada competición y si es comodín.                                                   | Sí             |
 | `confrontacion`     | Cada jornada entre dos equipos: fecha, sede, estado, resultado global y si su convocatoria está publicada. | Sí             |
-| `disponibilidad`    | Respuestas a la encuesta de WhatsApp y quién fue convocado.                                                | **No**         |
+| `disponibilidad`    | Quién fue convocado. La columna `respuesta` (encuesta) ya no se usa: ADR 0012.                             | **No**         |
 | `partido`           | Los 6 partidos de cada confrontación de nuestro equipo.                                                    | Sí             |
 | `set_partido`       | Marcador de cada set, con el tie-break si lo hubo.                                                         | Sí             |
 | `participacion`     | Quién jugó cada partido y en qué lado.                                                                     | Sí             |
@@ -59,19 +59,19 @@ Vistas de estadísticas (#13). Todos los cálculos se hacen aquí; la web solo l
 - Los comodines llevan `comodin` = true (en parejas, uno por jugador): la web los separa.
 - `estadistica_jornada.puntos` (2, 1 o 0) solo aparece sin partidos pendientes y no incluye
   sanciones: la clasificación oficial es `fase_equipo`.
-- `estadistica_participacion` usa la encuesta: los visitantes no pueden leerla y a quien no es
+- `estadistica_participacion` (sin uso en la web desde el ADR 0012) usa la encuesta: los visitantes no pueden leerla y a quien no es
   gestor le sale vacía. Cada jornada cuenta en una sola categoría: jugada (estaba en la
   alineación, aunque fuera WO a favor o se suspendiera), disponible sin jugar, no disponible o
   sin responder. Sin comodines.
 
 ## Funciones que llama la web
 
-| Función                      | Qué hace                                                                                                                                                                                                                                         | Quién    |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| `guardar_resultado_partido`  | Guarda el resultado y los sets de un partido en una sola transacción. Crea el partido si no existe, quita la pareja en un WO en contra y marca la confrontación como `jugada` cuando todos sus partidos tienen ganador.                          | Gestores |
-| `guardar_respuesta_encuesta` | Guarda lo que un jugador respondió a la encuesta de una jornada (Sí o No) sin tocar si está convocado. Volver a «sin responder» borra la fila, salvo que el jugador ya esté convocado: entonces solo vacía la respuesta.                         | Gestores |
-| `guardar_alineacion`         | Guarda todas las parejas de una confrontación en una sola transacción: crea los partidos que falten, sustituye las participaciones y marca como convocados a los colocados ([ADR 0009](decisiones/0009-convocados-son-los-de-la-alineacion.md)). | Gestores |
-| `publicar_convocatoria`      | Publica la convocatoria para que se vea en la portada, o la devuelve a borrador.                                                                                                                                                                 | Gestores |
+| Función                      | Qué hace                                                                                                                                                                                                                                            | Quién    |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `guardar_resultado_partido`  | Guarda el resultado y los sets de un partido en una sola transacción. Crea el partido si no existe, quita la pareja en un WO en contra y marca la confrontación como `jugada` cuando todos sus partidos tienen ganador.                             | Gestores |
+| `guardar_respuesta_encuesta` | Sin uso desde el ADR 0012. Guarda lo que un jugador respondió a la encuesta de una jornada (Sí o No) sin tocar si está convocado. Volver a «sin responder» borra la fila, salvo que el jugador ya esté convocado: entonces solo vacía la respuesta. | Gestores |
+| `guardar_alineacion`         | Guarda todas las parejas de una confrontación en una sola transacción: crea los partidos que falten, sustituye las participaciones y marca como convocados a los colocados ([ADR 0009](decisiones/0009-convocados-son-los-de-la-alineacion.md)).    | Gestores |
+| `publicar_convocatoria`      | Publica la convocatoria para que se vea en la portada, o la devuelve a borrador.                                                                                                                                                                    | Gestores |
 
 La comprueba `validar_marcador`, que aplica las reglas de los sets de la normativa. La web
 repite esas reglas en `data-access/resultados/validar-marcador.ts` para mostrar el error junto

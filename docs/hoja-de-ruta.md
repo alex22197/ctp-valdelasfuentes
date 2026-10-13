@@ -26,7 +26,7 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
   marcador con las mismas reglas que la base de datos. El marcador global se calcula a partir
   de los partidos ([ADR 0008](decisiones/0008-marcador-de-la-confrontacion-calculado.md)).
   Migración probada en un PostgreSQL local (33 casos) y aplicada en Supabase.
-- **Pasar lista** (#6, paso 2.2): página `/pasar-lista/:id` para gestores, enlazada desde el
+- ~~**Pasar lista**~~ (#6, paso 2.2), **retirada** en #44 ([ADR 0012](decisiones/0012-sin-encuesta-en-la-web.md)): página `/pasar-lista/:id` para gestores, enlazada desde el
   calendario en las jornadas sin jugar. Un toque por jugador (Sí, No o ?) que se guarda al
   momento con `guardar_respuesta_encuesta`, sin perder la convocatoria de quien ya está
   convocado. Migración probada en un PostgreSQL local (11 casos) y aplicada en Supabase.
@@ -61,7 +61,7 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
 **sábado 10 de octubre de 2026**, así que el orden importa.
 
 1. ~~**Resultados de una confrontación**~~: hecho (ver arriba).
-2. ~~(#6) **Pasar lista**~~: hecho (ver arriba).
+2. ~~(#6) **Pasar lista**~~: hecho y después retirado (#44).
 3. ~~(#7) **Convocatoria y alineación**~~: hecho (ver arriba).
 4. (#8) **Plantilla**: alta y edición de jugadores (nombre para mostrar y completo, sexo, lado
    preferido, comodín, inscrito oficialmente).
@@ -129,7 +129,6 @@ Propuestas durante el diseño, por orden aproximado de utilidad:
 
 ## Información pendiente de conseguir (#21)
 
-- Respuestas a la encuesta de la jornada 1 (quién dijo que no y quién no contestó).
 - Sede de Soto Torrejón y la nuestra para los partidos en casa.
 - Fechas exactas de las jornadas 2 y 3 (llegarán con el scraper).
 - Si Jess está inscrita oficialmente.
