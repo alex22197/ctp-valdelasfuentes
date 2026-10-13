@@ -11,7 +11,8 @@ Qué hay que hacer cada semana de jornada y las tareas de administración puntua
 1. Entra con tu cuenta de gestor y pulsa **Gestión**. En la **Próxima jornada**, pulsa **Poner
    fecha, hora y sede** (también está en la cabecera de la **Convocatoria**).
 2. Escribe el día y la hora (la de aquí, aunque el móvil esté en otro huso), la sede y cuántas
-   pistas hay. Lo que no sepas, déjalo vacío y quedará «por confirmar».
+   pistas hay. En la sede puedes pegar el enlace de Google Maps (Compartir → Copiar enlace): la
+   portada enseñará el nombre del sitio, la dirección y «Cómo llegar». Lo que no sepas, déjalo vacío y quedará «por confirmar».
 3. Pulsa **Guardar**. La portada, el calendario y la imagen de la convocatoria lo muestran al
    momento; con menos de 6 pistas, la imagen dice «EN 3 PISTAS» y ordena las parejas por turno.
 

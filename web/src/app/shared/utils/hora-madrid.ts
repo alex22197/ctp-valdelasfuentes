@@ -1,10 +1,5 @@
 import { ZONA_HORARIA } from '@core/config/sitio.constants';
-
-/** Un momento escrito como lo ve alguien en Madrid: «2026-10-24» y «12:00». */
-export interface DiaYHora {
-  readonly dia: string;
-  readonly hora: string;
-}
+import type { DiaYHora } from './interfaces/dia-y-hora.interface';
 
 const PARTES = new Intl.DateTimeFormat('en-CA', {
   timeZone: ZONA_HORARIA,
