@@ -1,0 +1,422 @@
+// Libra galopa detrás de la pelota. Un galope tiene cuatro tiempos (estirarse, apoyar,
+// empujar y recoger): cada pata los recorre con su muslo y su caña, el cuerpo se inclina con
+// la zancada y las orejas y la cola llegan con retraso, como algo flexible.
+:host {
+  --t: 0.5s;
+
+  display: block;
+  width: 9rem;
+}
+
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+// Todo gira sobre puntos de la propia figura (hombro, rodilla…), en unidades del dibujo.
+.libra,
+.libra * {
+  transform-box: view-box;
+}
+
+.suelo {
+  stroke: var(--color-borde-fuerte);
+  stroke-width: 2;
+  stroke-dasharray: 10 14;
+  stroke-linecap: round;
+  animation: pista calc(var(--t) / 2) linear infinite;
+}
+
+.sombra-libra,
+.sombra-bola {
+  fill: var(--color-borde);
+}
+
+.bola circle {
+  fill: var(--color-bola);
+  stroke: var(--color-libra-pelo-oscuro);
+  stroke-width: 0.8;
+}
+
+.bola path {
+  fill: none;
+  stroke: var(--color-superficie);
+  stroke-width: 1.6;
+}
+
+.cuerpo,
+.cuello,
+.craneo,
+.hocico,
+.cola,
+.oreja path,
+.pata rect,
+.pata ellipse {
+  fill: var(--color-libra-pelo);
+  stroke: var(--color-libra-pelo-oscuro);
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+}
+
+.lejos rect,
+.lejos ellipse,
+.oreja.lejos {
+  fill: var(--color-libra-pelo-oscuro);
+}
+
+.mechones,
+.barba {
+  fill: none;
+  stroke: var(--color-libra-pelo-oscuro);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.oreja .oreja-dentro {
+  fill: var(--color-libra-lengua);
+  stroke: none;
+  opacity: 0.5;
+}
+
+.pecho {
+  fill: var(--color-libra-pecho);
+}
+
+.nariz,
+.ojo {
+  fill: var(--color-tinta);
+}
+
+.lengua {
+  fill: var(--color-libra-lengua);
+}
+
+.collar {
+  fill: var(--color-libra-collar);
+}
+
+.chapa {
+  fill: var(--color-libra-chapa);
+}
+
+// Movimiento --------------------------------------------------------------------------------
+
+.libra {
+  transform-origin: 74px 60px;
+  animation:
+    zancada var(--t) linear infinite,
+    persecucion calc(var(--t) * 6) ease-in-out infinite alternate;
+}
+
+.sombra-libra {
+  transform-origin: 74px 95px;
+  animation: sombra-libra var(--t) linear infinite;
+}
+
+.pata {
+  animation: var(--paso) var(--t) linear infinite;
+}
+
+.pata .cana {
+  animation: var(--paso-cana) var(--t) linear infinite;
+}
+
+.delantera {
+  --paso: mano;
+  --paso-cana: mano-cana;
+
+  transform-origin: 100px 52px;
+
+  .cana {
+    transform-origin: 100px 68px;
+  }
+}
+
+.trasera {
+  --paso: pie;
+  --paso-cana: pie-cana;
+
+  transform-origin: 47px 52px;
+
+  .cana {
+    transform-origin: 46px 68px;
+  }
+}
+
+.delantera.lejos {
+  transform-origin: 95px 52px;
+  animation-delay: calc(var(--t) * -0.12);
+
+  .cana {
+    transform-origin: 95px 68px;
+    animation-delay: calc(var(--t) * -0.12);
+  }
+}
+
+.trasera.lejos {
+  transform-origin: 42px 52px;
+  animation-delay: calc(var(--t) * -0.12);
+
+  .cana {
+    transform-origin: 41px 68px;
+    animation-delay: calc(var(--t) * -0.12);
+  }
+}
+
+.cabeza {
+  transform-origin: 100px 46px;
+  animation: cabeza var(--t) ease-in-out infinite;
+  animation-delay: calc(var(--t) * -0.15);
+}
+
+.oreja {
+  transform-origin: 118px 19px;
+  animation: oreja var(--t) ease-in-out infinite;
+  animation-delay: calc(var(--t) * -0.35);
+}
+
+.oreja.lejos {
+  transform-origin: 112px 20px;
+  animation-delay: calc(var(--t) * -0.45);
+}
+
+.cola {
+  transform-origin: 38px 50px;
+  animation: cola var(--t) ease-in-out infinite;
+  animation-delay: calc(var(--t) * -0.4);
+}
+
+.bola {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bote calc(var(--t) * 2) infinite;
+}
+
+.sombra-bola {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sombra-bola calc(var(--t) * 2) infinite;
+}
+
+.pelota {
+  animation: persecucion calc(var(--t) * 6) ease-in-out infinite alternate-reverse;
+}
+
+// Cuerpo: dos suspensiones por zancada (estirado y recogido) y se inclina hacia delante al
+// apoyar las manos y hacia atrás al empujar con los pies.
+@keyframes zancada {
+  0% {
+    transform: translateY(-4px) rotate(-3deg);
+  }
+
+  30% {
+    transform: translateY(0) rotate(2deg);
+  }
+
+  55% {
+    transform: translateY(-3px) rotate(3deg);
+  }
+
+  80% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  100% {
+    transform: translateY(-4px) rotate(-3deg);
+  }
+}
+
+@keyframes sombra-libra {
+  0%,
+  55%,
+  100% {
+    transform: scaleX(0.85);
+    opacity: 0.6;
+  }
+
+  30%,
+  80% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+// Manos: se estiran hacia delante, apoyan, empujan hacia atrás y se recogen.
+@keyframes mano {
+  0% {
+    transform: rotate(-42deg);
+  }
+
+  30% {
+    transform: rotate(-8deg);
+  }
+
+  55% {
+    transform: rotate(34deg);
+  }
+
+  80% {
+    transform: rotate(6deg);
+  }
+
+  100% {
+    transform: rotate(-42deg);
+  }
+}
+
+@keyframes mano-cana {
+  0%,
+  30% {
+    transform: rotate(-6deg);
+  }
+
+  55% {
+    transform: rotate(12deg);
+  }
+
+  80% {
+    transform: rotate(85deg);
+  }
+
+  100% {
+    transform: rotate(-6deg);
+  }
+}
+
+// Pies: van a contratiempo de las manos; empujan estirados y se recogen bajo la tripa.
+@keyframes pie {
+  0% {
+    transform: rotate(38deg);
+  }
+
+  30% {
+    transform: rotate(10deg);
+  }
+
+  55% {
+    transform: rotate(-40deg);
+  }
+
+  80% {
+    transform: rotate(-12deg);
+  }
+
+  100% {
+    transform: rotate(38deg);
+  }
+}
+
+@keyframes pie-cana {
+  0% {
+    transform: rotate(18deg);
+  }
+
+  30% {
+    transform: rotate(55deg);
+  }
+
+  55%,
+  80% {
+    transform: rotate(4deg);
+  }
+
+  100% {
+    transform: rotate(18deg);
+  }
+}
+
+// La cabeza compensa la inclinación del cuerpo para seguir mirando la pelota.
+@keyframes cabeza {
+  0%,
+  100% {
+    transform: rotate(4deg);
+  }
+
+  50% {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes oreja {
+  0%,
+  100% {
+    transform: rotate(-14deg);
+  }
+
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes cola {
+  0%,
+  100% {
+    transform: rotate(-14deg);
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+// Libra gana terreno y la pelota se le escapa, una y otra vez.
+@keyframes persecucion {
+  from {
+    transform: translateX(-6px);
+  }
+
+  to {
+    transform: translateX(8px);
+  }
+}
+
+@keyframes pista {
+  to {
+    stroke-dashoffset: 24;
+  }
+}
+
+// Cae acelerando, se aplasta un poco contra el suelo y sube frenando.
+@keyframes bote {
+  0%,
+  100% {
+    transform: translateY(-40px);
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+
+  46% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(0) scale(1.15, 0.85);
+    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+  }
+
+  54% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes sombra-bola {
+  0%,
+  100% {
+    transform: scale(0.45);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// Con «reducir movimiento», Libra espera quieta junto a la pelota.
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+  }
+}
