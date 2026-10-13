@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { FormaEsqueleto } from './interfaces/forma-esqueleto.type';
 
@@ -12,6 +13,7 @@ const LARGOS_RANKING = [95, 85, 76, 68, 57, 46, 35];
  */
 @Component({
   selector: 'ctp-esqueleto',
+  imports: [NgTemplateOutlet],
   templateUrl: './esqueleto.component.html',
   styleUrl: './esqueleto.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -44,20 +44,25 @@
     </div>
   }
   @case ('portada') {
-    <div class="pila">
+    <!-- Como la portada: próximo partido y convocatoria, y debajo clasificación y calendario. -->
+    <div class="portada-rejilla">
       <span class="h portada"></span>
-      <span class="h titulo"></span>
-      @for (fila of [1, 2, 3, 4]; track fila) {
-        <span class="h fila-tabla"></span>
+      <div class="pila">
+        <span class="h titulo"></span>
+        <ng-container [ngTemplateOutlet]="parejas" />
+      </div>
+      @for (tabla of [1, 2]; track tabla) {
+        <div class="pila">
+          <span class="h titulo"></span>
+          @for (fila of [1, 2, 3, 4]; track fila) {
+            <span class="h fila-tabla"></span>
+          }
+        </div>
       }
     </div>
   }
   @case ('parejas') {
-    <div class="parejas">
-      @for (pareja of seis; track pareja) {
-        <span class="h pareja"></span>
-      }
-    </div>
+    <ng-container [ngTemplateOutlet]="parejas" />
   }
   @case ('ficha') {
     <div class="pila">
@@ -94,3 +99,14 @@
     </div>
   }
 }
+
+<ng-template #parejas>
+  <!-- Mide el ancho de su sitio, como la convocatoria de verdad. -->
+  <div class="sitio-parejas">
+    <div class="parejas">
+      @for (pareja of seis; track pareja) {
+        <span class="h pareja"></span>
+      }
+    </div>
+  </div>
+</ng-template>
