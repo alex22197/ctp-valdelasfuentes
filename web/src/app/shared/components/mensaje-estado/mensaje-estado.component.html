@@ -1,14 +1,7 @@
-@if (tipo() === 'cargando') {
-  <div class="cargando">
-    <ctp-libra-corriendo />
-    <p class="mensaje" role="status">{{ texto() }}</p>
-  </div>
-} @else {
-  <p
-    class="mensaje"
-    [class.mensaje--error]="tipo() === 'error'"
-    [attr.role]="tipo() === 'error' ? 'alert' : 'status'"
-  >
-    {{ texto() }}
-  </p>
-}
+<p
+  class="mensaje"
+  [class.mensaje--error]="tipo() === 'error'"
+  [attr.role]="tipo() === 'error' ? 'alert' : 'status'"
+>
+  {{ texto() }}
+</p>
