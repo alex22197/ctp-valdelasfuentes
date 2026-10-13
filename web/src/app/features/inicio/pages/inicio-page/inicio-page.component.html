@@ -11,9 +11,9 @@
 } @else if (datos.fase(); as faseActual) {
   <div class="secciones">
     @if (datos.proximaConfrontacion(); as proxima) {
-      <ctp-proximo-partido class="seccion-ancha" [confrontacion]="proxima" />
+      <ctp-proximo-partido [confrontacion]="proxima" />
 
-      <section class="seccion seccion-ancha" aria-labelledby="titulo-convocatoria">
+      <section class="seccion" aria-labelledby="titulo-convocatoria">
         <h2 id="titulo-convocatoria" class="titulo-seccion">Convocatoria</h2>
         @if (datos.alineacion.isLoading()) {
           <ctp-mensaje-estado
@@ -24,10 +24,7 @@
         } @else if (datos.alineacion.error()) {
           <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar la convocatoria." />
         } @else if (datos.partidosAlineacion().length === 0) {
-          <ctp-mensaje-estado
-            tipo="vacio"
-            texto="Todavía no está publicada. Aparecerá aquí, con la alineación, en cuanto el capitán la cierre."
-          />
+          <ctp-convocatoria-pendiente />
         } @else {
           <ctp-convocatoria-jornada
             [partidos]="datos.partidosAlineacion()"
