@@ -14,6 +14,6 @@ import { FechaConfrontacionPipe } from '@shared/pipes/fecha-confrontacion.pipe';
 })
 export class CalendarioFaseComponent {
   readonly confrontaciones = input.required<readonly ConfrontacionNuestroEquipo[]>();
-  /** Muestra en cada jornada los enlaces de gestión: pasar lista y resultados. */
+  /** Muestra en cada jornada los enlaces de gestión: convocatoria y resultados. */
   readonly enlacesGestion = input(false);
 }

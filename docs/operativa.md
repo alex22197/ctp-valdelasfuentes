@@ -45,7 +45,7 @@ WO en contra se quita la pareja del partido, porque no jugó nadie.
 | Cuándo                                         | Quién      | Qué                                                                                                                                   |
 | ---------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | Lunes o martes, una semana antes               | Capitán    | Manda la encuesta de disponibilidad por WhatsApp.                                                                                     |
-| Según van llegando respuestas                  | Gestor     | **Pasa lista** en la web: marca quién puede y quién no.                                                                               |
+| Según van llegando respuestas                  | Capitán    | Las recoge en el propio WhatsApp: la web no tiene encuesta ([ADR 0012](decisiones/0012-sin-encuesta-en-la-web.md)).                   |
 | Cuando el capitán decide                       | Gestor     | **Convocatoria y alineación**: elige convocados y coloca cada pareja en su pista (revés y drive). Se publica en la portada.           |
 | Tras jugar                                     | Gestor     | **Resultados**: marcador set a set de los 6 partidos, o el WO o abandono si lo hubo (ver abajo).                                      |
 | Martes antes de las 14:00 (si jugamos en casa) | Capitán    | Envía el acta a la liga. Si no, la normativa resta 1 punto.                                                                           |
