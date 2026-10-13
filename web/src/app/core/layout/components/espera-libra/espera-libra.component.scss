@@ -20,8 +20,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--espacio-2);
-  width: min(100%, 20rem);
-  padding: var(--espacio-6) var(--espacio-5) var(--espacio-4);
+  padding: var(--espacio-5) var(--espacio-6) var(--espacio-3);
   border-radius: var(--radio-pista);
   background: var(--color-superficie);
   box-shadow: var(--sombra-panel);
@@ -30,6 +29,11 @@
   @starting-style {
     transform: scale(0.9);
   }
+}
+
+// Pequeña: el dibujo es sencillo y cuanto más grande, más se nota.
+ctp-libra-corriendo {
+  width: 9rem;
 }
 
 .texto {
