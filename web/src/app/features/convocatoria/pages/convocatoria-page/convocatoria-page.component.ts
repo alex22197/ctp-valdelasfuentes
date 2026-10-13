@@ -3,21 +3,22 @@ import { RouterLink } from '@angular/router';
 import { IconoComponent } from '@shared/components/icono/icono.component';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
 import { FechaConfrontacionPipe } from '@shared/pipes/fecha-confrontacion.pipe';
-import { PortapapelesService } from '@shared/services/portapapeles.service';
 import { TransicionVistaService } from '@shared/services/transicion-vista.service';
 import { clavePartido, etiquetaPartido } from '@shared/utils/etiquetas-partido';
 import { ComprobacionAlineacionComponent } from '../../components/comprobacion-alineacion/comprobacion-alineacion.component';
+import { CopiarConvocatoriaComponent } from '../../components/copiar-convocatoria/copiar-convocatoria.component';
 import { PistaEditableComponent } from '../../components/pista-editable/pista-editable.component';
 import { SelectorJugadoresComponent } from '../../components/selector-jugadores/selector-jugadores.component';
 import type { CambioHueco } from '../../interfaces/cambio-hueco.interface';
 import type { HuecoAlineacion } from '../../interfaces/hueco-alineacion.interface';
 import type { PosicionHueco } from '../../interfaces/posicion-hueco.interface';
 import { DatosConvocatoriaService } from '../../services/datos-convocatoria.service';
+import { ImagenConvocatoriaService } from '../../services/imagen-convocatoria.service';
 import { opcionesParaPista } from '../../utils/opciones-hueco';
 
 /**
  * Convocatoria de una jornada, vista de capitán: alineación sobre las pistas, comprobación
- * de normativa, publicación y la convocatoria para WhatsApp.
+ * de normativa, publicación y la imagen de la convocatoria para WhatsApp.
  */
 @Component({
   selector: 'ctp-convocatoria-page',
@@ -27,24 +28,20 @@ import { opcionesParaPista } from '../../utils/opciones-hueco';
     MensajeEstadoComponent,
     FechaConfrontacionPipe,
     ComprobacionAlineacionComponent,
+    CopiarConvocatoriaComponent,
     PistaEditableComponent,
     SelectorJugadoresComponent,
   ],
-  providers: [DatosConvocatoriaService],
+  providers: [DatosConvocatoriaService, ImagenConvocatoriaService],
   templateUrl: './convocatoria-page.component.html',
   styleUrl: './convocatoria-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConvocatoriaPageComponent {
   protected readonly datos = inject(DatosConvocatoriaService);
-  private readonly portapapeles = inject(PortapapelesService);
   private readonly transicion = inject(TransicionVistaService);
 
   protected readonly clavePartido = clavePartido;
-  /** Confirmación tras copiar, o el texto para copiar a mano si el navegador no deja. */
-  protected readonly copiado = signal<string | null>(null);
-  protected readonly textoManual = signal<string | null>(null);
-
   /** Lado de la pista cuyo panel de jugadores está abierto. */
   protected readonly abierto = signal<PosicionHueco | null>(null);
   /** Jugador que está volando del panel a la pista durante la animación. */
@@ -98,11 +95,5 @@ export class ConvocatoriaPageComponent {
       .problemas()
       .filter((problema) => problema.clave === clave)
       .map((problema) => problema.mensaje);
-  }
-
-  protected async copiar(texto: string, confirmacion: string): Promise<void> {
-    const ok = await this.portapapeles.copiar(texto);
-    this.copiado.set(ok ? confirmacion : null);
-    this.textoManual.set(ok ? null : texto);
   }
 }

@@ -24,6 +24,12 @@
   --color-velo: rgb(20 33 26 / 45%); // fondo oscurecido detrás de un panel
   --sombra-panel: 0 -8px 32px rgb(20 33 26 / 18%);
 
+  // Imagen de la convocatoria para WhatsApp: los colores de la hoja que usa el capitán.
+  --color-convocatoria-cabecera: #a4c2f4;
+  --color-convocatoria-masculino: #e8732f;
+  --color-convocatoria-femenino: #ffff00;
+  --color-convocatoria-mixto: #d76fd7;
+
   // Movimiento: corto y con propósito (ADR 0010). Se anula con «reducir movimiento».
   --duracion-rapida: 150ms;
   --duracion-media: 300ms;

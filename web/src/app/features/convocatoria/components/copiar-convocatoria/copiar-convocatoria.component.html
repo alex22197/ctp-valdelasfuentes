@@ -1,0 +1,35 @@
+<button
+  type="button"
+  class="boton boton--principal"
+  [disabled]="!copiable() || generando()"
+  [attr.aria-describedby]="copiable() ? null : 'motivo-copiar'"
+  (click)="copiar()"
+>
+  {{ generando() ? 'Preparando la imagen…' : 'Copiar para WhatsApp' }}
+</button>
+@if (!copiable()) {
+  <p id="motivo-copiar" class="texto-secundario">
+    Completa todas las parejas y guarda la alineación para copiar la convocatoria.
+  </p>
+}
+
+<div aria-live="polite">
+  @if (mensaje(); as mensaje) {
+    <p class="mensaje">{{ mensaje }}</p>
+  }
+</div>
+
+@if (imagen(); as imagen) {
+  <figure class="vista">
+    <img [src]="imagen.url" [alt]="'Convocatoria: ' + (tabla()?.titulo ?? '')" />
+    <figcaption class="texto-secundario">
+      Mantén pulsada la imagen para copiarla o compartirla.
+    </figcaption>
+  </figure>
+  <div class="acciones">
+    @if (puedeCompartir()) {
+      <button type="button" class="boton" (click)="compartir()">Compartir</button>
+    }
+    <a class="boton" [href]="imagen.url" download="convocatoria.png">Descargar</a>
+  </div>
+}
