@@ -35,9 +35,8 @@ cambios: muchas decisiones dependen de cómo funciona el equipo en la realidad.
 ## Cómo funciona una jornada en la realidad
 
 1. Una semana antes, el capitán manda una **encuesta por WhatsApp** para saber quién puede ir.
-2. Los jugadores **no van a entrar en la web** para responder. Alex (o quien gestione) pasará
-   las respuestas a mano a la web. Por eso la pantalla de «pasar lista» tiene que ser muy rápida:
-   todos los jugadores en una lista y un toque por persona.
+2. Los jugadores **no van a entrar en la web** para responder. Las respuestas se quedan en
+   WhatsApp: la web no las registra ([ADR 0012](decisiones/0012-sin-encuesta-en-la-web.md)).
 3. El capitán decide la convocatoria y la manda al grupo como una tabla: rival, día, hora,
    «los 6 a la vez» (si hay 6 pistas), y para cada pareja (masculino 1-3, femenino 1-2, mixto)
    los dos nombres. **El de la izquierda juega de revés y el de la derecha de drive.**
@@ -94,12 +93,12 @@ Nombres para mostrar tal como los pasó Alex. Los nombres completos van en `juga
 - **Privacidad**:
   - En lo público se muestra el nombre para mostrar (ya es informal). El nombre completo solo
     lo ven los gestores.
-  - Las **respuestas a la encuesta** (quién dijo que no, quién no contestó) son **privadas**:
-    solo admin y capitán. La convocatoria final sí es pública.
+  - Las **respuestas a la encuesta** se quedan en WhatsApp; la web no las guarda. La
+    convocatoria final sí es pública.
   - Si algún jugador no quiere aparecer, se podrá mostrar como «Jugador anónimo» en lo público.
   - Antes de publicar la web se avisará al equipo, y habrá una página corta de privacidad con
     Alex como contacto.
-- **Comodines**: aparecen en alineaciones y resultados, pero no en «pasar lista» y no tienen
+- **Comodines**: aparecen en alineaciones y resultados, salen aparte al convocar y no tienen
   ficha ni estadísticas propias en lo público. Las estadísticas los muestran separados.
 - **WO**: cuentan en la clasificación según la normativa, pero no en el porcentaje de victorias
   de cada jugador; se muestran aparte. Ver
