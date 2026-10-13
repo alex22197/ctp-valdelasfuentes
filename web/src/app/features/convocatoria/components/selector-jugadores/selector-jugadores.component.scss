@@ -208,20 +208,10 @@
   font-stretch: var(--anchura-condensada);
 }
 
-// Cada grupo con su forma, igual que en las respuestas: relleno, claro, naranja, discontinuo.
-.opcion--pueden .avatar {
+// La plantilla en verde de pista y los comodines en lima, como el mixto.
+.opcion--jugador .avatar {
   background: var(--color-pista);
   color: var(--color-sobre-pista);
-}
-
-.opcion--sin-responder .avatar {
-  border: 2px dashed var(--color-borde-fuerte);
-  color: var(--color-tinta-suave);
-}
-
-.opcion--no-pueden .avatar {
-  border: 2px solid var(--color-derrota);
-  color: var(--color-derrota-texto);
 }
 
 .opcion--comodin .avatar {

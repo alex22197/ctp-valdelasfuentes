@@ -10,7 +10,6 @@ function jugador(
     id: nombreMostrar,
     nombreMostrar,
     sexo,
-    respuesta: 'si',
     convocado: false,
     comodin: false,
     inscritoOficial: true,
@@ -20,38 +19,30 @@ function jugador(
 
 const convocables = [
   jugador('Walter', 'masculino'),
-  jugador('Diego', 'masculino', { respuesta: null }),
-  jugador('Juan', 'masculino', { respuesta: 'no' }),
+  jugador('Diego', 'masculino'),
   jugador('Álvaro', 'masculino'),
   jugador('Rocio', 'femenino'),
-  jugador('Jess', 'femenino', { comodin: true, respuesta: null }),
+  jugador('Jess', 'femenino', { comodin: true }),
 ];
 
 describe('opcionesParaPista', () => {
-  it('agrupa por respuesta, ordena por nombre y filtra por sexo', () => {
+  it('ordena por nombre y filtra por sexo', () => {
     const grupos = opcionesParaPista('masculino', 'masculino-1', [], convocables);
     expect(grupos.map((g) => [g.estado, g.opciones.map((o) => o.nombre)])).toEqual([
-      ['pueden', ['Álvaro', 'Walter']],
-      ['sin-responder', ['Diego']],
-      ['no-pueden', ['Juan']],
+      ['jugador', ['Álvaro', 'Diego', 'Walter']],
     ]);
     expect(grupos[0]?.opciones[0]).toEqual({
       id: 'Álvaro',
       nombre: 'Álvaro',
       iniciales: 'Ál',
-      estado: 'pueden',
+      estado: 'jugador',
       otraPista: null,
     });
   });
 
   it('en el mixto ofrece chicos y chicas, con los comodines al final', () => {
     const grupos = opcionesParaPista('mixto', 'mixto-1', [], convocables);
-    expect(grupos.map((g) => g.titulo)).toEqual([
-      'Pueden',
-      'Sin responder',
-      'No pueden',
-      'Comodines',
-    ]);
+    expect(grupos.map((g) => g.titulo)).toEqual(['Jugadores', 'Comodines']);
     expect(grupos[0]?.opciones.map((o) => o.id)).toContain('Rocio');
   });
 
@@ -60,9 +51,10 @@ describe('opcionesParaPista', () => {
       { tipo: 'masculino' as const, numero: 1, idReves: 'Walter', idDrive: null, bloqueado: false },
       { tipo: 'masculino' as const, numero: 2, idReves: 'Álvaro', idDrive: null, bloqueado: false },
     ];
-    const pueden = opcionesParaPista('masculino', 'masculino-1', huecos, convocables)[0];
-    expect(pueden?.opciones.map((o) => [o.nombre, o.otraPista])).toEqual([
+    const jugadores = opcionesParaPista('masculino', 'masculino-1', huecos, convocables)[0];
+    expect(jugadores?.opciones.map((o) => [o.nombre, o.otraPista])).toEqual([
       ['Álvaro', 'M2'],
+      ['Diego', null],
       ['Walter', null],
     ]);
   });

@@ -18,7 +18,14 @@ const NOMBRE_TIPO = { masculino: 'Masculino', femenino: 'Femenino', mixto: 'Mixt
 export class ParejasRepetidasComponent {
   /** Llegan ordenadas de más a menos partidos juntos. */
   readonly parejas = input.required<readonly BalancePareja[]>();
+  /** Con un jugador resaltado, las parejas en las que no está se atenúan. */
+  readonly idResaltado = input<string | null>(null);
 
   protected readonly primeras = computed(() => this.parejas().slice(0, LIMITE));
   protected readonly nombreTipo = NOMBRE_TIPO;
+
+  protected atenuada(pareja: BalancePareja): boolean {
+    const id = this.idResaltado();
+    return id !== null && pareja.jugadorA.id !== id && pareja.jugadorB.id !== id;
+  }
 }

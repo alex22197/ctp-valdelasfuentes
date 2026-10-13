@@ -1,9 +1,13 @@
 import type { BalancePuestoEquipo } from '@data-access/estadisticas/interfaces/balance-puesto-equipo.interface';
-import type { ParticipacionJugador } from '@data-access/estadisticas/interfaces/participacion-jugador.interface';
 import type { MatrizParejas } from '../interfaces/matriz-parejas.interface';
-import { leerColoresGraficas } from './opciones-comunes';
-import { describirCelda, nombreEnEje, opcionesMatriz } from './opciones-matriz';
-import { opcionesParticipacion } from './opciones-participacion';
+import { leerColoresGraficas } from '@shared/utils/graficas/opciones-comunes';
+import {
+  OPACIDAD_ATENUADA,
+  datosMatriz,
+  describirCelda,
+  nombreEnEje,
+  opcionesMatriz,
+} from './opciones-matriz';
 import { describirPuesto, opcionesPuestos } from './opciones-puestos';
 
 // Cada color vale el nombre de su variable, para comprobar cuál se usa.
@@ -72,36 +76,23 @@ describe('opcionesMatriz', () => {
     expect(parte<Eje>(opciones, 'xAxis').data).toEqual(['Rocio*']);
     expect(parte<Serie[]>(opciones, 'series')[0]?.data[0]).toEqual({
       value: [0, 0, 50, 2],
-      label: { color: '--color-sobre-pista' },
+      itemStyle: { opacity: 1 },
+      label: { opacity: 1, color: '--color-sobre-pista' },
     });
     expect(parte<boolean>(opciones, 'animation')).toBe(false);
+  });
+
+  it('al resaltar a un jugador atenúa las parejas que no son suyas', () => {
+    const dato = (id: string): { itemStyle: { opacity: number } } =>
+      datosMatriz(matriz, COLORES, id)[0] as { itemStyle: { opacity: number } };
+    expect(dato('r').itemStyle.opacity).toBe(1);
+    expect(dato('a').itemStyle.opacity).toBe(1);
+    expect(dato('otro').itemStyle.opacity).toBe(OPACIDAD_ATENUADA);
   });
 
   it('describe cada casilla', () => {
     expect(describirCelda(matriz, 0)).toBe('Alex y Rocio: 2 partidos, 50 % ganados');
     expect(describirCelda(matriz, 5)).toBe('');
     expect(nombreEnEje(matriz.filas[0]!)).toBe('Alex');
-  });
-});
-
-describe('opcionesParticipacion', () => {
-  it('apila las cuatro categorías de cada jugador', () => {
-    const diego: ParticipacionJugador = {
-      id: 'd',
-      nombreMostrar: 'Diego',
-      confrontaciones: 3,
-      jugadas: 1,
-      disponibleSinJugar: 0,
-      noDisponible: 1,
-      sinResponder: 1,
-      porcentajeJugadas: 33,
-    };
-    const series = parte<Serie[]>(opcionesParticipacion([diego], COLORES, true), 'series');
-    expect(series.map((s) => [s.name, s.data[0], s.stack])).toEqual([
-      ['Jugó', 1, 'jornadas'],
-      ['Podía, sin convocar', 0, 'jornadas'],
-      ['No podía', 1, 'jornadas'],
-      ['Sin responder', 1, 'jornadas'],
-    ]);
   });
 });

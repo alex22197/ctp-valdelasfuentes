@@ -1,0 +1,51 @@
+<div class="controles">
+  <ctp-selector-pildoras nombre="Chicos o chicas" [opciones]="opcionesSexo" [(valor)]="sexo" />
+  <ctp-selector-pildoras nombre="Ordenar por" [opciones]="opcionesOrden" [(valor)]="orden" />
+</div>
+
+@if (lista().length === 0) {
+  <p class="texto-secundario">Todavía no ha jugado nadie de este grupo.</p>
+} @else {
+  <ctp-grafica-estadistica
+    [opciones]="opciones()"
+    [cambios]="cambios()"
+    [alto]="alto()"
+    descripcion="Ranking de jugadores en barras. Toca un jugador para resaltarlo en todas las gráficas. Los datos están en la tabla de debajo."
+    (tocar)="alTocar($event)"
+  />
+  <details class="datos">
+    <summary>Ver los datos en una tabla</summary>
+    <div class="desplazable">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Jugador</th>
+            <th scope="col">Partidos</th>
+            <th scope="col">Victorias</th>
+            <th scope="col">Juegos</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (jugador of lista(); track jugador.id) {
+            <tr>
+              <th scope="row">
+                @if (!jugador.comodin || enlazarComodines()) {
+                  <a [routerLink]="['/jugadores', jugador.id]">{{ jugador.nombreMostrar }}</a>
+                } @else {
+                  {{ jugador.nombreMostrar }}
+                }
+              </th>
+              <td>{{ jugador.ganados }} de {{ jugador.partidos }}</td>
+              <td>{{ jugador.porcentajeVictorias ?? 0 }}&nbsp;%</td>
+              <td>
+                {{ jugador.juegosGanados }}-{{ jugador.juegosPerdidos }} ({{
+                  diferenciaJuegos(jugador) > 0 ? '+' : ''
+                }}{{ diferenciaJuegos(jugador) }})
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </details>
+}

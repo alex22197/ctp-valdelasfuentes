@@ -1,8 +1,8 @@
 import type { EChartsCoreOption } from 'echarts/core';
 import type { BalancePuestoEquipo } from '@data-access/estadisticas/interfaces/balance-puesto-equipo.interface';
 import { codigoPista, nombrePista } from '@shared/utils/etiquetas-partido';
-import type { ColoresGraficas } from '../interfaces/colores-graficas.interface';
-import { contarPartidos, opcionesComunes } from './opciones-comunes';
+import type { ColoresGraficas } from '@shared/utils/graficas/interfaces/colores-graficas.interface';
+import { contarPartidos, opcionesComunes } from '@shared/utils/graficas/opciones-comunes';
 
 /** Barras con el porcentaje de victorias del equipo en cada puesto (M1, M2… y mixto en lima). */
 export function opcionesPuestos(

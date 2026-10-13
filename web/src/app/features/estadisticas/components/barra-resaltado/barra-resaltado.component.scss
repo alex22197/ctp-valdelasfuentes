@@ -1,0 +1,50 @@
+@use 'breakpoints' as bp;
+
+// Encima de la barra de navegación del móvil; abajo del todo en pantallas grandes.
+.contenedor {
+  position: fixed;
+  right: var(--espacio-3);
+  bottom: calc(var(--alto-navegacion-inferior) + env(safe-area-inset-bottom, 0) + var(--espacio-2));
+  left: var(--espacio-3);
+  z-index: 9;
+  pointer-events: none;
+
+  @include bp.desde(tablet) {
+    right: auto;
+    bottom: var(--espacio-4);
+    left: 50%;
+    width: min(36rem, calc(100% - 2 * var(--espacio-4)));
+    transform: translateX(-50%);
+  }
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  padding: var(--espacio-2) var(--espacio-3);
+  border-radius: var(--radio-contenedor);
+  background: var(--color-tinta);
+  box-shadow: var(--sombra-panel);
+  color: var(--color-superficie);
+  pointer-events: auto;
+  animation: aparecer-con-rebote var(--duracion-media) var(--curva-rebote) both;
+}
+
+.texto {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.accion {
+  min-height: var(--minimo-tactil);
+  padding: 0 var(--espacio-3);
+}
+
+.quitar {
+  width: var(--minimo-tactil);
+  min-height: var(--minimo-tactil);
+  padding: 0;
+  font-size: var(--texto-l);
+  line-height: 1;
+}

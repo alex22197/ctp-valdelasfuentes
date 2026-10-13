@@ -1,6 +1,5 @@
 import {
   mapearParejas,
-  mapearParticipacion,
   mapearPartidosDeJornada,
   mapearPuestosEquipo,
 } from './estadisticas-equipo.mapper';
@@ -51,36 +50,6 @@ describe('mapearParejas', () => {
 
   it('descarta parejas incompletas', () => {
     expect(mapearParejas([{ ...fila, jugador_b_id: null }])).toEqual([]);
-  });
-});
-
-describe('mapearParticipacion', () => {
-  it('pasa los contadores a camelCase y los nulos a 0', () => {
-    expect(
-      mapearParticipacion([
-        {
-          jugador_id: 'd',
-          nombre_mostrar: 'Diego',
-          confrontaciones: 2,
-          jugadas: 0,
-          disponible_sin_jugar: null,
-          no_disponible: 1,
-          sin_responder: 1,
-          porcentaje_jugadas: 0,
-        },
-      ]),
-    ).toEqual([
-      {
-        id: 'd',
-        nombreMostrar: 'Diego',
-        confrontaciones: 2,
-        jugadas: 0,
-        disponibleSinJugar: 0,
-        noDisponible: 1,
-        sinResponder: 1,
-        porcentajeJugadas: 0,
-      },
-    ]);
   });
 });
 

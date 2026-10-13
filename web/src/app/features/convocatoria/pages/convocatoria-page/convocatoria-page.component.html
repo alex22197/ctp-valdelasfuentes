@@ -89,13 +89,6 @@
               Publicar en la portada
             </button>
           }
-          <button
-            type="button"
-            class="boton"
-            (click)="copiar(datos.textoConvocatoria(), 'Convocatoria copiada. Pégala en WhatsApp.')"
-          >
-            Copiar para WhatsApp
-          </button>
         }
       </div>
       @if (datos.hayCambios()) {
@@ -106,42 +99,9 @@
       @if (datos.error(); as mensaje) {
         <p class="error" role="alert">{{ mensaje }}</p>
       }
-    </section>
 
-    <section class="seccion" aria-labelledby="titulo-respuestas">
-      <div class="cabecera-seccion">
-        <h2 id="titulo-respuestas" class="titulo-seccion">Respuestas a la encuesta</h2>
-        <a class="enlace" [routerLink]="['/pasar-lista', confrontacion.id]">Pasar lista</a>
-      </div>
-      <ctp-respuestas-convocatoria [grupos]="datos.grupos()" />
-      @if (datos.textoRecordatorio(); as recordatorio) {
-        <button
-          type="button"
-          class="boton"
-          (click)="copiar(recordatorio, 'Recordatorio copiado. Pégalo en WhatsApp.')"
-        >
-          Copiar recordatorio para WhatsApp
-        </button>
-      }
+      <ctp-copiar-convocatoria [tabla]="datos.tabla()" [copiable]="datos.copiable()" />
     </section>
-
-    @if (copiado(); as mensaje) {
-      <p class="copiado" role="status">{{ mensaje }}</p>
-    }
-    @if (textoManual(); as texto) {
-      <div class="manual">
-        <label for="texto-manual">
-          Tu navegador no deja copiar automáticamente. Selecciona el texto y cópialo:
-        </label>
-        <textarea
-          id="texto-manual"
-          class="texto-manual"
-          readonly
-          rows="9"
-          [value]="texto"
-        ></textarea>
-      </div>
-    }
   }
 } @else {
   <ctp-mensaje-estado

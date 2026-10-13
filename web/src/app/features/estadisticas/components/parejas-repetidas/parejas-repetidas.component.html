@@ -1,6 +1,6 @@
 <ol class="lista">
   @for (pareja of primeras(); track pareja.jugadorA.id + pareja.jugadorB.id) {
-    <li class="pareja" [class.mixto]="pareja.tipo === 'mixto'">
+    <li class="pareja" [class.mixto]="pareja.tipo === 'mixto'" [class.atenuada]="atenuada(pareja)">
       <p class="nombres">
         {{ pareja.jugadorA.nombreMostrar }}{{ pareja.jugadorA.comodin ? ' (comodín)' : '' }} y
         {{ pareja.jugadorB.nombreMostrar }}{{ pareja.jugadorB.comodin ? ' (comodín)' : '' }}

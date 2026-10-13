@@ -41,13 +41,22 @@ function filaTemporada(jornada: JornadaJugada, partido?: PartidoDeJugador): Fila
     condicion: jornada.condicion,
   };
   if (!partido) {
-    return { ...comun, resultado: 'no-jugo', detalle: null, marcador: null };
+    return {
+      ...comun,
+      resultado: 'no-jugo',
+      detalle: null,
+      marcador: null,
+      diferenciaJuegos: null,
+      esWo: false,
+    };
   }
   return {
     ...comun,
     resultado: partido.ganado ? 'ganado' : 'perdido',
     detalle: describirPartido(partido),
     marcador: partido.esWo ? 'WO a favor' : partido.marcador,
+    diferenciaJuegos: partido.esWo ? null : partido.juegosGanados - partido.juegosPerdidos,
+    esWo: partido.esWo,
   };
 }
 

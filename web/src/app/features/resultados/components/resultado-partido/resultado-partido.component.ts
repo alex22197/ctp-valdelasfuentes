@@ -21,6 +21,7 @@ import {
   resultadoLlevaSets,
   setsFormularioDesde,
 } from '../../utils/formulario-resultado';
+import { errorAlEscribirSet } from '../../utils/error-set-escrito';
 import { CampoSetComponent } from '../campo-set/campo-set.component';
 
 /**
@@ -78,11 +79,20 @@ export class ResultadoPartidoComponent {
       ),
   );
 
+  /** Lo imposible en cada set (un 7-2, unos juegos de más…), según se escribe. */
+  private readonly erroresAlEscribir = computed(() => this.sets().map(errorAlEscribirSet));
+
   protected cambiarSet(indice: number, valor: SetFormulario): void {
     this.sets.update((sets) => sets.map((set, i) => (i === indice ? valor : set)));
+    // El aviso de «Guardar» era del marcador anterior: se vuelve a comprobar al guardar.
+    this.errorValidacion.set(null);
   }
 
   protected errorDeSet(numeroSet: number): string | null {
+    const alEscribir = this.erroresAlEscribir()[numeroSet - 1];
+    if (alEscribir) {
+      return alEscribir;
+    }
     const error = this.errorValidacion();
     return error?.numeroSet === numeroSet ? error.mensaje : null;
   }

@@ -2,7 +2,6 @@ import type { Tables } from '@core/supabase/interfaces/database.types';
 import { mapearBalance } from './estadisticas-jugador.mapper';
 import type { BalancePareja } from './interfaces/balance-pareja.interface';
 import type { BalancePuestoEquipo } from './interfaces/balance-puesto-equipo.interface';
-import type { ParticipacionJugador } from './interfaces/participacion-jugador.interface';
 import type { PartidoDeJornada } from './interfaces/partido-de-jornada.interface';
 
 // Como en el resto de vistas, una fila sin un dato clave se descarta.
@@ -26,18 +25,6 @@ export type FilaParejaEquipo = FilaBalance &
     | 'jugador_b_nombre'
     | 'jugador_b_comodin'
   >;
-
-export type FilaParticipacion = Pick<
-  Tables<'estadistica_participacion'>,
-  | 'jugador_id'
-  | 'nombre_mostrar'
-  | 'confrontaciones'
-  | 'jugadas'
-  | 'disponible_sin_jugar'
-  | 'no_disponible'
-  | 'sin_responder'
-  | 'porcentaje_jugadas'
->;
 
 export type FilaPartidoResultado = Pick<
   Tables<'partido_resultado'>,
@@ -81,25 +68,6 @@ export function mapearParejas(filas: readonly FilaParejaEquipo[]): BalancePareja
               nombreMostrar: fila.jugador_b_nombre,
               comodin: fila.jugador_b_comodin ?? false,
             },
-          },
-        ]
-      : [],
-  );
-}
-
-export function mapearParticipacion(filas: readonly FilaParticipacion[]): ParticipacionJugador[] {
-  return filas.flatMap((fila) =>
-    fila.jugador_id && fila.nombre_mostrar
-      ? [
-          {
-            id: fila.jugador_id,
-            nombreMostrar: fila.nombre_mostrar,
-            confrontaciones: fila.confrontaciones ?? 0,
-            jugadas: fila.jugadas ?? 0,
-            disponibleSinJugar: fila.disponible_sin_jugar ?? 0,
-            noDisponible: fila.no_disponible ?? 0,
-            sinResponder: fila.sin_responder ?? 0,
-            porcentajeJugadas: fila.porcentaje_jugadas,
           },
         ]
       : [],

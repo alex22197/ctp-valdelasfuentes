@@ -4,7 +4,8 @@
   gap: var(--espacio-2);
 }
 
-// Marcador de pista: césped con la red arriba y los números en blanco condensado.
+// Marcador de pista: césped con la red arriba (una línea interior, para que no se corte con
+// las esquinas redondeadas) y los números en blanco condensado.
 .marcador {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -12,7 +13,8 @@
   padding: var(--espacio-5) var(--espacio-2) var(--espacio-4);
   border-radius: var(--radio-pista);
   background:
-    linear-gradient(var(--color-sobre-pista), var(--color-sobre-pista)) top / 100% 5px no-repeat,
+    linear-gradient(var(--color-sobre-pista), var(--color-sobre-pista)) 50% var(--espacio-2) /
+      calc(100% - 2 * var(--espacio-5)) 3px no-repeat,
     var(--color-pista);
   color: var(--color-sobre-pista);
 }

@@ -50,6 +50,8 @@ export type FilaPartidoJugador = Pick<
   | 'ganado'
   | 'es_wo'
   | 'marcador'
+  | 'juegos_ganados'
+  | 'juegos_perdidos'
   | 'companero_id'
   | 'companero_nombre'
 >;
@@ -115,6 +117,8 @@ export function mapearPartidosDeJugador(filas: readonly FilaPartidoJugador[]): P
             ganado: fila.ganado,
             esWo: fila.es_wo ?? false,
             marcador: fila.marcador,
+            juegosGanados: fila.juegos_ganados ?? 0,
+            juegosPerdidos: fila.juegos_perdidos ?? 0,
             companero:
               fila.companero_id && fila.companero_nombre
                 ? { id: fila.companero_id, nombreMostrar: fila.companero_nombre }

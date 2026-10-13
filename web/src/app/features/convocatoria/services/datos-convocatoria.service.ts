@@ -5,21 +5,21 @@ import { map } from 'rxjs';
 import { AlineacionesService } from '@data-access/alineaciones/alineaciones.service';
 import { ConfrontacionesService } from '@data-access/confrontaciones/confrontaciones.service';
 import { DisponibilidadService } from '@data-access/disponibilidad/disponibilidad.service';
+import { JugadoresService } from '@data-access/jugadores/jugadores.service';
 import { ResultadosService } from '@data-access/resultados/resultados.service';
 import type { CambioHueco } from '../interfaces/cambio-hueco.interface';
 import { comprobarAlineacion } from '../utils/comprobar-alineacion';
-import { agruparRespuestas } from '../utils/grupos-respuestas';
 import {
   aplicarCambio,
   huecosDesdePartidos,
   mismasParejas,
   parejasParaGuardar,
 } from '../utils/huecos-alineacion';
-import { textoConvocatoria, textoRecordatorio } from '../utils/texto-whatsapp';
+import { construirTablaConvocatoria, convocatoriaCopiable } from '../utils/tabla-convocatoria';
 
 /**
  * Datos de la convocatoria de la confrontación de la ruta: la alineación que se está
- * editando, las respuestas a la encuesta y los textos para WhatsApp. Se provee en la
+ * editando y la tabla de la convocatoria para WhatsApp. Se provee en la
  * propia página, así que vive y muere con ella.
  */
 @Injectable()
@@ -28,6 +28,7 @@ export class DatosConvocatoriaService {
   private readonly disponibilidad = inject(DisponibilidadService);
   private readonly resultados = inject(ResultadosService);
   private readonly alineaciones = inject(AlineacionesService);
+  private readonly jugadoresService = inject(JugadoresService);
 
   private readonly idConfrontacion = toSignal(
     inject(ActivatedRoute).paramMap.pipe(map((parametros) => parametros.get('idConfrontacion'))),
@@ -67,20 +68,29 @@ export class DatosConvocatoriaService {
   readonly hayCambios = computed(() => !mismasParejas(this.huecos(), this.huecosGuardados()));
   readonly problemas = computed(() => comprobarAlineacion(this.huecos(), this.jugadores()));
   readonly hayErrores = computed(() => this.problemas().some((p) => p.gravedad === 'error'));
-  readonly grupos = computed(() => agruparRespuestas(this.jugadores()));
 
-  /** Texto de lo guardado: mientras hay cambios sin guardar no se ofrece copiarlo. */
-  readonly textoConvocatoria = computed(() => {
-    const confrontacion = this.confrontacionActual();
-    return confrontacion
-      ? textoConvocatoria(confrontacion, this.huecosGuardados(), this.jugadores())
-      : '';
+  /** Nombres completos para la imagen; si no se pueden leer, se usan los cortos. */
+  private readonly nombresCompletos = resource({
+    params: () => (this.convocables.hasValue() ? this.jugadores().map((j) => j.id) : undefined),
+    loader: ({ params: ids }) => this.jugadoresService.obtenerNombresCompletos(ids),
   });
-  readonly textoRecordatorio = computed(() => {
+
+  /** Tabla de lo guardado: mientras hay cambios sin guardar no se puede copiar. */
+  readonly tabla = computed(() => {
     const confrontacion = this.confrontacionActual();
-    const sinResponder = this.grupos().find((g) => g.variante === 'sin-responder');
-    return confrontacion ? textoRecordatorio(confrontacion, sinResponder?.jugadores ?? []) : '';
+    if (!confrontacion) {
+      return null;
+    }
+    const completos = this.nombresCompletos.hasValue()
+      ? this.nombresCompletos.value()
+      : new Map<string, string>();
+    const nombres = new Map(
+      this.jugadores().map((j) => [j.id, completos.get(j.id) ?? j.nombreMostrar]),
+    );
+    return construirTablaConvocatoria(confrontacion, this.huecosGuardados(), nombres);
   });
+
+  readonly copiable = computed(() => convocatoriaCopiable(this.huecos(), this.hayCambios()));
 
   readonly ocupado = signal(false);
   readonly error = signal<string | null>(null);

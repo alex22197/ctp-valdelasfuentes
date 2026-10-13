@@ -15,7 +15,9 @@ clasificación, calendario y nombres.
   amarilla salen de ella.
 - **Animada con propósito** ([ADR 0010](decisiones/0010-animacion-con-proposito.md)): lo que
   cambia se mueve para explicar de dónde viene y adónde va, todo responde al tocar y nada se
-  anima si el móvil tiene activado «reducir movimiento».
+  anima si el móvil tiene activado «reducir movimiento». La única animación que se repite es
+  Libra persiguiendo una pelota de pádel encima de cada «Cargando…» (un guiño de Alex): dice
+  que se está esperando una respuesta y desaparece en cuanto llega.
 - Tiene que parecer hecho a mano para este equipo, no una plantilla. Evitar: tarjetas
   idénticas con sombra para todo, etiquetas en MAYÚSCULAS, textos unidos con puntos medios
   («A · B · C»), flechas «→» en botones, degradados decorativos.
@@ -47,28 +49,23 @@ clasificación, calendario y nombres.
 **Jornada y convocatoria, vista de capitán** (construida; solo gestores)
 
 - Cada lado de la pista es una ficha con las iniciales y el nombre del jugador, o un hueco
-  con «+». Al tocarla sube desde abajo un panel con los jugadores como fichas, agrupados por
-  lo que respondieron, con buscador y la pista en la que ya está cada uno. Al elegir, la ficha
+  con «+». Al tocarla sube desde abajo un panel con los jugadores como fichas (la plantilla y,
+  aparte, los comodines), con buscador y la pista en la que ya está cada uno. Al elegir, la ficha
   vuela del panel a su sitio en la pista.
 
 - Rival en grande, fecha y sede.
 - Alineación sobre las 6 mini pistas, con estado «Borrador» o «Publicada».
 - Comprobación de normativa visible: «Cumple la normativa: las 6 parejas están completas y nadie
   del mixto repite».
-- Botones «Copiar para WhatsApp» (genera el texto de la convocatoria con el mismo formato que
-  usa el capitán) y «Editar alineación».
-- Respuestas a la encuesta en cuatro grupos con contador: **Convocados** (píldora verde),
-  **Pueden ir, sin convocar** (verde claro), **No pueden** (borde naranja) y **Sin responder**
-  (borde discontinuo), más «Copiar recordatorio para WhatsApp» para los que no han contestado.
-
-**Pasar lista** (construida; solo gestores)
-
-- Título «Pasar lista», con la indicación «Solo lo veis tú y el capitán» y un candado.
-- Recuento arriba (Pueden, No pueden, Sin responder) que se actualiza al tocar.
-- Lista de chicos y de chicas, cada jugador con tres botones: **Sí**, **No** y **?**
-  (sin responder). Todos empiezan en «?». Cada grupo indica «9 de 13 pueden».
-- Se guarda solo. Botón final: «Guardar y hacer la convocatoria».
-- Los comodines no aparecen aquí.
+- «Copiar para WhatsApp» copia una **imagen** con la tabla que usa el capitán: cabecera azul
+  claro «vs SOTO TORREJÓN SÁBADO 12:00 LOS 6 A LA VEZ» (o «EN 3 PISTAS», con las parejas en el
+  orden de juego) y una fila por pareja con su etiqueta de color (masculino naranja, femenino
+  amarillo, mixto violeta), revés y drive. Usa el nombre completo si está en la plantilla.
+- Solo se activa con todas las parejas completas y la alineación guardada; si no, dice por qué.
+  La imagen se enseña debajo para revisarla, con «Compartir» (si el móvil lo permite) y
+  «Descargar» por si no se puede copiar.
+- Sin respuestas a la encuesta: la web ya no la registra
+  ([ADR 0012](decisiones/0012-sin-encuesta-en-la-web.md)). «Pasar lista» se retiró.
 
 **Plantilla** (construida; pública, en el menú)
 
@@ -84,18 +81,27 @@ clasificación, calendario y nombres.
   preferido de la plantilla o, si no hay, el lado en el que más ha jugado.
 - Marcador sobre la pista con partidos, ganados y sets (por ejemplo «6–5»); los números entran
   con un pequeño rebote.
+- Si ha jugado: anillo de ECharts con ganados (verde oscuro) y perdidos (naranja) y el % en el
+  centro, y dos barras con sets y juegos ganados contra perdidos, repartidas en proporción y
+  con su número.
 - Por lado: media pista partida en revés y drive con partidos y victorias en cada uno.
 - Con quién juega: compañeros con barra de porcentaje de victorias (verde oscuro sobre naranja,
   que crece al aparecer) y enlace a su ficha.
 - Por número de pareja («Masculino 1», «Mixto»), con la misma barra.
 - Su temporada: una fila por jornada con G (círculo verde relleno), P (borde naranja) o vacío
-  discontinuo (no jugó), rival, detalle («Masculino 1 con Sergio, de revés») y sets.
+  discontinuo (no jugó), rival, detalle («Masculino 1 con Sergio, de revés») y sets. Encima, una
+  gráfica con los juegos ganados menos los perdidos de cada jornada (hacia arriba si ganó, hacia
+  abajo si perdió); las jornadas que no jugó quedan vacías y los WO llevan «WO».
 - Se llega desde la plantilla y desde los nombres de la convocatoria de la portada. Los comodines no tienen ficha
   pública ni enlace; los gestores sí la ven, con el aviso «Es comodín».
 
 **Estadísticas** (construida; pública, en el menú)
 
 - Filtro en píldoras: «Toda la liga» y cada fase de la competición.
+- **Evolución de la temporada**: barras claras con los partidos ganados en cada jornada y una
+  línea por fase con los puntos acumulados (sin sanciones; vuelven a cero en cada fase y una
+  jornada con partidos pendientes queda como hueco). Al tocar una jornada se ven sus seis
+  pistas debajo; al entrar, la última.
 - **Jornada a jornada**: 6 casillas por jornada según el formato (M1-M3, F1-F2, mixto). Ganado:
   verde oscuro relleno; perdido: borde naranja; pendiente o suspendido: borde discontinuo. Los
   WO llevan escrito «WO». Debajo, el marcador y los puntos («puntos pendientes» si falta algún
@@ -108,6 +114,18 @@ clasificación, calendario y nombres.
   que la fila de cada jugador muestre a todos sus compañeros; en el mixto, chicos en filas y
   chicas en columnas. Los comodines llevan un asterisco. Si no cabe, se desplaza ella sola.
 - **Parejas más repetidas**: las 5 que más han jugado juntas, con la barra de victorias.
+- **Ranking de jugadores**: barras horizontales de chicos o chicas, ordenadas por partidos, %
+  de victorias o diferencia de juegos (en naranja si es negativa).
+- **Revés contra drive**: barras en mariposa, revés a la izquierda y drive a la derecha, con el %
+  de victorias de cada lado al tocar.
+- **Jugador resaltado**: tocar a un jugador en el ranking, la mariposa o la matriz (una casilla
+  resalta al jugador de su fila; un nombre, a ese jugador) lo resalta en todas: lo demás se
+  atenúa, también en parejas más repetidas. Abajo aparece «Resaltando a Sergio.» con «Ver su
+  ficha» y un botón para quitarlo; tocar al mismo jugador otra vez también lo quita. Así se
+  combinan las gráficas enlazadas con ir a la ficha sin salir de la página al primer toque.
+  Los comodines se pueden resaltar, pero solo los gestores ven su ficha.
+- En las tablas de datos, cada nombre lleva a su ficha: un camino sin canvas para teclado y
+  lectores de pantalla.
 - **Respuestas y participación** (solo gestores, con candado): barras apiladas por jugador con
   jugó / podía sin convocar / no podía / sin responder.
 - Cada gráfica tiene descripción para lectores de pantalla y «Ver los datos en una tabla». La

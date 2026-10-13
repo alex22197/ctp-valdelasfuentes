@@ -1,0 +1,46 @@
+<ctp-grafica-estadistica
+  [opciones]="opciones()"
+  [cambios]="cambios()"
+  [alto]="alto()"
+  descripcion="Barras con los partidos de cada jugador de revés, a la izquierda, y de drive, a la derecha. Toca un jugador para resaltarlo. Los datos están en la tabla de debajo."
+  (tocar)="alTocar($event)"
+/>
+<details class="datos">
+  <summary>Ver los datos en una tabla</summary>
+  <div class="desplazable">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Jugador</th>
+          <th scope="col">Revés</th>
+          <th scope="col">Drive</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (jugador of lista(); track jugador.id) {
+          <tr>
+            <th scope="row">
+              @if (!jugador.comodin || enlazarComodines()) {
+                <a [routerLink]="['/jugadores', jugador.id]">{{ jugador.nombreMostrar }}</a>
+              } @else {
+                {{ jugador.nombreMostrar }}
+              }
+            </th>
+            <td>
+              {{ jugador.reves.partidos }}
+              @if (jugador.reves.partidos) {
+                ({{ jugador.reves.porcentajeVictorias ?? 0 }}&nbsp;%)
+              }
+            </td>
+            <td>
+              {{ jugador.drive.partidos }}
+              @if (jugador.drive.partidos) {
+                ({{ jugador.drive.porcentajeVictorias ?? 0 }}&nbsp;%)
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</details>

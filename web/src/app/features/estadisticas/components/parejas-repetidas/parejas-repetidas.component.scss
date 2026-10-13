@@ -23,6 +23,14 @@
   border-left-color: var(--color-mixto);
 }
 
+.pareja {
+  transition: opacity var(--duracion-media);
+}
+
+.atenuada {
+  opacity: 0.35;
+}
+
 .nombres {
   font-weight: 700;
 }

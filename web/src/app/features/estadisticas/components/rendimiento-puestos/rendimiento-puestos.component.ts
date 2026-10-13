@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import type { BalancePuestoEquipo } from '@data-access/estadisticas/interfaces/balance-puesto-equipo.interface';
 import { nombrePista } from '@shared/utils/etiquetas-partido';
-import { TemaGraficasService } from '../../services/tema-graficas.service';
+import { TemaGraficasService } from '@shared/services/tema-graficas.service';
 import { opcionesPuestos } from '../../utils/opciones-puestos';
-import { GraficaEstadisticaComponent } from '../grafica-estadistica/grafica-estadistica.component';
+import { GraficaEstadisticaComponent } from '@shared/components/grafica-estadistica/grafica-estadistica.component';
 
 /** Porcentaje de victorias del equipo en cada puesto, con gráfica y tabla. */
 @Component({

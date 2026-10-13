@@ -1,0 +1,12 @@
+<div class="pildoras" role="group" [attr.aria-label]="nombre()">
+  @for (opcion of opciones(); track opcion.etiqueta) {
+    <button
+      type="button"
+      class="pildora"
+      [attr.aria-pressed]="valor() === opcion.valor"
+      (click)="valor.set(opcion.valor)"
+    >
+      {{ opcion.etiqueta }}
+    </button>
+  }
+</div>
