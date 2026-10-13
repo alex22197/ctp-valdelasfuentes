@@ -16,10 +16,6 @@
           @if (enlacesGestion()) {
             <span class="enlaces-gestion">
               @if (jornada.estado !== 'jugada') {
-                <a class="enlace-gestion" [routerLink]="['/pasar-lista', jornada.id]">
-                  Pasar lista
-                  <span class="solo-lector"> de la jornada {{ jornada.jornada }}</span>
-                </a>
                 <a class="enlace-gestion" [routerLink]="['/convocatoria', jornada.id]">
                   Convocatoria
                   <span class="solo-lector"> de la jornada {{ jornada.jornada }}</span>

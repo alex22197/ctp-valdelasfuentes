@@ -8,18 +8,17 @@ import { DisponibilidadService } from '@data-access/disponibilidad/disponibilida
 import { ResultadosService } from '@data-access/resultados/resultados.service';
 import type { CambioHueco } from '../interfaces/cambio-hueco.interface';
 import { comprobarAlineacion } from '../utils/comprobar-alineacion';
-import { agruparRespuestas } from '../utils/grupos-respuestas';
 import {
   aplicarCambio,
   huecosDesdePartidos,
   mismasParejas,
   parejasParaGuardar,
 } from '../utils/huecos-alineacion';
-import { textoConvocatoria, textoRecordatorio } from '../utils/texto-whatsapp';
+import { textoConvocatoria } from '../utils/texto-whatsapp';
 
 /**
  * Datos de la convocatoria de la confrontación de la ruta: la alineación que se está
- * editando, las respuestas a la encuesta y los textos para WhatsApp. Se provee en la
+ * editando y la convocatoria para WhatsApp. Se provee en la
  * propia página, así que vive y muere con ella.
  */
 @Injectable()
@@ -67,7 +66,6 @@ export class DatosConvocatoriaService {
   readonly hayCambios = computed(() => !mismasParejas(this.huecos(), this.huecosGuardados()));
   readonly problemas = computed(() => comprobarAlineacion(this.huecos(), this.jugadores()));
   readonly hayErrores = computed(() => this.problemas().some((p) => p.gravedad === 'error'));
-  readonly grupos = computed(() => agruparRespuestas(this.jugadores()));
 
   /** Texto de lo guardado: mientras hay cambios sin guardar no se ofrece copiarlo. */
   readonly textoConvocatoria = computed(() => {
@@ -75,11 +73,6 @@ export class DatosConvocatoriaService {
     return confrontacion
       ? textoConvocatoria(confrontacion, this.huecosGuardados(), this.jugadores())
       : '';
-  });
-  readonly textoRecordatorio = computed(() => {
-    const confrontacion = this.confrontacionActual();
-    const sinResponder = this.grupos().find((g) => g.variante === 'sin-responder');
-    return confrontacion ? textoRecordatorio(confrontacion, sinResponder?.jugadores ?? []) : '';
   });
 
   readonly ocupado = signal(false);

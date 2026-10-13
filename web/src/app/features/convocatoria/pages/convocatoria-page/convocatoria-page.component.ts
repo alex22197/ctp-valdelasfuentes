@@ -8,7 +8,6 @@ import { TransicionVistaService } from '@shared/services/transicion-vista.servic
 import { clavePartido, etiquetaPartido } from '@shared/utils/etiquetas-partido';
 import { ComprobacionAlineacionComponent } from '../../components/comprobacion-alineacion/comprobacion-alineacion.component';
 import { PistaEditableComponent } from '../../components/pista-editable/pista-editable.component';
-import { RespuestasConvocatoriaComponent } from '../../components/respuestas-convocatoria/respuestas-convocatoria.component';
 import { SelectorJugadoresComponent } from '../../components/selector-jugadores/selector-jugadores.component';
 import type { CambioHueco } from '../../interfaces/cambio-hueco.interface';
 import type { HuecoAlineacion } from '../../interfaces/hueco-alineacion.interface';
@@ -18,7 +17,7 @@ import { opcionesParaPista } from '../../utils/opciones-hueco';
 
 /**
  * Convocatoria de una jornada, vista de capitán: alineación sobre las pistas, comprobación
- * de normativa, publicación y textos para WhatsApp, y las respuestas a la encuesta.
+ * de normativa, publicación y la convocatoria para WhatsApp.
  */
 @Component({
   selector: 'ctp-convocatoria-page',
@@ -29,7 +28,6 @@ import { opcionesParaPista } from '../../utils/opciones-hueco';
     FechaConfrontacionPipe,
     ComprobacionAlineacionComponent,
     PistaEditableComponent,
-    RespuestasConvocatoriaComponent,
     SelectorJugadoresComponent,
   ],
   providers: [DatosConvocatoriaService],

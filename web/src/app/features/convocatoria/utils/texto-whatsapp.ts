@@ -49,23 +49,6 @@ export function textoConvocatoria(
   return [cabecera, '(revés - drive)', ...parejas].join('\n');
 }
 
-/** Recordatorio para quien no ha contestado a la encuesta. Vacío si han contestado todos. */
-export function textoRecordatorio(
-  confrontacion: DatosConfrontacion,
-  sinResponder: readonly JugadorConvocable[],
-): string {
-  if (sinResponder.length === 0) {
-    return '';
-  }
-  const nombres = sinResponder.map((jugador) => jugador.nombreMostrar);
-  const lista =
-    nombres.length === 1
-      ? nombres[0]
-      : `${nombres.slice(0, -1).join(', ')} y ${nombres[nombres.length - 1]}`;
-  const fecha = describirFechaCorta(confrontacion.fechaHora, confrontacion.fechaPrevista);
-  return `Falta por contestar a la encuesta del partido contra ${confrontacion.rival.nombre} (${fecha}): ${lista}. ¿Podéis decir si vais?`;
-}
-
 function ordenarPorTurno(huecos: readonly HuecoAlineacion[]): HuecoAlineacion[] {
   const turno = (hueco: HuecoAlineacion): number => {
     const posicion = ORDEN_CON_POCAS_PISTAS.indexOf(clavePartido(hueco));

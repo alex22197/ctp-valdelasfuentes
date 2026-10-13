@@ -108,23 +108,6 @@
       }
     </section>
 
-    <section class="seccion" aria-labelledby="titulo-respuestas">
-      <div class="cabecera-seccion">
-        <h2 id="titulo-respuestas" class="titulo-seccion">Respuestas a la encuesta</h2>
-        <a class="enlace" [routerLink]="['/pasar-lista', confrontacion.id]">Pasar lista</a>
-      </div>
-      <ctp-respuestas-convocatoria [grupos]="datos.grupos()" />
-      @if (datos.textoRecordatorio(); as recordatorio) {
-        <button
-          type="button"
-          class="boton"
-          (click)="copiar(recordatorio, 'Recordatorio copiado. Pégalo en WhatsApp.')"
-        >
-          Copiar recordatorio para WhatsApp
-        </button>
-      }
-    </section>
-
     @if (copiado(); as mensaje) {
       <p class="copiado" role="status">{{ mensaje }}</p>
     }
