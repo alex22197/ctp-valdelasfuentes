@@ -15,7 +15,9 @@ clasificación, calendario y nombres.
   amarilla salen de ella.
 - **Animada con propósito** ([ADR 0010](decisiones/0010-animacion-con-proposito.md)): lo que
   cambia se mueve para explicar de dónde viene y adónde va, todo responde al tocar y nada se
-  anima si el móvil tiene activado «reducir movimiento».
+  anima si el móvil tiene activado «reducir movimiento». La única animación que se repite es
+  Libra persiguiendo una pelota de pádel encima de cada «Cargando…» (un guiño de Alex): dice
+  que se está esperando una respuesta y desaparece en cuanto llega.
 - Tiene que parecer hecho a mano para este equipo, no una plantilla. Evitar: tarjetas
   idénticas con sombra para todo, etiquetas en MAYÚSCULAS, textos unidos con puntos medios
   («A · B · C»), flechas «→» en botones, degradados decorativos.

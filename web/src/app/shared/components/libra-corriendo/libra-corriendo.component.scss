@@ -1,9 +1,8 @@
 // Libra galopa detrás de la pelota. Un galope tiene cuatro tiempos (estirarse, apoyar,
 // empujar y recoger): cada pata los recorre con su muslo y su caña, el cuerpo se inclina con
-// la zancada y las orejas y la cola llegan con retraso, como algo flexible.
+// la zancada y las orejas y la cola llegan con retraso, como algo flexible. Una zancada dura
+// 0,5 s; el resto de tiempos son múltiplos o fracciones de ella.
 :host {
-  --t: 0.5s;
-
   display: block;
   width: 9rem;
 }
@@ -11,22 +10,12 @@
 svg {
   display: block;
   width: 100%;
-  height: auto;
   overflow: visible;
-}
-
-// Todo gira sobre puntos de la propia figura (hombro, rodilla…), en unidades del dibujo.
-.libra,
-.libra * {
-  transform-box: view-box;
 }
 
 .suelo {
   stroke: var(--color-borde-fuerte);
-  stroke-width: 2;
-  stroke-dasharray: 10 14;
-  stroke-linecap: round;
-  animation: pista calc(var(--t) / 2) linear infinite;
+  animation: pista 0.25s linear infinite;
 }
 
 .sombra-libra,
@@ -37,48 +26,21 @@ svg {
 .bola circle {
   fill: var(--color-bola);
   stroke: var(--color-libra-pelo-oscuro);
-  stroke-width: 0.8;
 }
 
 .bola path {
-  fill: none;
   stroke: var(--color-superficie);
-  stroke-width: 1.6;
 }
 
-.cuerpo,
-.cuello,
-.craneo,
-.hocico,
-.cola,
-.oreja path,
-.pata rect,
-.pata ellipse {
+// El pelo se hereda de la figura; cada pieza solo dice en qué se distingue. Los grosores y
+// los «sin trazo» van en el propio SVG.
+.libra {
   fill: var(--color-libra-pelo);
   stroke: var(--color-libra-pelo-oscuro);
-  stroke-width: 1.1;
-  stroke-linejoin: round;
 }
 
-.lejos rect,
-.lejos ellipse,
-.oreja.lejos {
+.lejos {
   fill: var(--color-libra-pelo-oscuro);
-}
-
-.mechones,
-.barba {
-  fill: none;
-  stroke: var(--color-libra-pelo-oscuro);
-  stroke-width: 1.3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.oreja .oreja-dentro {
-  fill: var(--color-libra-lengua);
-  stroke: none;
-  opacity: 0.5;
 }
 
 .pecho {
@@ -90,7 +52,8 @@ svg {
   fill: var(--color-tinta);
 }
 
-.lengua {
+.lengua,
+.oreja-dentro {
   fill: var(--color-libra-lengua);
 }
 
@@ -103,112 +66,127 @@ svg {
 }
 
 // Movimiento --------------------------------------------------------------------------------
+// Cada pieza gira con la misma animación y sus propios ángulos (--a, --b…), para no repetir
+// una animación casi igual por pieza.
 
 .libra {
   transform-origin: 74px 60px;
   animation:
-    zancada var(--t) linear infinite,
-    persecucion calc(var(--t) * 6) ease-in-out infinite alternate;
+    zancada 0.5s linear infinite,
+    persecucion 3s ease-in-out infinite alternate;
 }
 
 .sombra-libra {
   transform-origin: 74px 95px;
-  animation: sombra-libra var(--t) linear infinite;
+  animation: sombra-libra 0.5s linear infinite;
 }
 
-.pata {
-  animation: var(--paso) var(--t) linear infinite;
+// Patas en cuatro tiempos: se estiran, apoyan, empujan y se recogen. Los pies van a
+// contratiempo de las manos y la caña se dobla al recoger.
+.pata,
+.cana {
+  animation: galope 0.5s linear infinite;
 }
 
-.pata .cana {
-  animation: var(--paso-cana) var(--t) linear infinite;
+.lejos,
+.lejos .cana {
+  animation-delay: -0.06s;
 }
 
 .delantera {
-  --paso: mano;
-  --paso-cana: mano-cana;
+  --a: -42deg;
+  --b: -8deg;
+  --c: 34deg;
+  --d: 6deg;
 
   transform-origin: 100px 52px;
 
   .cana {
+    --a: -6deg;
+    --b: -6deg;
+    --c: 12deg;
+    --d: 85deg;
+
     transform-origin: 100px 68px;
   }
 }
 
 .trasera {
-  --paso: pie;
-  --paso-cana: pie-cana;
+  --a: 38deg;
+  --b: 10deg;
+  --c: -40deg;
+  --d: -12deg;
 
   transform-origin: 47px 52px;
 
   .cana {
+    --a: 18deg;
+    --b: 55deg;
+    --c: 4deg;
+    --d: 4deg;
+
     transform-origin: 46px 68px;
   }
 }
 
-.delantera.lejos {
-  transform-origin: 95px 52px;
-  animation-delay: calc(var(--t) * -0.12);
-
-  .cana {
-    transform-origin: 95px 68px;
-    animation-delay: calc(var(--t) * -0.12);
-  }
-}
-
-.trasera.lejos {
-  transform-origin: 42px 52px;
-  animation-delay: calc(var(--t) * -0.12);
-
-  .cana {
-    transform-origin: 41px 68px;
-    animation-delay: calc(var(--t) * -0.12);
-  }
+// La cabeza compensa la inclinación del cuerpo para seguir mirando la pelota; orejas y cola
+// llegan con retraso.
+.cabeza,
+.oreja,
+.cola {
+  animation: vaiven 0.5s ease-in-out infinite;
 }
 
 .cabeza {
+  --a: 4deg;
+  --b: -3deg;
+
   transform-origin: 100px 46px;
-  animation: cabeza var(--t) ease-in-out infinite;
-  animation-delay: calc(var(--t) * -0.15);
+  animation-delay: -0.075s;
 }
 
 .oreja {
+  --a: -14deg;
+  --b: 4deg;
+
   transform-origin: 118px 19px;
-  animation: oreja var(--t) ease-in-out infinite;
-  animation-delay: calc(var(--t) * -0.35);
+  animation-delay: -0.175s;
 }
 
 .oreja.lejos {
   transform-origin: 112px 20px;
-  animation-delay: calc(var(--t) * -0.45);
+  animation-delay: -0.225s;
 }
 
 .cola {
+  --a: -14deg;
+  --b: 10deg;
+
   transform-origin: 38px 50px;
-  animation: cola var(--t) ease-in-out infinite;
-  animation-delay: calc(var(--t) * -0.4);
+  animation-delay: -0.2s;
 }
 
 .bola {
   transform-box: fill-box;
   transform-origin: 50% 100%;
-  animation: bote calc(var(--t) * 2) infinite;
+  animation: bote 1s infinite;
 }
 
 .sombra-bola {
   transform-box: fill-box;
   transform-origin: center;
-  animation: sombra-bola calc(var(--t) * 2) infinite;
+  animation: sombra-bola 1s infinite;
 }
 
 .pelota {
-  animation: persecucion calc(var(--t) * 6) ease-in-out infinite alternate-reverse;
+  animation: persecucion 3s ease-in-out infinite alternate-reverse;
 }
 
 // Cuerpo: dos suspensiones por zancada (estirado y recogido) y se inclina hacia delante al
 // apoyar las manos y hacia atrás al empujar con los pies.
 @keyframes zancada {
-  0% {
+  0%,
+  100% {
     transform: translateY(-4px) rotate(-3deg);
   }
 
@@ -222,10 +200,6 @@ svg {
 
   80% {
     transform: translateY(0) rotate(-2deg);
-  }
-
-  100% {
-    transform: translateY(-4px) rotate(-3deg);
   }
 }
 
@@ -244,121 +218,33 @@ svg {
   }
 }
 
-// Manos: se estiran hacia delante, apoyan, empujan hacia atrás y se recogen.
-@keyframes mano {
-  0% {
-    transform: rotate(-42deg);
+@keyframes galope {
+  0%,
+  100% {
+    transform: rotate(var(--a));
   }
 
   30% {
-    transform: rotate(-8deg);
+    transform: rotate(var(--b));
   }
 
   55% {
-    transform: rotate(34deg);
+    transform: rotate(var(--c));
   }
 
   80% {
-    transform: rotate(6deg);
-  }
-
-  100% {
-    transform: rotate(-42deg);
+    transform: rotate(var(--d));
   }
 }
 
-@keyframes mano-cana {
-  0%,
-  30% {
-    transform: rotate(-6deg);
-  }
-
-  55% {
-    transform: rotate(12deg);
-  }
-
-  80% {
-    transform: rotate(85deg);
-  }
-
-  100% {
-    transform: rotate(-6deg);
-  }
-}
-
-// Pies: van a contratiempo de las manos; empujan estirados y se recogen bajo la tripa.
-@keyframes pie {
-  0% {
-    transform: rotate(38deg);
-  }
-
-  30% {
-    transform: rotate(10deg);
-  }
-
-  55% {
-    transform: rotate(-40deg);
-  }
-
-  80% {
-    transform: rotate(-12deg);
-  }
-
-  100% {
-    transform: rotate(38deg);
-  }
-}
-
-@keyframes pie-cana {
-  0% {
-    transform: rotate(18deg);
-  }
-
-  30% {
-    transform: rotate(55deg);
-  }
-
-  55%,
-  80% {
-    transform: rotate(4deg);
-  }
-
-  100% {
-    transform: rotate(18deg);
-  }
-}
-
-// La cabeza compensa la inclinación del cuerpo para seguir mirando la pelota.
-@keyframes cabeza {
+@keyframes vaiven {
   0%,
   100% {
-    transform: rotate(4deg);
+    transform: rotate(var(--a));
   }
 
   50% {
-    transform: rotate(-3deg);
-  }
-}
-
-@keyframes oreja {
-  0%,
-  100% {
-    transform: rotate(-14deg);
-  }
-
-  50% {
-    transform: rotate(4deg);
-  }
-}
-
-@keyframes cola {
-  0%,
-  100% {
-    transform: rotate(-14deg);
-  }
-
-  50% {
-    transform: rotate(10deg);
+    transform: rotate(var(--b));
   }
 }
 
@@ -387,17 +273,14 @@ svg {
     animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
   }
 
-  46% {
+  46%,
+  54% {
     transform: translateY(0);
   }
 
   50% {
     transform: translateY(0) scale(1.15, 0.85);
     animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
-  }
-
-  54% {
-    transform: translateY(0);
   }
 }
 
