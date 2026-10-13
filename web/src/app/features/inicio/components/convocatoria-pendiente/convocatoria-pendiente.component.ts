@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 /**
- * La convocatoria aún sin publicar: las seis pistas vacías, solo con sus líneas, y el aviso
- * de cuándo aparecerá. Ocupa el mismo sitio que la alineación, así que nada salta al llegar.
+ * La convocatoria aún sin publicar: seis pistas pequeñas y vacías, solo con sus líneas, y el
+ * aviso de cuándo aparecerá. Es un estado vacío, no un hueco de carga: la alineación saldrá
+ * en su lugar cuando el capitán la publique.
  */
 @Component({
   selector: 'ctp-convocatoria-pendiente',

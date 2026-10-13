@@ -4,6 +4,7 @@
   --pista-texto-suave: var(--color-sobre-pista-suave);
 
   display: block;
+  container-type: inline-size;
 }
 
 :host(.mixto) {
@@ -49,10 +50,21 @@
   text-align: center;
 }
 
+// Algo condensado para que un nombre completo quepa en media pista sin partirse.
 .jugador {
   overflow-wrap: anywhere;
   font-weight: 700;
+  font-stretch: var(--anchura-titulo);
   line-height: 1.15;
+}
+
+// En pistas estrechas (dos por fila en un móvil pequeño), letra más pequeña y condensada para
+// que «Sergio» o «Álvaro» no se partan.
+@container (max-width: 10rem) {
+  .jugador {
+    font-size: var(--texto-s);
+    font-stretch: var(--anchura-condensada);
+  }
 }
 
 // Nombre con enlace a su ficha: zona táctil de 44 px y subrayado discreto.

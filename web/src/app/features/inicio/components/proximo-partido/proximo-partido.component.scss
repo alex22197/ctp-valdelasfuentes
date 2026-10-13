@@ -5,6 +5,11 @@
   container-type: inline-size;
 }
 
+// En escritorio llena la altura de su fila, junto a la convocatoria; la fecha y la sede van abajo.
+.pista {
+  height: 100%;
+}
+
 // Césped con el borde de la pista dibujado dentro.
 .pista {
   position: relative;
@@ -89,8 +94,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--espacio-2);
-  margin: var(--espacio-6) 0 0;
-  padding: 0;
+  margin: auto 0 0;
+  padding: var(--espacio-6) 0 0;
   list-style: none;
   font-weight: 500;
 }
