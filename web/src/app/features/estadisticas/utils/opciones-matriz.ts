@@ -26,6 +26,9 @@ export function opcionesMatriz(
   animar: boolean,
 ): EChartsCoreOption {
   const comunes = opcionesComunes(colores, animar);
+  // Con muchas columnas los nombres van girados y el último se sale por la derecha:
+  // containLabel no cuenta el giro, así que se le deja sitio.
+  const girar = matriz.columnas.length > 4;
   return {
     ...comunes,
     tooltip: {
@@ -33,7 +36,7 @@ export function opcionesMatriz(
       formatter: ({ dataIndex }: { dataIndex: number }): string =>
         describirCelda(matriz, dataIndex),
     },
-    grid: { left: 4, right: 4, top: 4, bottom: 4, containLabel: true },
+    grid: { left: 4, right: girar ? 40 : 4, top: 4, bottom: 4, containLabel: true },
     xAxis: {
       type: 'category',
       position: 'top',
@@ -41,7 +44,7 @@ export function opcionesMatriz(
       data: matriz.columnas.map(nombreEnEje),
       axisTick: { show: false },
       axisLine: { show: false },
-      axisLabel: { interval: 0, rotate: matriz.columnas.length > 4 ? 45 : 0, color: colores.tinta },
+      axisLabel: { interval: 0, rotate: girar ? 45 : 0, color: colores.tinta },
     },
     yAxis: {
       type: 'category',
