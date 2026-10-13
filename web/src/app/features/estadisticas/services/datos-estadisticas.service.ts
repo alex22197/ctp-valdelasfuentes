@@ -10,9 +10,8 @@ import { construirCuadricula } from '../utils/cuadricula-jornadas';
 
 /**
  * Datos de la página de estadísticas de la competición activa, filtrados por la fase
- * elegida (`null`: toda la liga), y el jugador resaltado en todas las gráficas. La
- * participación solo se pide si quien mira es gestor: para el resto la base de datos la
- * deniega. Se provee en la propia página.
+ * elegida (`null`: toda la liga), y el jugador resaltado en todas las gráficas. Se provee
+ * en la propia página.
  */
 @Injectable()
 export class DatosEstadisticasService {
@@ -80,11 +79,6 @@ export class DatosEstadisticasService {
   });
 
   readonly esGestor = computed(() => this.auth.lista() && this.auth.esGestor());
-
-  readonly participacion = resource({
-    params: () => (this.esGestor() ? this.filtro() : undefined),
-    loader: ({ params }) => this.equipo.obtenerParticipacion(params.competicion, params.fase),
-  });
 
   /** Jornadas jugadas de la fase elegida, en orden. */
   readonly jornadasDeFase = computed(() => {
