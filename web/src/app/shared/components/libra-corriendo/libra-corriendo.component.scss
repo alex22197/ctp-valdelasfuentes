@@ -1,0 +1,305 @@
+// Libra galopa detrás de la pelota. Un galope tiene cuatro tiempos (estirarse, apoyar,
+// empujar y recoger): cada pata los recorre con su muslo y su caña, el cuerpo se inclina con
+// la zancada y las orejas y la cola llegan con retraso, como algo flexible. Una zancada dura
+// 0,5 s; el resto de tiempos son múltiplos o fracciones de ella.
+:host {
+  display: block;
+  width: 9rem;
+}
+
+svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+.suelo {
+  stroke: var(--color-borde-fuerte);
+  animation: pista 0.25s linear infinite;
+}
+
+.sombra-libra,
+.sombra-bola {
+  fill: var(--color-borde);
+}
+
+.bola circle {
+  fill: var(--color-bola);
+  stroke: var(--color-libra-pelo-oscuro);
+}
+
+.bola path {
+  stroke: var(--color-superficie);
+}
+
+// El pelo se hereda de la figura; cada pieza solo dice en qué se distingue. Los grosores y
+// los «sin trazo» van en el propio SVG.
+.libra {
+  fill: var(--color-libra-pelo);
+  stroke: var(--color-libra-pelo-oscuro);
+}
+
+.lejos {
+  fill: var(--color-libra-pelo-oscuro);
+}
+
+.pecho {
+  fill: var(--color-libra-pecho);
+}
+
+.nariz,
+.ojo {
+  fill: var(--color-tinta);
+}
+
+.lengua,
+.oreja-dentro {
+  fill: var(--color-libra-lengua);
+}
+
+.collar {
+  fill: var(--color-libra-collar);
+}
+
+.chapa {
+  fill: var(--color-libra-chapa);
+}
+
+// Movimiento --------------------------------------------------------------------------------
+// Cada pieza gira con la misma animación y sus propios ángulos (--a, --b…), para no repetir
+// una animación casi igual por pieza.
+
+.libra {
+  transform-origin: 74px 60px;
+  animation:
+    zancada 0.5s linear infinite,
+    persecucion 3s ease-in-out infinite alternate;
+}
+
+.sombra-libra {
+  transform-origin: 74px 95px;
+  animation: sombra-libra 0.5s linear infinite;
+}
+
+// Patas en cuatro tiempos: se estiran, apoyan, empujan y se recogen. Los pies van a
+// contratiempo de las manos y la caña se dobla al recoger.
+.pata,
+.cana {
+  animation: galope 0.5s linear infinite;
+}
+
+.lejos,
+.lejos .cana {
+  animation-delay: -0.06s;
+}
+
+.delantera {
+  --a: -42deg;
+  --b: -8deg;
+  --c: 34deg;
+  --d: 6deg;
+
+  transform-origin: 100px 52px;
+
+  .cana {
+    --a: -6deg;
+    --b: -6deg;
+    --c: 12deg;
+    --d: 85deg;
+
+    transform-origin: 100px 68px;
+  }
+}
+
+.trasera {
+  --a: 38deg;
+  --b: 10deg;
+  --c: -40deg;
+  --d: -12deg;
+
+  transform-origin: 47px 52px;
+
+  .cana {
+    --a: 18deg;
+    --b: 55deg;
+    --c: 4deg;
+    --d: 4deg;
+
+    transform-origin: 46px 68px;
+  }
+}
+
+// La cabeza compensa la inclinación del cuerpo para seguir mirando la pelota; orejas y cola
+// llegan con retraso.
+.cabeza,
+.oreja,
+.cola {
+  animation: vaiven 0.5s ease-in-out infinite;
+}
+
+.cabeza {
+  --a: 4deg;
+  --b: -3deg;
+
+  transform-origin: 100px 46px;
+  animation-delay: -0.075s;
+}
+
+.oreja {
+  --a: -14deg;
+  --b: 4deg;
+
+  transform-origin: 118px 19px;
+  animation-delay: -0.175s;
+}
+
+.oreja.lejos {
+  transform-origin: 112px 20px;
+  animation-delay: -0.225s;
+}
+
+.cola {
+  --a: -14deg;
+  --b: 10deg;
+
+  transform-origin: 38px 50px;
+  animation-delay: -0.2s;
+}
+
+.bola {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bote 1s infinite;
+}
+
+.sombra-bola {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sombra-bola 1s infinite;
+}
+
+.pelota {
+  animation: persecucion 3s ease-in-out infinite alternate-reverse;
+}
+
+// Cuerpo: dos suspensiones por zancada (estirado y recogido) y se inclina hacia delante al
+// apoyar las manos y hacia atrás al empujar con los pies.
+@keyframes zancada {
+  0%,
+  100% {
+    transform: translateY(-4px) rotate(-3deg);
+  }
+
+  30% {
+    transform: translateY(0) rotate(2deg);
+  }
+
+  55% {
+    transform: translateY(-3px) rotate(3deg);
+  }
+
+  80% {
+    transform: translateY(0) rotate(-2deg);
+  }
+}
+
+@keyframes sombra-libra {
+  0%,
+  55%,
+  100% {
+    transform: scaleX(0.85);
+    opacity: 0.6;
+  }
+
+  30%,
+  80% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes galope {
+  0%,
+  100% {
+    transform: rotate(var(--a));
+  }
+
+  30% {
+    transform: rotate(var(--b));
+  }
+
+  55% {
+    transform: rotate(var(--c));
+  }
+
+  80% {
+    transform: rotate(var(--d));
+  }
+}
+
+@keyframes vaiven {
+  0%,
+  100% {
+    transform: rotate(var(--a));
+  }
+
+  50% {
+    transform: rotate(var(--b));
+  }
+}
+
+// Libra gana terreno y la pelota se le escapa, una y otra vez.
+@keyframes persecucion {
+  from {
+    transform: translateX(-6px);
+  }
+
+  to {
+    transform: translateX(8px);
+  }
+}
+
+@keyframes pista {
+  to {
+    stroke-dashoffset: 24;
+  }
+}
+
+// Cae acelerando, se aplasta un poco contra el suelo y sube frenando.
+@keyframes bote {
+  0%,
+  100% {
+    transform: translateY(-40px);
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+
+  46%,
+  54% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(0) scale(1.15, 0.85);
+    animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+  }
+}
+
+@keyframes sombra-bola {
+  0%,
+  100% {
+    transform: scale(0.45);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// Con «reducir movimiento», Libra espera quieta junto a la pelota.
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+  }
+}
