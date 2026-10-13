@@ -4,6 +4,7 @@ import { IconoComponent } from '@shared/components/icono/icono.component';
 import { DatosJornadaComponent } from '@shared/components/datos-jornada/datos-jornada.component';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
 import { FechaConfrontacionPipe } from '@shared/pipes/fecha-confrontacion.pipe';
+import { SedePipe } from '@shared/pipes/sede.pipe';
 import { TransicionVistaService } from '@shared/services/transicion-vista.service';
 import { clavePartido, etiquetaPartido } from '@shared/utils/etiquetas-partido';
 import { ComprobacionAlineacionComponent } from '../../components/comprobacion-alineacion/comprobacion-alineacion.component';
@@ -29,6 +30,7 @@ import { opcionesParaPista } from '../../utils/opciones-hueco';
     IconoComponent,
     MensajeEstadoComponent,
     FechaConfrontacionPipe,
+    SedePipe,
     ComprobacionAlineacionComponent,
     CopiarConvocatoriaComponent,
     PistaEditableComponent,

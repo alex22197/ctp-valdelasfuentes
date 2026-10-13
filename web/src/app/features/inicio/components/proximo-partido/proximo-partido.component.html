@@ -29,9 +29,26 @@
       <ctp-icono nombre="calendario" />
       {{ partido | fechaConfrontacion }}
     </li>
-    <li class="detalle">
+    <li class="detalle detalle--sede">
       <ctp-icono nombre="ubicacion" />
-      {{ partido.sede ?? 'Sede por confirmar' }}
+      @if (partido.sede | sede; as sede) {
+        <span class="sede">
+          @if (sede.nombre) {
+            <span class="sede-nombre">{{ sede.nombre }}</span>
+          }
+          @if (sede.direccion) {
+            <span class="sede-direccion">{{ sede.direccion }}</span>
+          }
+          @if (sede.enlace) {
+            <a class="como-llegar" [href]="sede.enlace" target="_blank" rel="noopener noreferrer">
+              {{ sede.nombre ? 'Cómo llegar' : 'Ver la sede en el mapa' }}
+              <span class="solo-lector"> (se abre Google Maps)</span>
+            </a>
+          }
+        </span>
+      } @else {
+        Sede por confirmar
+      }
     </li>
   </ul>
 </section>

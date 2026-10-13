@@ -32,7 +32,8 @@ clasificación, calendario y nombres.
 - Cabecera con el escudo y «CTPA / Valdelasfuentes».
 - Bloque del **próximo partido** sobre una pista verde con el borde dibujado: equipo local
   arriba, la **red** (línea blanca de lado a lado) y el visitante abajo. Una bola amarilla marca
-  a nuestro equipo. Debajo, la fecha y la sede.
+  a nuestro equipo. Debajo, la fecha y la sede. Si la sede es un enlace de Google Maps, sale el
+  nombre del sitio, su dirección y un botón blanco «Cómo llegar» que abre el mapa.
 - **Convocatoria**: las 6 parejas, cada una sobre su media pista (revés a la izquierda, drive a
   la derecha). El mixto en verde lima. Si no hay alineación, las seis pistas vacías (solo sus
   líneas, en discontinuo) y «Todavía no está publicada…».

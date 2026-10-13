@@ -17,7 +17,19 @@
     </p>
     <h1 class="titulo-pagina">{{ confrontacion.rival.nombre }}</h1>
     <p class="texto-secundario">
-      {{ confrontacion | fechaConfrontacion }}, {{ confrontacion.sede ?? 'sede por confirmar' }}
+      {{ confrontacion | fechaConfrontacion }},
+      @if (confrontacion.sede | sede; as sede) {
+        @if (sede.enlace) {
+          <a [href]="sede.enlace" target="_blank" rel="noopener noreferrer"
+            >{{ sede.nombre ?? 'sede en el mapa'
+            }}<span class="solo-lector"> (se abre Google Maps)</span></a
+          >
+        } @else {
+          {{ sede.nombre }}
+        }
+      } @else {
+        sede por confirmar
+      }
     </p>
     @if (confrontacion.estado !== 'jugada') {
       <ctp-datos-jornada
