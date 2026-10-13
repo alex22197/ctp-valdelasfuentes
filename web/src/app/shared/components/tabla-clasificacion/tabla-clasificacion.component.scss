@@ -1,3 +1,5 @@
+// Una fila por equipo y siempre de una línea: el nombre va en letra condensada y, si aun así no
+// cabe, se corta con «…». Nuestra fila lleva la bola amarilla, como en el próximo partido.
 .contenedor {
   overflow-x: auto;
 }
@@ -5,7 +7,8 @@
 .tabla {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9375rem;
+  table-layout: fixed;
+  font-size: var(--texto-m);
   font-variant-numeric: tabular-nums;
 }
 
@@ -15,8 +18,8 @@ thead {
 }
 
 thead th {
-  padding: var(--espacio-2) var(--espacio-2) var(--espacio-2);
-  font-weight: 500;
+  padding: var(--espacio-2);
+  font-weight: 600;
 }
 
 abbr {
@@ -33,33 +36,56 @@ tbody tr:last-child {
 
 td,
 tbody th {
-  padding: var(--espacio-3) var(--espacio-2);
+  height: var(--minimo-tactil);
+  padding: 0 var(--espacio-2);
 }
 
 .columna-posicion {
-  width: 2rem;
+  width: 1.75rem;
+  color: var(--color-tinta-tenue);
+  font-weight: 700;
   text-align: left;
 }
 
 .columna-equipo {
+  overflow: hidden;
+  font-weight: 500;
+  font-stretch: var(--anchura-condensada);
   text-align: left;
-  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .columna-numero {
-  width: 2.75rem;
+  width: 2rem;
+  color: var(--color-tinta-tenue);
   text-align: right;
 }
 
 .columna-puntos {
-  font-weight: 700;
+  width: 2.5rem;
+  color: var(--color-tinta);
+  font-weight: 800;
 }
 
 .fila--nuestra {
   background: var(--color-destacado);
-  font-weight: 700;
-}
 
-.fila--nuestra .columna-equipo {
-  font-weight: 700;
+  .columna-posicion,
+  .columna-equipo {
+    color: var(--color-tinta);
+    font-weight: 800;
+  }
+
+  .columna-equipo::after {
+    content: '';
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-left: var(--espacio-2);
+    border-radius: 50%;
+    background: var(--color-bola);
+    box-shadow: 0 0 0 1px var(--color-tinta-tenue);
+    vertical-align: middle;
+  }
 }
