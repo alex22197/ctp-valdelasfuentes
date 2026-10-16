@@ -56,9 +56,7 @@ Sin esto, después de iniciar sesión con Google Supabase no sabría a qué web 
 ## Google (login)
 
 - Las credenciales OAuth están en Google Cloud Console, proyecto **CTP Valdelasfuentes**.
-- Mientras la app está en **modo prueba**, solo pueden iniciar sesión las cuentas añadidas en
-  **Público** → **Usuarios de prueba**.
-- **Publicada**, puede entrar cualquier cuenta de Google, pero solo quien tiene fila en `perfil`
+- La app está **publicada** (en producción desde el 16 de octubre de 2026): puede entrar cualquier cuenta de Google, pero solo quien tiene fila en `perfil`
   ve la gestión: el resto ve la web como un visitante. Como solo pide correo, nombre y foto
   (permisos básicos), Google no la revisa.
 

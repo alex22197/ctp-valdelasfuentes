@@ -107,9 +107,9 @@ Se hará desde la web cuando exista la pantalla de administración.
 
 ## Si algo falla
 
-| Síntoma                                 | Qué mirar                                                                                                              |
-| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| La web dice «No se ha podido cargar…»   | Panel de Supabase: que el proyecto no esté pausado (se pausa tras 7 días sin actividad; se reactiva con un clic).      |
-| No deja iniciar sesión                  | Que la cuenta esté en los usuarios de prueba de Google y que la URL de la web esté en las _Redirect URLs_ de Supabase. |
-| Inicias sesión pero no puedes gestionar | Que tu usuario tenga fila en `perfil`.                                                                                 |
-| La clasificación no se actualiza        | Registro de la tabla `ejecucion_scraper` y la pestaña **Actions** de GitHub _(cuando exista el scraper)_.              |
+| Síntoma                                 | Qué mirar                                                                                                                   |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| La web dice «No se ha podido cargar…»   | Panel de Supabase: que el proyecto no esté pausado (se pausa tras 7 días sin actividad; se reactiva con un clic).           |
+| No deja iniciar sesión                  | Que la URL de la web esté en las _Redirect URLs_ de Supabase. Si entra pero no ve «Gestión», le falta el permiso de gestor. |
+| Inicias sesión pero no puedes gestionar | Que tu usuario tenga fila en `perfil`.                                                                                      |
+| La clasificación no se actualiza        | Registro de la tabla `ejecucion_scraper` y la pestaña **Actions** de GitHub _(cuando exista el scraper)_.                   |
