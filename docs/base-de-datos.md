@@ -151,6 +151,7 @@ Reglas:
 | `20261011171259_set_posible_en_padel.sql`            | Restricciones `set_posible` y `tiebreak_posible` en `set_partido`.                                                                       |
 | `20261016104056_permisos_de_gestores.sql`            | Tabla `invitacion_gestor`, funciones de permisos de gestor y trigger que deja siempre un administrador.                                  |
 | `20261016115007_endurecer_permisos.sql`              | Invitaciones ligadas al correo verificado de Google, estructura solo para el admin, borradores ocultos y nombres sin `<` ni `>`.         |
+| `20261016125521_reclamar_permiso_sin_carreras.sql`   | `reclamar_permiso_gestor` vuelve a leer el perfil si otra llamada a la vez ya reclamó la invitación.                                     |
 
 ## Pendiente
 

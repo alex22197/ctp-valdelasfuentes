@@ -3,6 +3,7 @@ import { ClasificacionService } from '@data-access/clasificacion/clasificacion.s
 import { CompeticionesService } from '@data-access/competiciones/competiciones.service';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
 import { TablaClasificacionComponent } from '@shared/components/tabla-clasificacion/tabla-clasificacion.component';
+import { describirActualizacion } from '../../utils/ultima-actualizacion';
 
 /** Clasificación oficial del grupo en la fase actual. */
 @Component({
@@ -32,4 +33,6 @@ export class ClasificacionPageComponent {
   protected readonly filas = computed(() =>
     this.clasificacion.hasValue() ? this.clasificacion.value() : [],
   );
+
+  protected readonly nota = computed(() => describirActualizacion(this.filas()));
 }

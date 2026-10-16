@@ -62,7 +62,7 @@
               [hueco]="hueco"
               [nombres]="datos.nombres()"
               [errores]="errores(hueco)"
-              [deshabilitada]="datos.ocupado()"
+              [deshabilitada]="datos.bloqueado()"
               [enVuelo]="enVuelo()"
               (abrir)="abierto.set($event)"
             />
@@ -77,7 +77,7 @@
           <button
             type="button"
             class="boton boton--principal"
-            [disabled]="datos.ocupado() || datos.hayErrores()"
+            [disabled]="datos.bloqueado() || datos.hayErrores()"
             (click)="datos.guardar()"
           >
             Guardar alineación
@@ -85,7 +85,7 @@
           <button
             type="button"
             class="boton"
-            [disabled]="datos.ocupado()"
+            [disabled]="datos.bloqueado()"
             (click)="datos.descartarCambios()"
           >
             Descartar cambios
@@ -95,7 +95,7 @@
             <button
               type="button"
               class="boton"
-              [disabled]="datos.ocupado()"
+              [disabled]="datos.bloqueado()"
               (click)="datos.cambiarPublicacion(false)"
             >
               Volver a borrador
@@ -104,7 +104,7 @@
             <button
               type="button"
               class="boton boton--principal"
-              [disabled]="datos.ocupado()"
+              [disabled]="datos.bloqueado()"
               (click)="datos.cambiarPublicacion(true)"
             >
               Publicar en la portada
