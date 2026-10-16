@@ -3,8 +3,8 @@
   echarts
   role="img"
   [attr.aria-label]="descripcion()"
-  [options]="opciones()"
-  [merge]="cambios()"
+  [options]="opcionesSeguras()"
+  [merge]="cambiosSeguros()"
   [style.height.px]="alto()"
   (chartClick)="alTocar($event)"
 ></div>

@@ -50,11 +50,11 @@ cambios: muchas decisiones dependen de cómo funciona el equipo en la realidad.
 | Partido     | Revés         | Drive          |
 | ----------- | ------------- | -------------- |
 | Masculino 1 | Sergio        | Jorge          |
-| Masculino 2 | Álex          | Pablo Cristini |
+| Masculino 2 | Álex          | Pablo          |
 | Masculino 3 | Álvaro        | Joel           |
-| Femenino 1  | Marta Prieto  | Virginia       |
+| Femenino 1  | Marta Prieto  | Vir            |
 | Femenino 2  | Marta Morales | Jess (comodín) |
-| Mixto       | Rocío         | Iván Guadalix  |
+| Mixto       | Rocío         | Ivan G         |
 
 Ya está cargada en la migración de datos iniciales. No se conocen las respuestas a la
 encuesta del resto ni la sede de Soto Torrejón.
@@ -62,13 +62,13 @@ encuesta del resto ni la sede de Soto Torrejón.
 ## Plantilla
 
 Nombres para mostrar tal como los pasó Alex. Los nombres completos van en `jugador_privado`
-(solo visibles para gestores).
+(solo visibles para gestores) y no se escriben aquí: el repositorio es público.
 
 | Chicos                                                                       | Nombre completo conocido |
 | ---------------------------------------------------------------------------- | ------------------------ |
 | Diego, Sergio, Alex, Juan, Álvaro, Miguel, Jorge, Carlos, Walter, Ivan, Joel | —                        |
-| Ivan G                                                                       | Iván Guadalix            |
-| Pablo                                                                        | Pablo Cristini           |
+| Ivan G                                                                       | Sí                       |
+| Pablo                                                                        | Sí                       |
 
 | Chicas                       | Nombre completo conocido                        |
 | ---------------------------- | ----------------------------------------------- |
@@ -76,7 +76,7 @@ Nombres para mostrar tal como los pasó Alex. Los nombres completos van en `juga
 | Marta Morales                | Marta Morales                                   |
 | Marta Muro                   | Marta Muro                                      |
 | Marta Prieto                 | Marta Prieto (antes figuraba solo como «Marta») |
-| Vir                          | Virginia                                        |
+| Vir                          | Sí                                              |
 | Jess                         | Comodín, no es de la plantilla habitual         |
 
 - 13 chicos y 8 chicas habituales (cumple la normativa: mínimo 10 y 6).

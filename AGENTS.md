@@ -117,7 +117,11 @@ Detalle en [`docs/arquitectura.md`](docs/arquitectura.md).
 - Gráficas con ECharts (`ngx-echarts`) mediante `ctp-grafica-estadistica`
   (`shared/components`), con las piezas registradas en `shared/utils/graficas` y provisto en la
   página que las usa. Pintan en un canvas, así que sus colores se leen de los tokens en tiempo
-  de ejecución; nunca colores sueltos en el TypeScript.
+  de ejecución; nunca colores sueltos en el TypeScript. Las ayudas que salen al tocar una
+  gráfica se escapan en `ctp-grafica-estadistica` (`conTooltipsSeguros`): nunca se pinta HTML
+  con datos.
+- Cualquier origen externo nuevo (scripts, estilos, letras, peticiones) se añade a la política
+  de contenido de `web/public/_headers`; ver [`docs/despliegue.md`](docs/despliegue.md).
 
 ### Accesibilidad
 

@@ -107,8 +107,14 @@ La base de datos rechaza, con un mensaje en castellano:
 
 - RLS activado en todas las tablas.
 - **Visitantes** (`anon`): solo lectura de las tablas públicas.
-- **Gestores** (usuarios con fila en `perfil`): lectura y escritura de todo.
-- **Admin**: además gestiona la tabla `perfil` (quién es gestor).
+- **Gestores** (capitán y admin, usuarios con fila en `perfil`): leen todo; crean y cambian
+  jornadas, partidos, sets, alineaciones, jugadores y plantilla.
+- **Solo el admin**: la estructura de la temporada (`competicion`, `fase`, `equipo`,
+  `fase_equipo`), borrar jornadas o jugadores (se llevan en cascada partidos y resultados) y
+  la tabla `perfil` (quién es gestor). Siempre queda al menos un admin.
+- **Alineaciones en borrador**: `participacion` solo la ven los gestores mientras la
+  convocatoria no está publicada y el partido no tiene resultado.
+- Los nombres de jugadores y equipos no admiten `<` ni `>`.
 - El proyecto **no expone tablas automáticamente**: cada migración concede con `grant`
   exactamente lo que hace falta.
 - El scraper usará la clave secreta (`service_role`), que se salta RLS y solo vive en los
@@ -144,6 +150,7 @@ Reglas:
 | `20261011134423_marcador_y_fase_en_estadisticas.sql` | Columnas `marcador` en `estadistica_partido_jugador` y `fase_nombre` y `fase_orden` en `estadistica_jornada`.                            |
 | `20261011171259_set_posible_en_padel.sql`            | Restricciones `set_posible` y `tiebreak_posible` en `set_partido`.                                                                       |
 | `20261016104056_permisos_de_gestores.sql`            | Tabla `invitacion_gestor`, funciones de permisos de gestor y trigger que deja siempre un administrador.                                  |
+| `20261016115007_endurecer_permisos.sql`              | Invitaciones ligadas al correo verificado de Google, estructura solo para el admin, borradores ocultos y nombres sin `<` ni `>`.         |
 
 ## Pendiente
 
