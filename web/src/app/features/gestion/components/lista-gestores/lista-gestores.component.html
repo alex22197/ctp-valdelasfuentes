@@ -1,0 +1,83 @@
+<form class="formulario" (submit)="enviar($event)">
+  <label class="campo correo">
+    <span class="etiqueta">Correo de Google</span>
+    <input
+      type="email"
+      autocomplete="off"
+      inputmode="email"
+      [value]="email()"
+      (input)="email.set(leer($event))"
+    />
+  </label>
+  <label class="campo">
+    <span class="etiqueta">Papel</span>
+    <select [value]="rol()" (change)="rol.set(leer($event) === 'admin' ? 'admin' : 'capitan')">
+      <option value="capitan">Capitán</option>
+      <option value="admin">Administrador</option>
+    </select>
+  </label>
+  <button type="submit" class="boton boton--principal" [disabled]="ocupado() || !email().trim()">
+    Dar permiso
+  </button>
+</form>
+<p class="texto-secundario">
+  Si esa persona aún no ha entrado nunca, queda invitada y tendrá el permiso en cuanto entre con esa
+  cuenta de Google.
+</p>
+
+@if (error(); as mensaje) {
+  <p class="error" role="alert">{{ mensaje }}</p>
+} @else if (aviso(); as mensaje) {
+  <p class="aviso" role="status">{{ mensaje }}</p>
+}
+
+<ul class="lista">
+  @for (gestor of gestores(); track gestor.email) {
+    <li class="gestor">
+      <div class="datos">
+        <p class="email">{{ gestor.email }}</p>
+        <p class="detalle">
+          <span class="rol" [class.rol--admin]="gestor.rol === 'admin'">{{
+            nombreRol[gestor.rol]
+          }}</span>
+          @if (gestor.esTu) {
+            <span class="texto-secundario">Tú</span>
+          } @else if (gestor.pendiente) {
+            <span class="texto-secundario">Aún no ha entrado</span>
+          } @else if (gestor.nombre) {
+            <span class="texto-secundario">{{ gestor.nombre }}</span>
+          }
+        </p>
+      </div>
+
+      @if (!gestor.esTu) {
+        <div class="acciones">
+          @if (confirmando() === gestor.email) {
+            <button
+              type="button"
+              class="boton boton--peligro"
+              [disabled]="ocupado()"
+              (click)="confirmarQuitar(gestor)"
+            >
+              Sí, quitar
+            </button>
+            <button type="button" class="boton" (click)="confirmando.set(null)">Cancelar</button>
+          } @else {
+            <button type="button" class="boton" [disabled]="ocupado()" (click)="cambiar(gestor)">
+              {{ gestor.rol === 'admin' ? 'Hacer capitán' : 'Hacer administrador' }}
+            </button>
+            <button
+              type="button"
+              class="boton"
+              [disabled]="ocupado()"
+              (click)="confirmando.set(gestor.email)"
+            >
+              Quitar
+              <span class="solo-lector"> el permiso a {{ gestor.email }}</span>
+            </button>
+          }
+        </div>
+      }
+    </li>
+  }
+</ul>

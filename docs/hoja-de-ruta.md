@@ -11,7 +11,7 @@ milestone (una por sección de este documento). Junto a cada tarea, su número.
 
 - Análisis de la normativa y del funcionamiento real del equipo.
 - Bocetos de las pantallas principales ([`diseno.md`](diseno.md)).
-- Cuentas: GitHub, Supabase, Google Cloud (OAuth en modo prueba) y Cloudflare.
+- Cuentas: GitHub, Supabase, Google Cloud (OAuth publicado) y Cloudflare.
 - Base de datos: esquema completo con reglas de normativa y seguridad, más datos iniciales
   (equipos, plantilla, calendario de la apertura y alineación de la jornada 1). Las
   comprobaciones de normativa se probaron a mano (18 casos).
@@ -70,6 +70,9 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
    todas las jornadas con su convocatoria y sus resultados.
 6. ~~(#50) **Fecha, hora y sede de una jornada**~~: hecho. Formulario en la convocatoria y en
    la próxima jornada de Gestión, con día, hora (siempre en hora de Madrid), sede y pistas.
+7. ~~(#55) **Dar permisos de gestor desde la web**~~: hecho. En Gestión, solo para el
+   administrador: dar, cambiar y quitar permisos con el correo de Google, con invitaciones
+   para quien aún no ha entrado.
 
 ## 3. Scraper semanal y copia de seguridad
 
@@ -109,8 +112,8 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
   convirtiendo las 18 comprobaciones manuales, y añadirlos a la integración continua.
 - ~~(#18) Entorno de desarrollo separado de producción~~: descartado por Alex. Se trabaja contra
   la base de datos de producción, con cuidado al probar las pantallas de gestión.
-- (#19) ~~Página de privacidad~~ (`/privacidad`, enlazada al pie de cada página y desde el acceso).
-  Falta publicar la app de Google para salir del modo prueba (pasos en [despliegue.md](despliegue.md)).
+- ~~(#19) Página de privacidad y app de Google publicada~~: hecho. `/privacidad`, enlazada al pie
+  de cada página; la app de Google está en producción y cualquiera puede entrar con su cuenta.
 - (#20) Avisar al equipo en el grupo antes de compartir la web.
 
 ## Mejoras para después

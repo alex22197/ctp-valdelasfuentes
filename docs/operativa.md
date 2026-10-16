@@ -75,25 +75,17 @@ jornada 1). Están en `plantilla` con `comodin = true`:
 
 ## Dar permisos de gestión
 
-1. La persona entra en la web, pulsa **Entrar** y inicia sesión con Google. Su cuenta debe
-   estar añadida como usuario de prueba en Google Cloud (ver [despliegue](despliegue.md)).
-2. En Supabase, abre **SQL Editor** y ejecuta, cambiando el correo y el rol:
+Solo el administrador, desde la web:
 
-   ```sql
-   insert into public.perfil (user_id, rol)
-   select id, 'capitan' from auth.users where email = 'correo@gmail.com';
-   ```
+1. Entra, pulsa **Gestión** y baja hasta **Gestores**.
+2. Escribe el correo de Google de la persona, elige **Capitán** o **Administrador** y pulsa
+   **Dar permiso**.
+3. Si esa persona ya había entrado alguna vez, tiene el permiso al momento (recargando la
+   página). Si no, queda «Aún no ha entrado» y lo tendrá en cuanto entre con esa cuenta.
 
-   Para el primer administrador, usa `'admin'` con tu propio correo.
-
-3. La persona recarga la web. En «Tu cuenta» verá sus permisos.
-
-Para retirar los permisos:
-
-```sql
-delete from public.perfil
-where user_id = (select id from auth.users where email = 'correo@gmail.com');
-```
+En la misma lista se cambia el papel y se quita el permiso (pide confirmación). Nadie puede
+quitarse ni bajarse a sí mismo, y siempre queda al menos un administrador. Solo vale una cuenta
+de Google con ese correo: entrar de otra forma con el mismo correo no da el permiso.
 
 ## Cambio de fase
 
@@ -107,9 +99,9 @@ Se hará desde la web cuando exista la pantalla de administración.
 
 ## Si algo falla
 
-| Síntoma                                 | Qué mirar                                                                                                              |
-| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| La web dice «No se ha podido cargar…»   | Panel de Supabase: que el proyecto no esté pausado (se pausa tras 7 días sin actividad; se reactiva con un clic).      |
-| No deja iniciar sesión                  | Que la cuenta esté en los usuarios de prueba de Google y que la URL de la web esté en las _Redirect URLs_ de Supabase. |
-| Inicias sesión pero no puedes gestionar | Que tu usuario tenga fila en `perfil`.                                                                                 |
-| La clasificación no se actualiza        | Registro de la tabla `ejecucion_scraper` y la pestaña **Actions** de GitHub _(cuando exista el scraper)_.              |
+| Síntoma                                 | Qué mirar                                                                                                                   |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| La web dice «No se ha podido cargar…»   | Panel de Supabase: que el proyecto no esté pausado (se pausa tras 7 días sin actividad; se reactiva con un clic).           |
+| No deja iniciar sesión                  | Que la URL de la web esté en las _Redirect URLs_ de Supabase. Si entra pero no ve «Gestión», le falta el permiso de gestor. |
+| Inicias sesión pero no puedes gestionar | Que tu usuario tenga fila en `perfil`.                                                                                      |
+| La clasificación no se actualiza        | Registro de la tabla `ejecucion_scraper` y la pestaña **Actions** de GitHub _(cuando exista el scraper)_.                   |
