@@ -21,3 +21,6 @@ supabase/.branches/
 .DS_Store
 Thumbs.db
 .idea/
+
+# Copias comprimidas del proyecto: pueden llevar datos personales.
+*.zip

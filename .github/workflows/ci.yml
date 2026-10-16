@@ -6,6 +6,10 @@ on:
     branches: [main, develop]
   pull_request:
 
+# Solo lee el repositorio: no publica nada ni escribe en GitHub.
+permissions:
+  contents: read
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
