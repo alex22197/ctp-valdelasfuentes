@@ -1,0 +1,13 @@
+@if (consentimiento.avisoVisible()) {
+  <section #aviso class="aviso" aria-labelledby="titulo-aviso-cookies" tabindex="-1">
+    <h2 id="titulo-aviso-cookies" class="titulo">¿Podemos contar tu visita?</h2>
+    <p class="texto">
+      Si aceptas, Google Analytics guarda unas cookies para saber cuánta gente entra y qué páginas
+      mira. Nada de publicidad. <a routerLink="/privacidad" fragment="cookies">Más información</a>
+    </p>
+    <div class="acciones">
+      <button type="button" class="boton" (click)="consentimiento.rechazar()">Rechazar</button>
+      <button type="button" class="boton" (click)="consentimiento.aceptar()">Aceptar</button>
+    </div>
+  </section>
+}

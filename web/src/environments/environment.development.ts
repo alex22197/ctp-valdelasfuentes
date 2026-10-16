@@ -10,4 +10,6 @@ export const environment: Entorno = {
     url: 'https://wqnelcngcnubwtymnmjk.supabase.co',
     publishableKey: 'sb_publishable_23rZ2NXNtz3dKFm5SiP4ZA_DO3n5nwp',
   },
+  // En local no se mide nada: las visitas de desarrollo ensuciarían las cifras.
+  idAnalitica: null,
 };
