@@ -63,5 +63,26 @@
         </ul>
       }
     </section>
+
+    @if (auth.esAdmin()) {
+      <section class="seccion" aria-labelledby="titulo-gestores">
+        <h2 id="titulo-gestores" class="titulo-seccion">Gestores</h2>
+        @if (gestores.gestores.error()) {
+          <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar la lista de gestores." />
+        } @else if (gestores.gestores.isLoading() && gestores.lista().length === 0) {
+          <ctp-mensaje-estado tipo="cargando" texto="Cargando los gestores…" esqueleto="tarjetas" />
+        } @else {
+          <ctp-lista-gestores
+            [gestores]="gestores.lista()"
+            [ocupado]="gestores.ocupado()"
+            [error]="gestores.error()"
+            [aviso]="gestores.aviso()"
+            (dar)="gestores.darPermiso($event.email, $event.rol)"
+            (cambiarRol)="gestores.cambiarRol($event.email, $event.rol)"
+            (quitar)="gestores.quitarPermiso($event)"
+          />
+        }
+      </section>
+    }
   }
 }

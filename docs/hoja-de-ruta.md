@@ -70,6 +70,9 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
    todas las jornadas con su convocatoria y sus resultados.
 6. ~~(#50) **Fecha, hora y sede de una jornada**~~: hecho. Formulario en la convocatoria y en
    la próxima jornada de Gestión, con día, hora (siempre en hora de Madrid), sede y pistas.
+7. ~~(#55) **Dar permisos de gestor desde la web**~~: hecho. En Gestión, solo para el
+   administrador: dar, cambiar y quitar permisos con el correo de Google, con invitaciones
+   para quien aún no ha entrado.
 
 ## 3. Scraper semanal y copia de seguridad
 
