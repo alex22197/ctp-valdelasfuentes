@@ -145,7 +145,7 @@ Detalle en [`docs/arquitectura.md`](docs/arquitectura.md).
 - Quien termina una tarea con migración la aplica en Supabase (`npm run db:migrar`) después
   de probarla en local, si solo añade (funciones, vistas, tablas o columnas nuevas). Si
   borra, renombra o transforma datos existentes, lo confirma antes con Alex: aún no hay
-  copia de seguridad ni entorno de desarrollo separado.
+  copia de seguridad y no hay entorno de desarrollo separado (se descartó, #18).
 
 Detalle en [`docs/base-de-datos.md`](docs/base-de-datos.md).
 
