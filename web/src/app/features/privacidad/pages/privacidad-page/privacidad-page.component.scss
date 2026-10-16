@@ -1,0 +1,22 @@
+// Texto para leer: ancho de línea cómodo, como el reglamento.
+:host {
+  display: block;
+  max-width: 44rem;
+}
+
+.cabecera {
+  margin-bottom: var(--espacio-8);
+}
+
+.entradilla {
+  margin-top: var(--espacio-3);
+  color: var(--color-tinta-suave);
+  font-size: var(--texto-m);
+  line-height: 1.55;
+}
+
+.secciones {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-8);
+}

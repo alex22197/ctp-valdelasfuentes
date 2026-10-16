@@ -9,3 +9,12 @@ export const URL_NORMATIVA = 'https://ligamasterpadel.lansoft.es/pdf/normativa.p
 
 /** Temporada a la que corresponde el resumen del reglamento de la web. */
 export const TEMPORADA_NORMATIVA = '2026-27';
+
+/** Responsable de los datos personales de la web: sale en la página de privacidad. */
+export const RESPONSABLE_DATOS = {
+  nombre: 'Alejandro García Olmeda',
+  correo: 'alejandrogarciaolmeda@gmail.com',
+} as const;
+
+/** Última vez que cambió la política de privacidad. */
+export const FECHA_PRIVACIDAD = '16 de octubre de 2026';

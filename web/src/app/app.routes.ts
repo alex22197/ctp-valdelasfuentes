@@ -81,6 +81,14 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'privacidad',
+    title: 'Privacidad',
+    loadComponent: () =>
+      import('@features/privacidad/pages/privacidad-page/privacidad-page.component').then(
+        (m) => m.PrivacidadPageComponent,
+      ),
+  },
+  {
     path: 'acceso',
     title: 'Acceso',
     loadComponent: () =>
