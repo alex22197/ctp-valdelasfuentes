@@ -13,12 +13,9 @@
   </div>
 
   @if (actual.marcador; as marcador) {
-    <p
-      class="marcador"
-      [class.marcador--derrota]="marcador.nuestros < marcador.rival"
-      [attr.aria-label]="'Resultado: ' + marcador.nuestros + ' a ' + marcador.rival"
-    >
-      {{ marcador.nuestros }}-{{ marcador.rival }}
+    <p class="marcador" [class.marcador--derrota]="marcador.nuestros < marcador.rival">
+      <span aria-hidden="true">{{ marcador.nuestros }}-{{ marcador.rival }}</span>
+      <span class="solo-lector">Resultado: {{ marcador.nuestros }} a {{ marcador.rival }}</span>
     </p>
   } @else if (!jugada()) {
     <p class="estado" [class.estado--publicada]="actual.convocatoriaPublicada">

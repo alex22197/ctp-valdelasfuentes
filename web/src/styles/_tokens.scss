@@ -10,6 +10,7 @@
   --color-tinta-tenue: #4e5b53;
   --color-borde: #dce2da;
   --color-borde-fuerte: #c6cfc4;
+  --color-borde-control: #76837b; // borde de campos de formulario: 3:1 o más, como piden las pautas
 
   --color-pista: #1f7a30; // principal: césped de la pista
   --color-pista-oscuro: #175e25;
@@ -20,7 +21,7 @@
   --color-derrota: #d9662b;
   --color-derrota-texto: #b4501c;
   --color-sobre-pista: #ffffff;
-  --color-sobre-pista-suave: rgb(255 255 255 / 86%);
+  --color-sobre-pista-suave: rgb(255 255 255 / 92%); // 4,8:1 sobre la pista
   --color-velo: rgb(20 33 26 / 45%); // fondo oscurecido detrás de un panel
   --sombra-panel: 0 -8px 32px rgb(20 33 26 / 18%);
 
