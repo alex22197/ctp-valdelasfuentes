@@ -109,7 +109,8 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
   convirtiendo las 18 comprobaciones manuales, y añadirlos a la integración continua.
 - ~~(#18) Entorno de desarrollo separado de producción~~: descartado por Alex. Se trabaja contra
   la base de datos de producción, con cuidado al probar las pantallas de gestión.
-- (#19) Página de privacidad. Con ella, publicar la app de Google para salir del modo prueba.
+- (#19) ~~Página de privacidad~~ (`/privacidad`, enlazada al pie de cada página y desde el acceso).
+  Falta publicar la app de Google para salir del modo prueba (pasos en [despliegue.md](despliegue.md)).
 - (#20) Avisar al equipo en el grupo antes de compartir la web.
 
 ## Mejoras para después
