@@ -19,7 +19,8 @@ PostgreSQL gestionado por Supabase (región West EU, Irlanda). El esquema está 
 | `partido`           | Los 6 partidos de cada confrontación de nuestro equipo.                                                    | Sí             |
 | `set_partido`       | Marcador de cada set, con el tie-break si lo hubo.                                                         | Sí             |
 | `participacion`     | Quién jugó cada partido y en qué lado.                                                                     | Sí             |
-| `perfil`            | Rol (admin o capitán) de cada usuario con permisos.                                                        | Solo el propio |
+| `perfil`            | Rol (admin o capitán) de cada usuario con permisos. Siempre queda al menos un admin (trigger).             | Solo el propio |
+| `invitacion_gestor` | Correos de Google invitados a gestionar que aún no han entrado; se borra al entrar. Solo por funciones.    | **No**         |
 | `ejecucion_scraper` | Registro de cada ejecución del scraper.                                                                    | **No**         |
 
 Vistas:
@@ -66,12 +67,16 @@ Vistas de estadísticas (#13). Todos los cálculos se hacen aquí; la web solo l
 
 ## Funciones que llama la web
 
-| Función                      | Qué hace                                                                                                                                                                                                                                            | Quién    |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `guardar_resultado_partido`  | Guarda el resultado y los sets de un partido en una sola transacción. Crea el partido si no existe, quita la pareja en un WO en contra y marca la confrontación como `jugada` cuando todos sus partidos tienen ganador.                             | Gestores |
-| `guardar_respuesta_encuesta` | Sin uso desde el ADR 0012. Guarda lo que un jugador respondió a la encuesta de una jornada (Sí o No) sin tocar si está convocado. Volver a «sin responder» borra la fila, salvo que el jugador ya esté convocado: entonces solo vacía la respuesta. | Gestores |
-| `guardar_alineacion`         | Guarda todas las parejas de una confrontación en una sola transacción: crea los partidos que falten, sustituye las participaciones y marca como convocados a los colocados ([ADR 0009](decisiones/0009-convocados-son-los-de-la-alineacion.md)).    | Gestores |
-| `publicar_convocatoria`      | Publica la convocatoria para que se vea en la portada, o la devuelve a borrador.                                                                                                                                                                    | Gestores |
+| Función                      | Qué hace                                                                                                                                                                                                                                            | Quién                 |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| `guardar_resultado_partido`  | Guarda el resultado y los sets de un partido en una sola transacción. Crea el partido si no existe, quita la pareja en un WO en contra y marca la confrontación como `jugada` cuando todos sus partidos tienen ganador.                             | Gestores              |
+| `guardar_respuesta_encuesta` | Sin uso desde el ADR 0012. Guarda lo que un jugador respondió a la encuesta de una jornada (Sí o No) sin tocar si está convocado. Volver a «sin responder» borra la fila, salvo que el jugador ya esté convocado: entonces solo vacía la respuesta. | Gestores              |
+| `guardar_alineacion`         | Guarda todas las parejas de una confrontación en una sola transacción: crea los partidos que falten, sustituye las participaciones y marca como convocados a los colocados ([ADR 0009](decisiones/0009-convocados-son-los-de-la-alineacion.md)).    | Gestores              |
+| `publicar_convocatoria`      | Publica la convocatoria para que se vea en la portada, o la devuelve a borrador.                                                                                                                                                                    | Gestores              |
+| `listar_gestores`            | Gestores con su correo, nombre y papel, y las invitaciones pendientes.                                                                                                                                                                              | Admin                 |
+| `dar_permiso_gestor`         | Da o cambia el papel a un correo. Si esa cuenta de Google ya existe (correo confirmado e identidad de Google), al momento; si no, queda invitada. Nadie cambia su propio permiso.                                                                   | Admin                 |
+| `quitar_permiso_gestor`      | Quita el permiso o la invitación de un correo. Nadie se quita a sí mismo.                                                                                                                                                                           | Admin                 |
+| `reclamar_permiso_gestor`    | La llama la web al entrar alguien sin papel: si su cuenta de Google confirmada tenía invitación, la convierte en su perfil. No va en un trigger de `auth.users` para que un fallo nunca impida entrar.                                              | Cualquiera con sesión |
 
 La comprueba `validar_marcador`, que aplica las reglas de los sets de la normativa. La web
 repite esas reglas en `data-access/resultados/validar-marcador.ts` para mostrar el error junto
@@ -138,6 +143,7 @@ Reglas:
 | `20261011133401_vistas_de_estadisticas.sql`          | Vistas `estadistica_*` de jugadores, parejas, puestos, jornadas y participación.                                                         |
 | `20261011134423_marcador_y_fase_en_estadisticas.sql` | Columnas `marcador` en `estadistica_partido_jugador` y `fase_nombre` y `fase_orden` en `estadistica_jornada`.                            |
 | `20261011171259_set_posible_en_padel.sql`            | Restricciones `set_posible` y `tiebreak_posible` en `set_partido`.                                                                       |
+| `20261016104056_permisos_de_gestores.sql`            | Tabla `invitacion_gestor`, funciones de permisos de gestor y trigger que deja siempre un administrador.                                  |
 
 ## Pendiente
 
