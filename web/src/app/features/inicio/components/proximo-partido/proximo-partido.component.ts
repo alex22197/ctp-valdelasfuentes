@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { ConfrontacionNuestroEquipo } from '@data-access/confrontaciones/interfaces/confrontacion-nuestro-equipo.interface';
 import { IconoComponent } from '@shared/components/icono/icono.component';
 import { FechaConfrontacionPipe } from '@shared/pipes/fecha-confrontacion.pipe';
+import { SedePipe } from '@shared/pipes/sede.pipe';
 
 /**
  * Bloque principal de la portada: el próximo partido dibujado sobre una pista,
@@ -9,7 +10,7 @@ import { FechaConfrontacionPipe } from '@shared/pipes/fecha-confrontacion.pipe';
  */
 @Component({
   selector: 'ctp-proximo-partido',
-  imports: [IconoComponent, FechaConfrontacionPipe],
+  imports: [IconoComponent, FechaConfrontacionPipe, SedePipe],
   templateUrl: './proximo-partido.component.html',
   styleUrl: './proximo-partido.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -15,9 +15,9 @@
 .numero {
   width: 2.25rem;
   color: var(--color-pista);
-  font-size: 1.875rem;
+  font-size: var(--texto-cifra);
   font-weight: 800;
-  font-stretch: 62%;
+  font-stretch: var(--anchura-condensada);
 }
 
 .datos {
@@ -29,7 +29,7 @@
 }
 
 .rival {
-  font-size: 1.0625rem;
+  font-size: var(--texto-m);
   font-weight: 700;
 }
 
@@ -49,9 +49,9 @@
 
 .marcador {
   color: var(--color-pista);
-  font-size: 1.5rem;
+  font-size: var(--texto-cifra);
   font-weight: 800;
-  font-stretch: 62%;
+  font-stretch: var(--anchura-condensada);
   font-variant-numeric: tabular-nums;
 }
 

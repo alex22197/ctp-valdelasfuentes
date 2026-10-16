@@ -5,7 +5,7 @@
 
 @switch (datos.estado()) {
   @case ('cargando') {
-    <ctp-mensaje-estado tipo="cargando" texto="Cargando la ficha…" />
+    <ctp-mensaje-estado tipo="cargando" texto="Cargando la ficha…" esqueleto="ficha" />
   }
   @case ('error') {
     <ctp-mensaje-estado

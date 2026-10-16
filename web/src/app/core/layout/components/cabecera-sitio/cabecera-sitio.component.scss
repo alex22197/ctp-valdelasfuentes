@@ -6,18 +6,25 @@
   padding-top: env(safe-area-inset-top, 0);
 }
 
+// En el móvil más juntos: con «Gestión» y la cuenta tiene que caber en 320 px.
 .interior {
   display: flex;
   align-items: center;
-  gap: var(--espacio-6);
+  gap: var(--espacio-3);
   max-width: var(--ancho-contenido);
   min-height: 4.25rem;
   margin: 0 auto;
-  padding: 0 var(--espacio-5);
+  padding: 0 var(--espacio-4);
+
+  @include bp.desde(tablet) {
+    gap: var(--espacio-6);
+    padding-inline: var(--espacio-5);
+  }
 }
 
 .marca {
   display: flex;
+  flex: none;
   align-items: center;
   gap: var(--espacio-3);
   color: var(--color-tinta);
@@ -42,9 +49,9 @@
 }
 
 .nombre-equipo {
-  font-size: 1.3125rem;
+  font-size: var(--texto-l);
   font-weight: 800;
-  font-stretch: 75%;
+  font-stretch: var(--anchura-condensada);
 }
 
 .navegacion {
@@ -56,8 +63,15 @@
   }
 }
 
+// En tableta el menú comparte fila con el escudo y la cuenta: enlaces más juntos.
 .enlace {
-  padding: var(--espacio-3) var(--espacio-3);
+  padding: var(--espacio-3) var(--espacio-2);
+  font-size: var(--texto-s);
+
+  @include bp.desde(escritorio) {
+    padding-inline: var(--espacio-3);
+    font-size: var(--texto-m);
+  }
   color: var(--color-tinta-tenue);
   font-weight: 600;
   text-decoration: none;
@@ -68,13 +82,20 @@
   box-shadow: inset 0 -3px 0 var(--color-pista);
 }
 
+// Accesos personales a la derecha: «Gestión» (solo gestores) y la cuenta. Hasta escritorio,
+// solo el icono.
+.accesos {
+  display: flex;
+  gap: var(--espacio-2);
+  margin-left: auto;
+}
+
 .cuenta {
   display: flex;
   align-items: center;
   gap: var(--espacio-2);
   min-width: var(--minimo-tactil);
   min-height: var(--minimo-tactil);
-  margin-left: auto;
   padding: 0 var(--espacio-3);
   border: 1.5px solid var(--color-borde-fuerte);
   border-radius: var(--radio-pildora);
@@ -86,7 +107,12 @@
 .cuenta-texto {
   display: none;
 
-  @include bp.desde(tablet) {
+  @include bp.desde(escritorio) {
     display: inline;
   }
+}
+
+.cuenta--activa {
+  border-color: var(--color-pista);
+  color: var(--color-pista);
 }

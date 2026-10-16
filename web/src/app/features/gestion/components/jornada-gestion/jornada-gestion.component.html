@@ -1,0 +1,44 @@
+@let actual = jornada();
+<article class="jornada">
+  <div class="datos">
+    <p class="rival">
+      @if (actual.jornada) {
+        <span class="numero">J{{ actual.jornada }}</span>
+      }
+      {{ actual.rival.nombre }}
+    </p>
+    <p class="texto-secundario">
+      {{ actual | fechaConfrontacion }}, {{ actual.condicion === 'local' ? 'en casa' : 'fuera' }}
+    </p>
+  </div>
+
+  @if (actual.marcador; as marcador) {
+    <p
+      class="marcador"
+      [class.marcador--derrota]="marcador.nuestros < marcador.rival"
+      [attr.aria-label]="'Resultado: ' + marcador.nuestros + ' a ' + marcador.rival"
+    >
+      {{ marcador.nuestros }}-{{ marcador.rival }}
+    </p>
+  } @else if (!jugada()) {
+    <p class="estado" [class.estado--publicada]="actual.convocatoriaPublicada">
+      {{ actual.convocatoriaPublicada ? 'Publicada' : 'Borrador' }}
+    </p>
+  }
+
+  <div class="acciones">
+    @if (!jugada()) {
+      <a class="boton" [routerLink]="['/convocatoria', actual.id]">
+        Convocatoria
+        <span class="solo-lector"> contra {{ actual.rival.nombre }}</span>
+      </a>
+    }
+    <a class="boton" [routerLink]="['/resultados', actual.id]">
+      {{ accionResultados() }}
+      <span class="solo-lector"> contra {{ actual.rival.nombre }}</span>
+    </a>
+  </div>
+
+  <!-- Lo que la página añada a la tarjeta, como el formulario de fecha y sede. -->
+  <div class="extra"><ng-content /></div>
+</article>

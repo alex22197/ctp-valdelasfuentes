@@ -65,8 +65,11 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
 3. ~~(#7) **Convocatoria y alineación**~~: hecho (ver arriba).
 4. (#8) **Plantilla**: alta y edición de jugadores (nombre para mostrar y completo, sexo, lado
    preferido, comodín, inscrito oficialmente).
-5. (#9) **Acceso a la gestión desde el menú**: entrada «Gestión» visible solo para gestores.
-   Ahora los resultados solo se encuentran desde el calendario de la portada.
+5. ~~(#9) **Acceso a la gestión desde el menú**~~: hecho. Botón «Gestión» en la cabecera, solo
+   para gestores, que lleva a `/gestion`: la próxima jornada, los resultados por meter y
+   todas las jornadas con su convocatoria y sus resultados.
+6. ~~(#50) **Fecha, hora y sede de una jornada**~~: hecho. Formulario en la convocatoria y en
+   la próxima jornada de Gestión, con día, hora (siempre en hora de Madrid), sede y pistas.
 
 ## 3. Scraper semanal y copia de seguridad
 
@@ -104,9 +107,10 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
 
 - (#17) Tests automáticos de la base de datos con pgTAP (`supabase/tests/`, `supabase test db`),
   convirtiendo las 18 comprobaciones manuales, y añadirlos a la integración continua.
-- (#18) Entorno de desarrollo separado de producción ([`entorno-local.md`](entorno-local.md)) antes
-  de probar las pantallas de gestión con datos.
-- (#19) Página de privacidad. Con ella, publicar la app de Google para salir del modo prueba.
+- ~~(#18) Entorno de desarrollo separado de producción~~: descartado por Alex. Se trabaja contra
+  la base de datos de producción, con cuidado al probar las pantallas de gestión.
+- (#19) ~~Página de privacidad~~ (`/privacidad`, enlazada al pie de cada página y desde el acceso).
+  Falta publicar la app de Google para salir del modo prueba (pasos en [despliegue.md](despliegue.md)).
 - (#20) Avisar al equipo en el grupo antes de compartir la web.
 
 ## Mejoras para después

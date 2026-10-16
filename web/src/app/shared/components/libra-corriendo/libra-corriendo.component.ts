@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 /**
- * Easter egg: Libra, la perra de Alex, persigue una pelota de pádel mientras algo carga.
+ * Easter egg: Libra, la perra de Alex, persigue una pelota de pádel mientras se espera
+ * una respuesta (`EsperaLibraComponent`).
  * Es solo decoración: los lectores de pantalla la saltan y leen el texto de carga.
  */
 @Component({

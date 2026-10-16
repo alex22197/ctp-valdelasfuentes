@@ -15,12 +15,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--espacio-1);
-  padding-left: var(--espacio-3);
-  border-left: 4px solid var(--color-pista);
 }
 
 .mixto {
-  border-left-color: var(--color-mixto);
+  --color-marca: var(--color-mixto);
 }
 
 .pareja {
@@ -40,4 +38,17 @@
   color: var(--color-tinta-tenue);
   font-size: var(--texto-s);
   font-weight: 400;
+}
+
+// Cuadradito del color de la pista delante del nombre: verde, o lima en el mixto, como en las
+// alineaciones.
+.nombres::before {
+  content: '';
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-right: var(--espacio-2);
+  border-radius: 3px;
+  background: var(--color-marca, var(--color-pista));
+  vertical-align: -0.05em;
 }

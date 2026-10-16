@@ -4,6 +4,7 @@ import { AuthService } from '@core/auth/auth.service';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
 import { TablaClasificacionComponent } from '@shared/components/tabla-clasificacion/tabla-clasificacion.component';
 import { CalendarioFaseComponent } from '../../components/calendario-fase/calendario-fase.component';
+import { ConvocatoriaPendienteComponent } from '../../components/convocatoria-pendiente/convocatoria-pendiente.component';
 import { ConvocatoriaJornadaComponent } from '../../components/convocatoria-jornada/convocatoria-jornada.component';
 import { ProximoPartidoComponent } from '../../components/proximo-partido/proximo-partido.component';
 import { DatosInicioService } from '../../services/datos-inicio.service';
@@ -17,6 +18,7 @@ import { DatosInicioService } from '../../services/datos-inicio.service';
     TablaClasificacionComponent,
     CalendarioFaseComponent,
     ConvocatoriaJornadaComponent,
+    ConvocatoriaPendienteComponent,
     ProximoPartidoComponent,
   ],
   providers: [DatosInicioService],

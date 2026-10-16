@@ -1,0 +1,74 @@
+// Tarjeta de una jornada; la próxima (clase `destacada` desde la página) va con borde de pista.
+:host {
+  display: block;
+}
+
+.jornada {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--espacio-3);
+  padding: var(--espacio-4);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-contenedor);
+  background: var(--color-superficie);
+}
+
+:host(.destacada) .jornada {
+  border: 2px solid var(--color-pista);
+}
+
+.rival {
+  font-size: var(--texto-m);
+  font-weight: 700;
+}
+
+.numero {
+  margin-right: var(--espacio-1);
+  color: var(--color-pista);
+  font-weight: 800;
+}
+
+.marcador {
+  color: var(--color-pista);
+  font-size: var(--texto-cifra);
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+  font-variant-numeric: tabular-nums;
+}
+
+.marcador--derrota {
+  color: var(--color-derrota-texto);
+}
+
+// «Publicada» o «Borrador», como en la pantalla de convocatoria.
+.estado {
+  align-self: start;
+  padding: var(--espacio-1) var(--espacio-3);
+  border: 1.5px dashed var(--color-borde-fuerte);
+  border-radius: var(--radio-pildora);
+  color: var(--color-tinta-suave);
+  font-size: var(--texto-xs);
+  font-weight: 700;
+}
+
+.estado--publicada {
+  border-style: solid;
+  border-color: var(--color-pista);
+  background: var(--color-pista);
+  color: var(--color-sobre-pista);
+}
+
+.acciones,
+.extra {
+  grid-column: 1 / -1;
+}
+
+.extra:empty {
+  display: none;
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-2);
+}

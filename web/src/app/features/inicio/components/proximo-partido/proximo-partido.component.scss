@@ -2,6 +2,12 @@
 
 :host {
   display: block;
+  container-type: inline-size;
+}
+
+// En escritorio llena la altura de su fila, junto a la convocatoria; la fecha y la sede van abajo.
+.pista {
+  height: 100%;
 }
 
 // Césped con el borde de la pista dibujado dentro.
@@ -51,7 +57,8 @@
   gap: var(--espacio-3);
   min-width: 0;
   overflow-wrap: break-word;
-  font-size: clamp(2rem, 9vw, 4rem);
+  // Según el ancho de la tarjeta: en escritorio comparte fila con la convocatoria.
+  font-size: clamp(var(--texto-cifra), 10cqi, var(--texto-xxl));
   font-weight: 800;
   font-stretch: var(--anchura-condensada);
   line-height: 0.92;
@@ -87,8 +94,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--espacio-2);
-  margin: var(--espacio-6) 0 0;
-  padding: 0;
+  margin: auto 0 0;
+  padding: var(--espacio-6) 0 0;
   list-style: none;
   font-weight: 500;
 }
@@ -97,4 +104,43 @@
   display: flex;
   align-items: center;
   gap: var(--espacio-3);
+  min-width: 0;
+}
+
+// Con un enlace de mapa: el sitio, su dirección y «Cómo llegar». Nada se sale de la pista,
+// aunque la dirección sea larga.
+.detalle--sede {
+  align-items: flex-start;
+}
+
+.sede {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.sede-direccion {
+  color: var(--color-sobre-pista-suave);
+  font-size: var(--texto-s);
+}
+
+.como-llegar {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--minimo-tactil);
+  margin-top: var(--espacio-2);
+  padding: 0 var(--espacio-4);
+  border-radius: var(--radio-pildora);
+  background: var(--color-sobre-pista);
+  color: var(--color-pista-oscuro);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform var(--duracion-rapida) var(--curva-salida);
+
+  &:active {
+    transform: scale(0.96);
+  }
 }

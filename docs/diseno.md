@@ -16,8 +16,9 @@ clasificación, calendario y nombres.
 - **Animada con propósito** ([ADR 0010](decisiones/0010-animacion-con-proposito.md)): lo que
   cambia se mueve para explicar de dónde viene y adónde va, todo responde al tocar y nada se
   anima si el móvil tiene activado «reducir movimiento». La única animación que se repite es
-  Libra persiguiendo una pelota de pádel encima de cada «Cargando…» (un guiño de Alex): dice
-  que se está esperando una respuesta y desaparece en cuanto llega.
+  Libra persiguiendo una pelota de pádel (un guiño de Alex), en una ventana centrada delante
+  del contenido cuando una petición tarda más de 0,4 s: dice que se está esperando una
+  respuesta y se va en cuanto llega, tras dejarse ver al menos un segundo.
 - Tiene que parecer hecho a mano para este equipo, no una plantilla. Evitar: tarjetas
   idénticas con sombra para todo, etiquetas en MAYÚSCULAS, textos unidos con puntos medios
   («A · B · C»), flechas «→» en botones, degradados decorativos.
@@ -31,11 +32,16 @@ clasificación, calendario y nombres.
 - Cabecera con el escudo y «CTPA / Valdelasfuentes».
 - Bloque del **próximo partido** sobre una pista verde con el borde dibujado: equipo local
   arriba, la **red** (línea blanca de lado a lado) y el visitante abajo. Una bola amarilla marca
-  a nuestro equipo. Debajo, la fecha y la sede.
+  a nuestro equipo. Debajo, la fecha y la sede. Si la sede es un enlace de Google Maps, sale el
+  nombre del sitio, su dirección y un botón blanco «Cómo llegar» que abre el mapa.
 - **Convocatoria**: las 6 parejas, cada una sobre su media pista (revés a la izquierda, drive a
-  la derecha). El mixto en verde lima. Si no hay alineación: «Todavía no está publicada…».
-- **Clasificación** del grupo, con nuestra fila resaltada.
+  la derecha). El mixto en verde lima. Si no hay alineación, las seis pistas vacías (solo sus
+  líneas, en discontinuo) y «Todavía no está publicada…».
+- **Clasificación** del grupo, una línea por equipo (nombre condensado), con nuestra fila
+  resaltada y la bola amarilla tras el nombre.
 - **Calendario** de la fase: «J1», rival, fecha y una etiqueta «Fuera» o «En casa».
+- En escritorio, a dos columnas: el próximo partido junto a la convocatoria y, debajo, la
+  clasificación junto al calendario.
 
 **Reglamento** (construida; pública, en el menú)
 
@@ -70,8 +76,9 @@ clasificación, calendario y nombres.
 **Plantilla** (construida; pública, en el menú)
 
 - Chicos, chicas y comodines, por orden alfabético, en dos columnas en el móvil.
-- Cada jugador es una ficha con sus iniciales en un círculo verde, el nombre y «3 partidos, 67 %
-  ganados» (o «Sin partidos»). Al tocarla lleva a su ficha.
+- Cada jugador es una ficha con sus iniciales en un círculo verde y el nombre; debajo, «3
+  partidos» y «67 %» en una línea con una barra fina de victorias (o «Sin partidos»). Al tocarla
+  lleva a su ficha.
 - Los comodines salen aparte, con «No tienen ficha pública», y sin enlace salvo para los
   gestores.
 
@@ -87,7 +94,8 @@ clasificación, calendario y nombres.
 - Por lado: media pista partida en revés y drive con partidos y victorias en cada uno.
 - Con quién juega: compañeros con barra de porcentaje de victorias (verde oscuro sobre naranja,
   que crece al aparecer) y enlace a su ficha.
-- Por número de pareja («Masculino 1», «Mixto»), con la misma barra.
+- Por número de pareja («Masculino 1», «Mixto»), con la misma barra y un cuadradito del color
+  de su pista (lima en el mixto).
 - Su temporada: una fila por jornada con G (círculo verde relleno), P (borde naranja) o vacío
   discontinuo (no jugó), rival, detalle («Masculino 1 con Sergio, de revés») y sets. Encima, una
   gráfica con los juegos ganados menos los perdidos de cada jornada (hacia arriba si ganó, hacia

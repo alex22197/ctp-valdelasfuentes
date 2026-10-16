@@ -9,7 +9,7 @@
     texto="No se ha podido cargar la jornada. Recarga la página para volver a intentarlo."
   />
 } @else if (!datos.confrontacion.hasValue()) {
-  <ctp-mensaje-estado tipo="cargando" texto="Cargando la jornada…" />
+  <ctp-mensaje-estado tipo="cargando" texto="Cargando la jornada…" esqueleto="cabecera" />
 } @else if (datos.confrontacionActual(); as confrontacion) {
   <header class="cabecera">
     <h1 class="titulo-pagina">Resultados</h1>
@@ -48,7 +48,7 @@
   @if (datos.resultados.error()) {
     <ctp-mensaje-estado tipo="error" texto="No se han podido cargar los partidos." />
   } @else if (!datos.resultados.hasValue()) {
-    <ctp-mensaje-estado tipo="cargando" texto="Cargando los partidos…" />
+    <ctp-mensaje-estado tipo="cargando" texto="Cargando los partidos…" esqueleto="tarjetas" />
   } @else {
     <ul class="partidos">
       @for (partido of datos.partidos(); track clavePartido(partido)) {

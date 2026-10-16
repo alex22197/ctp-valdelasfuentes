@@ -56,10 +56,26 @@ Sin esto, después de iniciar sesión con Google Supabase no sabría a qué web 
 ## Google (login)
 
 - Las credenciales OAuth están en Google Cloud Console, proyecto **CTP Valdelasfuentes**.
-- La app está en **modo prueba**: solo pueden iniciar sesión las cuentas añadidas en
-  **Público** → **Usuarios de prueba**. Añade ahí a cada gestor nuevo.
-- Para publicarla (no es necesario), Google pide una página principal y una política de
-  privacidad públicas.
+- Mientras la app está en **modo prueba**, solo pueden iniciar sesión las cuentas añadidas en
+  **Público** → **Usuarios de prueba**.
+- **Publicada**, puede entrar cualquier cuenta de Google, pero solo quien tiene fila en `perfil`
+  ve la gestión: el resto ve la web como un visitante. Como solo pide correo, nombre y foto
+  (permisos básicos), Google no la revisa.
+
+### Publicar la app de Google
+
+Hace falta que la página de privacidad ya esté en la web publicada.
+
+1. En Google Cloud Console, proyecto **CTP Valdelasfuentes**, ve a **Google Auth Platform** →
+   **Marca** (_Branding_) y rellena:
+   - Página principal: `https://ctp-valdelasfuentes.padel-ctp.workers.dev`
+   - Política de privacidad: `https://ctp-valdelasfuentes.padel-ctp.workers.dev/privacidad`
+   - Dominios autorizados: `padel-ctp.workers.dev` y el de Supabase
+     (`wqnelcngcnubwtymnmjk.supabase.co`), si no están ya.
+2. Mejor sin logotipo: con logotipo Google pide verificar la marca y tarda días.
+3. En **Público** (_Audience_), pulsa **Publicar app** y confirma.
+4. Prueba a entrar con una cuenta de Google que no esté entre los usuarios de prueba: debe
+   entrar y ver la web como un visitante.
 
 ## Claves y secretos
 

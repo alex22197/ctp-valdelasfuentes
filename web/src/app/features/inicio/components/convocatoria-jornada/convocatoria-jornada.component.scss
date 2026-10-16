@@ -1,4 +1,10 @@
-@use 'breakpoints' as bp;
+// Dos pistas por fila en el móvil, tres cuando hay sitio y las seis en línea en una columna
+// ancha. Depende del ancho de su sección, no de la ventana: en escritorio comparte fila con el
+// próximo partido.
+:host {
+  display: block;
+  container-type: inline-size;
+}
 
 .pistas {
   display: grid;
@@ -8,11 +14,11 @@
   padding: 0;
   list-style: none;
 
-  @include bp.desde(tablet) {
+  @container (min-width: 30rem) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  @include bp.desde(escritorio) {
+  @container (min-width: 60rem) {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }

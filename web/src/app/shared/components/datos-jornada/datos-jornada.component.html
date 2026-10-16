@@ -1,0 +1,57 @@
+@if (!abierto()) {
+  <button type="button" class="boton" (click)="abierto.set(true)">{{ textoBoton() }}</button>
+} @else {
+  @let valores = formulario();
+  <form class="formulario" (submit)="enviar($event)">
+    <div class="fila">
+      <label class="campo">
+        <span class="etiqueta">Día</span>
+        <input type="date" [value]="valores.dia" (input)="cambiar('dia', $event)" />
+      </label>
+      <label class="campo">
+        <span class="etiqueta">Hora</span>
+        <input type="time" step="300" [value]="valores.hora" (input)="cambiar('hora', $event)" />
+      </label>
+    </div>
+
+    <label class="campo">
+      <span class="etiqueta">Sede: el nombre o el enlace de Google Maps</span>
+      <input
+        type="text"
+        autocomplete="off"
+        [value]="valores.sede"
+        (input)="cambiar('sede', $event)"
+      />
+    </label>
+
+    <label class="campo">
+      <span class="etiqueta">Pistas</span>
+      <select [value]="valores.pistas" (change)="cambiar('pistas', $event)">
+        <option value="">Por confirmar</option>
+        @for (numero of pistas; track numero) {
+          <option [value]="numero" [selected]="valores.pistas === '' + numero">
+            {{ numero === 6 ? '6, los seis partidos a la vez' : numero }}
+          </option>
+        }
+      </select>
+    </label>
+
+    <p class="texto-secundario">
+      Lo que dejes vacío queda «por confirmar». Las pistas cambian el título de la imagen para
+      WhatsApp.
+    </p>
+
+    @if (aviso() ?? error(); as mensaje) {
+      <p class="error" role="alert">{{ mensaje }}</p>
+    }
+
+    <div class="acciones">
+      <button type="submit" class="boton boton--principal" [disabled]="guardando()">
+        {{ guardando() ? 'Guardando…' : 'Guardar' }}
+      </button>
+      <button type="button" class="boton" [disabled]="guardando()" (click)="cancelar()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+}

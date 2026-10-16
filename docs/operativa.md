@@ -6,10 +6,20 @@ Qué hay que hacer cada semana de jornada y las tareas de administración puntua
 > hace en WhatsApp y no se pasa a la web. La plantilla aún se
 > edita desde el **Table Editor** de Supabase.
 
+## Poner la fecha, la hora y la sede
+
+1. Entra con tu cuenta de gestor y pulsa **Gestión**. En la **Próxima jornada**, pulsa **Poner
+   fecha, hora y sede** (también está en la cabecera de la **Convocatoria**).
+2. Escribe el día y la hora (la de aquí, aunque el móvil esté en otro huso), la sede y cuántas
+   pistas hay. En la sede puedes pegar el enlace de Google Maps (Compartir → Copiar enlace): la
+   portada enseñará el nombre del sitio, la dirección y «Cómo llegar». Lo que no sepas, déjalo vacío y quedará «por confirmar».
+3. Pulsa **Guardar**. La portada, el calendario y la imagen de la convocatoria lo muestran al
+   momento; con menos de 6 pistas, la imagen dice «EN 3 PISTAS» y ordena las parejas por turno.
+
 ## Hacer la convocatoria
 
-1. Entra con tu cuenta de gestor y, en el **Calendario** del **Inicio**, pulsa **Convocatoria**
-   en la jornada.
+1. Entra con tu cuenta de gestor, pulsa **Gestión** arriba a la derecha y, en la **Próxima
+   jornada**, pulsa **Convocatoria**. También está en el **Calendario** del **Inicio**.
 2. Toca cada lado de la pista para elegir quién juega de **revés** (izquierda) y de **drive**
    (derecha). En el panel sale la plantilla y, aparte, los comodines; puedes buscar por nombre. Si eliges a alguien que ya está en
    otra pista, se mueve y deja ese hueco libre.
@@ -29,8 +39,9 @@ Si cambias una convocatoria ya publicada, se ve en la portada en cuanto la guard
 
 ## Meter los resultados de una jornada
 
-1. Entra con tu cuenta de gestor y ve al **Inicio**.
-2. En el **Calendario**, pulsa **Meter resultados** en la jornada.
+1. Entra con tu cuenta de gestor y pulsa **Gestión** arriba a la derecha.
+2. En **Resultados por meter** (o en **Todas las jornadas**), pulsa **Meter resultados** en la
+   jornada. También está en el **Calendario** del **Inicio**.
 3. En cada partido elige cómo terminó (Jugado, WO a favor, WO en contra, Abandono o
    Suspendido), escribe los juegos de cada set (y el tie-break si un set acaba 7-6) y pulsa
    **Guardar**. Cada partido se guarda por separado.
@@ -45,7 +56,7 @@ WO en contra se quita la pareja del partido, porque no jugó nadie.
 | Cuándo                                         | Quién      | Qué                                                                                                                                   |
 | ---------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | Lunes o martes, una semana antes               | Capitán    | Manda la encuesta de disponibilidad por WhatsApp.                                                                                     |
-| Según van llegando respuestas                  | Gestor     | **Pasa lista** en la web: marca quién puede y quién no.                                                                               |
+| Según van llegando respuestas                  | Capitán    | Las recoge en el propio WhatsApp: la web no tiene encuesta ([ADR 0012](decisiones/0012-sin-encuesta-en-la-web.md)).                   |
 | Cuando el capitán decide                       | Gestor     | **Convocatoria y alineación**: elige convocados y coloca cada pareja en su pista (revés y drive). Se publica en la portada.           |
 | Tras jugar                                     | Gestor     | **Resultados**: marcador set a set de los 6 partidos, o el WO o abandono si lo hubo (ver abajo).                                      |
 | Martes antes de las 14:00 (si jugamos en casa) | Capitán    | Envía el acta a la liga. Si no, la normativa resta 1 punto.                                                                           |

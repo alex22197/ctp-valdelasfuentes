@@ -40,6 +40,15 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'gestion',
+    title: 'Gestión',
+    canActivate: [gestorGuard],
+    loadComponent: () =>
+      import('@features/gestion/pages/gestion-page/gestion-page.component').then(
+        (m) => m.GestionPageComponent,
+      ),
+  },
+  {
     path: 'estadisticas',
     title: 'Estadísticas',
     loadComponent: () =>
@@ -69,6 +78,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('@features/reglamento/pages/reglamento-page/reglamento-page.component').then(
         (m) => m.ReglamentoPageComponent,
+      ),
+  },
+  {
+    path: 'privacidad',
+    title: 'Privacidad',
+    loadComponent: () =>
+      import('@features/privacidad/pages/privacidad-page/privacidad-page.component').then(
+        (m) => m.PrivacidadPageComponent,
       ),
   },
   {

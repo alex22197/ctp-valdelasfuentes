@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '@core/auth/auth.service';
 import type { RolUsuario } from '@core/auth/interfaces/rol-usuario.type';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
@@ -11,7 +12,7 @@ const NOMBRE_ROL: Record<RolUsuario, string> = {
 /** Inicio y cierre de sesión con Google para quienes gestionan el equipo. */
 @Component({
   selector: 'ctp-acceso-page',
-  imports: [MensajeEstadoComponent],
+  imports: [RouterLink, MensajeEstadoComponent],
   templateUrl: './acceso-page.component.html',
   styleUrl: './acceso-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

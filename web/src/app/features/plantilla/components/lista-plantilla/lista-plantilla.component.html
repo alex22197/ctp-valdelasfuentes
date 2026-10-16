@@ -13,14 +13,18 @@
       <ng-template #contenido>
         <span class="avatar" aria-hidden="true">{{ fila.iniciales }}</span>
         <span class="nombre">{{ fila.nombreMostrar }}</span>
-        <span class="balance">
-          @if (fila.partidos === 0) {
-            Sin partidos
-          } @else {
-            {{ fila.partidos }}&nbsp;{{ fila.partidos === 1 ? 'partido' : 'partidos' }},
-            {{ fila.porcentajeVictorias }}&nbsp;% ganados
-          }
-        </span>
+        @if (fila.partidos === 0) {
+          <span class="balance">Sin partidos</span>
+        } @else {
+          <span class="balance">
+            {{ fila.partidos }}&nbsp;{{ fila.partidos === 1 ? 'partido' : 'partidos' }}
+            <strong class="porcentaje">{{ fila.porcentajeVictorias }}&nbsp;%</strong>
+            <span class="solo-lector"> ganados</span>
+          </span>
+          <span class="barra" aria-hidden="true">
+            <span class="barra-ganados" [style.width.%]="fila.porcentajeVictorias"></span>
+          </span>
+        }
       </ng-template>
     </li>
   }

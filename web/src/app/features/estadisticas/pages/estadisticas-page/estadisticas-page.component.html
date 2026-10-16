@@ -9,7 +9,7 @@
 
 @switch (datos.estado()) {
   @case ('cargando') {
-    <ctp-mensaje-estado tipo="cargando" texto="Cargando las estadísticas…" />
+    <ctp-mensaje-estado tipo="cargando" texto="Cargando las estadísticas…" esqueleto="grafica" />
   }
   @case ('error') {
     <ctp-mensaje-estado
@@ -27,7 +27,7 @@
 
     @switch (datos.estadoCuadricula()) {
       @case ('cargando') {
-        <ctp-mensaje-estado tipo="cargando" texto="Cargando las jornadas…" />
+        <ctp-mensaje-estado tipo="cargando" texto="Cargando las jornadas…" esqueleto="grafica" />
       }
       @case ('error') {
         <ctp-mensaje-estado tipo="error" texto="No se han podido cargar las jornadas." />
@@ -62,7 +62,7 @@
       @if (datos.puestos.error()) {
         <ctp-mensaje-estado tipo="error" texto="No se han podido cargar los partidos." />
       } @else if (!datos.puestos.hasValue()) {
-        <ctp-mensaje-estado tipo="cargando" texto="Cargando los partidos…" />
+        <ctp-mensaje-estado tipo="cargando" texto="Cargando los partidos…" esqueleto="grafica" />
       } @else if (datos.puestos.value().length === 0) {
         <ctp-mensaje-estado tipo="vacio" texto="Todavía no hay partidos jugados." />
       } @else {
@@ -75,7 +75,7 @@
       @if (datos.jugadores.error()) {
         <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar el ranking." />
       } @else if (!datos.jugadores.hasValue()) {
-        <ctp-mensaje-estado tipo="cargando" texto="Cargando el ranking…" />
+        <ctp-mensaje-estado tipo="cargando" texto="Cargando el ranking…" esqueleto="ranking" />
       } @else {
         <ctp-ranking-jugadores
           [jugadores]="datos.jugadores.value()"
@@ -102,7 +102,7 @@
     @if (datos.parejas.error()) {
       <ctp-mensaje-estado tipo="error" texto="No se han podido cargar las parejas." />
     } @else if (!datos.parejas.hasValue()) {
-      <ctp-mensaje-estado tipo="cargando" texto="Cargando las parejas…" />
+      <ctp-mensaje-estado tipo="cargando" texto="Cargando las parejas…" esqueleto="cuadricula" />
     } @else if (datos.parejas.value().length > 0) {
       <section class="seccion" aria-labelledby="titulo-parejas">
         <h2 id="titulo-parejas" class="titulo-seccion">Quién con quién</h2>

@@ -1,8 +1,6 @@
 @if (tipo() === 'cargando') {
-  <div class="cargando">
-    <ctp-libra-corriendo />
-    <p class="mensaje" role="status">{{ texto() }}</p>
-  </div>
+  <ctp-esqueleto [forma]="esqueleto()" />
+  <p class="solo-lector" role="status">{{ texto() }}</p>
 } @else {
   <p
     class="mensaje"
