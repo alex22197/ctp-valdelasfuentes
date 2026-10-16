@@ -368,6 +368,24 @@ export type Database = {
           },
         ];
       };
+      invitacion_gestor: {
+        Row: {
+          created_at: string;
+          email: string;
+          rol: Database['public']['Enums']['rol_usuario'];
+        };
+        Insert: {
+          created_at?: string;
+          email: string;
+          rol: Database['public']['Enums']['rol_usuario'];
+        };
+        Update: {
+          created_at?: string;
+          email?: string;
+          rol?: Database['public']['Enums']['rol_usuario'];
+        };
+        Relationships: [];
+      };
       jugador: {
         Row: {
           created_at: string;
@@ -1056,6 +1074,13 @@ export type Database = {
         Args: { p_confrontacion: string };
         Returns: string;
       };
+      dar_permiso_gestor: {
+        Args: {
+          p_email: string;
+          p_rol: Database['public']['Enums']['rol_usuario'];
+        };
+        Returns: undefined;
+      };
       es_admin: { Args: never; Returns: boolean };
       es_gestor: { Args: never; Returns: boolean };
       guardar_alineacion: {
@@ -1085,10 +1110,26 @@ export type Database = {
         Args: { p_confrontacion: string };
         Returns: boolean;
       };
+      listar_gestores: {
+        Args: never;
+        Returns: {
+          email: string;
+          es_tu: boolean;
+          nombre: string;
+          pendiente: boolean;
+          rol: Database['public']['Enums']['rol_usuario'];
+        }[];
+      };
       publicar_convocatoria: {
         Args: { p_confrontacion: string; p_publicada?: boolean };
         Returns: undefined;
       };
+      quitar_permiso_gestor: { Args: { p_email: string }; Returns: undefined };
+      reclamar_permiso_gestor: {
+        Args: never;
+        Returns: Database['public']['Enums']['rol_usuario'];
+      };
+      usuario_google_con_correo: { Args: { p_email: string }; Returns: string };
       validar_marcador: {
         Args: {
           p_ganado: boolean;
