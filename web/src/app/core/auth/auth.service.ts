@@ -19,6 +19,7 @@ export class AuthService {
   private readonly sesionActual = signal<SesionUsuario | null>(null);
   private readonly inicializada = signal(false);
   private readonly inicializacion: Promise<void>;
+  private rolEnCurso: { idUsuario: string; promesa: Promise<RolUsuario | null> } | null = null;
 
   readonly sesion = this.sesionActual.asReadonly();
   readonly lista = this.inicializada.asReadonly();
@@ -58,9 +59,16 @@ export class AuthService {
   }
 
   private async inicializar(): Promise<void> {
-    const { data } = await this.supabase.auth.getSession();
-    await this.cargarSesion(data.session);
-    this.inicializada.set(true);
+    try {
+      const { data } = await this.supabase.auth.getSession();
+      await this.cargarSesion(data.session);
+    } catch (error) {
+      // Sin sesión legible, se entra como visitante; la web y sus guardas siguen respondiendo.
+      console.warn('No se ha podido leer la sesión', error);
+      this.sesionActual.set(null);
+    } finally {
+      this.inicializada.set(true);
+    }
   }
 
   private async alCambiarSesion(evento: AuthChangeEvent, sesion: Session | null): Promise<void> {
@@ -82,8 +90,25 @@ export class AuthService {
       idUsuario: user.id,
       email: user.email ?? '',
       nombre: typeof nombre === 'string' ? nombre : null,
-      rol: await this.obtenerRol(user.id),
+      rol: await this.rolDe(user.id),
     });
+  }
+
+  /**
+   * Al entrar, la sesión se carga dos veces casi a la vez (al arrancar y con el aviso de
+   * Supabase). Se comparte la misma consulta para no reclamar la invitación dos veces.
+   */
+  private rolDe(idUsuario: string): Promise<RolUsuario | null> {
+    if (this.rolEnCurso?.idUsuario === idUsuario) {
+      return this.rolEnCurso.promesa;
+    }
+    const promesa = this.obtenerRol(idUsuario).finally(() => {
+      if (this.rolEnCurso?.promesa === promesa) {
+        this.rolEnCurso = null;
+      }
+    });
+    this.rolEnCurso = { idUsuario, promesa };
+    return promesa;
   }
 
   private async obtenerRol(idUsuario: string): Promise<RolUsuario | null> {
