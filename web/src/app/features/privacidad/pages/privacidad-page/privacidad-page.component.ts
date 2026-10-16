@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ConsentimientoService } from '@core/analitica/consentimiento.service';
 import { FECHA_PRIVACIDAD, RESPONSABLE_DATOS } from '@core/config/sitio.constants';
 
 /**
@@ -16,4 +17,5 @@ import { FECHA_PRIVACIDAD, RESPONSABLE_DATOS } from '@core/config/sitio.constant
 export class PrivacidadPageComponent {
   protected readonly responsable = RESPONSABLE_DATOS;
   protected readonly fecha = FECHA_PRIVACIDAD;
+  protected readonly consentimiento = inject(ConsentimientoService);
 }

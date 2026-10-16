@@ -5,4 +5,6 @@ export interface Entorno {
     readonly url: string;
     readonly publishableKey: string;
   };
+  /** ID de medición de Google Analytics (`G-…`); `null` para no medir nada. */
+  readonly idAnalitica: string | null;
 }

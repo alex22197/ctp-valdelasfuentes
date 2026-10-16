@@ -79,17 +79,38 @@ Hace falta que la página de privacidad ya esté en la web publicada.
 
 `web/public/_headers` se copia a la web compilada y Cloudflare lo aplica a cada respuesta:
 
-- **Política de contenido (CSP):** solo se cargan scripts de la propia web; estilos de la web y
-  de Google Fonts; letras de Google Fonts; imágenes propias, `blob:` (la imagen de la
-  convocatoria) y `data:`; y solo se habla con la propia web y con Supabase. No se puede meter
-  la web en un marco de otra (`frame-ancestors 'none'`).
-- **Cualquier servicio externo nuevo** (Google Analytics, otra fuente, un mapa incrustado…) hay
-  que añadirlo a la política, o el navegador lo bloqueará sin avisar.
+- **Política de contenido (CSP):** solo se cargan scripts de la propia web y de Google Analytics
+  (`*.googletagmanager.com`); estilos de la web y de Google Fonts; letras de Google Fonts;
+  imágenes propias, `blob:` (la imagen de la convocatoria), `data:` y las de Google Analytics;
+  y solo se habla con la propia web, con Supabase y con Google Analytics
+  (`*.google-analytics.com`, `*.analytics.google.com`, `*.googletagmanager.com`; con
+  comodín porque Google manda las visitas a servidores de cada región). No se puede meter la
+  web en un marco de otra (`frame-ancestors 'none'`).
+- **Cualquier servicio externo nuevo** (otra fuente, un mapa incrustado…) hay que añadirlo a la
+  política, o el navegador lo bloqueará sin avisar.
 - Para que no haga falta `'unsafe-inline'` en los scripts, `angular.json` desactiva
   `inlineCritical` en producción (Angular metía un script pequeño en `index.html`).
 - Los `.js` y `.css` llevan una huella en el nombre, así que se guardan un año en el navegador;
   `index.html` se revalida en cada visita.
 - Para comprobarlo tras publicar: `curl -sI https://ctp-valdelasfuentes.padel-ctp.workers.dev/`.
+
+## Google Analytics
+
+La web mide las visitas con Google Analytics 4 (propiedad «Web CTPA Valdelasfuentes», en la
+cuenta de Alex), solo si el visitante lo acepta en el aviso de cookies:
+
+- El ID de medición (`G-…`) está en `web/src/environments/environment.ts`. No es secreto: va
+  en cualquier web que use Analytics. En local es `null` y no se mide nada.
+- Hasta que se acepta no se carga nada de Google. El código está en `core/analitica`: carga
+  `gtag.js` al aceptar y cuenta una visita por cada página. Las direcciones (la de la página y
+  la de procedencia) van sin `?…` ni `#…`, que al entrar con Google llevan el código de
+  acceso. Al rechazar, pone el interruptor de Google `ga-disable-<ID>`, para que no salga
+  nada, y borra las cookies `_ga`.
+- Las visitas las cuenta la web, así que en Analytics, en **Administrar → Flujos de datos →
+  Web → Medición mejorada**, está desactivado **«Cambios de página basados en eventos del
+  historial del navegador»**: si no, cada página contaría dos veces.
+- Publicidad y Google Signals, desactivados. Si se cambia algo de esto, hay que actualizar la
+  página de privacidad.
 
 ## Claves y secretos
 
