@@ -75,6 +75,22 @@ Hace falta que la página de privacidad ya esté en la web publicada.
 4. Prueba a entrar con una cuenta de Google que no esté entre los usuarios de prueba: debe
    entrar y ver la web como un visitante.
 
+## Cabeceras de seguridad
+
+`web/public/_headers` se copia a la web compilada y Cloudflare lo aplica a cada respuesta:
+
+- **Política de contenido (CSP):** solo se cargan scripts de la propia web; estilos de la web y
+  de Google Fonts; letras de Google Fonts; imágenes propias, `blob:` (la imagen de la
+  convocatoria) y `data:`; y solo se habla con la propia web y con Supabase. No se puede meter
+  la web en un marco de otra (`frame-ancestors 'none'`).
+- **Cualquier servicio externo nuevo** (Google Analytics, otra fuente, un mapa incrustado…) hay
+  que añadirlo a la política, o el navegador lo bloqueará sin avisar.
+- Para que no haga falta `'unsafe-inline'` en los scripts, `angular.json` desactiva
+  `inlineCritical` en producción (Angular metía un script pequeño en `index.html`).
+- Los `.js` y `.css` llevan una huella en el nombre, así que se guardan un año en el navegador;
+  `index.html` se revalida en cada visita.
+- Para comprobarlo tras publicar: `curl -sI https://ctp-valdelasfuentes.padel-ctp.workers.dev/`.
+
 ## Claves y secretos
 
 | Dato                           | Dónde vive                                          | ¿Es secreto?                       |
