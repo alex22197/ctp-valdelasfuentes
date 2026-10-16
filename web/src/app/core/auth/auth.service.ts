@@ -96,6 +96,24 @@ export class AuthService {
       console.warn('No se ha podido leer el rol del usuario', error);
       return null;
     }
-    return data?.rol ?? null;
+    return data?.rol ?? (await this.reclamarInvitacion());
+  }
+
+  /**
+   * Sin papel todavía: si el administrador invitó a este correo, la invitación pasa a ser su
+   * permiso. Si algo falla, entra como visitante; el inicio de sesión no se rompe nunca.
+   */
+  private async reclamarInvitacion(): Promise<RolUsuario | null> {
+    try {
+      const { data, error } = await this.supabase.rpc('reclamar_permiso_gestor');
+      if (error) {
+        console.warn('No se ha podido comprobar si hay una invitación de gestor', error);
+        return null;
+      }
+      return data ?? null;
+    } catch (error) {
+      console.warn('No se ha podido comprobar si hay una invitación de gestor', error);
+      return null;
+    }
   }
 }
