@@ -35,10 +35,15 @@ export class DatosGestionService {
     if (this.faseActual.error() || this.calendario.error()) {
       return 'error';
     }
-    if (this.faseActual.isLoading() || this.calendario.isLoading()) {
+    // Solo la primera carga es esqueleto: al recargar tras guardar, la página se queda como está
+    // (con el formulario y lo escrito) y se actualiza al llegar los datos.
+    if (!this.faseActual.hasValue()) {
       return 'cargando';
     }
-    return this.fase() ? 'lista' : 'sin-competicion';
+    if (!this.fase()) {
+      return 'sin-competicion';
+    }
+    return this.calendario.hasValue() ? 'lista' : 'cargando';
   });
 
   readonly guardandoJornada = signal(false);
