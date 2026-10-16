@@ -108,7 +108,9 @@ cuenta de Alex), solo si el visitante lo acepta en el aviso de cookies:
   nada, y borra las cookies `_ga`.
 - Las visitas las cuenta la web, así que en Analytics, en **Administrar → Flujos de datos →
   Web → Medición mejorada**, está desactivado **«Cambios de página basados en eventos del
-  historial del navegador»**: si no, cada página contaría dos veces.
+  historial del navegador»**: si no, cada página contaría dos veces. También están apagadas
+  «Búsquedas en el sitio» (no hay buscador) e «Interacciones con formularios» (solo hay los de
+  gestión).
 - Publicidad y Google Signals, desactivados. Si se cambia algo de esto, hay que actualizar la
   página de privacidad.
 
