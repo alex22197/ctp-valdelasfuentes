@@ -94,6 +94,13 @@ export class DatosConvocatoriaService {
   readonly copiable = computed(() => convocatoriaCopiable(this.huecos(), this.hayCambios()));
 
   readonly ocupado = signal(false);
+  /**
+   * Guardando, o recargando lo guardado: la alineación no se puede tocar, porque al llegar los
+   * datos se sustituye por lo guardado y se perdería lo que se hubiera cambiado mientras.
+   */
+  readonly bloqueado = computed(
+    () => this.ocupado() || this.partidos.isLoading() || this.convocables.isLoading(),
+  );
   readonly error = signal<string | null>(null);
 
   cambiarHueco(cambio: CambioHueco): void {

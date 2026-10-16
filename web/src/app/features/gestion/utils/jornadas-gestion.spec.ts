@@ -63,6 +63,16 @@ describe('organizarJornadasGestion', () => {
     });
   });
 
+  it('una aplazada que ya pasó no pide resultados hasta tener fecha nueva', () => {
+    const conAplazada = [
+      jornada(2, 'aplazada', { fechaPrevista: '2026-10-10' }),
+      jornada(3, 'programada', { fechaPrevista: '2026-10-24' }),
+    ];
+    const { proxima, sinResultados } = organizarJornadasGestion(conAplazada, '2026-10-13');
+    expect(proxima?.jornada).toBe(3);
+    expect(sinResultados).toEqual([]);
+  });
+
   it('las jugadas y los WO no piden nada', () => {
     const cerradas = [
       jornada(1, 'jugada', { fechaPrevista: '2026-10-03' }),

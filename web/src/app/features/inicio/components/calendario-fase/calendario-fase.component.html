@@ -9,7 +9,9 @@
         }}</span>
         <span class="datos">
           <span class="rival">
-            <span class="solo-lector">Jornada {{ jornada.jornada }} contra </span>
+            <span class="solo-lector">{{
+              jornada.jornada ? 'Jornada ' + jornada.jornada + ' contra ' : 'Contra '
+            }}</span>
             {{ jornada.rival.nombre }}
           </span>
           <span class="texto-secundario">{{ jornada | fechaConfrontacion }}</span>
@@ -29,12 +31,11 @@
           }
         </span>
         @if (jornada.marcador; as marcador) {
-          <span
-            class="marcador"
-            [class.marcador--derrota]="marcador.nuestros < marcador.rival"
-            [attr.aria-label]="'Resultado: ' + marcador.nuestros + ' a ' + marcador.rival"
-          >
-            {{ marcador.nuestros }}-{{ marcador.rival }}
+          <span class="marcador" [class.marcador--derrota]="marcador.nuestros < marcador.rival">
+            <span aria-hidden="true">{{ marcador.nuestros }}-{{ marcador.rival }}</span>
+            <span class="solo-lector"
+              >Resultado: {{ marcador.nuestros }} a {{ marcador.rival }}</span
+            >
           </span>
         }
         <span class="condicion" [class.condicion--casa]="jornada.condicion === 'local'">

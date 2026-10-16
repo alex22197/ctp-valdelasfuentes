@@ -39,9 +39,49 @@
     </p>
     <h3>De quien solo visita la web</h3>
     <p>
-      Nada. Para ver la web no hace falta cuenta, y no se usan cookies de publicidad ni de
-      analítica. Quien entra para gestionar guarda su sesión en el navegador para no tener que
-      entrar cada vez; es necesario para que funcione y se borra al cerrar la sesión.
+      Para ver la web no hace falta cuenta ni dar ningún dato. No hay cookies de publicidad, y las
+      de medir las visitas solo se ponen si las aceptas (abajo se explica cuáles son). Como en
+      cualquier web, el servidor que te la envía (Cloudflare) y el de las letras (Google Fonts) ven
+      la dirección IP de tu conexión para poder mandártela. Quien entra para gestionar guarda su
+      sesión en el navegador para no tener que entrar cada vez; es necesario para que funcione y se
+      borra al cerrar la sesión.
+    </p>
+  </section>
+
+  <section id="cookies" class="prosa" aria-labelledby="titulo-cookies">
+    <h2 id="titulo-cookies" class="titulo-seccion">Cookies y medición de visitas</h2>
+    <p>
+      La primera vez que entras, la web te pregunta si puede contar tu visita. Hasta que aceptas no
+      se carga nada de Google Analytics; si rechazas, la web funciona igual y solo guarda en tu
+      navegador que has dicho que no, para no volver a preguntarte en un año.
+    </p>
+    <p>Si aceptas:</p>
+    <ul>
+      <li>
+        <strong>Qué se mide:</strong> cuántas personas entran, qué páginas miran, desde qué web o
+        enlace llegan, la ciudad o el país aproximados y el tipo de dispositivo y navegador. Nunca
+        nombres, correos ni lo que escribes en la web.
+      </li>
+      <li>
+        <strong>Qué cookies pone:</strong> las de Google Analytics, <code>_ga</code> y
+        <code>_ga_…</code>, que sirven para saber que dos visitas son del mismo navegador. Duran
+        hasta dos años; Google guarda las estadísticas como mucho catorce meses.
+      </li>
+      <li>
+        <strong>Con quién:</strong> Google, que puede tratar los datos en Estados Unidos con las
+        garantías del Marco de Privacidad de Datos entre la Unión Europea y Estados Unidos. Están
+        desactivadas las funciones de publicidad y de Google Signals.
+      </li>
+      <li>
+        <strong>La base:</strong> tu consentimiento, que puedes retirar cuando quieras con el botón
+        «Cookies» del pie de cualquier página o aquí mismo. Al rechazar se borran las cookies de
+        Google Analytics.
+      </li>
+    </ul>
+    <p>
+      <button type="button" class="boton" (click)="consentimiento.reabrir()">
+        Cambiar mi elección
+      </button>
     </p>
   </section>
 
@@ -66,6 +106,8 @@
         Europea.
       </li>
       <li><strong>Cloudflare</strong> sirve la web.</li>
+      <li><strong>Google Fonts</strong> sirve el tipo de letra de la web.</li>
+      <li><strong>Google Analytics</strong> cuenta las visitas, solo si lo aceptas.</li>
       <li><strong>Google</strong> comprueba quién eres cuando entras con tu cuenta.</li>
     </ul>
     <p>Cada uno trata los datos solo para dar su servicio, con sus propias garantías.</p>

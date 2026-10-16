@@ -29,15 +29,15 @@ const nombres = new Map([
   ['sergio', 'Sergio'],
   ['jorge', 'Jorge'],
   ['alex', 'Alex'],
-  ['pablo', 'Pablo Cristini'],
+  ['pablo', 'Pablo Ejemplo'],
   ['alvaro', 'Álvaro'],
   ['joel', 'Joel'],
   ['marta-prieto', 'Marta Prieto'],
-  ['vir', 'Virginia'],
+  ['vir', 'Vera Ejemplo'],
   ['marta-morales', 'Marta Morales'],
   ['jess', 'Jess'],
   ['rocio', 'Rocio'],
-  ['ivan-g', 'Iván Guadalix'],
+  ['ivan-g', 'Iván Ejemplo'],
 ]);
 const jornada1 = {
   rival: { id: 'soto', nombre: 'Soto Torrejón', esNuestro: false },
@@ -52,11 +52,16 @@ describe('construirTablaConvocatoria', () => {
       titulo: 'vs SOTO TORREJÓN SÁBADO 12:00 LOS 6 A LA VEZ',
       filas: [
         { etiqueta: 'PAREJA 1 MASC.', tipo: 'masculino', reves: 'Sergio', drive: 'Jorge' },
-        { etiqueta: 'PAREJA 2 MASC.', tipo: 'masculino', reves: 'Alex', drive: 'Pablo Cristini' },
+        { etiqueta: 'PAREJA 2 MASC.', tipo: 'masculino', reves: 'Alex', drive: 'Pablo Ejemplo' },
         { etiqueta: 'PAREJA 3 MASC.', tipo: 'masculino', reves: 'Álvaro', drive: 'Joel' },
-        { etiqueta: 'PAREJA 1 FEM.', tipo: 'femenino', reves: 'Marta Prieto', drive: 'Virginia' },
+        {
+          etiqueta: 'PAREJA 1 FEM.',
+          tipo: 'femenino',
+          reves: 'Marta Prieto',
+          drive: 'Vera Ejemplo',
+        },
         { etiqueta: 'PAREJA 2 FEM.', tipo: 'femenino', reves: 'Marta Morales', drive: 'Jess' },
-        { etiqueta: 'PAREJA MIXTO', tipo: 'mixto', reves: 'Rocio', drive: 'Iván Guadalix' },
+        { etiqueta: 'PAREJA MIXTO', tipo: 'mixto', reves: 'Rocio', drive: 'Iván Ejemplo' },
       ],
     });
   });

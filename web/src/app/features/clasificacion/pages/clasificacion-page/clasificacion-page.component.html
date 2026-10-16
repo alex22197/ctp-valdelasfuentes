@@ -20,7 +20,7 @@
 } @else {
   <ctp-tabla-clasificacion [filas]="filas()" />
   <p class="nota texto-secundario">
-    Datos oficiales de la web de la liga, que se actualizan cada miércoles.
+    {{ nota() }}
     @if (fase()?.urlGrupo; as urlGrupo) {
       <a [href]="urlGrupo" target="_blank" rel="noopener noreferrer"
         >Ver el grupo en la web de la liga</a

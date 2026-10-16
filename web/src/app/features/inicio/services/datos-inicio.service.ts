@@ -5,6 +5,7 @@ import { CompeticionesService } from '@data-access/competiciones/competiciones.s
 import { ConfrontacionesService } from '@data-access/confrontaciones/confrontaciones.service';
 import { elegirProximaConfrontacion } from '@data-access/confrontaciones/proxima-confrontacion';
 import { JugadoresService } from '@data-access/jugadores/jugadores.service';
+import { fechaIsoEnMadrid } from '@shared/utils/fechas';
 
 /**
  * Datos de la página de inicio y sus dependencias: primero la fase actual, después su
@@ -41,7 +42,9 @@ export class DatosInicioService {
     this.clasificacion.hasValue() ? this.clasificacion.value() : [],
   );
 
-  readonly proximaConfrontacion = computed(() => elegirProximaConfrontacion(this.jornadas()));
+  readonly proximaConfrontacion = computed(() =>
+    elegirProximaConfrontacion(this.jornadas(), fechaIsoEnMadrid(new Date())),
+  );
 
   /** Solo la alineación publicada: un borrador del capitán no se enseña en público. */
   readonly alineacion = resource({
