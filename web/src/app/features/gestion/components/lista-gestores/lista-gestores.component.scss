@@ -1,0 +1,124 @@
+@use 'breakpoints' as bp;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+// Correo, papel y botón en una fila cuando cabe.
+.formulario {
+  display: grid;
+  gap: var(--espacio-3);
+  align-items: end;
+
+  @include bp.desde(tablet) {
+    grid-template-columns: minmax(0, 1fr) 12rem auto;
+  }
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  min-width: 0;
+}
+
+.etiqueta {
+  color: var(--color-tinta-suave);
+  font-size: var(--texto-s);
+  font-weight: 600;
+}
+
+input,
+select {
+  width: 100%;
+  min-height: var(--minimo-tactil);
+  padding: 0 var(--espacio-3);
+  border: 1.5px solid var(--color-borde-fuerte);
+  border-radius: var(--radio-control);
+  background: var(--color-superficie);
+  color: var(--color-tinta);
+  font: inherit;
+
+  &:focus-visible {
+    border-color: var(--color-pista);
+    outline: 2px solid var(--color-pista);
+    outline-offset: 1px;
+  }
+}
+
+.error {
+  color: var(--color-derrota-texto);
+  font-weight: 600;
+}
+
+.aviso {
+  color: var(--color-pista-oscuro);
+  font-weight: 600;
+}
+
+.lista {
+  display: grid;
+  gap: var(--espacio-2);
+  margin: var(--espacio-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gestor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+  padding: var(--espacio-3) var(--espacio-4);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-contenedor);
+  background: var(--color-superficie);
+}
+
+.datos {
+  min-width: 0;
+}
+
+.email {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.detalle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espacio-2);
+  margin-top: var(--espacio-1);
+  font-size: var(--texto-s);
+}
+
+.rol {
+  padding: 0 var(--espacio-2);
+  border: 1.5px solid var(--color-borde-fuerte);
+  border-radius: var(--radio-pildora);
+  font-size: var(--texto-xs);
+  font-weight: 700;
+}
+
+.rol--admin {
+  border-color: var(--color-pista);
+  background: var(--color-pista);
+  color: var(--color-sobre-pista);
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-2);
+}
+
+// El naranja oscuro, para que el texto blanco se lea bien.
+.boton--peligro {
+  border-color: var(--color-derrota-texto);
+  background: var(--color-derrota-texto);
+  color: var(--color-sobre-pista);
+}
