@@ -1,32 +1,7 @@
 <ol class="jornadas">
   @for (fila of filas(); track fila.confrontacionId) {
-    <li class="jornada">
-      <p class="rival">
-        @if (fila.jornada) {
-          <span class="numero">J{{ fila.jornada }}</span>
-        }
-        {{ fila.rival }}
-        <span class="condicion">{{ fila.condicion === 'local' ? 'en casa' : 'fuera' }}</span>
-      </p>
-      <ul class="casillas">
-        @for (casilla of fila.casillas; track casilla.codigo) {
-          <li class="casilla" [class]="'casilla--' + casilla.estado">
-            <span class="solo-lector"
-              >{{ casilla.nombre }}: {{ textoEstado[casilla.estado]
-              }}{{ casilla.esWo ? ' por WO' : '' }}</span
-            >
-            <span aria-hidden="true">{{ casilla.esWo ? 'WO' : casilla.codigo }}</span>
-          </li>
-        }
-      </ul>
-      <p class="resumen">
-        <strong>{{ fila.marcador }}</strong>
-        @if (fila.puntos === null) {
-          <span class="puntos">puntos pendientes</span>
-        } @else {
-          <span class="puntos">{{ fila.puntos }} {{ fila.puntos === 1 ? 'punto' : 'puntos' }}</span>
-        }
-      </p>
+    <li>
+      <ctp-ficha-jornada [fila]="fila" />
     </li>
   }
 </ol>

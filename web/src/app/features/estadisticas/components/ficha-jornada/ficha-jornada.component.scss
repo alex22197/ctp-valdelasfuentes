@@ -1,0 +1,163 @@
+@use 'resultado-partido' as resultado;
+
+:host {
+  display: block;
+}
+
+.ficha {
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-contenedor);
+  background: var(--color-superficie);
+}
+
+// Cabecera: número, rival y marcador arriba; la tira de partidos debajo, a todo el ancho.
+.cabecera {
+  display: grid;
+  grid-template-areas:
+    'numero rival marcador flecha'
+    'tira tira tira tira';
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--espacio-3) var(--espacio-3);
+  padding: var(--espacio-4);
+  border-radius: var(--radio-contenedor);
+  cursor: pointer;
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.numero {
+  grid-area: numero;
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-cifra);
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+  line-height: 1;
+}
+
+.rival {
+  display: flex;
+  flex-direction: column;
+  grid-area: rival;
+  min-width: 0;
+
+  strong {
+    overflow-wrap: anywhere;
+  }
+}
+
+.condicion,
+.puntos {
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+}
+
+.marcador {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  grid-area: marcador;
+
+  strong {
+    font-size: var(--texto-cifra);
+    font-weight: 800;
+    font-stretch: var(--anchura-condensada);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+}
+
+// Flecha que gira al abrir.
+.flecha {
+  grid-area: flecha;
+  width: 0.625rem;
+  height: 0.625rem;
+  margin: 0 var(--espacio-1);
+  border-right: 2px solid var(--color-tinta-tenue);
+  border-bottom: 2px solid var(--color-tinta-tenue);
+  rotate: 45deg;
+  transition: rotate var(--duracion-rapida) var(--curva-salida);
+
+  .ficha[open] & {
+    rotate: 225deg;
+  }
+}
+
+.tira {
+  grid-area: tira;
+}
+
+.categoria {
+  @include resultado.categoria;
+}
+
+// Detalle: una columna por categoría cuando cabe.
+.detalle {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--espacio-4) var(--espacio-6);
+  padding: var(--espacio-4);
+  border-top: 1px solid var(--color-borde);
+}
+
+.partidos {
+  margin: var(--espacio-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.partido {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--espacio-3);
+  padding: var(--espacio-2) 0;
+
+  & + & {
+    border-top: 1px solid var(--color-borde);
+  }
+}
+
+@include resultado.marca('insignia');
+
+.insignia {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radio-pildora);
+}
+
+.quien {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.etiqueta {
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-xs);
+}
+
+.pareja {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.resultado {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--espacio-1) var(--espacio-2);
+}
+
+.sets {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.nota {
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+}

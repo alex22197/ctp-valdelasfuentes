@@ -4,7 +4,7 @@ import type { MarcadorPartido } from './interfaces/marcador-partido.interface';
 import type { PartidoConResultado } from './interfaces/partido-con-resultado.interface';
 import type { SetPartido } from './interfaces/set-partido.interface';
 
-type FilaSet = Pick<
+export type FilaSet = Pick<
   Tables<'set_partido'>,
   'numero' | 'juegos_nuestros' | 'juegos_rival' | 'tiebreak_nuestros' | 'tiebreak_rival'
 >;
@@ -55,7 +55,7 @@ export function mapearParametrosGuardarResultado(
   };
 }
 
-function mapearSet(fila: FilaSet): SetPartido {
+export function mapearSet(fila: FilaSet): SetPartido {
   return {
     juegosNuestros: fila.juegos_nuestros,
     juegosRival: fila.juegos_rival,

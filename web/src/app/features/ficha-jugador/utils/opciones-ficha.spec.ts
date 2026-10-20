@@ -46,7 +46,7 @@ const fila = (cambios: Partial<FilaTemporada>): FilaTemporada => ({
   rival: 'Soto Torrejón',
   condicion: 'visitante',
   resultado: 'ganado',
-  detalle: 'Masculino 2 con Pablo, de revés',
+  detalle: 'Pareja 2 masculina con Pablo, de revés',
   marcador: '3-6 7-5 6-3',
   diferenciaJuegos: 2,
   esWo: false,
@@ -70,6 +70,15 @@ describe('opcionesSetsJuegos', () => {
     );
     expect(ganados?.data).toEqual([(100 * 4) / 6, 75]);
     expect(ganados?.label.formatter({ dataIndex: 1 })).toBe('30');
+  });
+
+  it('no escribe el 0 de una parte vacía, que saldría cortado', () => {
+    const [ganados, perdidos] = parte<SerieEtiquetada[]>(
+      opcionesSetsJuegos({ ...resumen, setsGanados: 0, setsPerdidos: 2 }, COLORES, true),
+      'series',
+    );
+    expect(ganados?.label.formatter({ dataIndex: 0 })).toBe('');
+    expect(perdidos?.label.formatter({ dataIndex: 0 })).toBe('2');
   });
 });
 

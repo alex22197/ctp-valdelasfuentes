@@ -1,6 +1,6 @@
 <ctp-grafica-estadistica
   [opciones]="opciones()"
-  descripcion="Gráfica de barras con el porcentaje de victorias del equipo en cada puesto. Los datos están en la tabla de debajo."
+  descripcion="Gráfica de barras horizontales con el porcentaje de victorias del equipo en cada pareja. Los datos están en la tabla de debajo."
 />
 <details class="datos">
   <summary>Ver los datos en una tabla</summary>
@@ -8,7 +8,7 @@
     <table>
       <thead>
         <tr>
-          <th scope="col">Puesto</th>
+          <th scope="col">Pareja</th>
           <th scope="col">Ganados</th>
           <th scope="col">Victorias</th>
           <th scope="col">WO</th>
@@ -17,7 +17,7 @@
       <tbody>
         @for (puesto of puestos(); track puesto.tipo + puesto.numero) {
           <tr>
-            <th scope="row">{{ nombrePista(puesto.tipo, puesto.numero) }}</th>
+            <th scope="row">{{ nombrePareja(puesto.tipo, puesto.numero) }}</th>
             <td>{{ puesto.ganados }} de {{ puesto.partidos }}</td>
             <td>{{ puesto.porcentajeVictorias ?? 0 }}&nbsp;%</td>
             <td>{{ puesto.woAFavor }} a favor, {{ puesto.woEnContra }} en contra</td>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { BalancePuesto } from '@data-access/estadisticas/interfaces/balance-puesto.interface';
-import { nombrePista } from '@shared/utils/etiquetas-partido';
+import { nombrePareja } from '@shared/utils/etiquetas-partido';
 import { BarraVictoriasComponent } from '@shared/components/barra-victorias/barra-victorias.component';
 
 /** Partidos y victorias en cada número de pareja: masculino 1, 2, 3, mixto… */
@@ -14,5 +14,5 @@ import { BarraVictoriasComponent } from '@shared/components/barra-victorias/barr
 export class PuestosJugadorComponent {
   readonly puestos = input.required<readonly BalancePuesto[]>();
 
-  protected readonly nombrePista = nombrePista;
+  protected readonly nombrePareja = nombrePareja;
 }

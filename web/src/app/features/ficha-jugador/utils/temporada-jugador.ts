@@ -1,7 +1,7 @@
 import type { Lado } from '@data-access/alineaciones/interfaces/lado.type';
 import type { JornadaJugada } from '@data-access/estadisticas/interfaces/jornada-jugada.interface';
 import type { PartidoDeJugador } from '@data-access/estadisticas/interfaces/partido-de-jugador.interface';
-import { nombrePista } from '@shared/utils/etiquetas-partido';
+import { nombrePareja } from '@shared/utils/etiquetas-partido';
 import type { FaseTemporada } from '../interfaces/fase-temporada.interface';
 import type { FilaTemporada } from '../interfaces/fila-temporada.interface';
 
@@ -60,9 +60,9 @@ function filaTemporada(jornada: JornadaJugada, partido?: PartidoDeJugador): Fila
   };
 }
 
-/** «Masculino 1 con Sergio, de revés» o «Mixto, de drive» si falta el compañero. */
+/** «Pareja 1 masculina con Sergio, de revés» o «Pareja mixta, de drive» sin compañero. */
 export function describirPartido(partido: PartidoDeJugador): string {
-  const pista = nombrePista(partido.tipo, partido.numero);
+  const pista = nombrePareja(partido.tipo, partido.numero);
   const companero = partido.companero ? ` con ${partido.companero.nombreMostrar}` : '';
   return `${pista}${companero}, de ${NOMBRE_LADO[partido.lado]}`;
 }

@@ -1,10 +1,13 @@
 import type { EChartsCoreOption } from 'echarts/core';
 import type { BalancePuestoEquipo } from '@data-access/estadisticas/interfaces/balance-puesto-equipo.interface';
-import { codigoPista, nombrePista } from '@shared/utils/etiquetas-partido';
+import { nombrePareja } from '@shared/utils/etiquetas-partido';
 import type { ColoresGraficas } from '@shared/utils/graficas/interfaces/colores-graficas.interface';
 import { contarPartidos, opcionesComunes } from '@shared/utils/graficas/opciones-comunes';
 
-/** Barras con el porcentaje de victorias del equipo en cada puesto (M1, M2… y mixto en lima). */
+/**
+ * Barras horizontales con el porcentaje de victorias del equipo en cada pareja («Pareja 1
+ * masculina»…, la mixta en lima). En horizontal caben los nombres enteros, sin códigos.
+ */
 export function opcionesPuestos(
   puestos: readonly BalancePuestoEquipo[],
   colores: ColoresGraficas,
@@ -18,15 +21,16 @@ export function opcionesPuestos(
       formatter: ({ dataIndex }: { dataIndex: number }): string =>
         describirPuesto(puestos[dataIndex]),
     },
-    grid: { left: 4, right: 4, top: 28, bottom: 4, containLabel: true },
-    xAxis: {
+    grid: { left: 4, right: 44, top: 4, bottom: 4, containLabel: true },
+    yAxis: {
       type: 'category',
-      data: puestos.map((p) => codigoPista(p.tipo, p.numero)),
+      inverse: true,
+      data: puestos.map((p) => nombrePareja(p.tipo, p.numero)),
       axisTick: { show: false },
       axisLine: { lineStyle: { color: colores.bordeFuerte } },
       axisLabel: { color: colores.tinta, fontWeight: 700 },
     },
-    yAxis: {
+    xAxis: {
       type: 'value',
       min: 0,
       max: 100,
@@ -38,17 +42,17 @@ export function opcionesPuestos(
       {
         type: 'bar',
         name: 'Victorias',
-        barMaxWidth: 44,
+        barMaxWidth: 28,
         data: puestos.map((p) => ({
           value: p.porcentajeVictorias ?? 0,
           itemStyle: {
             color: p.tipo === 'mixto' ? colores.mixto : colores.pistaOscuro,
-            borderRadius: [6, 6, 0, 0],
+            borderRadius: [0, 6, 6, 0],
           },
         })),
         label: {
           show: true,
-          position: 'top',
+          position: 'right',
           formatter: '{c} %',
           color: colores.tinta,
           fontWeight: 700,
@@ -58,7 +62,7 @@ export function opcionesPuestos(
   };
 }
 
-/** «Masculino 1: 2 de 3 ganados (1 WO en contra)». */
+/** «Pareja 1 masculina: 2 de 3 ganados (1 WO en contra)». */
 export function describirPuesto(puesto: BalancePuestoEquipo | undefined): string {
   if (!puesto) {
     return '';
@@ -68,5 +72,5 @@ export function describirPuesto(puesto: BalancePuestoEquipo | undefined): string
     puesto.woEnContra ? `${puesto.woEnContra} WO en contra` : '',
   ].filter(Boolean);
   const detalle = wo.length ? ` (${wo.join(', ')})` : '';
-  return `${nombrePista(puesto.tipo, puesto.numero)}: ${puesto.ganados} de ${contarPartidos(puesto.partidos)} ganados${detalle}`;
+  return `${nombrePareja(puesto.tipo, puesto.numero)}: ${puesto.ganados} de ${contarPartidos(puesto.partidos)} ganados${detalle}`;
 }

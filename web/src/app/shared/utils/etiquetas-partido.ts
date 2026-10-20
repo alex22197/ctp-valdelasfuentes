@@ -11,6 +11,13 @@ export function etiquetaPartido(tipo: TipoPartido, numero: number): string {
   return tipo === 'mixto' ? NOMBRE_TIPO.mixto : `${NOMBRE_TIPO[tipo]}, pareja ${numero}`;
 }
 
+/** «Pareja 2 masculina», «Pareja 1 femenina» o «Pareja mixta»: para quien no conoce los códigos. */
+export function nombrePareja(tipo: TipoPartido, numero: number): string {
+  return tipo === 'mixto'
+    ? 'Pareja mixta'
+    : `Pareja ${numero} ${tipo === 'masculino' ? 'masculina' : 'femenina'}`;
+}
+
 /** «Masculino 2», «Femenino 1» o «Mixto»: el nombre corto que se usa en WhatsApp. */
 export function nombrePista(tipo: TipoPartido, numero: number): string {
   return tipo === 'mixto' ? NOMBRE_TIPO.mixto : `${NOMBRE_TIPO[tipo]} ${numero}`;

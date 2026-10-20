@@ -50,7 +50,8 @@ export function opcionesAnillo(
 
 /**
  * Sets y juegos: una barra para cada uno, repartida entre ganados y perdidos. Se dibuja en
- * proporción (los juegos son muchos más que los sets) y cada parte lleva su número.
+ * proporción (los juegos son muchos más que los sets) y cada parte lleva su número, salvo
+ * si está vacía.
  */
 export function opcionesSetsJuegos(
   resumen: ResumenJugador,
@@ -80,8 +81,11 @@ export function opcionesSetsJuegos(
       show: true,
       color: texto,
       fontWeight: 700,
-      formatter: ({ dataIndex }: { dataIndex: number }): string =>
-        String(filas[dataIndex]?.[clave] ?? ''),
+      // Una parte vacía no se dibuja: su 0 quedaría cortado contra el borde.
+      formatter: ({ dataIndex }: { dataIndex: number }): string => {
+        const valor = filas[dataIndex]?.[clave] ?? 0;
+        return valor > 0 ? String(valor) : '';
+      },
     },
     data: filas.map((fila) => parte(fila, fila[clave])),
   });

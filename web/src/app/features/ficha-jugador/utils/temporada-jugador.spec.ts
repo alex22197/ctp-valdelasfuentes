@@ -42,7 +42,7 @@ describe('construirTemporada', () => {
         rival: 'Soto Torrejón',
         condicion: 'visitante',
         resultado: 'perdido',
-        detalle: 'Masculino 1 con Jorge, de revés',
+        detalle: 'Pareja 1 masculina con Jorge, de revés',
         marcador: '3-6 4-6',
         diferenciaJuegos: -5,
         esWo: false,
@@ -88,7 +88,7 @@ describe('construirTemporada', () => {
 describe('describirPartido', () => {
   it('nombra el mixto sin número y aguanta que falte el compañero', () => {
     expect(describirPartido(partido({ tipo: 'mixto', lado: 'drive', companero: null }))).toBe(
-      'Mixto, de drive',
+      'Pareja mixta, de drive',
     );
   });
 });
