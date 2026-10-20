@@ -117,8 +117,10 @@ clasificación, calendario y nombres.
   verde oscuro relleno y ✓; perdido: borde naranja y ✕; por jugar: borde discontinuo y –
   (mixin `resultado.marca` de `_resultado-partido.scss`). Sin códigos tipo M1: no se
   entienden.
-- **Por partido**: barras de ECharts con el porcentaje de victorias en M1, M2, M3, F1, F2 y
-  mixto (este en lima). Los WO cuentan, porque suman o restan al equipo.
+- **Por partido**: barras horizontales de ECharts con el porcentaje de victorias de cada pareja
+  («Pareja 1 masculina»…, la mixta en lima). Los WO cuentan, porque suman o restan al equipo.
+- En lo público, las parejas se nombran con `nombrePareja` («Pareja 2 femenina», «Pareja
+  mixta»), nunca con códigos tipo M1 o F2, que solo entiende quien gestiona.
 - **Quién con quién**: matriz de ECharts por chicos, chicas o mixto con el número de partidos
   juntos; el color, de claro a oscuro, indica el porcentaje de victorias, para que se entienda
   aunque no se distinga el color. En chicos y chicas cada pareja sale en las dos mitades, para

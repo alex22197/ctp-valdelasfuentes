@@ -58,7 +58,7 @@
 
     <section class="seccion" aria-labelledby="titulo-puestos">
       <h2 id="titulo-puestos" class="titulo-seccion">Por partido</h2>
-      <p class="texto-secundario">Porcentaje de victorias del equipo en cada pista.</p>
+      <p class="texto-secundario">Porcentaje de partidos ganados por cada pareja del equipo.</p>
       @if (datos.puestos.error()) {
         <ctp-mensaje-estado tipo="error" texto="No se han podido cargar los partidos." />
       } @else if (!datos.puestos.hasValue()) {
