@@ -22,10 +22,19 @@ const partido = (
   numero: number,
   ganado: boolean | null,
   resultado: PartidoDeJornada['resultado'] = 'normal',
-): PartidoDeJornada => ({ confrontacionId: 'j1', tipo, numero, resultado, ganado });
+): PartidoDeJornada => ({
+  confrontacionId: 'j1',
+  tipo,
+  numero,
+  resultado,
+  ganado,
+  reves: null,
+  drive: null,
+  sets: [],
+});
 
 describe('construirCuadricula', () => {
-  it('pone las 6 casillas del formato en orden, aunque falten partidos', () => {
+  it('agrupa los partidos del formato por categoría y en orden, aunque falten', () => {
     const [fila] = construirCuadricula(
       [jornada],
       [
@@ -38,14 +47,49 @@ describe('construirCuadricula', () => {
       ],
       FORMATO,
     );
-    expect(fila?.casillas.map((c) => `${c.codigo}:${c.estado}${c.esWo ? ':WO' : ''}`)).toEqual([
-      'M1:perdido',
-      'M2:ganado',
-      'M3:pendiente',
-      'F1:ganado:WO',
-      'F2:perdido:WO',
-      'Mixto:pendiente',
+    expect(
+      fila?.grupos.map(
+        (g) => `${g.nombre}: ${g.casillas.map((c) => c.estado + (c.nota ? `/${c.nota}` : ''))}`,
+      ),
+    ).toEqual([
+      'Masculino: perdido,ganado,pendiente',
+      'Femenino: ganado/WO,perdido/WO',
+      'Mixto: pendiente/Suspendido',
     ]);
+    expect(fila?.grupos[0]?.casillas[1]).toMatchObject({
+      nombre: 'Masculino, pareja 2',
+      etiqueta: 'Pareja 2',
+    });
+    expect(fila?.grupos[2]?.casillas[0]?.etiqueta).toBeNull();
+  });
+
+  it('pone quién jugó y los sets', () => {
+    const [fila] = construirCuadricula(
+      [jornada],
+      [
+        {
+          ...partido('masculino', 1, true),
+          reves: { id: 'a', nombreMostrar: 'Pablo' },
+          drive: { id: 'b', nombreMostrar: 'Iván' },
+          sets: [
+            { juegosNuestros: 6, juegosRival: 3, tiebreakNuestros: null, tiebreakRival: null },
+            { juegosNuestros: 7, juegosRival: 6, tiebreakNuestros: 7, tiebreakRival: 4 },
+          ],
+        },
+      ],
+      FORMATO,
+    );
+    expect(fila?.grupos[0]?.casillas[0]).toMatchObject({
+      pareja: 'Pablo y Iván',
+      sets: ['6-3', '7-6'],
+      nota: null,
+    });
+    expect(fila?.grupos[0]?.casillas[1]).toMatchObject({ pareja: null, sets: [] });
+  });
+
+  it('se salta las categorías que el formato no tiene', () => {
+    const [fila] = construirCuadricula([jornada], [], { masculino: 2, femenino: 0, mixto: 1 });
+    expect(fila?.grupos.map((g) => g.casillas.length)).toEqual([2, 1]);
   });
 
   it('copia rival, marcador y puntos de la jornada', () => {
@@ -57,6 +101,5 @@ describe('construirCuadricula', () => {
       marcador: '2-2',
       puntos: 1,
     });
-    expect(fila?.casillas[0]?.nombre).toBe('Masculino 1');
   });
 });

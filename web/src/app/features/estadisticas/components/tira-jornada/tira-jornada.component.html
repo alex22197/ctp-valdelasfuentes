@@ -1,0 +1,12 @@
+@for (grupo of grupos(); track grupo.tipo) {
+  <span class="tramo" [style.flex-grow]="grupo.casillas.length">
+    <span class="recuadros">
+      @for (casilla of grupo.casillas; track casilla.nombre) {
+        <span class="recuadro" [class]="'recuadro--' + casilla.estado">
+          {{ simbolo[casilla.estado] }}
+        </span>
+      }
+    </span>
+    <span class="categoria">{{ grupo.nombre }}</span>
+  </span>
+}

@@ -1,0 +1,35 @@
+// Marca del resultado de un partido (`.x`, `.x--ganado`, `.x--perdido`; sin modificador, por
+// jugar). Ganado relleno, perdido con borde y por jugar discontinuo: se distinguen también sin
+// color, además de por el ✓, el ✕ y el –. Uso: `@include resultado.marca('recuadro');`.
+@mixin marca($clase) {
+  .#{$clase} {
+    display: grid;
+    place-items: center;
+    border: 2px dashed var(--color-borde-fuerte);
+    color: var(--color-tinta-tenue);
+    font-size: var(--texto-s);
+    font-weight: 800;
+  }
+
+  .#{$clase}--ganado {
+    border: 2px solid var(--color-pista-oscuro);
+    background: var(--color-pista-oscuro);
+    color: var(--color-sobre-pista);
+  }
+
+  .#{$clase}--perdido {
+    border: 2px solid var(--color-derrota);
+    background: var(--color-superficie);
+    color: var(--color-derrota-texto);
+  }
+}
+
+// Nombre de una categoría (Masculino, Femenino, Mixto) encima o debajo de sus partidos.
+@mixin categoria {
+  margin: 0;
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}

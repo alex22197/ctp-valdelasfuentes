@@ -57,7 +57,7 @@ export class EstadisticasEquipoService {
     return mapearParejas(data ?? []);
   }
 
-  /** Resultado de cada partido de las confrontaciones indicadas. */
+  /** Resultado de cada partido de las confrontaciones indicadas, con su pareja y sus sets. */
   async obtenerPartidosDeJornadas(
     idsConfrontacion: readonly string[],
   ): Promise<PartidoDeJornada[]> {
@@ -66,7 +66,11 @@ export class EstadisticasEquipoService {
     }
     const { data, error } = await this.supabase
       .from('partido_resultado')
-      .select('confrontacion_id, tipo, numero, resultado, ganado')
+      .select(
+        `confrontacion_id, tipo, numero, resultado, ganado,
+        set_partido(numero, juegos_nuestros, juegos_rival, tiebreak_nuestros, tiebreak_rival),
+        participacion(lado, jugador(id, nombre_mostrar))`,
+      )
       .in('confrontacion_id', [...idsConfrontacion]);
     lanzarSiHayError(error, MENSAJE_ERROR);
     return mapearPartidosDeJornada(data ?? []);
