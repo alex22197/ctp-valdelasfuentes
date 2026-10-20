@@ -108,12 +108,15 @@ clasificación, calendario y nombres.
 - Filtro en píldoras: «Toda la liga» y cada fase de la competición.
 - **Evolución de la temporada**: barras claras con los partidos ganados en cada jornada y una
   línea por fase con los puntos acumulados (sin sanciones; vuelven a cero en cada fase y una
-  jornada con partidos pendientes queda como hueco). Al tocar una jornada se ven sus seis
-  pistas debajo; al entrar, la última.
-- **Jornada a jornada**: 6 casillas por jornada según el formato (M1-M3, F1-F2, mixto). Ganado:
-  verde oscuro relleno; perdido: borde naranja; pendiente o suspendido: borde discontinuo. Los
-  WO llevan escrito «WO». Debajo, el marcador y los puntos («puntos pendientes» si falta algún
-  partido).
+  jornada con partidos pendientes queda como hueco). Al tocar una jornada sale su ficha
+  abierta debajo; al entrar, la última.
+- **Jornada a jornada**: una ficha por jornada (`ctp-ficha-jornada`), cerrada. Arriba, número,
+  rival, marcador y puntos («puntos pendientes» si falta algún partido); debajo, una tira con un
+  recuadro por partido agrupado en Masculino, Femenino y Mixto. Al abrirla, cada partido con
+  «Pareja 1…», quién jugó y los sets, o «WO», «Abandono», «Suspendido» o «Por jugar». Ganado:
+  verde oscuro relleno y ✓; perdido: borde naranja y ✕; por jugar: borde discontinuo y –
+  (mixin `resultado.marca` de `_resultado-partido.scss`). Sin códigos tipo M1: no se
+  entienden.
 - **Por partido**: barras de ECharts con el porcentaje de victorias en M1, M2, M3, F1, F2 y
   mixto (este en lima). Los WO cuentan, porque suman o restan al equipo.
 - **Quién con quién**: matriz de ECharts por chicos, chicas o mixto con el número de partidos
