@@ -1,4 +1,10 @@
-import { clavePartido, codigoPista, etiquetaPartido, nombrePista } from './etiquetas-partido';
+import {
+  clavePartido,
+  codigoPista,
+  etiquetaPartido,
+  nombrePareja,
+  nombrePista,
+} from './etiquetas-partido';
 
 describe('etiquetaPartido', () => {
   it('incluye el número de pareja en masculino y femenino', () => {
@@ -8,6 +14,14 @@ describe('etiquetaPartido', () => {
 
   it('no numera el mixto porque solo hay uno', () => {
     expect(etiquetaPartido('mixto', 1)).toBe('Mixto');
+  });
+});
+
+describe('nombrePareja', () => {
+  it('dice el número y la categoría de la pareja, sin códigos', () => {
+    expect(nombrePareja('masculino', 1)).toBe('Pareja 1 masculina');
+    expect(nombrePareja('femenino', 2)).toBe('Pareja 2 femenina');
+    expect(nombrePareja('mixto', 1)).toBe('Pareja mixta');
   });
 });
 

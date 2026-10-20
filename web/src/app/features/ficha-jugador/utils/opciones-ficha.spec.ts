@@ -46,7 +46,7 @@ const fila = (cambios: Partial<FilaTemporada>): FilaTemporada => ({
   rival: 'Soto Torrejón',
   condicion: 'visitante',
   resultado: 'ganado',
-  detalle: 'Masculino 2 con Pablo, de revés',
+  detalle: 'Pareja 2 masculina con Pablo, de revés',
   marcador: '3-6 7-5 6-3',
   diferenciaJuegos: 2,
   esWo: false,

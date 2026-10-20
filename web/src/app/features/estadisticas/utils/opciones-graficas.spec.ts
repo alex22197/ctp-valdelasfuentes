@@ -44,13 +44,13 @@ const puesto = (cambios: Partial<BalancePuestoEquipo>): BalancePuestoEquipo => (
 });
 
 describe('opcionesPuestos', () => {
-  it('pone un puesto por barra, con el mixto en lima', () => {
+  it('pone una pareja por barra, con su nombre entero y la mixta en lima', () => {
     const opciones = opcionesPuestos(
       [puesto({}), puesto({ tipo: 'mixto', porcentajeVictorias: null })],
       COLORES,
       true,
     );
-    expect(parte<Eje>(opciones, 'xAxis').data).toEqual(['M1', 'Mixto']);
+    expect(parte<Eje>(opciones, 'yAxis').data).toEqual(['Pareja 1 masculina', 'Pareja mixta']);
     const datos = parte<Serie[]>(opciones, 'series')[0]?.data as Dato[];
     expect(datos.map((d) => d.value)).toEqual([67, 0]);
     expect(datos[1]?.itemStyle?.color).toBe('--color-mixto');
@@ -58,7 +58,7 @@ describe('opcionesPuestos', () => {
 
   it('describe el puesto con sus WO', () => {
     expect(describirPuesto(puesto({ woEnContra: 1 }))).toBe(
-      'Masculino 1: 2 de 3 partidos ganados (1 WO en contra)',
+      'Pareja 1 masculina: 2 de 3 partidos ganados (1 WO en contra)',
     );
     expect(describirPuesto(undefined)).toBe('');
   });
