@@ -12,16 +12,17 @@ import type { ToqueGrafica } from '@shared/components/grafica-estadistica/interf
 import { TemaGraficasService } from '@shared/services/tema-graficas.service';
 import type { FilaCuadricula } from '../../interfaces/fila-cuadricula.interface';
 import { construirEvolucion, opcionesEvolucion } from '../../utils/evolucion-temporada';
-import { CuadriculaJornadasComponent } from '../cuadricula-jornadas/cuadricula-jornadas.component';
+import { FichaJornadaComponent } from '../ficha-jornada/ficha-jornada.component';
 
 /**
  * Puntos acumulados y partidos ganados jornada a jornada. Al tocar una jornada se enseña
- * su detalle (las seis pistas) debajo; por defecto, la última.
+ * su ficha abierta debajo, con cada partido; por defecto, la última.
  */
 @Component({
   selector: 'ctp-evolucion-temporada',
-  imports: [GraficaEstadisticaComponent, CuadriculaJornadasComponent],
+  imports: [GraficaEstadisticaComponent, FichaJornadaComponent],
   templateUrl: './evolucion-temporada.component.html',
+  styleUrl: './evolucion-temporada.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EvolucionTemporadaComponent {
@@ -40,8 +41,8 @@ export class EvolucionTemporadaComponent {
   /** Jornada elegida; vuelve a la última cuando cambian las jornadas (otra fase). */
   private readonly elegida = linkedSignal(() => this.evolucion().confrontaciones.at(-1) ?? null);
 
-  protected readonly detalle = computed(() =>
-    this.filas().filter((fila) => fila.confrontacionId === this.elegida()),
+  protected readonly detalle = computed(
+    () => this.filas().find((fila) => fila.confrontacionId === this.elegida()) ?? null,
   );
 
   protected alTocar(toque: ToqueGrafica): void {

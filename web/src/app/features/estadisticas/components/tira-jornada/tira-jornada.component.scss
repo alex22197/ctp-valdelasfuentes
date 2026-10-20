@@ -1,0 +1,38 @@
+@use 'resultado-partido' as resultado;
+
+:host {
+  display: flex;
+  gap: var(--espacio-3);
+}
+
+// Cada categoría ocupa lo que le toca según cuántos partidos tiene: 3, 2 y 1.
+.tramo {
+  display: flex;
+  flex-basis: 0;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  min-width: 0;
+}
+
+.recuadros {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: var(--espacio-1);
+}
+
+@include resultado.marca('recuadro');
+
+.recuadro {
+  height: 1.75rem;
+  border-radius: var(--radio-control);
+  animation: aparecer-con-rebote var(--duracion-media) var(--curva-rebote) both;
+}
+
+.categoria {
+  @include resultado.categoria;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,61 @@
+@let actual = fila();
+<details class="ficha" [open]="abierta()">
+  <summary class="cabecera">
+    <span class="numero">{{ actual.jornada ? 'J' + actual.jornada : '·' }}</span>
+    <span class="rival">
+      <strong>{{ actual.rival }}</strong>
+      <span class="condicion">{{ actual.condicion === 'local' ? 'en casa' : 'fuera' }}</span>
+    </span>
+    <span class="marcador">
+      <strong aria-hidden="true">{{ actual.marcador }}</strong>
+      <span class="solo-lector">{{ resumen() }},</span>
+      <span class="puntos">
+        @if (actual.puntos === null) {
+          puntos pendientes
+        } @else {
+          {{ actual.puntos }} {{ actual.puntos === 1 ? 'punto' : 'puntos' }}
+        }
+      </span>
+    </span>
+    <span class="flecha" aria-hidden="true"></span>
+
+    <!-- Lo mismo que el detalle, en pequeño. -->
+    <ctp-tira-jornada class="tira" [grupos]="actual.grupos" />
+  </summary>
+
+  <div class="detalle">
+    @for (grupo of actual.grupos; track grupo.tipo) {
+      <section class="grupo">
+        <h3 class="categoria">{{ grupo.nombre }}</h3>
+        <ul class="partidos">
+          @for (casilla of grupo.casillas; track casilla.nombre) {
+            <li class="partido">
+              <span class="insignia" [class]="'insignia--' + casilla.estado" aria-hidden="true">
+                {{ simbolo[casilla.estado] }}
+              </span>
+              <span class="quien">
+                @if (casilla.etiqueta) {
+                  <span class="etiqueta">{{ casilla.etiqueta }}</span>
+                } @else {
+                  <span class="solo-lector">{{ casilla.nombre }}</span>
+                }
+                <span class="pareja">{{ casilla.pareja ?? 'Sin pareja apuntada' }}</span>
+              </span>
+              <span class="resultado">
+                <span class="solo-lector">{{ textoEstado[casilla.estado] }}:</span>
+                @if (casilla.sets.length > 0) {
+                  <span class="sets">{{ casilla.sets.join(' · ') }}</span>
+                }
+                @if (casilla.nota) {
+                  <span class="nota">{{ casilla.nota }}</span>
+                } @else if (casilla.sets.length === 0) {
+                  <span class="nota" aria-hidden="true">{{ textoEstado[casilla.estado] }}</span>
+                }
+              </span>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+  </div>
+</details>

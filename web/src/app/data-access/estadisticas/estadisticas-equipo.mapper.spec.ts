@@ -54,12 +54,69 @@ describe('mapearParejas', () => {
 });
 
 describe('mapearPartidosDeJornada', () => {
+  const vacio = { set_partido: [], participacion: [] };
+
   it('conserva el resultado y el ganado nulos de un partido por jugar', () => {
     expect(
       mapearPartidosDeJornada([
-        { confrontacion_id: 'c', tipo: 'mixto', numero: 1, resultado: null, ganado: null },
-        { confrontacion_id: null, tipo: 'mixto', numero: 1, resultado: null, ganado: null },
+        {
+          ...vacio,
+          confrontacion_id: 'c',
+          tipo: 'mixto',
+          numero: 1,
+          resultado: null,
+          ganado: null,
+        },
+        {
+          ...vacio,
+          confrontacion_id: null,
+          tipo: 'mixto',
+          numero: 1,
+          resultado: null,
+          ganado: null,
+        },
       ]),
-    ).toEqual([{ confrontacionId: 'c', tipo: 'mixto', numero: 1, resultado: null, ganado: null }]);
+    ).toEqual([
+      {
+        confrontacionId: 'c',
+        tipo: 'mixto',
+        numero: 1,
+        resultado: null,
+        ganado: null,
+        reves: null,
+        drive: null,
+        sets: [],
+      },
+    ]);
+  });
+
+  it('añade la pareja y los sets en orden', () => {
+    const set = (numero: number, nuestros: number, rival: number) => ({
+      numero,
+      juegos_nuestros: nuestros,
+      juegos_rival: rival,
+      tiebreak_nuestros: null,
+      tiebreak_rival: null,
+    });
+    const [partido] = mapearPartidosDeJornada([
+      {
+        confrontacion_id: 'c',
+        tipo: 'masculino',
+        numero: 2,
+        resultado: 'normal',
+        ganado: true,
+        set_partido: [set(2, 6, 4), set(1, 6, 3)],
+        participacion: [
+          { lado: 'drive', jugador: { id: 'b', nombre_mostrar: 'Iván' } },
+          { lado: 'reves', jugador: { id: 'a', nombre_mostrar: 'Pablo' } },
+        ],
+      },
+    ]);
+    expect(partido?.reves?.nombreMostrar).toBe('Pablo');
+    expect(partido?.drive?.nombreMostrar).toBe('Iván');
+    expect(partido?.sets.map((s) => `${s.juegosNuestros}-${s.juegosRival}`)).toEqual([
+      '6-3',
+      '6-4',
+    ]);
   });
 });

@@ -4,6 +4,6 @@
   descripcion="Gráfica con los partidos ganados en cada jornada y los puntos acumulados de cada fase. Toca una jornada para ver su detalle debajo."
   (tocar)="alTocar($event)"
 />
-@if (detalle().length > 0) {
-  <ctp-cuadricula-jornadas [filas]="detalle()" />
+@if (detalle(); as fila) {
+  <ctp-ficha-jornada class="detalle" [fila]="fila" [abierta]="true" />
 }

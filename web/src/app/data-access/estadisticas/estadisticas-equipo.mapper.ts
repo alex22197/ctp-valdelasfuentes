@@ -1,4 +1,6 @@
 import type { Tables } from '@core/supabase/interfaces/database.types';
+import { type FilaParticipacion, jugadorEnLado } from '@data-access/alineaciones/alineacion.mapper';
+import { type FilaSet, mapearSet } from '@data-access/resultados/resultado-partido.mapper';
 import { mapearBalance } from './estadisticas-jugador.mapper';
 import type { BalancePareja } from './interfaces/balance-pareja.interface';
 import type { BalancePuestoEquipo } from './interfaces/balance-puesto-equipo.interface';
@@ -29,7 +31,10 @@ export type FilaParejaEquipo = FilaBalance &
 export type FilaPartidoResultado = Pick<
   Tables<'partido_resultado'>,
   'confrontacion_id' | 'tipo' | 'numero' | 'resultado' | 'ganado'
->;
+> & {
+  set_partido: FilaSet[];
+  participacion: FilaParticipacion[];
+};
 
 export function mapearPuestosEquipo(filas: readonly FilaPuestoEquipo[]): BalancePuestoEquipo[] {
   return filas.flatMap((fila) =>
@@ -86,6 +91,9 @@ export function mapearPartidosDeJornada(
             numero: fila.numero,
             resultado: fila.resultado,
             ganado: fila.ganado,
+            reves: jugadorEnLado(fila.participacion, 'reves'),
+            drive: jugadorEnLado(fila.participacion, 'drive'),
+            sets: [...fila.set_partido].sort((a, b) => a.numero - b.numero).map(mapearSet),
           },
         ]
       : [],

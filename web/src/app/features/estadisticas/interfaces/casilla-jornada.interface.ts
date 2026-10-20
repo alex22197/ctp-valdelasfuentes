@@ -1,12 +1,16 @@
 import type { EstadoCasilla } from './estado-casilla.type';
 
-/** Uno de los partidos de una jornada en la cuadrícula. */
+/** Uno de los partidos de una jornada en «Jornada a jornada». */
 export interface CasillaJornada {
-  /** «M1», «F2» o «Mixto». */
-  readonly codigo: string;
-  /** «Masculino 1»: para lectores de pantalla y la ayuda al tocar. */
+  /** «Masculino, pareja 2» o «Mixto»: para lectores de pantalla. */
   readonly nombre: string;
+  /** «Pareja 2»; `null` en el mixto, que es uno solo. */
+  readonly etiqueta: string | null;
   readonly estado: EstadoCasilla;
-  /** Ganado o perdido por WO: la casilla lo dice también con texto. */
-  readonly esWo: boolean;
+  /** «Pablo y Iván»; `null` si no consta quién jugó. */
+  readonly pareja: string | null;
+  /** Cada set desde nuestro lado: «6-3». Vacío en los WO y en los que están por jugar. */
+  readonly sets: readonly string[];
+  /** Lo que explica un resultado sin sets o raro: «WO», «Abandono», «Suspendido». */
+  readonly nota: string | null;
 }
