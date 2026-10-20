@@ -71,6 +71,15 @@ describe('opcionesSetsJuegos', () => {
     expect(ganados?.data).toEqual([(100 * 4) / 6, 75]);
     expect(ganados?.label.formatter({ dataIndex: 1 })).toBe('30');
   });
+
+  it('no escribe el 0 de una parte vacía, que saldría cortado', () => {
+    const [ganados, perdidos] = parte<SerieEtiquetada[]>(
+      opcionesSetsJuegos({ ...resumen, setsGanados: 0, setsPerdidos: 2 }, COLORES, true),
+      'series',
+    );
+    expect(ganados?.label.formatter({ dataIndex: 0 })).toBe('');
+    expect(perdidos?.label.formatter({ dataIndex: 0 })).toBe('2');
+  });
 });
 
 describe('opcionesTemporada', () => {
