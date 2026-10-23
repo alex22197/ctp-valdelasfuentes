@@ -15,3 +15,10 @@
 .nota {
   max-width: 60ch;
 }
+
+.seccion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+  margin-top: var(--espacio-4);
+}

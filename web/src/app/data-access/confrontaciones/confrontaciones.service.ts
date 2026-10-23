@@ -7,8 +7,10 @@ import {
   mapearConfrontacionNuestroEquipo,
 } from './confrontacion.mapper';
 import { mapearFilaDatosConfrontacion } from './datos-confrontacion.mapper';
+import { mapearEnfrentamientoGrupo } from './enfrentamiento-grupo.mapper';
 import type { ConfrontacionNuestroEquipo } from './interfaces/confrontacion-nuestro-equipo.interface';
 import type { DatosConfrontacion } from './interfaces/datos-confrontacion.interface';
+import type { EnfrentamientoGrupo } from './interfaces/enfrentamiento-grupo.interface';
 
 const COLUMNAS_CONFRONTACION = `
   id, jornada, estado, fecha_prevista, fecha_hora, sede, num_pistas,
@@ -31,6 +33,19 @@ export class ConfrontacionesService {
       .order('fecha_prevista', { ascending: true, nullsFirst: false });
     lanzarSiHayError(error, 'No se ha podido cargar el calendario.');
     return this.mapearConMarcadores(data ?? []);
+  }
+
+  /** Todos los enfrentamientos del grupo en una fase, los nuestros y los del resto. */
+  async obtenerEnfrentamientosDelGrupo(idFase: string): Promise<EnfrentamientoGrupo[]> {
+    const { data, error } = await this.supabase
+      .from('confrontacion')
+      .select(COLUMNAS_CONFRONTACION)
+      .eq('fase_id', idFase)
+      .order('jornada', { ascending: true, nullsFirst: false });
+    lanzarSiHayError(error, 'No se han podido cargar las jornadas del grupo.');
+    const filas = data ?? [];
+    const marcadores = await this.obtenerMarcadoresCalculados(filas.map((fila) => fila.id));
+    return filas.map((fila) => mapearEnfrentamientoGrupo(fila, marcadores.get(fila.id) ?? null));
   }
 
   /** Una confrontación de nuestro equipo, o `null` si no existe o no jugamos en ella. */

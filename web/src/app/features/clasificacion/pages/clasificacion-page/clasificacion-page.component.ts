@@ -1,14 +1,17 @@
 import { ChangeDetectionStrategy, Component, computed, inject, resource } from '@angular/core';
 import { ClasificacionService } from '@data-access/clasificacion/clasificacion.service';
+import { ConfrontacionesService } from '@data-access/confrontaciones/confrontaciones.service';
 import { CompeticionesService } from '@data-access/competiciones/competiciones.service';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
 import { TablaClasificacionComponent } from '@shared/components/tabla-clasificacion/tabla-clasificacion.component';
+import { JornadasGrupoComponent } from '../../components/jornadas-grupo/jornadas-grupo.component';
+import { agruparPorJornada } from '../../utils/jornadas-grupo';
 import { describirActualizacion } from '../../utils/ultima-actualizacion';
 
-/** Clasificación oficial del grupo en la fase actual. */
+/** Clasificación oficial del grupo en la fase actual y los resultados de todas sus jornadas. */
 @Component({
   selector: 'ctp-clasificacion-page',
-  imports: [MensajeEstadoComponent, TablaClasificacionComponent],
+  imports: [MensajeEstadoComponent, TablaClasificacionComponent, JornadasGrupoComponent],
   templateUrl: './clasificacion-page.component.html',
   styleUrl: './clasificacion-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,6 +19,7 @@ import { describirActualizacion } from '../../utils/ultima-actualizacion';
 export class ClasificacionPageComponent {
   private readonly competiciones = inject(CompeticionesService);
   private readonly clasificaciones = inject(ClasificacionService);
+  private readonly confrontaciones = inject(ConfrontacionesService);
 
   protected readonly faseActual = resource({
     loader: () => this.competiciones.obtenerFaseActual(),
@@ -35,4 +39,13 @@ export class ClasificacionPageComponent {
   );
 
   protected readonly nota = computed(() => describirActualizacion(this.filas()));
+
+  protected readonly enfrentamientos = resource({
+    params: () => this.fase()?.id,
+    loader: ({ params: idFase }) => this.confrontaciones.obtenerEnfrentamientosDelGrupo(idFase),
+  });
+
+  protected readonly jornadasGrupo = computed(() =>
+    agruparPorJornada(this.enfrentamientos.hasValue() ? this.enfrentamientos.value() : []),
+  );
 }

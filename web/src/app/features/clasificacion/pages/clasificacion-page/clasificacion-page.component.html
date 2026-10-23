@@ -28,3 +28,12 @@
     }
   </p>
 }
+
+@if (enfrentamientos.error()) {
+  <ctp-mensaje-estado tipo="error" texto="No se han podido cargar las jornadas del grupo." />
+} @else if (jornadasGrupo().length > 0) {
+  <section class="seccion" aria-labelledby="titulo-jornadas-grupo">
+    <h2 id="titulo-jornadas-grupo" class="titulo-seccion">Jornadas del grupo</h2>
+    <ctp-jornadas-grupo [jornadas]="jornadasGrupo()" />
+  </section>
+}

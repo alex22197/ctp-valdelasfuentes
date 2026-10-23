@@ -1,0 +1,83 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-5);
+}
+
+.titulo-jornada {
+  margin-bottom: var(--espacio-2);
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.enfrentamientos {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-contenedor);
+  background: var(--color-superficie);
+  list-style: none;
+}
+
+// Local a la derecha y visitante a la izquierda, con el marcador en medio: se lee como en la
+// web de la liga.
+.enfrentamiento {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 3.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--espacio-2);
+  padding: var(--espacio-3);
+
+  & + & {
+    border-top: 1px solid var(--color-borde);
+  }
+}
+
+.enfrentamiento--nuestro {
+  background: var(--color-destacado);
+}
+
+.equipo {
+  color: var(--color-tinta-suave);
+  font-size: var(--texto-s);
+  overflow-wrap: anywhere;
+}
+
+.equipo--local {
+  text-align: right;
+}
+
+.equipo--gana {
+  color: var(--color-tinta);
+  font-weight: 700;
+}
+
+// El nuestro, con la bola amarilla como en la portada.
+.equipo--nuestro::after {
+  content: '';
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-left: var(--espacio-1);
+  border-radius: var(--radio-pildora);
+  background: var(--color-bola);
+  vertical-align: middle;
+}
+
+.marcador {
+  font-size: var(--texto-l);
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.marcador--pendiente {
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+  font-weight: 600;
+}
