@@ -1,0 +1,63 @@
+<div class="controles">
+  <ctp-selector-pildoras nombre="Chicos o chicas" [opciones]="opcionesSexo" [(valor)]="sexo" />
+</div>
+
+@if (mapa().jugadores.length === 0) {
+  <p class="texto-secundario">Todavía no ha jugado nadie de este grupo.</p>
+} @else {
+  <div class="desplazable">
+    <ctp-grafica-estadistica
+      [style.min-width.px]="ancho()"
+      [opciones]="opciones()"
+      [cambios]="cambios()"
+      [alto]="alto()"
+      descripcion="Mapa de forma: una casilla por jugador y jornada que dice si ganó, perdió o no jugó. Toca un jugador para resaltarlo en todas las gráficas. Los datos están en la tabla de debajo."
+      (tocar)="alTocar($event)"
+    />
+  </div>
+  <p class="leyenda texto-secundario" aria-hidden="true">
+    <span class="par"><span class="muestra muestra--ganado">✓</span> ganó</span>
+    <span class="par"><span class="muestra muestra--perdido">✕</span> perdió</span>
+    <span class="par"><span class="muestra muestra--wo">WO</span> ganó sin jugar</span>
+    <span class="par"><span class="muestra">&nbsp;</span> no jugó</span>
+    @if (hayComodines()) {
+      <span class="par">* comodín</span>
+    }
+  </p>
+  <details class="datos">
+    <summary>Ver los datos en una tabla</summary>
+    <div class="desplazable">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Jugador</th>
+            @for (jornada of mapa().jornadas; track jornada.confrontacionId) {
+              <th scope="col">
+                <abbr [title]="'Contra ' + jornada.rival">{{ jornada.etiqueta }}</abbr>
+              </th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (jugador of mapa().jugadores; track jugador.id; let fila = $index) {
+            <tr>
+              <th scope="row">
+                @if (enlazable(jugador)) {
+                  <a [routerLink]="['/jugadores', jugador.id]">{{ jugador.nombreMostrar }}</a>
+                } @else {
+                  {{ jugador.nombreMostrar }}
+                }
+              </th>
+              @for (celda of celdasDe(fila); track celda.columna) {
+                <td>
+                  <span aria-hidden="true">{{ simbolo[celda.estado] }}</span>
+                  <span class="solo-lector">{{ celda.detalle }}</span>
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </details>
+}

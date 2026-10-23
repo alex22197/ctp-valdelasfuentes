@@ -1,0 +1,52 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.controles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-2);
+}
+
+.desplazable {
+  overflow-x: auto;
+}
+
+// Leyenda con las mismas casillas que la gráfica, en pequeño.
+.leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espacio-1) var(--espacio-2);
+}
+
+.par {
+  white-space: nowrap;
+}
+
+.muestra {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 var(--espacio-1);
+  border-radius: var(--radio-control);
+  background: var(--color-borde);
+  color: var(--color-sobre-pista);
+  font-size: var(--texto-xs);
+  font-weight: 800;
+}
+
+.muestra--ganado {
+  background: var(--color-pista-oscuro);
+}
+
+.muestra--perdido {
+  background: var(--color-derrota);
+}
+
+.muestra--wo {
+  background: var(--color-pista);
+}

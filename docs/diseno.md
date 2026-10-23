@@ -117,6 +117,16 @@ clasificación, calendario y nombres.
   verde oscuro relleno y ✓; perdido: borde naranja y ✕; por jugar: borde discontinuo y –
   (mixin `resultado.marca` de `_resultado-partido.scss`). Sin códigos tipo M1: no se
   entienden.
+- **Nosotros contra el grupo**: barras de ECharts que salen del centro, a la derecha los partidos
+  a favor (verde oscuro) y a la izquierda los en contra (naranja) de cada equipo del grupo, de
+  mejor a peor diferencia, el nuestro en negrita. Salen de `fase_equipo` sumando las fases
+  elegidas.
+- **Mapa de forma**: cuadrícula de ECharts jugador × jornada, chicos o chicas: ✓ verde oscuro si
+  ganó, ✕ naranja si perdió, «WO» verde si ganó sin jugar y gris claro si no jugó. Los que más
+  ganan arriba. Tocar una casilla o un nombre resalta al jugador.
+- **Casa y fuera** y **Partidos ajustados**: barras de ganados y perdidos (`opcionesBalance`,
+  compartida con la ficha del jugador): en casa y fuera, por categoría, y en dos sets, a tres
+  sets y tie-breaks. Salen de la vista `estadistica_partido_equipo`.
 - **Por partido**: barras horizontales de ECharts con el porcentaje de victorias de cada pareja
   («Pareja 1 masculina»…, la mixta en lima). Los WO cuentan, porque suman o restan al equipo.
 - En lo público, las parejas se nombran con `nombrePareja` («Pareja 2 femenina», «Pareja

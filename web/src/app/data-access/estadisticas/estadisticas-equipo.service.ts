@@ -9,6 +9,8 @@ import {
 import type { BalancePareja } from './interfaces/balance-pareja.interface';
 import type { BalancePuestoEquipo } from './interfaces/balance-puesto-equipo.interface';
 import type { PartidoDeJornada } from './interfaces/partido-de-jornada.interface';
+import type { PartidoEquipo } from './interfaces/partido-equipo.interface';
+import { mapearPartidosEquipo } from './partido-equipo.mapper';
 
 const MENSAJE_ERROR = 'No se han podido cargar las estadísticas.';
 
@@ -55,6 +57,22 @@ export class EstadisticasEquipoService {
       : consulta.eq('toda_la_competicion', true));
     lanzarSiHayError(error, MENSAJE_ERROR);
     return mapearParejas(data ?? []);
+  }
+
+  /** Cada partido decidido del equipo con sus sets, de una fase o de toda la competición. */
+  async obtenerPartidosEquipo(
+    idCompeticion: string,
+    idFase: string | null,
+  ): Promise<PartidoEquipo[]> {
+    const consulta = this.supabase
+      .from('estadistica_partido_equipo')
+      .select(
+        'confrontacion_id, fase_id, jornada, condicion, tipo, numero, ganado, es_wo, sets_jugados, sets_ganados, sets_perdidos, tiebreaks_jugados, tiebreaks_ganados',
+      )
+      .eq('competicion_id', idCompeticion);
+    const { data, error } = await (idFase ? consulta.eq('fase_id', idFase) : consulta);
+    lanzarSiHayError(error, MENSAJE_ERROR);
+    return mapearPartidosEquipo(data ?? []);
   }
 
   /** Resultado de cada partido de las confrontaciones indicadas, con su pareja y sus sets. */

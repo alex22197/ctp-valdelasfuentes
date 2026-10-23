@@ -1,0 +1,30 @@
+<ctp-grafica-estadistica
+  [opciones]="opciones()"
+  [alto]="alto()"
+  descripcion="Barras con los partidos a favor, a la derecha, y en contra, a la izquierda, de cada equipo del grupo, de mejor a peor diferencia. Los datos están en la tabla de debajo."
+/>
+<details class="datos">
+  <summary>Ver los datos en una tabla</summary>
+  <div class="desplazable">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Equipo</th>
+          <th scope="col">A favor</th>
+          <th scope="col">En contra</th>
+          <th scope="col">Diferencia</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (fila of equipos(); track fila.equipo.id) {
+          <tr [class.nuestro]="fila.equipo.esNuestro">
+            <th scope="row">{{ fila.equipo.nombre }}</th>
+            <td>{{ fila.favor }}</td>
+            <td>{{ fila.contra }}</td>
+            <td>{{ signo(fila.diferencia) }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</details>
