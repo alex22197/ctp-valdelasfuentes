@@ -1,4 +1,9 @@
-import { describirFechaConfrontacion, describirFechaCorta, fechaIsoEnMadrid } from './fechas';
+import {
+  describirDia,
+  describirFechaConfrontacion,
+  describirFechaCorta,
+  fechaIsoEnMadrid,
+} from './fechas';
 
 describe('fechas', () => {
   describe('fechaIsoEnMadrid', () => {
@@ -34,5 +39,12 @@ describe('fechas', () => {
       expect(describirFechaCorta(null, '2026-10-17')).toBe('fin de semana del 17 de octubre');
       expect(describirFechaCorta(null, null)).toBe('fecha por confirmar');
     });
+  });
+});
+
+describe('describirDia', () => {
+  it('dice el día en Madrid, aunque en UTC aún sea el anterior', () => {
+    expect(describirDia('2026-10-21T18:00:00Z')).toBe('21 de octubre');
+    expect(describirDia('2026-10-20T22:30:00Z')).toBe('21 de octubre');
   });
 });

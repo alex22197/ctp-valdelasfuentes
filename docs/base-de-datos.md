@@ -21,6 +21,7 @@ PostgreSQL gestionado por Supabase (región West EU, Irlanda). El esquema está 
 | `participacion`     | Quién jugó cada partido y en qué lado.                                                                     | Sí             |
 | `perfil`            | Rol (admin o capitán) de cada usuario con permisos. Siempre queda al menos un admin (trigger).             | Solo el propio |
 | `invitacion_gestor` | Correos de Google invitados a gestionar que aún no han entrado; se borra al entrar. Solo por funciones.    | **No**         |
+| `cuenta_revisada`   | Cuentas que el admin descartó como gestores o a las que quitó el permiso: no vuelven a pendientes.         | **No**         |
 | `ejecucion_scraper` | Registro de cada ejecución del scraper.                                                                    | **No**         |
 
 Vistas:
@@ -75,7 +76,9 @@ Vistas de estadísticas (#13). Todos los cálculos se hacen aquí; la web solo l
 | `publicar_convocatoria`      | Publica la convocatoria para que se vea en la portada, o la devuelve a borrador.                                                                                                                                                                    | Gestores              |
 | `listar_gestores`            | Gestores con su correo, nombre y papel, y las invitaciones pendientes.                                                                                                                                                                              | Admin                 |
 | `dar_permiso_gestor`         | Da o cambia el papel a un correo. Si esa cuenta de Google ya existe (correo confirmado e identidad de Google), al momento; si no, queda invitada. Nadie cambia su propio permiso.                                                                   | Admin                 |
-| `quitar_permiso_gestor`      | Quita el permiso o la invitación de un correo. Nadie se quita a sí mismo.                                                                                                                                                                           | Admin                 |
+| `quitar_permiso_gestor`      | Quita el permiso o la invitación de un correo y deja la cuenta revisada, para que no vuelva a pendientes. Nadie se quita a sí mismo.                                                                                                                | Admin                 |
+| `listar_cuentas_pendientes`  | Cuentas de Google verificadas que han entrado, no tienen papel y nadie ha revisado, la más nueva primero: el «Cuentas nuevas» de Gestores.                                                                                                          | Admin                 |
+| `descartar_cuenta`           | Marca una cuenta sin papel como revisada: deja de salir en pendientes y sigue viendo la web como visitante.                                                                                                                                         | Admin                 |
 | `reclamar_permiso_gestor`    | La llama la web al entrar alguien sin papel: si su cuenta de Google confirmada tenía invitación, la convierte en su perfil. No va en un trigger de `auth.users` para que un fallo nunca impida entrar.                                              | Cualquiera con sesión |
 
 La comprueba `validar_marcador`, que aplica las reglas de los sets de la normativa. La web
@@ -152,6 +155,7 @@ Reglas:
 | `20261016104056_permisos_de_gestores.sql`            | Tabla `invitacion_gestor`, funciones de permisos de gestor y trigger que deja siempre un administrador.                                  |
 | `20261016115007_endurecer_permisos.sql`              | Invitaciones ligadas al correo verificado de Google, estructura solo para el admin, borradores ocultos y nombres sin `<` ni `>`.         |
 | `20261016125521_reclamar_permiso_sin_carreras.sql`   | `reclamar_permiso_gestor` vuelve a leer el perfil si otra llamada a la vez ya reclamó la invitación.                                     |
+| `20261023091214_cuentas_pendientes.sql`              | Tabla `cuenta_revisada`, `listar_cuentas_pendientes` y `descartar_cuenta`; quitar un permiso deja la cuenta revisada.                    |
 
 ## Pendiente
 
