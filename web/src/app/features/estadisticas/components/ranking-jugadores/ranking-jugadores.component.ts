@@ -13,6 +13,8 @@ import type { Sexo } from '@data-access/jugadores/interfaces/sexo.type';
 import { GraficaEstadisticaComponent } from '@shared/components/grafica-estadistica/grafica-estadistica.component';
 import type { ToqueGrafica } from '@shared/components/grafica-estadistica/interfaces/toque-grafica.interface';
 import { TemaGraficasService } from '@shared/services/tema-graficas.service';
+import type { Racha } from '@shared/utils/interfaces/racha.interface';
+import { describirRacha } from '@shared/utils/rachas';
 import type { JugadorResaltado } from '../../interfaces/jugador-resaltado.interface';
 import type { OpcionPildora } from '../../interfaces/opcion-pildora.interface';
 import type { OrdenRanking } from '../../interfaces/orden-ranking.type';
@@ -52,6 +54,8 @@ export class RankingJugadoresComponent {
   readonly sexos = input.required<ReadonlyMap<string, Sexo>>();
   readonly idResaltado = input<string | null>(null);
   readonly enlazarComodines = input(false);
+  /** Racha actual de cada jugador, por su id, para la tabla. */
+  readonly rachas = input<ReadonlyMap<string, Racha>>(new Map());
   readonly resaltar = output<JugadorResaltado>();
 
   protected readonly opcionesSexo = SEXOS;
@@ -77,6 +81,10 @@ export class RankingJugadoresComponent {
   protected readonly alto = computed(() => this.lista().length * ALTO_FILA_RANKING + 24);
 
   protected readonly diferenciaJuegos = diferenciaJuegos;
+
+  protected racha(id: string): string {
+    return describirRacha(this.rachas().get(id) ?? null);
+  }
 
   protected alTocar(toque: ToqueGrafica): void {
     const jugador = jugadorDeLista(this.lista(), toque);

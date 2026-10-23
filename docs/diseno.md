@@ -92,6 +92,8 @@ clasificación, calendario y nombres.
   centro, y dos barras con sets y juegos ganados contra perdidos, repartidas en proporción y
   con su número.
 - Por lado: media pista partida en revés y drive con partidos y victorias en cada uno.
+- Debajo del marcador, la racha actual a partir de dos partidos seguidos iguales: «En racha: 3
+  victorias seguidas» en verde o «Mala racha: 2 derrotas seguidas» en rojo.
 - Con quién juega: compañeros con barra de porcentaje de victorias (verde oscuro sobre rojo,
   que crece al aparecer) y enlace a su ficha.
 - Por número de pareja («Masculino 1», «Mixto»), con la misma barra y un cuadradito del color
@@ -131,6 +133,9 @@ clasificación, calendario y nombres.
   («Pareja 1 masculina»…, la mixta en lima). Los WO cuentan, porque suman o restan al equipo.
 - En lo público, las parejas se nombran con `nombrePareja` («Pareja 2 femenina», «Pareja
   mixta»), nunca con códigos tipo M1 o F2, que solo entiende quien gestiona.
+- **Química de parejas**: para cada pareja con dos o más partidos juntos, su porcentaje de
+  victorias frente a la media del de sus dos jugadores; una barra que sale del centro, verde a
+  la derecha si suma y roja a la izquierda si resta, con la cifra (`+25`).
 - **Quién con quién**: matriz de ECharts por chicos, chicas o mixto con el número de partidos
   juntos; el color, de claro a oscuro, indica el porcentaje de victorias, para que se entienda
   aunque no se distinga el color. En chicos y chicas cada pareja sale en las dos mitades, para
@@ -138,7 +143,8 @@ clasificación, calendario y nombres.
   chicas en columnas. Los comodines llevan un asterisco. Si no cabe, se desplaza ella sola.
 - **Parejas más repetidas**: las 5 que más han jugado juntas, con la barra de victorias.
 - **Ranking de jugadores**: barras horizontales de chicos o chicas, ordenadas por partidos, %
-  de victorias o diferencia de juegos (en rojo si es negativa).
+  de victorias o diferencia de juegos (en rojo si es negativa). La tabla añade la racha actual de cada jugador
+  («3 victorias seguidas»), sin los WO.
 - **Revés contra drive**: barras en mariposa, revés a la izquierda y drive a la derecha, con el %
   de victorias de cada lado al tocar.
 - **Jugador resaltado**: tocar a un jugador en el ranking, la mariposa o la matriz (una casilla

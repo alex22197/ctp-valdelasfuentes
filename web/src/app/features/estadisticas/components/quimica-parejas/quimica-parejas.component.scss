@@ -1,0 +1,106 @@
+:host {
+  display: block;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pareja {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  transition: opacity var(--duracion-media);
+}
+
+.mixto {
+  --color-marca: var(--color-mixto);
+}
+
+.atenuada {
+  opacity: 0.35;
+}
+
+.nombres {
+  font-weight: 700;
+}
+
+.tipo {
+  margin-left: var(--espacio-1);
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+  font-weight: 400;
+}
+
+// Cuadradito del color de la pista delante del nombre, como en las parejas más repetidas.
+.nombres::before {
+  content: '';
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-right: var(--espacio-2);
+  border-radius: 3px;
+  background: var(--color-marca, var(--color-pista));
+  vertical-align: -0.05em;
+}
+
+// La escala tiene el cero en medio: la barra crece hacia la derecha si la pareja suma y hacia
+// la izquierda si resta.
+.escala {
+  position: relative;
+  height: 1.5rem;
+  border-radius: var(--radio-pildora);
+  background: var(--color-pista-suave);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-left: 2px solid var(--color-borde-fuerte);
+  }
+}
+
+.barra {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-radius: 0 var(--radio-pildora) var(--radio-pildora) 0;
+  background: var(--color-pista-oscuro);
+  transition: width var(--duracion-media) var(--curva-salida);
+}
+
+.barra--resta {
+  right: 50%;
+  left: auto;
+  border-radius: var(--radio-pildora) 0 0 var(--radio-pildora);
+  background: var(--color-derrota);
+}
+
+.cifra {
+  position: absolute;
+  top: 0;
+  left: calc(50% + var(--espacio-2));
+  color: var(--color-pista-oscuro);
+  font-size: var(--texto-s);
+  font-weight: 800;
+  line-height: 1.5rem;
+}
+
+.cifra--resta {
+  right: calc(50% + var(--espacio-2));
+  left: auto;
+  color: var(--color-derrota-texto);
+}
+
+.texto {
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+}

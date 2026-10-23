@@ -4,11 +4,13 @@ import { EstadisticasEquipoService } from '@data-access/estadisticas/estadistica
 import { EstadisticasJugadoresService } from '@data-access/estadisticas/estadisticas-jugadores.service';
 import { balanceCasaFuera, balancePorCategoria, partidosAjustados } from '../utils/balance-equipo';
 import { sumarPartidosDelGrupo } from '../utils/partidos-grupo';
+import { calcularQuimica } from '../utils/quimica-parejas';
+import { rachasPorJugador } from '../utils/rachas-jugadores';
 import { DatosEstadisticasService } from './datos-estadisticas.service';
 
 /**
  * Lo que necesitan las gráficas del equipo (mapa de forma, nosotros contra el grupo, casa y
- * fuera, partidos ajustados), filtrado por la fase elegida en `DatosEstadisticasService`. Se
+ * fuera, partidos ajustados, rachas y química), filtrado por la fase elegida en `DatosEstadisticasService`. Se
  * provee en la página de estadísticas.
  */
 @Injectable()
@@ -61,5 +63,16 @@ export class DatosEquipoService {
 
   readonly listaJugadores = computed(() =>
     this.partidosJugadores.hasValue() ? this.partidosJugadores.value() : [],
+  );
+
+  readonly rachas = computed(() =>
+    rachasPorJugador(this.datos.jornadasDeFase(), this.listaJugadores()),
+  );
+
+  readonly quimica = computed(() =>
+    calcularQuimica(
+      this.datos.parejas.hasValue() ? this.datos.parejas.value() : [],
+      this.datos.jugadores.hasValue() ? this.datos.jugadores.value() : [],
+    ),
   );
 }
