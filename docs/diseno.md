@@ -88,15 +88,15 @@ clasificación, calendario y nombres.
   preferido de la plantilla o, si no hay, el lado en el que más ha jugado.
 - Marcador sobre la pista con partidos, ganados y sets (por ejemplo «6–5»); los números entran
   con un pequeño rebote.
-- Si ha jugado: anillo de ECharts con ganados (verde oscuro) y perdidos (naranja) y el % en el
+- Si ha jugado: anillo de ECharts con ganados (verde oscuro) y perdidos (rojo) y el % en el
   centro, y dos barras con sets y juegos ganados contra perdidos, repartidas en proporción y
   con su número.
 - Por lado: media pista partida en revés y drive con partidos y victorias en cada uno.
-- Con quién juega: compañeros con barra de porcentaje de victorias (verde oscuro sobre naranja,
+- Con quién juega: compañeros con barra de porcentaje de victorias (verde oscuro sobre rojo,
   que crece al aparecer) y enlace a su ficha.
 - Por número de pareja («Masculino 1», «Mixto»), con la misma barra y un cuadradito del color
   de su pista (lima en el mixto).
-- Su temporada: una fila por jornada con G (círculo verde relleno), P (borde naranja) o vacío
+- Su temporada: una fila por jornada con G (círculo verde relleno), P (borde rojo) o vacío
   discontinuo (no jugó), rival, detalle («Masculino 1 con Sergio, de revés») y sets. Encima, una
   gráfica con los juegos ganados menos los perdidos de cada jornada (hacia arriba si ganó, hacia
   abajo si perdió); las jornadas que no jugó quedan vacías y los WO llevan «WO».
@@ -114,15 +114,15 @@ clasificación, calendario y nombres.
   rival, marcador y puntos («puntos pendientes» si falta algún partido); debajo, una tira con un
   recuadro por partido agrupado en Masculino, Femenino y Mixto. Al abrirla, cada partido con
   «Pareja 1…», quién jugó y los sets, o «WO», «Abandono», «Suspendido» o «Por jugar». Ganado:
-  verde oscuro relleno y ✓; perdido: borde naranja y ✕; por jugar: borde discontinuo y –
+  verde oscuro relleno y ✓; perdido: borde rojo y ✕; por jugar: borde discontinuo y –
   (mixin `resultado.marca` de `_resultado-partido.scss`). Sin códigos tipo M1: no se
   entienden.
 - **Nosotros contra el grupo**: barras de ECharts que salen del centro, a la derecha los partidos
-  a favor (verde oscuro) y a la izquierda los en contra (naranja) de cada equipo del grupo, de
+  a favor (verde oscuro) y a la izquierda los en contra (rojo) de cada equipo del grupo, de
   mejor a peor diferencia, el nuestro en negrita. Salen de `fase_equipo` sumando las fases
   elegidas.
 - **Mapa de forma**: cuadrícula de ECharts jugador × jornada, chicos o chicas: ✓ verde oscuro si
-  ganó, ✕ naranja si perdió, «WO» verde si ganó sin jugar y gris claro si no jugó. Los que más
+  ganó, ✕ rojo si perdió, «WO» verde si ganó sin jugar y gris claro si no jugó. Los que más
   ganan arriba. Tocar una casilla o un nombre resalta al jugador.
 - **Casa y fuera** y **Partidos ajustados**: barras de ganados y perdidos (`opcionesBalance`,
   compartida con la ficha del jugador): en casa y fuera, por categoría, y en dos sets, a tres
@@ -138,7 +138,7 @@ clasificación, calendario y nombres.
   chicas en columnas. Los comodines llevan un asterisco. Si no cabe, se desplaza ella sola.
 - **Parejas más repetidas**: las 5 que más han jugado juntas, con la barra de victorias.
 - **Ranking de jugadores**: barras horizontales de chicos o chicas, ordenadas por partidos, %
-  de victorias o diferencia de juegos (en naranja si es negativa).
+  de victorias o diferencia de juegos (en rojo si es negativa).
 - **Revés contra drive**: barras en mariposa, revés a la izquierda y drive a la derecha, con el %
   de victorias de cada lado al tocar.
 - **Jugador resaltado**: tocar a un jugador en el ranking, la mariposa o la matriz (una casilla

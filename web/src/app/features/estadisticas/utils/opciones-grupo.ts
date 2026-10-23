@@ -9,7 +9,7 @@ export const ALTO_FILA_GRUPO = 44;
 
 /**
  * Nosotros contra el grupo: una barra por equipo que sale del centro hacia la derecha con los
- * partidos a favor (verde oscuro) y hacia la izquierda con los partidos en contra (naranja).
+ * partidos a favor (verde oscuro) y hacia la izquierda con los partidos en contra (rojo).
  * Los equipos van de mejor a peor diferencia y el nuestro en negrita, para verlo enseguida.
  */
 export function opcionesGrupo(

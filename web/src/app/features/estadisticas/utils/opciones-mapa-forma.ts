@@ -16,7 +16,7 @@ const SIMBOLO: Record<EstadoForma, string> = { 'no-jugo': '', perdido: '✕', ga
 const ESTADOS = Object.keys(CODIGO) as EstadoForma[];
 
 /**
- * Mapa de forma: una casilla por jugador y jornada, verde oscuro si ganó (✓), naranja si
+ * Mapa de forma: una casilla por jugador y jornada, verde oscuro si ganó (✓), rojo si
  * perdió (✕), verde si ganó por WO y gris claro si no jugó. Se lee también sin color.
  */
 export function opcionesMapaForma(
