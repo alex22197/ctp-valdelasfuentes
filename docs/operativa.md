@@ -60,7 +60,22 @@ WO en contra se quita la pareja del partido, porque no jugó nadie.
 | Cuando el capitán decide                       | Gestor     | **Convocatoria y alineación**: elige convocados y coloca cada pareja en su pista (revés y drive). Se publica en la portada.           |
 | Tras jugar                                     | Gestor     | **Resultados**: marcador set a set de los 6 partidos, o el WO o abandono si lo hubo (ver abajo).                                      |
 | Martes antes de las 14:00 (si jugamos en casa) | Capitán    | Envía el acta a la liga. Si no, la normativa resta 1 punto.                                                                           |
+| Cuando la liga publica                         | Alex       | Manda captura de la web de la liga y Claude carga la clasificación y los resultados del resto del grupo (ver abajo).                  |
 | Miércoles por la tarde                         | Automático | El scraper lee la web de la liga y actualiza el calendario, los resultados de todo el grupo y la clasificación oficial _(pendiente)_. |
+
+## Datos de la liga, mientras no hay scraper
+
+La clasificación oficial y los resultados de los enfrentamientos de otros equipos no se meten
+desde la web: Alex manda una captura de la web de la liga y Claude los carga en Supabase.
+
+- **Clasificación:** `fase_equipo` de la fase (posición, puntos, ganadas, empatadas y
+  perdidas), con `actualizado_en` a la hora de la carga.
+- **Resto del grupo:** una fila en `confrontacion` por enfrentamiento de otros equipos, con
+  `partidos_local`, `partidos_visitante` y `estado = 'jugada'`; los que aún no se han jugado,
+  `programada` y sin marcador. Salen en Clasificación, en «Jornadas del grupo». Los nuestros no
+  se tocan: su marcador sale de nuestros resultados.
+- Todo lo que lee el calendario, la portada, Gestión y las estadísticas filtra los
+  enfrentamientos en los que juega nuestro equipo, así que los del resto no aparecen ahí.
 
 ## Comodines
 

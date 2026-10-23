@@ -1,0 +1,34 @@
+@for (jornada of jornadas(); track jornada.titulo) {
+  <section class="jornada" [attr.aria-labelledby]="'jornada-grupo-' + $index">
+    <h3 class="titulo-jornada" [id]="'jornada-grupo-' + $index">{{ jornada.titulo }}</h3>
+    <ul class="enfrentamientos">
+      @for (enfrentamiento of jornada.enfrentamientos; track enfrentamiento.id) {
+        <li class="enfrentamiento" [class.enfrentamiento--nuestro]="esNuestro(enfrentamiento)">
+          <span
+            class="equipo equipo--local"
+            [class.equipo--gana]="gana(enfrentamiento, 'local')"
+            [class.equipo--nuestro]="enfrentamiento.local.esNuestro"
+            >{{ enfrentamiento.local.nombre }}</span
+          >
+          @if (enfrentamiento.marcador; as marcador) {
+            <span class="marcador">
+              <span aria-hidden="true">{{ marcador.local }}-{{ marcador.visitante }}</span>
+              <span class="solo-lector">, {{ marcador.local }} a {{ marcador.visitante }},</span>
+            </span>
+          } @else {
+            <span class="marcador marcador--pendiente">
+              <span aria-hidden="true">vs</span>
+              <span class="solo-lector">, por jugar, contra</span>
+            </span>
+          }
+          <span
+            class="equipo"
+            [class.equipo--gana]="gana(enfrentamiento, 'visitante')"
+            [class.equipo--nuestro]="enfrentamiento.visitante.esNuestro"
+            >{{ enfrentamiento.visitante.nombre }}</span
+          >
+        </li>
+      }
+    </ul>
+  </section>
+}
