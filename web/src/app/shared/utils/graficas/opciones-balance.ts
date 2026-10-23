@@ -24,7 +24,7 @@ export function describirBalance(filas: readonly FilaBalance[]): string {
 }
 
 /**
- * Una barra por fila, repartida entre ganados (verde oscuro) y perdidos (naranja). Se dibuja
+ * Una barra por fila, repartida entre ganados (verde oscuro) y perdidos (rojo). Se dibuja
  * en proporción (unas filas pueden tener muchos más que otras) y cada parte lleva su número,
  * salvo si está vacía: su 0 quedaría cortado contra el borde.
  */
@@ -75,7 +75,7 @@ export function opcionesBalance(
     },
     series: [
       serie('Ganados', 'ganados', colores.pistaOscuro, colores.sobrePista),
-      serie('Perdidos', 'perdidos', colores.derrota, colores.tinta),
+      serie('Perdidos', 'perdidos', colores.derrota, colores.sobrePista),
     ],
   };
 }

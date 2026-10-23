@@ -6,7 +6,7 @@ import { contarPartidos, opcionesComunes } from '@shared/utils/graficas/opciones
 import type { FaseTemporada } from '../interfaces/fase-temporada.interface';
 import type { FilaTemporada } from '../interfaces/fila-temporada.interface';
 
-/** Anillo de partidos ganados (verde oscuro) y perdidos (naranja), con el % en el centro. */
+/** Anillo de partidos ganados (verde oscuro) y perdidos (rojo), con el % en el centro. */
 export function opcionesAnillo(
   resumen: ResumenJugador,
   colores: ColoresGraficas,
@@ -67,7 +67,7 @@ export function opcionesSetsJuegos(
 
 /**
  * Su temporada en barras: juegos ganados menos perdidos en cada jornada, verde si ganó y
- * naranja si perdió. Las jornadas que no jugó quedan vacías y los WO llevan «WO».
+ * rojo si perdió. Las jornadas que no jugó quedan vacías y los WO llevan «WO».
  */
 export function opcionesTemporada(
   fases: readonly FaseTemporada[],
