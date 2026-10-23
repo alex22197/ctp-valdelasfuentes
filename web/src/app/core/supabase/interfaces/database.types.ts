@@ -145,6 +145,21 @@ export type Database = {
           },
         ];
       };
+      cuenta_revisada: {
+        Row: {
+          created_at: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       disponibilidad: {
         Row: {
           confrontacion_id: string;
@@ -1081,6 +1096,7 @@ export type Database = {
         };
         Returns: undefined;
       };
+      descartar_cuenta: { Args: { p_email: string }; Returns: undefined };
       es_admin: { Args: never; Returns: boolean };
       es_gestor: { Args: never; Returns: boolean };
       guardar_alineacion: {
@@ -1109,6 +1125,15 @@ export type Database = {
       juega_nuestro_equipo: {
         Args: { p_confrontacion: string };
         Returns: boolean;
+      };
+      listar_cuentas_pendientes: {
+        Args: never;
+        Returns: {
+          alta: string;
+          email: string;
+          nombre: string;
+          ultimo_acceso: string;
+        }[];
       };
       listar_gestores: {
         Args: never;
