@@ -16,3 +16,42 @@
   padding: 0;
   list-style: none;
 }
+
+.error {
+  color: var(--color-derrota-texto);
+  font-weight: 600;
+}
+
+.aviso {
+  color: var(--color-pista-oscuro);
+  font-weight: 600;
+}
+
+// Cuentas que esperan una decisión, encima de la lista de gestores.
+.subseccion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+  margin-bottom: var(--espacio-6);
+}
+
+.subtitulo {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  font-size: var(--texto-m);
+  font-weight: 700;
+}
+
+.globo {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 var(--espacio-1);
+  border-radius: var(--radio-pildora);
+  background: var(--color-bola);
+  color: var(--color-tinta);
+  font-size: var(--texto-xs);
+  font-weight: 800;
+}

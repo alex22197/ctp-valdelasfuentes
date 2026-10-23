@@ -17,4 +17,4 @@ export const RESPONSABLE_DATOS = {
 } as const;
 
 /** Última vez que cambió la política de privacidad. */
-export const FECHA_PRIVACIDAD = '16 de octubre de 2026';
+export const FECHA_PRIVACIDAD = '23 de octubre de 2026';

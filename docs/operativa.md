@@ -77,13 +77,17 @@ jornada 1). Están en `plantilla` con `comodin = true`:
 
 Solo el administrador, desde la web:
 
-1. Entra, pulsa **Gestión** y baja hasta **Gestores**.
-2. Escribe el correo de Google de la persona, elige **Capitán** o **Administrador** y pulsa
-   **Dar permiso**.
-3. Si esa persona ya había entrado alguna vez, tiene el permiso al momento (recargando la
-   página). Si no, queda «Aún no ha entrado» y lo tendrá en cuanto entre con esa cuenta.
+- **Lo normal: que entre primero.** Quien entra con Google no recibe ningún permiso (cualquiera
+  puede entrar) y le sale al administrador: un globo con el número sobre **Gestión** y, en
+  **Gestores**, el apartado **Cuentas nuevas** con su nombre, correo y cuándo entró. Desde ahí,
+  **Hacer capitán**, **Hacer administrador** (pide confirmación) o **Descartar** (sigue viendo la
+  web como visitante y no vuelve a salir). El permiso lo tiene al recargar la web.
+- **Invitar a quien aún no ha entrado:** en **Gestores**, escribe su correo de Google, elige
+  **Capitán** o **Administrador** y pulsa **Dar permiso**. Queda «Aún no ha entrado» y lo tendrá
+  en cuanto entre con esa cuenta.
 
-En la misma lista se cambia el papel y se quita el permiso (pide confirmación). Nadie puede
+En la lista de gestores se cambia el papel y se quita el permiso (pide confirmación; esa
+cuenta ya no vuelve a «Cuentas nuevas»). Nadie puede
 quitarse ni bajarse a sí mismo, y siempre queda al menos un administrador. Solo vale una cuenta
 de Google con ese correo: entrar de otra forma con el mismo correo no da el permiso.
 

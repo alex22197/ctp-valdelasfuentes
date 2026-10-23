@@ -1,0 +1,62 @@
+<p class="texto-secundario">
+  Han entrado con Google y, de momento, solo ven la web como cualquier visitante. Si son del equipo,
+  dales permiso; si no, descártalas.
+</p>
+<ul class="lista">
+  @for (cuenta of cuentas(); track cuenta.email) {
+    <li class="cuenta">
+      <div class="datos">
+        <p class="nombre">{{ cuenta.nombre ?? cuenta.email }}</p>
+        <p class="texto-secundario">
+          @if (cuenta.nombre) {
+            <span class="email">{{ cuenta.email }}</span> ·
+          }
+          entró el {{ describirDia(cuenta.alta) }}
+        </p>
+      </div>
+
+      <div class="acciones">
+        @if (confirmandoAdmin() === cuenta.email) {
+          <p class="pregunta">¿Administrador? Podrá cambiarlo todo, también los permisos.</p>
+          <button
+            type="button"
+            class="boton boton--principal"
+            [disabled]="ocupado()"
+            (click)="hacerAdmin(cuenta)"
+          >
+            Sí, administrador
+          </button>
+          <button type="button" class="boton" (click)="confirmandoAdmin.set(null)">Cancelar</button>
+        } @else {
+          <button
+            type="button"
+            class="boton boton--principal"
+            [disabled]="ocupado()"
+            (click)="aceptar.emit({ cuenta, rol: 'capitan' })"
+          >
+            Hacer capitán
+            <span class="solo-lector"> a {{ cuenta.nombre ?? cuenta.email }}</span>
+          </button>
+          <button
+            type="button"
+            class="boton"
+            [disabled]="ocupado()"
+            (click)="confirmandoAdmin.set(cuenta.email)"
+          >
+            Hacer administrador
+            <span class="solo-lector"> a {{ cuenta.nombre ?? cuenta.email }}</span>
+          </button>
+          <button
+            type="button"
+            class="boton"
+            [disabled]="ocupado()"
+            (click)="descartar.emit(cuenta)"
+          >
+            Descartar
+            <span class="solo-lector"> a {{ cuenta.nombre ?? cuenta.email }}</span>
+          </button>
+        }
+      </div>
+    </li>
+  }
+</ul>
