@@ -10,7 +10,7 @@ PostgreSQL gestionado por Supabase (región West EU, Irlanda). El esquema está 
 | `competicion`       | Una liga en una temporada y su formato (partidos de cada tipo).                                            | Sí             |
 | `fase`              | Apertura, retos, clausura, play-off… con la URL de su grupo en la web de la liga.                          | Sí             |
 | `equipo`            | Equipos del grupo. `nombre_web` es el texto exacto de la liga, para el scraper.                            | Sí             |
-| `fase_equipo`       | Clasificación oficial de cada grupo.                                                                       | Sí             |
+| `fase_equipo`       | Clasificación oficial de cada grupo, con los partidos a favor y en contra.                                 | Sí             |
 | `jugador`           | Nombre para mostrar, sexo y lado preferido.                                                                | Sí             |
 | `jugador_privado`   | Nombre completo.                                                                                           | **No**         |
 | `plantilla`         | Quién está inscrito en cada competición y si es comodín.                                                   | Sí             |
@@ -156,6 +156,7 @@ Reglas:
 | `20261016115007_endurecer_permisos.sql`              | Invitaciones ligadas al correo verificado de Google, estructura solo para el admin, borradores ocultos y nombres sin `<` ni `>`.         |
 | `20261016125521_reclamar_permiso_sin_carreras.sql`   | `reclamar_permiso_gestor` vuelve a leer el perfil si otra llamada a la vez ya reclamó la invitación.                                     |
 | `20261023091214_cuentas_pendientes.sql`              | Tabla `cuenta_revisada`, `listar_cuentas_pendientes` y `descartar_cuenta`; quitar un permiso deja la cuenta revisada.                    |
+| `20261023095104_partidos_en_clasificacion.sql`       | Columnas `partidos_favor` y `partidos_contra` en `fase_equipo` (P. Favor y P. Contra de la liga).                                        |
 
 ## Pendiente
 
