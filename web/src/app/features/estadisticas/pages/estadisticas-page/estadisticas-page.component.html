@@ -152,6 +152,7 @@
           [sexos]="datos.sexos()"
           [idResaltado]="datos.idResaltado()"
           [enlazarComodines]="datos.esGestor()"
+          [rachas]="equipo.rachas()"
           (resaltar)="datos.resaltar($event)"
         />
       }
@@ -191,6 +192,15 @@
           [parejas]="datos.parejas.value()"
           [idResaltado]="datos.idResaltado()"
         />
+      </section>
+
+      <section class="seccion" aria-labelledby="titulo-quimica">
+        <h2 id="titulo-quimica" class="titulo-seccion">Química de parejas</h2>
+        <p class="texto-secundario">
+          Si una pareja gana más o menos junta de lo que ganan sus dos jugadores por separado. Ayuda
+          a decidir alineaciones.
+        </p>
+        <ctp-quimica-parejas [parejas]="equipo.quimica()" [idResaltado]="datos.idResaltado()" />
       </section>
     }
 

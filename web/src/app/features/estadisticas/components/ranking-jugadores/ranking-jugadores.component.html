@@ -23,6 +23,7 @@
             <th scope="col">Partidos</th>
             <th scope="col">Victorias</th>
             <th scope="col">Juegos</th>
+            <th scope="col">Racha</th>
           </tr>
         </thead>
         <tbody>
@@ -42,6 +43,7 @@
                   diferenciaJuegos(jugador) > 0 ? '+' : ''
                 }}{{ diferenciaJuegos(jugador) }})
               </td>
+              <td>{{ racha(jugador.id) }}</td>
             </tr>
           }
         </tbody>

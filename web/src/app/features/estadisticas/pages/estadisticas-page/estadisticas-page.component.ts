@@ -12,6 +12,7 @@ import { MapaFormaComponent } from '../../components/mapa-forma/mapa-forma.compo
 import { NosotrosContraGrupoComponent } from '../../components/nosotros-contra-grupo/nosotros-contra-grupo.component';
 import { ParejasRepetidasComponent } from '../../components/parejas-repetidas/parejas-repetidas.component';
 import { QuienConQuienComponent } from '../../components/quien-con-quien/quien-con-quien.component';
+import { QuimicaParejasComponent } from '../../components/quimica-parejas/quimica-parejas.component';
 import { RankingJugadoresComponent } from '../../components/ranking-jugadores/ranking-jugadores.component';
 import { RendimientoPuestosComponent } from '../../components/rendimiento-puestos/rendimiento-puestos.component';
 import { RevesDriveComponent } from '../../components/reves-drive/reves-drive.component';
@@ -20,8 +21,8 @@ import { DatosEstadisticasService } from '../../services/datos-estadisticas.serv
 
 /**
  * Estadísticas del equipo: evolución, jornada a jornada, nosotros contra el grupo, mapa de
- * forma, por partido, casa y fuera, partidos ajustados, ranking, revés contra drive, quién con
- * quién y parejas más repetidas. Tocar a un jugador lo resalta en todas las gráficas. ECharts
+ * forma, por partido, casa y fuera, partidos ajustados, ranking con rachas, revés contra
+ * drive, quién con quién, parejas más repetidas y química de parejas. Tocar a un jugador lo resalta en todas las gráficas. ECharts
  * se carga solo con esta página.
  */
 @Component({
@@ -37,6 +38,7 @@ import { DatosEstadisticasService } from '../../services/datos-estadisticas.serv
     NosotrosContraGrupoComponent,
     ParejasRepetidasComponent,
     QuienConQuienComponent,
+    QuimicaParejasComponent,
     RankingJugadoresComponent,
     RendimientoPuestosComponent,
     RevesDriveComponent,

@@ -43,7 +43,7 @@
 
       @if (datos.datos(); as estadisticas) {
         @if (estadisticas.resumen; as resumen) {
-          <ctp-marcador-jugador [resumen]="resumen" />
+          <ctp-marcador-jugador [resumen]="resumen" [racha]="datos.racha()" />
           @if (resumen.partidos > 0) {
             <ctp-balance-jugador [resumen]="resumen" />
           }

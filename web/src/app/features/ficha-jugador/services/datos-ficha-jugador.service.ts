@@ -8,6 +8,7 @@ import { EstadisticasService } from '@data-access/estadisticas/estadisticas.serv
 import { JugadoresService } from '@data-access/jugadores/jugadores.service';
 import type { EstadoFicha } from '../interfaces/estado-ficha.type';
 import { ladoHabitual } from '../utils/lado-habitual';
+import { rachaDeTemporada } from '../utils/racha-de-temporada';
 import { construirTemporada } from '../utils/temporada-jugador';
 
 /**
@@ -84,6 +85,8 @@ export class DatosFichaJugadorService {
       this.datos()?.partidos ?? [],
     ),
   );
+
+  readonly racha = computed(() => rachaDeTemporada(this.temporada()));
 
   readonly lado = computed(() =>
     ladoHabitual(this.jugador()?.ladoPreferido ?? null, this.datos()?.lados ?? []),

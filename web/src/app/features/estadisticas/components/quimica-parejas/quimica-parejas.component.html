@@ -1,0 +1,39 @@
+@if (parejas().length === 0) {
+  <p class="texto-secundario">
+    Todavía ninguna pareja ha jugado {{ minimo }} partidos juntos: la química se ve a partir del
+    segundo.
+  </p>
+} @else {
+  <ol class="lista">
+    @for (fila of parejas(); track fila.pareja.jugadorA.id + fila.pareja.jugadorB.id) {
+      <li
+        class="pareja"
+        [class.mixto]="fila.pareja.tipo === 'mixto'"
+        [class.atenuada]="atenuada(fila)"
+      >
+        <p class="nombres">
+          {{ fila.pareja.jugadorA.nombreMostrar
+          }}{{ fila.pareja.jugadorA.comodin ? ' (comodín)' : '' }} y
+          {{ fila.pareja.jugadorB.nombreMostrar
+          }}{{ fila.pareja.jugadorB.comodin ? ' (comodín)' : '' }}
+          <span class="tipo">{{ nombreTipo[fila.pareja.tipo] }}</span>
+        </p>
+        <div class="escala" aria-hidden="true">
+          <span
+            class="barra"
+            [class.barra--resta]="fila.quimica < 0"
+            [style.width.%]="ancho(fila.quimica)"
+          ></span>
+          <span class="cifra" [class.cifra--resta]="fila.quimica < 0">{{
+            signo(fila.quimica)
+          }}</span>
+        </div>
+        <p class="texto">
+          <span class="solo-lector">Química {{ signo(fila.quimica) }}:</span>
+          {{ fila.juntos }}&nbsp;% ganados juntos en {{ fila.pareja.partidos }} partidos, frente al
+          {{ fila.separados }}&nbsp;% de sus jugadores por separado.
+        </p>
+      </li>
+    }
+  </ol>
+}
