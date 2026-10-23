@@ -9,6 +9,8 @@ describe('mapearFilaClasificacion', () => {
         ganados: 2,
         empatados: 0,
         perdidos: 1,
+        partidos_favor: 8,
+        partidos_contra: 4,
         actualizado_en: '2026-10-21T16:00:00Z',
         equipo: { id: 'ctpa', nombre: 'CTPA Valdelasfuentes', es_nuestro: true },
       }),
@@ -19,6 +21,8 @@ describe('mapearFilaClasificacion', () => {
       ganados: 2,
       empatados: 0,
       perdidos: 1,
+      partidosFavor: 8,
+      partidosContra: 4,
       actualizadaEn: '2026-10-21T16:00:00Z',
     });
   });

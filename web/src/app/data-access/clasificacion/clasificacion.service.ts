@@ -13,7 +13,7 @@ export class ClasificacionService {
     const { data, error } = await this.supabase
       .from('fase_equipo')
       .select(
-        'posicion, puntos, ganados, empatados, perdidos, actualizado_en, equipo(id, nombre, es_nuestro)',
+        'posicion, puntos, ganados, empatados, perdidos, partidos_favor, partidos_contra, actualizado_en, equipo(id, nombre, es_nuestro)',
       )
       .eq('fase_id', idFase)
       .order('posicion', { ascending: true, nullsFirst: false });

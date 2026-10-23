@@ -68,8 +68,8 @@ WO en contra se quita la pareja del partido, porque no jugó nadie.
 La clasificación oficial y los resultados de los enfrentamientos de otros equipos no se meten
 desde la web: Alex manda una captura de la web de la liga y Claude los carga en Supabase.
 
-- **Clasificación:** `fase_equipo` de la fase (posición, puntos, ganadas, empatadas y
-  perdidas), con `actualizado_en` a la hora de la carga.
+- **Clasificación:** `fase_equipo` de la fase (posición, puntos, ganadas, empatadas,
+  perdidas y partidos a favor y en contra), con `actualizado_en` a la hora de la carga.
 - **Resto del grupo:** una fila en `confrontacion` por enfrentamiento de otros equipos, con
   `partidos_local`, `partidos_visitante` y `estado = 'jugada'`; los que aún no se han jugado,
   `programada` y sin marcador. Salen en Clasificación, en «Jornadas del grupo». Los nuestros no
