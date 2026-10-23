@@ -1,6 +1,7 @@
 import type { EChartsCoreOption } from 'echarts/core';
 import type { ResumenJugador } from '@data-access/estadisticas/interfaces/resumen-jugador.interface';
 import type { ColoresGraficas } from '@shared/utils/graficas/interfaces/colores-graficas.interface';
+import { opcionesBalance } from '@shared/utils/graficas/opciones-balance';
 import { contarPartidos, opcionesComunes } from '@shared/utils/graficas/opciones-comunes';
 import type { FaseTemporada } from '../interfaces/fase-temporada.interface';
 import type { FilaTemporada } from '../interfaces/fila-temporada.interface';
@@ -48,66 +49,20 @@ export function opcionesAnillo(
   };
 }
 
-/**
- * Sets y juegos: una barra para cada uno, repartida entre ganados y perdidos. Se dibuja en
- * proporción (los juegos son muchos más que los sets) y cada parte lleva su número, salvo
- * si está vacía.
- */
+/** Sets y juegos: una barra para cada uno, repartida entre ganados y perdidos. */
 export function opcionesSetsJuegos(
   resumen: ResumenJugador,
   colores: ColoresGraficas,
   animar: boolean,
 ): EChartsCoreOption {
-  const filas = [
-    { nombre: 'Sets', ganados: resumen.setsGanados, perdidos: resumen.setsPerdidos },
-    { nombre: 'Juegos', ganados: resumen.juegosGanados, perdidos: resumen.juegosPerdidos },
-  ];
-  const parte = (fila: (typeof filas)[number], valor: number): number => {
-    const total = fila.ganados + fila.perdidos;
-    return total ? (100 * valor) / total : 0;
-  };
-  const serie = (
-    nombre: string,
-    clave: 'ganados' | 'perdidos',
-    color: string,
-    texto: string,
-  ): object => ({
-    type: 'bar',
-    name: nombre,
-    stack: 'total',
-    barWidth: 28,
-    itemStyle: { color },
-    label: {
-      show: true,
-      color: texto,
-      fontWeight: 700,
-      // Una parte vacía no se dibuja: su 0 quedaría cortado contra el borde.
-      formatter: ({ dataIndex }: { dataIndex: number }): string => {
-        const valor = filas[dataIndex]?.[clave] ?? 0;
-        return valor > 0 ? String(valor) : '';
-      },
-    },
-    data: filas.map((fila) => parte(fila, fila[clave])),
-  });
-  return {
-    ...opcionesComunes(colores, animar),
-    tooltip: { show: false },
-    legend: { top: 0, left: 0, itemWidth: 14, itemHeight: 14, textStyle: { color: colores.tinta } },
-    grid: { left: 4, right: 4, top: 32, bottom: 4, containLabel: true },
-    xAxis: { type: 'value', max: 100, show: false },
-    yAxis: {
-      type: 'category',
-      inverse: true,
-      data: filas.map((f) => f.nombre),
-      axisTick: { show: false },
-      axisLine: { show: false },
-      axisLabel: { color: colores.tinta, fontWeight: 700 },
-    },
-    series: [
-      serie('Ganados', 'ganados', colores.pistaOscuro, colores.sobrePista),
-      serie('Perdidos', 'perdidos', colores.derrota, colores.tinta),
+  return opcionesBalance(
+    [
+      { nombre: 'Sets', ganados: resumen.setsGanados, perdidos: resumen.setsPerdidos },
+      { nombre: 'Juegos', ganados: resumen.juegosGanados, perdidos: resumen.juegosPerdidos },
     ],
-  };
+    colores,
+    animar,
+  );
 }
 
 /**

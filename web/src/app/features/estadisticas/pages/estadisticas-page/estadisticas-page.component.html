@@ -56,6 +56,52 @@
       }
     }
 
+    <section class="seccion" aria-labelledby="titulo-grupo">
+      <h2 id="titulo-grupo" class="titulo-seccion">Nosotros contra el grupo</h2>
+      <p class="texto-secundario">
+        Partidos ganados y perdidos por cada equipo del grupo, según la liga. Lo que decide los
+        desempates.
+      </p>
+      @if (equipo.grupo.error()) {
+        <ctp-mensaje-estado tipo="error" texto="No se han podido cargar los partidos del grupo." />
+      } @else if (!equipo.grupo.hasValue()) {
+        <ctp-mensaje-estado tipo="cargando" texto="Cargando el grupo…" esqueleto="grafica" />
+      } @else if (equipo.equiposGrupo().length === 0) {
+        <ctp-mensaje-estado
+          tipo="vacio"
+          texto="La liga todavía no ha publicado los partidos del grupo."
+        />
+      } @else {
+        <ctp-nosotros-contra-grupo [equipos]="equipo.equiposGrupo()" />
+      }
+    </section>
+
+    <section class="seccion" aria-labelledby="titulo-forma">
+      <h2 id="titulo-forma" class="titulo-seccion">Mapa de forma</h2>
+      <p class="texto-secundario">
+        Cómo le ha ido a cada jugador en cada jornada. De un vistazo: quién está en racha y quién
+        lleva tiempo sin jugar.
+      </p>
+      @if (equipo.partidosJugadores.error()) {
+        <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar el mapa de forma." />
+      } @else if (!equipo.partidosJugadores.hasValue()) {
+        <ctp-mensaje-estado
+          tipo="cargando"
+          texto="Cargando el mapa de forma…"
+          esqueleto="cuadricula"
+        />
+      } @else {
+        <ctp-mapa-forma
+          [jornadas]="datos.jornadasDeFase()"
+          [partidos]="equipo.listaJugadores()"
+          [sexos]="datos.sexos()"
+          [idResaltado]="datos.idResaltado()"
+          [enlazarComodines]="datos.esGestor()"
+          (resaltar)="datos.resaltar($event)"
+        />
+      }
+    </section>
+
     <section class="seccion" aria-labelledby="titulo-puestos">
       <h2 id="titulo-puestos" class="titulo-seccion">Por partido</h2>
       <p class="texto-secundario">Porcentaje de partidos ganados por cada pareja del equipo.</p>
@@ -69,6 +115,30 @@
         <ctp-rendimiento-puestos [puestos]="datos.puestos.value()" />
       }
     </section>
+
+    @if (equipo.partidos.error()) {
+      <ctp-mensaje-estado tipo="error" texto="No se han podido cargar los partidos del equipo." />
+    } @else if (!equipo.partidos.hasValue()) {
+      <ctp-mensaje-estado tipo="cargando" texto="Cargando los partidos…" esqueleto="grafica" />
+    } @else if (equipo.partidos.value().length > 0) {
+      <section class="seccion" aria-labelledby="titulo-casa-fuera">
+        <h2 id="titulo-casa-fuera" class="titulo-seccion">Casa y fuera</h2>
+        <p class="texto-secundario">
+          Partidos ganados y perdidos según dónde se juega y en cada categoría.
+        </p>
+        <ctp-barras-balance [filas]="equipo.casaFuera()" />
+        <ctp-barras-balance [filas]="equipo.categorias()" />
+      </section>
+
+      <section class="seccion" aria-labelledby="titulo-ajustados">
+        <h2 id="titulo-ajustados" class="titulo-seccion">Partidos ajustados</h2>
+        <p class="texto-secundario">
+          Cuántos partidos se cierran en dos sets y cuántos llegan al tercero, y cómo nos van los
+          tie-breaks. Dice si el equipo sufre o remonta.
+        </p>
+        <ctp-barras-balance [filas]="equipo.ajustados()" unidad="partidos y sets" />
+      </section>
+    }
 
     <section class="seccion" aria-labelledby="titulo-ranking">
       <h2 id="titulo-ranking" class="titulo-seccion">Ranking de jugadores</h2>

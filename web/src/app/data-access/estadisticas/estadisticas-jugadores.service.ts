@@ -3,6 +3,8 @@ import { SupabaseClientService } from '@core/supabase/supabase-client.service';
 import { lanzarSiHayError } from '@core/supabase/error-acceso-datos';
 import type { EstadisticaJugador } from './interfaces/estadistica-jugador.interface';
 import type { LadosJugador } from './interfaces/lados-jugador.interface';
+import type { PartidoJugadorEquipo } from './interfaces/partido-jugador-equipo.interface';
+import { mapearPartidosJugadores } from './partidos-jugadores.mapper';
 import { mapearEstadisticasJugadores, mapearLadosJugadores } from './jugadores-equipo.mapper';
 
 const MENSAJE_ERROR = 'No se han podido cargar las estadísticas de los jugadores.';
@@ -31,6 +33,22 @@ export class EstadisticasJugadoresService {
       : consulta.eq('toda_la_competicion', true));
     lanzarSiHayError(error, MENSAJE_ERROR);
     return mapearEstadisticasJugadores(data ?? []);
+  }
+
+  /** Cada partido decidido de cada jugador, para el mapa de forma y las rachas. */
+  async obtenerPartidosJugadores(
+    idCompeticion: string,
+    idFase: string | null,
+  ): Promise<PartidoJugadorEquipo[]> {
+    const consulta = this.supabase
+      .from('estadistica_partido_jugador')
+      .select(
+        'jugador_id, nombre_mostrar, comodin, confrontacion_id, tipo, numero, lado, ganado, es_wo, marcador, companero_nombre',
+      )
+      .eq('competicion_id', idCompeticion);
+    const { data, error } = await (idFase ? consulta.eq('fase_id', idFase) : consulta);
+    lanzarSiHayError(error, MENSAJE_ERROR);
+    return mapearPartidosJugadores(data ?? []);
   }
 
   /** Partidos de revés y de drive de cada jugador que ha jugado. */

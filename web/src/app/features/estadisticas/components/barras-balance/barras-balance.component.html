@@ -1,0 +1,32 @@
+<ctp-grafica-estadistica [opciones]="opciones()" [alto]="alto()" [descripcion]="descripcion()" />
+<details class="datos">
+  <summary>Ver los datos en una tabla</summary>
+  <div class="desplazable">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Ganados</th>
+          <th scope="col">Perdidos</th>
+          <th scope="col">Victorias</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (fila of filas(); track fila.nombre) {
+          <tr>
+            <th scope="row">{{ fila.nombre }}</th>
+            <td>{{ fila.ganados }}</td>
+            <td>{{ fila.perdidos }}</td>
+            <td>
+              @if (porcentaje(fila); as porcentaje) {
+                {{ porcentaje }}&nbsp;%
+              } @else {
+                –
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</details>
