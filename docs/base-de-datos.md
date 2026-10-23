@@ -34,16 +34,17 @@ Vistas:
 
 Vistas de estadísticas (#13). Todos los cálculos se hacen aquí; la web solo los lee:
 
-| Vista                         | Una fila por                                         | Quién la ve |
-| ----------------------------- | ---------------------------------------------------- | ----------- |
-| `estadistica_partido_jugador` | Partido decidido de un jugador (base del resto)      | Todos       |
-| `estadistica_jugador`         | Jugador: partidos, sets, juegos, %, WO a favor       | Todos       |
-| `estadistica_jugador_lado`    | Jugador y lado (drive o revés)                       | Todos       |
-| `estadistica_jugador_puesto`  | Jugador y puesto (Masculino 1, Femenino 2…)          | Todos       |
-| `estadistica_pareja`          | Pareja (`jugador_a_id` < `jugador_b_id`)             | Todos       |
-| `estadistica_puesto`          | Puesto del equipo, con WO a favor y en contra        | Todos       |
-| `estadistica_jornada`         | Confrontación nuestra jugada, con marcador y puntos  | Todos       |
-| `estadistica_participacion`   | Jugador: jornadas jugadas y por qué no jugó el resto | Gestores    |
+| Vista                         | Una fila por                                                       | Quién la ve |
+| ----------------------------- | ------------------------------------------------------------------ | ----------- |
+| `estadistica_partido_jugador` | Partido decidido de un jugador (base del resto)                    | Todos       |
+| `estadistica_jugador`         | Jugador: partidos, sets, juegos, %, WO a favor                     | Todos       |
+| `estadistica_jugador_lado`    | Jugador y lado (drive o revés)                                     | Todos       |
+| `estadistica_jugador_puesto`  | Jugador y puesto (Masculino 1, Femenino 2…)                        | Todos       |
+| `estadistica_pareja`          | Pareja (`jugador_a_id` < `jugador_b_id`)                           | Todos       |
+| `estadistica_puesto`          | Puesto del equipo, con WO a favor y en contra                      | Todos       |
+| `estadistica_jornada`         | Confrontación nuestra jugada, con marcador y puntos                | Todos       |
+| `estadistica_partido_equipo`  | Cada partido decidido del equipo con sus sets y tie-breaks, con WO | Todos       |
+| `estadistica_participacion`   | Jugador: jornadas jugadas y por qué no jugó el resto               | Gestores    |
 
 - Las agrupadas tienen una fila por fase y otra de toda la competición
   (`toda_la_competicion` = true, `fase_id` nulo). Nunca mezclan competiciones.
@@ -157,6 +158,7 @@ Reglas:
 | `20261016125521_reclamar_permiso_sin_carreras.sql`   | `reclamar_permiso_gestor` vuelve a leer el perfil si otra llamada a la vez ya reclamó la invitación.                                     |
 | `20261023091214_cuentas_pendientes.sql`              | Tabla `cuenta_revisada`, `listar_cuentas_pendientes` y `descartar_cuenta`; quitar un permiso deja la cuenta revisada.                    |
 | `20261023095104_partidos_en_clasificacion.sql`       | Columnas `partidos_favor` y `partidos_contra` en `fase_equipo` (P. Favor y P. Contra de la liga).                                        |
+| `20261023124526_estadistica_partido_equipo.sql`      | Vista `estadistica_partido_equipo`: cada partido del equipo con sus sets, para casa y fuera y partidos ajustados.                        |
 
 ## Pendiente
 
