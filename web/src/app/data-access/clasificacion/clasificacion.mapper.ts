@@ -4,7 +4,14 @@ import type { FilaClasificacion } from './interfaces/fila-clasificacion.interfac
 
 type FilaFaseEquipo = Pick<
   Tables<'fase_equipo'>,
-  'posicion' | 'puntos' | 'ganados' | 'empatados' | 'perdidos' | 'actualizado_en'
+  | 'posicion'
+  | 'puntos'
+  | 'ganados'
+  | 'empatados'
+  | 'perdidos'
+  | 'partidos_favor'
+  | 'partidos_contra'
+  | 'actualizado_en'
 > & { equipo: Pick<Tables<'equipo'>, 'id' | 'nombre' | 'es_nuestro'> };
 
 export function mapearFilaClasificacion(fila: FilaFaseEquipo): FilaClasificacion {
@@ -15,6 +22,8 @@ export function mapearFilaClasificacion(fila: FilaFaseEquipo): FilaClasificacion
     ganados: fila.ganados,
     empatados: fila.empatados,
     perdidos: fila.perdidos,
+    partidosFavor: fila.partidos_favor,
+    partidosContra: fila.partidos_contra,
     actualizadaEn: fila.actualizado_en,
   };
 }

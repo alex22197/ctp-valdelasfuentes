@@ -8,6 +8,9 @@ export interface FilaClasificacion {
   readonly ganados: number;
   readonly empatados: number;
   readonly perdidos: number;
+  /** Partidos ganados y perdidos en todas sus confrontaciones (P. Favor y P. Contra); `null` si no se saben. */
+  readonly partidosFavor: number | null;
+  readonly partidosContra: number | null;
   /** Momento en que el scraper la actualizó por última vez (ISO 8601). */
   readonly actualizadaEn: string | null;
 }

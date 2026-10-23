@@ -1,3 +1,5 @@
+@use 'breakpoints' as bp;
+
 // Una fila por equipo y siempre de una línea: el nombre va en letra condensada y, si aun así no
 // cabe, se corta con «…». Nuestra fila lleva la bola amarilla, como en el próximo partido.
 .contenedor {
@@ -17,8 +19,9 @@ thead {
   font-size: var(--texto-xs);
 }
 
+// En el móvil, columnas más juntas para que quepa el nombre del equipo.
 thead th {
-  padding: var(--espacio-2);
+  padding: var(--espacio-2) var(--espacio-1);
   font-weight: 600;
 }
 
@@ -37,7 +40,15 @@ tbody tr:last-child {
 td,
 tbody th {
   height: var(--minimo-tactil);
-  padding: 0 var(--espacio-2);
+  padding: 0 var(--espacio-1);
+}
+
+thead th,
+td,
+tbody th {
+  @include bp.desde(tablet) {
+    padding-inline: var(--espacio-2);
+  }
 }
 
 .columna-posicion {
@@ -57,7 +68,14 @@ tbody th {
 }
 
 .columna-numero {
-  width: 2rem;
+  width: 1.75rem;
+  color: var(--color-tinta-tenue);
+  text-align: right;
+}
+
+// Partidos a favor y en contra juntos, «8-4»: lo que decide muchos desempates.
+.columna-partidos {
+  width: 2.75rem;
   color: var(--color-tinta-tenue);
   text-align: right;
 }
