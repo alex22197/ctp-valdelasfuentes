@@ -67,6 +67,25 @@
     @if (auth.esAdmin()) {
       <section class="seccion" aria-labelledby="titulo-gestores">
         <h2 id="titulo-gestores" class="titulo-seccion">Gestores</h2>
+        @if (gestores.error(); as mensaje) {
+          <p class="error" role="alert">{{ mensaje }}</p>
+        } @else if (gestores.aviso(); as mensaje) {
+          <p class="aviso" role="status">{{ mensaje }}</p>
+        }
+        @if (gestores.cuentasNuevas.numero() > 0) {
+          <section class="subseccion" aria-labelledby="titulo-cuentas-nuevas">
+            <h3 id="titulo-cuentas-nuevas" class="subtitulo">
+              Cuentas nuevas
+              <span class="globo">{{ gestores.cuentasNuevas.numero() }}</span>
+            </h3>
+            <ctp-cuentas-nuevas
+              [cuentas]="gestores.cuentasNuevas.lista()"
+              [ocupado]="gestores.ocupado()"
+              (aceptar)="gestores.aceptarCuenta($event.cuenta, $event.rol)"
+              (descartar)="gestores.descartarCuenta($event)"
+            />
+          </section>
+        }
         @if (gestores.gestores.error()) {
           <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar la lista de gestores." />
         } @else if (gestores.gestores.isLoading() && gestores.lista().length === 0) {
@@ -75,7 +94,6 @@
           <ctp-lista-gestores
             [gestores]="gestores.lista()"
             [ocupado]="gestores.ocupado()"
-            [error]="gestores.error()"
             [aviso]="gestores.aviso()"
             (dar)="gestores.darPermiso($event.email, $event.rol)"
             (cambiarRol)="gestores.cambiarRol($event.email, $event.rol)"

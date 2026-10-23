@@ -73,3 +73,12 @@ function describirDiaYMes(fechaIso: string): string {
     month: 'long',
   }).format(new Date(`${fechaIso}T00:00:00Z`));
 }
+
+/** El día de un momento en Madrid, para decir cuándo pasó algo: «21 de octubre». */
+export function describirDia(momento: string): string {
+  return new Intl.DateTimeFormat('es-ES', {
+    timeZone: ZONA_HORARIA,
+    day: 'numeric',
+    month: 'long',
+  }).format(new Date(momento));
+}

@@ -11,8 +11,9 @@
     <p class="texto-secundario">Tienes permisos de {{ rol }}.</p>
   } @else {
     <p class="texto-secundario">
-      Tu cuenta todavía no tiene permisos de gestión. Pide al administrador del equipo que te los
-      dé.
+      Tu cuenta todavía no tiene permisos de gestión: de momento ves la web como cualquier
+      visitante. Al administrador del equipo ya le sale que has entrado; si eres del equipo, te los
+      dará.
     </p>
   }
   <button type="button" class="boton" [disabled]="enCurso()" (click)="salir()">

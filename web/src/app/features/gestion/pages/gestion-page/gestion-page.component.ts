@@ -3,6 +3,7 @@ import { AuthService } from '@core/auth/auth.service';
 import { DatosJornadaComponent } from '@shared/components/datos-jornada/datos-jornada.component';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
 import { JornadaGestionComponent } from '../../components/jornada-gestion/jornada-gestion.component';
+import { CuentasNuevasComponent } from '../../components/cuentas-nuevas/cuentas-nuevas.component';
 import { ListaGestoresComponent } from '../../components/lista-gestores/lista-gestores.component';
 import { DatosGestionService } from '../../services/datos-gestion.service';
 import { GestoresGestionService } from '../../services/gestores-gestion.service';
@@ -19,6 +20,7 @@ import { GestoresGestionService } from '../../services/gestores-gestion.service'
     MensajeEstadoComponent,
     JornadaGestionComponent,
     ListaGestoresComponent,
+    CuentasNuevasComponent,
   ],
   providers: [DatosGestionService, GestoresGestionService],
   templateUrl: './gestion-page.component.html',

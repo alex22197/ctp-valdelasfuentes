@@ -21,15 +21,9 @@
   </button>
 </form>
 <p class="texto-secundario">
-  Si esa persona aún no ha entrado nunca, queda invitada y tendrá el permiso en cuanto entre con esa
-  cuenta de Google.
+  Quien entra con Google sale arriba, en «Cuentas nuevas». Aquí puedes invitar a alguien que aún no
+  ha entrado: tendrá el permiso en cuanto entre con esa cuenta de Google.
 </p>
-
-@if (error(); as mensaje) {
-  <p class="error" role="alert">{{ mensaje }}</p>
-} @else if (aviso(); as mensaje) {
-  <p class="aviso" role="status">{{ mensaje }}</p>
-}
 
 <ul class="lista">
   @for (gestor of gestores(); track gestor.email) {

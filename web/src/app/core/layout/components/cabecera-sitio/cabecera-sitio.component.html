@@ -28,12 +28,15 @@
         <a
           class="cuenta"
           routerLink="/gestion"
-          aria-label="Gestión"
+          [attr.aria-label]="etiquetaGestion()"
           routerLinkActive="cuenta--activa"
           ariaCurrentWhenActive="page"
         >
           <ctp-icono nombre="gestion" />
           <span class="cuenta-texto">Gestión</span>
+          @if (cuentasNuevas.numero() > 0) {
+            <span class="globo" aria-hidden="true">{{ cuentasNuevas.numero() }}</span>
+          }
         </a>
       }
 

@@ -23,7 +23,7 @@ import type { PermisoGestor } from '../../interfaces/permiso-gestor.interface';
 export class ListaGestoresComponent {
   readonly gestores = input.required<readonly Gestor[]>();
   readonly ocupado = input(false);
-  readonly error = input<string | null>(null);
+  /** Cuando llega la confirmación de un permiso, se vacía el formulario. */
   readonly aviso = input<string | null>(null);
   readonly dar = output<PermisoGestor>();
   readonly cambiarRol = output<PermisoGestor>();
