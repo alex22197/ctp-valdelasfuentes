@@ -44,7 +44,8 @@
 .equipo {
   color: var(--color-tinta-suave);
   font-size: var(--texto-s);
-  overflow-wrap: anywhere;
+  font-stretch: var(--anchura-condensada);
+  overflow-wrap: break-word;
 }
 
 .equipo--local {

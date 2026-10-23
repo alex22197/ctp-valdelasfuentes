@@ -328,6 +328,8 @@ export type Database = {
           equipo_id: string;
           fase_id: string;
           ganados: number;
+          partidos_contra: number | null;
+          partidos_favor: number | null;
           perdidos: number;
           posicion: number | null;
           puntos: number;
@@ -338,6 +340,8 @@ export type Database = {
           equipo_id: string;
           fase_id: string;
           ganados?: number;
+          partidos_contra?: number | null;
+          partidos_favor?: number | null;
           perdidos?: number;
           posicion?: number | null;
           puntos?: number;
@@ -348,6 +352,8 @@ export type Database = {
           equipo_id?: string;
           fase_id?: string;
           ganados?: number;
+          partidos_contra?: number | null;
+          partidos_favor?: number | null;
           perdidos?: number;
           posicion?: number | null;
           puntos?: number;

@@ -10,6 +10,8 @@ function fila(posicion: number, nombre: string, esNuestro: boolean): FilaClasifi
     ganados: 0,
     empatados: 0,
     perdidos: 0,
+    partidosFavor: posicion === 1 ? 8 : null,
+    partidosContra: posicion === 1 ? 4 : null,
     actualizadaEn: null,
   };
 }
@@ -28,5 +30,18 @@ describe('TablaClasificacionComponent', () => {
     expect(filas[0]?.classList).toContain('fila--nuestra');
     expect(filas[1]?.classList).not.toContain('fila--nuestra');
     expect(filas[1]?.textContent).toContain('Soto Torrejón');
+  });
+
+  it('pone los partidos a favor y en contra juntos, o una raya si no se saben', async () => {
+    const fixture = TestBed.createComponent(TablaClasificacionComponent);
+    fixture.componentRef.setInput('filas', [
+      fila(1, 'Padel Attraction B', false),
+      fila(2, 'Soto', false),
+    ]);
+    await fixture.whenStable();
+    const celdas = (fixture.nativeElement as HTMLElement).querySelectorAll('td.columna-partidos');
+    expect(celdas[0]?.querySelector('[aria-hidden]')?.textContent).toBe('8-4');
+    expect(celdas[0]?.querySelector('.solo-lector')?.textContent).toBe('8 a favor y 4 en contra');
+    expect(celdas[1]?.textContent?.trim()).toBe('–');
   });
 });

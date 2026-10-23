@@ -8,6 +8,9 @@
         <th scope="col" class="columna-numero"><abbr title="Ganadas">G</abbr></th>
         <th scope="col" class="columna-numero"><abbr title="Empatadas">E</abbr></th>
         <th scope="col" class="columna-numero"><abbr title="Perdidas">P</abbr></th>
+        <th scope="col" class="columna-partidos">
+          <abbr title="Partidos a favor y en contra">Part.</abbr>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -19,6 +22,16 @@
           <td class="columna-numero">{{ fila.ganados }}</td>
           <td class="columna-numero">{{ fila.empatados }}</td>
           <td class="columna-numero">{{ fila.perdidos }}</td>
+          <td class="columna-partidos">
+            @if (fila.partidosFavor !== null && fila.partidosContra !== null) {
+              <span aria-hidden="true">{{ fila.partidosFavor }}-{{ fila.partidosContra }}</span>
+              <span class="solo-lector"
+                >{{ fila.partidosFavor }} a favor y {{ fila.partidosContra }} en contra</span
+              >
+            } @else {
+              –
+            }
+          </td>
         </tr>
       }
     </tbody>
