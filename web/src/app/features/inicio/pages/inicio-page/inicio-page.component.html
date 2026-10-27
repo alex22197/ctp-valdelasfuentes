@@ -11,7 +11,7 @@
 } @else if (datos.fase(); as faseActual) {
   <div class="secciones">
     @if (datos.proximaConfrontacion(); as proxima) {
-      <ctp-proximo-partido [confrontacion]="proxima" />
+      <ctp-proximo-partido [confrontacion]="proxima" [nombreFase]="faseActual.fase.nombre" />
 
       <section class="seccion" aria-labelledby="titulo-convocatoria">
         <h2 id="titulo-convocatoria" class="titulo-seccion">Convocatoria</h2>
@@ -39,8 +39,15 @@
         <h2 id="titulo-clasificacion" class="titulo-seccion">Clasificación</h2>
         <a routerLink="/clasificacion" class="texto-secundario">Ver detalle</a>
       </div>
-      <p class="texto-secundario">{{ faseActual.fase.nombre }}</p>
-      @if (datos.clasificacion.error()) {
+      @if (datos.faseClasificacion(); as faseClasificacion) {
+        <p class="texto-secundario">
+          {{ faseClasificacion.nombre
+          }}{{ faseClasificacion.id !== faseActual.fase.id ? ' (final)' : '' }}
+        </p>
+      }
+      @if (!datos.faseClasificacion()) {
+        <ctp-mensaje-estado tipo="vacio" texto="En esta fase no hay clasificación." />
+      } @else if (datos.clasificacion.error()) {
         <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar la clasificación." />
       } @else if (datos.clasificacion.isLoading()) {
         <ctp-mensaje-estado tipo="cargando" texto="Cargando la clasificación…" esqueleto="tabla" />
@@ -51,6 +58,9 @@
 
     <section class="seccion" aria-labelledby="titulo-calendario">
       <h2 id="titulo-calendario" class="titulo-seccion">Calendario</h2>
+      @if (datos.avisoFase(); as aviso) {
+        <p class="texto-secundario">{{ aviso }}</p>
+      }
       @if (datos.calendario.error()) {
         <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar el calendario." />
       } @else {
