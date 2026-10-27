@@ -1,7 +1,9 @@
 @let partido = confrontacion();
 <section class="pista" aria-labelledby="titulo-proximo-partido">
   <h2 id="titulo-proximo-partido" class="antetitulo">
-    Próximo partido{{ partido.jornada ? ', jornada ' + partido.jornada : '' }}
+    Próximo partido{{
+      partido.jornada ? ', jornada ' + partido.jornada : nombreFase() ? ': ' + nombreFase() : ''
+    }}
   </h2>
 
   <p class="equipo">

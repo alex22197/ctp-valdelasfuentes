@@ -3,7 +3,7 @@ import { SupabaseClientService } from '@core/supabase/supabase-client.service';
 import { lanzarSiHayError } from '@core/supabase/error-acceso-datos';
 import { fechaIsoEnMadrid } from '@shared/utils/fechas';
 import { mapearCompeticion, mapearFase, mapearFormato } from './competicion.mapper';
-import { elegirFaseActual } from './fase-actual';
+import { elegirFaseActual, elegirFaseConClasificacion } from './fase-actual';
 import type { CompeticionActiva } from './interfaces/competicion-activa.interface';
 import type { Competicion } from './interfaces/competicion.interface';
 import type { FaseActual } from './interfaces/fase-actual.interface';
@@ -12,11 +12,14 @@ import type { FaseActual } from './interfaces/fase-actual.interface';
 export class CompeticionesService {
   private readonly supabase = inject(SupabaseClientService).cliente;
 
-  /** Competición activa y la fase que se está jugando. `null` si no hay ninguna activa. */
+  /**
+   * Competición activa, la fase en juego y la fase cuya clasificación toca enseñar (la propia, o
+   * la última liga si estamos en una eliminatoria). `null` si no hay ninguna activa.
+   */
   async obtenerFaseActual(hoy: Date = new Date()): Promise<FaseActual | null> {
     const { data, error } = await this.supabase
       .from('competicion')
-      .select('id, nombre, temporada, fase(id, tipo, nombre, orden, url_grupo, inicio)')
+      .select('id, nombre, temporada, fase(id, tipo, nombre, orden, url_grupo, inicio, fin)')
       .eq('activa', true)
       .order('created_at', { ascending: false })
       .limit(1)
@@ -26,8 +29,15 @@ export class CompeticionesService {
       return null;
     }
 
-    const fase = elegirFaseActual(data.fase.map(mapearFase), fechaIsoEnMadrid(hoy));
-    return fase ? { competicion: mapearCompeticion(data), fase } : null;
+    const fases = data.fase.map(mapearFase);
+    const fase = elegirFaseActual(fases, fechaIsoEnMadrid(hoy));
+    return fase
+      ? {
+          competicion: mapearCompeticion(data),
+          fase,
+          faseClasificacion: elegirFaseConClasificacion(fases, fase),
+        }
+      : null;
   }
 
   /** Competición activa, aunque ninguna de sus fases esté en juego. `null` si no hay. */
@@ -47,7 +57,9 @@ export class CompeticionesService {
   async obtenerCompeticionActivaConFases(): Promise<CompeticionActiva | null> {
     const { data, error } = await this.supabase
       .from('competicion')
-      .select('id, nombre, temporada, formato, fase(id, tipo, nombre, orden, url_grupo, inicio)')
+      .select(
+        'id, nombre, temporada, formato, fase(id, tipo, nombre, orden, url_grupo, inicio, fin)',
+      )
       .eq('activa', true)
       .order('created_at', { ascending: false })
       .limit(1)

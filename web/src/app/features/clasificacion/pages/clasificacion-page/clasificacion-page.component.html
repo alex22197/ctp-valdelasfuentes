@@ -5,6 +5,18 @@
   }
 </header>
 
+@if (fase(); as fase) {
+  @if (faseClasificacion(); as faseClasificacion) {
+    @if (faseClasificacion.id !== fase.id) {
+      <p class="nota texto-secundario">
+        En esta fase no hay clasificación: esta es la final de {{ faseClasificacion.nombre }}.
+      </p>
+    }
+  } @else {
+    <ctp-mensaje-estado tipo="vacio" texto="En esta fase no hay clasificación." />
+  }
+}
+
 @if (faseActual.isLoading() || clasificacion.isLoading()) {
   <ctp-mensaje-estado tipo="cargando" texto="Cargando la clasificación…" esqueleto="tabla" />
 } @else if (faseActual.error() || clasificacion.error()) {
@@ -12,7 +24,7 @@
     tipo="error"
     texto="No se ha podido cargar la clasificación. Recarga la página para volver a intentarlo."
   />
-} @else if (filas().length === 0) {
+} @else if (filas().length === 0 && faseClasificacion()) {
   <ctp-mensaje-estado
     tipo="vacio"
     texto="La clasificación de esta fase todavía no está publicada."

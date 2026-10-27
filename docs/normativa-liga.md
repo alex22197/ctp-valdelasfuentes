@@ -99,13 +99,19 @@ La versión para el equipo, explicada con ejemplos, está en la página pública
 | Fase                     | Cuándo                            | Formato                                                     |
 | ------------------------ | --------------------------------- | ----------------------------------------------------------- |
 | Apertura                 | Desde el 10-11 de octubre de 2026 | Liga a una vuelta en el grupo                               |
-| Retos                    | 7-8 de noviembre                  | Eliminatorias de ascenso y descenso                         |
+| Retos                    | 7-8 de noviembre                  | Eliminatorias de ascenso y descenso (ver abajo)             |
 | Clausura                 | Desde el 14-15 de noviembre       | Segunda vuelta; **todos empiezan de 0**                     |
 | Fase previa de play-off  | 12-13 de diciembre                | Ranking global en categorías de 8 equipos (1.º contra 8.º…) |
 | Play-off final y Masters | Hasta el 23-24 de enero de 2027   | Masters Zonal y de la Comunidad, en Oro, Plata y Bronce     |
 
 - Recuperación de aplazados: 31 de octubre-1 de noviembre, 5-6 de diciembre y 19-20 de
   diciembre de 2026. El calendario es **orientativo**.
+- **Retos** (punto 4.1.2): el último de cada grupo juega contra el primero del grupo
+  inmediatamente inferior, y el penúltimo contra el segundo. Partido único **en la instalación
+  del equipo de la división superior**. El ganador se queda la plaza para la Clausura: si el
+  último pierde, desciende; si el primero de abajo gana, asciende. → fase `retos` con una
+  confrontación sin número de jornada; en 2026-27 somos últimos y jugamos en casa contra el
+  primero del grupo 5 de 5ª.
 - Tras los retos un equipo puede cambiar de división, y por tanto de grupo y de URL.
   → cada `fase` guarda su `url_grupo`.
 - En los **retos, la fase previa de play-off y el play-off final**, si una eliminatoria de
