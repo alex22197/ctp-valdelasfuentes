@@ -6,7 +6,10 @@ import {
   type FilaMarcadorCalculado,
   mapearConfrontacionNuestroEquipo,
 } from './confrontacion.mapper';
+import { mapearFase } from '@data-access/competiciones/competicion.mapper';
+import { agruparPorFase } from './calendario-competicion';
 import { mapearFilaDatosConfrontacion } from './datos-confrontacion.mapper';
+import type { CalendarioDeFase } from './interfaces/calendario-de-fase.interface';
 import { mapearEnfrentamientoGrupo } from './enfrentamiento-grupo.mapper';
 import type { ConfrontacionNuestroEquipo } from './interfaces/confrontacion-nuestro-equipo.interface';
 import type { DatosConfrontacion } from './interfaces/datos-confrontacion.interface';
@@ -23,36 +26,31 @@ const COLUMNAS_CONFRONTACION = `
 export class ConfrontacionesService {
   private readonly supabase = inject(SupabaseClientService).cliente;
 
-  /** Jornadas de nuestro equipo en una fase, en orden de calendario. */
-  async obtenerCalendarioNuestroEquipo(idFase: string): Promise<ConfrontacionNuestroEquipo[]> {
+  /**
+   * Las jornadas de nuestro equipo en toda la competición, agrupadas por fase y en orden: la
+   * portada y Gestión enseñan también las de las fases que ya terminaron.
+   */
+  async obtenerCalendarioCompeticion(idCompeticion: string): Promise<CalendarioDeFase[]> {
     const { data, error } = await this.supabase
       .from('confrontacion')
-      .select(COLUMNAS_CONFRONTACION)
-      .eq('fase_id', idFase)
+      .select(
+        `${COLUMNAS_CONFRONTACION}, fase!inner(id, tipo, nombre, orden, url_grupo, inicio, fin, competicion_id)`,
+      )
+      .eq('fase.competicion_id', idCompeticion)
       .order('jornada', { ascending: true, nullsFirst: false })
       .order('fecha_prevista', { ascending: true, nullsFirst: false });
     lanzarSiHayError(error, 'No se ha podido cargar el calendario.');
-    return this.mapearConMarcadores(data ?? []);
-  }
-
-  /**
-   * La última confrontación nuestra ya jugada en toda la competición, o `null`. Para la portada
-   * entre dos fases, cuando la que viene aún no tiene partido.
-   */
-  async obtenerUltimaJugada(idCompeticion: string): Promise<ConfrontacionNuestroEquipo | null> {
-    const { data, error } = await this.supabase
-      .from('confrontacion')
-      .select(`${COLUMNAS_CONFRONTACION}, fase!inner(competicion_id)`)
-      .eq('fase.competicion_id', idCompeticion)
-      .eq('estado', 'jugada')
-      // La más reciente por cuándo se jugó de verdad; si no se sabe, por el calendario.
-      .order('fecha_hora', { ascending: false, nullsFirst: false })
-      .order('fecha_prevista', { ascending: false, nullsFirst: false })
-      .order('jornada', { ascending: false, nullsFirst: false })
-      .limit(8);
-    lanzarSiHayError(error, 'No se ha podido cargar el último partido.');
-    const [ultima] = await this.mapearConMarcadores(data ?? []);
-    return ultima ?? null;
+    const filas = data ?? [];
+    const marcadores = await this.obtenerMarcadoresCalculados(filas.map((fila) => fila.id));
+    return agruparPorFase(
+      filas.flatMap((fila) => {
+        const confrontacion = mapearConfrontacionNuestroEquipo(
+          fila,
+          marcadores.get(fila.id) ?? null,
+        );
+        return confrontacion ? [{ fase: mapearFase(fila.fase), confrontacion }] : [];
+      }),
+    );
   }
 
   /** Todos los enfrentamientos del grupo en una fase, los nuestros y los del resto. */

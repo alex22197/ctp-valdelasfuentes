@@ -1,16 +1,18 @@
 @if (confrontaciones().length === 0) {
-  <ctp-mensaje-estado tipo="vacio" texto="El calendario de esta fase todavía no está publicado." />
+  <ctp-mensaje-estado tipo="vacio" [texto]="textoVacio()" />
 } @else {
   <ol class="jornadas">
     @for (jornada of confrontaciones(); track jornada.id) {
       <li class="jornada">
-        <span class="numero" aria-hidden="true">{{
-          jornada.jornada ? 'J' + jornada.jornada : '–'
-        }}</span>
+        @if (jornada.jornada) {
+          <span class="numero" aria-hidden="true">J{{ jornada.jornada }}</span>
+        } @else {
+          <span class="numero numero--texto" aria-hidden="true">{{ sinNumero() }}</span>
+        }
         <span class="datos">
           <span class="rival">
             <span class="solo-lector">{{
-              jornada.jornada ? 'Jornada ' + jornada.jornada + ' contra ' : 'Contra '
+              jornada.jornada ? 'Jornada ' + jornada.jornada + ' contra ' : sinNumero() + ' contra '
             }}</span>
             {{ jornada.rival.nombre }}
           </span>
@@ -20,12 +22,12 @@
               @if (jornada.estado !== 'jugada') {
                 <a class="enlace-gestion" [routerLink]="['/convocatoria', jornada.id]">
                   Convocatoria
-                  <span class="solo-lector"> de la jornada {{ jornada.jornada }}</span>
+                  <span class="solo-lector"> contra {{ jornada.rival.nombre }}</span>
                 </a>
               }
               <a class="enlace-gestion" [routerLink]="['/resultados', jornada.id]">
                 {{ jornada.marcador ? 'Editar resultados' : 'Meter resultados' }}
-                <span class="solo-lector"> de la jornada {{ jornada.jornada }}</span>
+                <span class="solo-lector"> contra {{ jornada.rival.nombre }}</span>
               </a>
             </span>
           }

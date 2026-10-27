@@ -70,10 +70,19 @@
       @if (datos.calendario.error()) {
         <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar el calendario." />
       } @else {
-        <ctp-calendario-fase
-          [confrontaciones]="datos.jornadas()"
-          [enlacesGestion]="auth.esGestor()"
-        />
+        <div class="fases">
+          @for (grupo of datos.calendarioPorFase(); track grupo.fase.id) {
+            <div class="fase">
+              <ctp-cabecera-fase [fase]="grupo.fase" [estado]="datos.estadoDe(grupo.fase)" />
+              <ctp-calendario-fase
+                [confrontaciones]="grupo.confrontaciones"
+                [tipoFase]="grupo.fase.tipo"
+                [enlacesGestion]="auth.esGestor()"
+                textoVacio="Todavía no hay partido: el cruce lo publica la liga."
+              />
+            </div>
+          }
+        </div>
       }
     </section>
   </div>

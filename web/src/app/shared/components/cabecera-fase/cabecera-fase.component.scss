@@ -1,0 +1,60 @@
+:host {
+  display: block;
+}
+
+// El nombre de la fase en pequeño y en mayúsculas, como los títulos de jornada del grupo, con la
+// etiqueta de su estado al lado.
+.nombre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espacio-1) var(--espacio-2);
+  margin: 0;
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-1);
+  padding: 2px var(--espacio-2);
+  border: 1.5px solid var(--color-borde-fuerte);
+  border-radius: var(--radio-pildora);
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-xxs);
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+// La que se juega, en verde y con un punto que late: es la que importa ahora.
+.estado--en-juego {
+  border-color: var(--color-pista);
+  background: var(--color-pista);
+  color: var(--color-sobre-pista);
+
+  &::before {
+    content: '';
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: var(--radio-pildora);
+    background: var(--color-bola);
+    animation: latir 1.6s ease-in-out infinite;
+  }
+}
+
+.estado--proxima {
+  border-color: var(--color-bola);
+  background: var(--color-bola);
+  color: var(--color-tinta);
+}
+
+@keyframes latir {
+  50% {
+    opacity: 0.35;
+  }
+}

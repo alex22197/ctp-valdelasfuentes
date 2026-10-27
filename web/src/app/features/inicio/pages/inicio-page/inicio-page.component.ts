@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '@core/auth/auth.service';
+import { CabeceraFaseComponent } from '@shared/components/cabecera-fase/cabecera-fase.component';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
 import { TablaClasificacionComponent } from '@shared/components/tabla-clasificacion/tabla-clasificacion.component';
 import { CalendarioFaseComponent } from '../../components/calendario-fase/calendario-fase.component';
@@ -16,6 +17,7 @@ import { DatosInicioService } from '../../services/datos-inicio.service';
   imports: [
     RouterLink,
     MensajeEstadoComponent,
+    CabeceraFaseComponent,
     TablaClasificacionComponent,
     CalendarioFaseComponent,
     ConvocatoriaJornadaComponent,
