@@ -5,7 +5,7 @@ import { CompeticionesService } from '@data-access/competiciones/competiciones.s
 import { ConfrontacionesService } from '@data-access/confrontaciones/confrontaciones.service';
 import { elegirProximaConfrontacion } from '@data-access/confrontaciones/proxima-confrontacion';
 import { JugadoresService } from '@data-access/jugadores/jugadores.service';
-import { describirFechaCorta, fechaIsoEnMadrid } from '@shared/utils/fechas';
+import { fechaIsoEnMadrid } from '@shared/utils/fechas';
 
 /**
  * Datos de la página de inicio y sus dependencias: primero la fase actual, después su
@@ -49,14 +49,19 @@ export class DatosInicioService {
     elegirProximaConfrontacion(this.jornadas(), fechaIsoEnMadrid(new Date())),
   );
 
-  /** Sin calendario todavía (los retos hasta que la liga publica el cruce), cuándo empieza la fase. */
-  readonly avisoFase = computed(() => {
+  /** La fase que viene cuando todavía no tiene partido (los retos hasta que la liga publica el cruce). */
+  readonly faseSinCruce = computed(() => {
     const fase = this.fase()?.fase;
-    if (!fase || this.jornadas().length > 0 || !this.calendario.hasValue()) {
-      return null;
-    }
-    return `${fase.nombre}: ${describirFechaCorta(null, fase.inicio)}. El cruce lo publica la liga.`;
+    return fase && this.calendario.hasValue() && this.jornadas().length === 0 ? fase : null;
   });
+
+  /** Entre dos fases, el último partido jugado, para que la portada no se quede vacía. */
+  private readonly ultima = resource({
+    params: () => (this.faseSinCruce() ? this.fase()?.competicion.id : undefined),
+    loader: ({ params: idCompeticion }) => this.confrontaciones.obtenerUltimaJugada(idCompeticion),
+  });
+
+  readonly ultimoPartido = computed(() => (this.ultima.hasValue() ? this.ultima.value() : null));
 
   /** Solo la alineación publicada: un borrador del capitán no se enseña en público. */
   readonly alineacion = resource({

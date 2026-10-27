@@ -1,0 +1,20 @@
+<section class="pista" aria-labelledby="titulo-proxima-fase">
+  <h2 id="titulo-proxima-fase" class="antetitulo">Próximo partido: {{ fase().nombre }}</h2>
+
+  <p class="titular">Rival por confirmar</p>
+  <p class="explicacion">
+    El cruce lo publica la liga cuando cierra la fase anterior. En cuanto se sepa, saldrá aquí con
+    su convocatoria.
+  </p>
+
+  <ul class="detalles">
+    <li class="detalle">
+      <ctp-icono nombre="calendario" />
+      {{ cuando() }}
+    </li>
+    <li class="detalle">
+      <ctp-icono nombre="ubicacion" />
+      Sede por confirmar
+    </li>
+  </ul>
+</section>

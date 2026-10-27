@@ -1,0 +1,34 @@
+@use 'pista';
+
+:host {
+  display: block;
+  container-type: inline-size;
+}
+
+.pista {
+  @include pista.tarjeta;
+}
+
+.antetitulo {
+  @include pista.antetitulo;
+}
+
+.titular {
+  @include pista.nombre-grande;
+}
+
+.explicacion {
+  max-width: 36ch;
+  margin-top: var(--espacio-4);
+  color: var(--color-sobre-pista-suave);
+  font-size: var(--texto-s);
+  line-height: 1.45;
+}
+
+.detalles {
+  @include pista.detalles;
+}
+
+.detalle {
+  @include pista.detalle;
+}
