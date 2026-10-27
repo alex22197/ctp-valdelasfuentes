@@ -2,6 +2,14 @@ import { Injectable, computed, inject, resource } from '@angular/core';
 import { AlineacionesService } from '@data-access/alineaciones/alineaciones.service';
 import { ClasificacionService } from '@data-access/clasificacion/clasificacion.service';
 import { CompeticionesService } from '@data-access/competiciones/competiciones.service';
+import { estadoFase } from '@data-access/competiciones/estado-fase';
+import type { EstadoFase } from '@data-access/competiciones/interfaces/estado-fase.type';
+import type { Fase } from '@data-access/competiciones/interfaces/fase.interface';
+import {
+  aplanarCalendario,
+  conFaseActual,
+  ultimaJugada,
+} from '@data-access/confrontaciones/calendario-competicion';
 import { ConfrontacionesService } from '@data-access/confrontaciones/confrontaciones.service';
 import { elegirProximaConfrontacion } from '@data-access/confrontaciones/proxima-confrontacion';
 import { JugadoresService } from '@data-access/jugadores/jugadores.service';
@@ -34,34 +42,51 @@ export class DatosInicioService {
     loader: ({ params: idFase }) => this.clasificaciones.obtenerClasificacion(idFase),
   });
 
+  /** Las jornadas de toda la competición por fase: también las de las fases que ya terminaron. */
   readonly calendario = resource({
-    params: () => this.fase()?.fase.id,
-    loader: ({ params: idFase }) => this.confrontaciones.obtenerCalendarioNuestroEquipo(idFase),
+    params: () => this.fase()?.competicion.id,
+    loader: ({ params: idCompeticion }) =>
+      this.confrontaciones.obtenerCalendarioCompeticion(idCompeticion),
   });
 
-  readonly jornadas = computed(() => (this.calendario.hasValue() ? this.calendario.value() : []));
+  private readonly porFase = computed(() =>
+    this.calendario.hasValue() ? this.calendario.value() : [],
+  );
+
+  /** El calendario por fases para la portada, con la actual aunque aún no tenga partidos. */
+  readonly calendarioPorFase = computed(() => {
+    const actual = this.fase()?.fase;
+    return actual ? conFaseActual(this.porFase(), actual) : this.porFase();
+  });
+
+  readonly jornadas = computed(() => aplanarCalendario(this.porFase()));
 
   readonly filasClasificacion = computed(() =>
     this.clasificacion.hasValue() ? this.clasificacion.value() : [],
   );
 
+  /** Entre todas las fases: una aplazada de la anterior sigue siendo la próxima. */
   readonly proximaConfrontacion = computed(() =>
     elegirProximaConfrontacion(this.jornadas(), fechaIsoEnMadrid(new Date())),
   );
 
   /** La fase que viene cuando todavía no tiene partido (los retos hasta que la liga publica el cruce). */
   readonly faseSinCruce = computed(() => {
-    const fase = this.fase()?.fase;
-    return fase && this.calendario.hasValue() && this.jornadas().length === 0 ? fase : null;
+    const actual = this.fase()?.fase;
+    if (!actual || !this.calendario.hasValue()) {
+      return null;
+    }
+    const suya = this.porFase().find((grupo) => grupo.fase.id === actual.id);
+    return suya && suya.confrontaciones.length > 0 ? null : actual;
   });
 
   /** Entre dos fases, el último partido jugado, para que la portada no se quede vacía. */
-  private readonly ultima = resource({
-    params: () => (this.faseSinCruce() ? this.fase()?.competicion.id : undefined),
-    loader: ({ params: idCompeticion }) => this.confrontaciones.obtenerUltimaJugada(idCompeticion),
-  });
+  readonly ultimoPartido = computed(() => ultimaJugada(this.porFase()));
 
-  readonly ultimoPartido = computed(() => (this.ultima.hasValue() ? this.ultima.value() : null));
+  /** Si cada fase del calendario ya terminó, es la que se juega o viene después. */
+  estadoDe(fase: Fase): EstadoFase {
+    return estadoFase(fase, this.fase()?.fase ?? null);
+  }
 
   /** Solo la alineación publicada: un borrador del capitán no se enseña en público. */
   readonly alineacion = resource({

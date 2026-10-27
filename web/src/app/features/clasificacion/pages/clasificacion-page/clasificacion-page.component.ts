@@ -45,8 +45,9 @@ export class ClasificacionPageComponent {
 
   protected readonly nota = computed(() => describirActualizacion(this.filas()));
 
+  /** Las jornadas del grupo de la clasificación que se enseña: en los retos, las de la apertura. */
   protected readonly enfrentamientos = resource({
-    params: () => this.fase()?.id,
+    params: () => this.faseClasificacion()?.id,
     loader: ({ params: idFase }) => this.confrontaciones.obtenerEnfrentamientosDelGrupo(idFase),
   });
 

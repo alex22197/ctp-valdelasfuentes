@@ -13,11 +13,19 @@
 }
 
 .numero {
+  flex: none;
   width: 2.25rem;
   color: var(--color-pista);
   font-size: var(--texto-cifra);
   font-weight: 800;
   font-stretch: var(--anchura-condensada);
+}
+
+// En una eliminatoria, «Reto» en lugar del número: más pequeño para que quepa en la columna.
+.numero--texto {
+  font-size: var(--texto-s);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .datos {

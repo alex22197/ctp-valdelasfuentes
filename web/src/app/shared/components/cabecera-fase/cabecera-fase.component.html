@@ -1,0 +1,6 @@
+<h3 class="nombre">
+  {{ fase().nombre }}
+  <span class="estado" [class]="'estado--' + estado()">
+    <span class="solo-lector">, </span>{{ textoEstado[estado()] }}
+  </span>
+</h3>
