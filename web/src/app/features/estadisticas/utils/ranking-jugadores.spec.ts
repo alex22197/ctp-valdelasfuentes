@@ -70,7 +70,7 @@ describe('etiquetaRanking y describirJugadorRanking', () => {
 });
 
 describe('datosRanking', () => {
-  it('atenúa a todos menos al resaltado y pinta en naranja los juegos en contra', () => {
+  it('atenúa a todos menos al resaltado y pinta en rojo los juegos en contra', () => {
     const datos = datosRanking([sergio, rocio], 'juegos', COLORES, 's') as {
       value: number;
       itemStyle: { color: string; opacity: number };

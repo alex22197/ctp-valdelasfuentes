@@ -74,6 +74,10 @@ desde la web: Alex manda una captura de la web de la liga y Claude los carga en 
   `partidos_local`, `partidos_visitante` y `estado = 'jugada'`; los que aún no se han jugado,
   `programada` y sin marcador. Salen en Clasificación, en «Jornadas del grupo». Los nuestros no
   se tocan: su marcador sale de nuestros resultados.
+- **Fases:** cada fase lleva `inicio` y `fin`. Acabada una, la web pasa a la siguiente aunque no
+  haya empezado; en una eliminatoria (retos) enseña la última clasificación de liga con una
+  nota. Cuando la liga publique el cruce de los retos: una fila en `equipo` para el rival (si
+  no existe) y una en `confrontacion` de la fase `retos` sin `jornada`, con nosotros de local.
 - Todo lo que lee el calendario, la portada, Gestión y las estadísticas filtra los
   enfrentamientos en los que juega nuestro equipo, así que los del resto no aparecen ahí.
 

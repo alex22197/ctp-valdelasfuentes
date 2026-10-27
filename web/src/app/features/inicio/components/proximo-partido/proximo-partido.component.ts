@@ -17,4 +17,6 @@ import { SedePipe } from '@shared/pipes/sede.pipe';
 })
 export class ProximoPartidoComponent {
   readonly confrontacion = input.required<ConfrontacionNuestroEquipo>();
+  /** La fase, para presentar un partido sin número de jornada (un reto, una eliminatoria). */
+  readonly nombreFase = input<string | null>(null);
 }

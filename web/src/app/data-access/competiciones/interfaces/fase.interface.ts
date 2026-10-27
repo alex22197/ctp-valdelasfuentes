@@ -10,4 +10,6 @@ export interface Fase {
   readonly urlGrupo: string | null;
   /** Fecha de inicio en formato AAAA-MM-DD. */
   readonly inicio: string | null;
+  /** Fecha de fin en formato AAAA-MM-DD; `null` si no se sabe o no ha acabado. */
+  readonly fin: string | null;
 }

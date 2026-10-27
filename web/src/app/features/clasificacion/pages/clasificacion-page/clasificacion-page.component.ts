@@ -29,8 +29,13 @@ export class ClasificacionPageComponent {
     this.faseActual.hasValue() ? this.faseActual.value()?.fase : undefined,
   );
 
+  /** En una eliminatoria (retos), la clasificación que se enseña es la de la última liga. */
+  protected readonly faseClasificacion = computed(() =>
+    this.faseActual.hasValue() ? this.faseActual.value()?.faseClasificacion : undefined,
+  );
+
   protected readonly clasificacion = resource({
-    params: () => this.fase()?.id,
+    params: () => this.faseClasificacion()?.id,
     loader: ({ params: idFase }) => this.clasificaciones.obtenerClasificacion(idFase),
   });
 

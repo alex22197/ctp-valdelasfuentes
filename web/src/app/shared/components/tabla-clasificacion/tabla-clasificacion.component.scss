@@ -76,6 +76,7 @@ tbody th {
 // Partidos a favor y en contra juntos, «8-4»: lo que decide muchos desempates.
 .columna-partidos {
   width: 2.75rem;
+  white-space: nowrap;
   color: var(--color-tinta-tenue);
   text-align: right;
 }

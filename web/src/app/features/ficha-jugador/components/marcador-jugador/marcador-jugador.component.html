@@ -15,6 +15,13 @@
     </dd>
   </div>
 </dl>
+@if (racha(); as racha) {
+  @if (racha.largo >= 2) {
+    <p class="racha" [class.racha--derrotas]="racha.tipo === 'derrotas'">
+      {{ racha.tipo === 'victorias' ? 'En racha' : 'Mala racha' }}: {{ describirRacha(racha) }}
+    </p>
+  }
+}
 @if (r.woAFavor > 0) {
   <p class="texto-secundario">
     Además, {{ r.woAFavor === 1 ? 'un WO' : r.woAFavor + ' WO' }} a favor, que no
