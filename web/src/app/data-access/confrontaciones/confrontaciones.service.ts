@@ -35,6 +35,26 @@ export class ConfrontacionesService {
     return this.mapearConMarcadores(data ?? []);
   }
 
+  /**
+   * La última confrontación nuestra ya jugada en toda la competición, o `null`. Para la portada
+   * entre dos fases, cuando la que viene aún no tiene partido.
+   */
+  async obtenerUltimaJugada(idCompeticion: string): Promise<ConfrontacionNuestroEquipo | null> {
+    const { data, error } = await this.supabase
+      .from('confrontacion')
+      .select(`${COLUMNAS_CONFRONTACION}, fase!inner(competicion_id)`)
+      .eq('fase.competicion_id', idCompeticion)
+      .eq('estado', 'jugada')
+      // La más reciente por cuándo se jugó de verdad; si no se sabe, por el calendario.
+      .order('fecha_hora', { ascending: false, nullsFirst: false })
+      .order('fecha_prevista', { ascending: false, nullsFirst: false })
+      .order('jornada', { ascending: false, nullsFirst: false })
+      .limit(8);
+    lanzarSiHayError(error, 'No se ha podido cargar el último partido.');
+    const [ultima] = await this.mapearConMarcadores(data ?? []);
+    return ultima ?? null;
+  }
+
   /** Todos los enfrentamientos del grupo en una fase, los nuestros y los del resto. */
   async obtenerEnfrentamientosDelGrupo(idFase: string): Promise<EnfrentamientoGrupo[]> {
     const { data, error } = await this.supabase

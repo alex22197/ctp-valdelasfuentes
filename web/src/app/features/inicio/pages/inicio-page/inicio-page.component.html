@@ -32,6 +32,15 @@
           />
         }
       </section>
+    } @else if (datos.faseSinCruce(); as fase) {
+      <ctp-proxima-fase [fase]="fase" />
+
+      @if (datos.ultimoPartido(); as ultimo) {
+        <section class="seccion" aria-labelledby="titulo-ultimo">
+          <h2 id="titulo-ultimo" class="titulo-seccion">Último partido</h2>
+          <ctp-calendario-fase [confrontaciones]="[ultimo]" [enlacesGestion]="auth.esGestor()" />
+        </section>
+      }
     }
 
     <section class="seccion" aria-labelledby="titulo-clasificacion">
@@ -58,9 +67,6 @@
 
     <section class="seccion" aria-labelledby="titulo-calendario">
       <h2 id="titulo-calendario" class="titulo-seccion">Calendario</h2>
-      @if (datos.avisoFase(); as aviso) {
-        <p class="texto-secundario">{{ aviso }}</p>
-      }
       @if (datos.calendario.error()) {
         <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar el calendario." />
       } @else {
