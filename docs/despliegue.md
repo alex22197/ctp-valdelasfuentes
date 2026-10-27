@@ -21,7 +21,10 @@ pasen el linter y los tests.
    Si **Root directory** se queda vacío, Cloudflare compila desde la raíz del repositorio y
    falla con `Missing script: "build:cloudflare"`.
 
-3. Desactiva **Builds for non-production branches**: solo se publica lo que llega a `main`.
+3. En **Settings → Builds**, pestaña **Previews Base**, activa **Disable builds**: así Cloudflare
+   no compila los pushes a `develop` ni a las demás ramas, que no publican nada y solo gastan
+   minutos y llenan las pull requests de marcas rojas. En la pestaña **Production** se queda
+   apagado: solo se publica lo que llega a `main`.
 4. Guarda y despliega. La web queda en
    `https://ctp-valdelasfuentes.padel-ctp.workers.dev`.
 
