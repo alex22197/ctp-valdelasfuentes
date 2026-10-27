@@ -50,17 +50,24 @@
 
     <section class="seccion" aria-labelledby="titulo-todas">
       <h2 id="titulo-todas" class="titulo-seccion">Todas las jornadas</h2>
-      @if (datos.jornadas().length === 0) {
-        <ctp-mensaje-estado
-          tipo="vacio"
-          texto="El calendario de esta fase todavía no está publicado."
-        />
-      } @else {
-        <ul class="lista">
-          @for (jornada of datos.jornadas(); track jornada.id) {
-            <li><ctp-jornada-gestion [jornada]="jornada" /></li>
+      @for (grupo of datos.calendarioPorFase(); track grupo.fase.id) {
+        <div class="fase">
+          <ctp-cabecera-fase [fase]="grupo.fase" [estado]="datos.estadoDe(grupo.fase)" />
+          @if (grupo.confrontaciones.length === 0) {
+            <ctp-mensaje-estado
+              tipo="vacio"
+              texto="Todavía no hay partido: el cruce lo publica la liga."
+            />
+          } @else {
+            <ul class="lista">
+              @for (jornada of grupo.confrontaciones; track jornada.id) {
+                <li><ctp-jornada-gestion [jornada]="jornada" /></li>
+              }
+            </ul>
           }
-        </ul>
+        </div>
+      } @empty {
+        <ctp-mensaje-estado tipo="vacio" texto="El calendario todavía no está publicado." />
       }
     </section>
 
