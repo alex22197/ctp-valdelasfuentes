@@ -1,0 +1,61 @@
+# Tareas semanales. Por ahora, la copia de seguridad de la base de datos: la vuelca, la cifra y
+# la guarda 90 días como artefacto de la ejecución. El scraper de la liga (#10) irá aquí también.
+#
+# El repositorio es público, así que los artefactos los puede descargar cualquiera con cuenta
+# de GitHub: por eso la copia va cifrada con una clave que solo está en los secretos y en el
+# gestor de contraseñas. Cómo restaurarla, en docs/base-de-datos.md.
+name: Semanal
+
+on:
+  schedule:
+    # Miércoles a las 14:00 UTC: las 15:00 o las 16:00 en Madrid según la época del año, siempre
+    # después de las 14:00, cuando la liga ya ha publicado los resultados del fin de semana.
+    - cron: "0 14 * * 3"
+  workflow_dispatch:
+
+# Solo lee el repositorio: no publica nada ni escribe en GitHub.
+permissions:
+  contents: read
+
+jobs:
+  copia:
+    name: Copia de seguridad
+    runs-on: ubuntu-latest
+    steps:
+      - uses: supabase/setup-cli@v3
+        with:
+          version: 2.120.0
+
+      - name: Volcar la base de datos
+        # La URL es la del «Session pooler» (puerto 5432): los ejecutores no tienen IPv6 y la
+        # conexión directa a la base de datos solo va por IPv6.
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          test -n "$SUPABASE_DB_URL" || { echo 'Falta el secreto SUPABASE_DB_URL'; exit 1; }
+          mkdir copia
+          supabase db dump --db-url "$SUPABASE_DB_URL" --role-only --file copia/roles.sql
+          supabase db dump --db-url "$SUPABASE_DB_URL" --file copia/esquema.sql
+          supabase db dump --db-url "$SUPABASE_DB_URL" --data-only --use-copy --file copia/datos.sql
+          ls -l copia
+
+      - name: Cifrar
+        id: cifrar
+        env:
+          CLAVE: ${{ secrets.CLAVE_COPIA_SEGURIDAD }}
+        run: |
+          test -n "$CLAVE" || { echo 'Falta el secreto CLAVE_COPIA_SEGURIDAD'; exit 1; }
+          fecha="$(date -u +%F)"
+          tar -czf copia.tar.gz copia
+          printf '%s' "$CLAVE" | gpg --batch --yes --symmetric --cipher-algo AES256 \
+            --pinentry-mode loopback --passphrase-fd 0 \
+            --output "copia-$fecha.tar.gz.gpg" copia.tar.gz
+          rm -rf copia copia.tar.gz
+          echo "fecha=$fecha" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: copia-base-de-datos-${{ steps.cifrar.outputs.fecha }}
+          path: "*.tar.gz.gpg"
+          retention-days: 90
+          if-no-files-found: error

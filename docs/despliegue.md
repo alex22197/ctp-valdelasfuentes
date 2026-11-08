@@ -120,13 +120,15 @@ cuenta de Alex), solo si el visitante lo acepta en el aviso de cookies:
 
 ## Claves y secretos
 
-| Dato                           | Dónde vive                                          | ¿Es secreto?                       |
-| ------------------------------ | --------------------------------------------------- | ---------------------------------- |
-| URL del proyecto de Supabase   | `web/src/environments/*.ts`                         | No                                 |
-| Publishable key                | `web/src/environments/*.ts`                         | No: está pensada para ir en la web |
-| Secret key de Supabase         | Secretos de GitHub (para el scraper)                | **Sí**                             |
-| Contraseña de la base de datos | Gestor de contraseñas                               | **Sí**                             |
-| Client secret de Google        | Supabase (proveedor Google) y gestor de contraseñas | **Sí**                             |
+| Dato                           | Dónde vive                                                           | ¿Es secreto?                       |
+| ------------------------------ | -------------------------------------------------------------------- | ---------------------------------- |
+| URL del proyecto de Supabase   | `web/src/environments/*.ts`                                          | No                                 |
+| Publishable key                | `web/src/environments/*.ts`                                          | No: está pensada para ir en la web |
+| Secret key de Supabase         | Secretos de GitHub (para el scraper)                                 | **Sí**                             |
+| Contraseña de la base de datos | Gestor de contraseñas                                                | **Sí**                             |
+| URI del _session pooler_       | Secretos de GitHub (`SUPABASE_DB_URL`, para la copia)                | **Sí**: lleva la contraseña        |
+| Clave de la copia de seguridad | Secretos de GitHub (`CLAVE_COPIA_SEGURIDAD`) y gestor de contraseñas | **Sí**                             |
+| Client secret de Google        | Supabase (proveedor Google) y gestor de contraseñas                  | **Sí**                             |
 
 Los secretos nunca se escriben en el repositorio ni se comparten por chat. Si alguno se
 filtra, se regenera en su panel (Supabase o Google Cloud) y se actualiza donde se usa.
@@ -136,4 +138,5 @@ filtra, se regenera en su panel (Supabase o Google Cloud) y se actualiza donde s
 [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) se ejecuta en cada push y pull
 request: linter, formato, tests y compilación de producción. El resultado se ve en la pestaña
 **Actions** de GitHub. [Dependabot](../.github/dependabot.yml) abre pull requests cuando hay
-actualizaciones de dependencias.
+actualizaciones de dependencias. [`semanal.yml`](../.github/workflows/semanal.yml) hace cada
+miércoles la copia de seguridad de la base de datos ([base-de-datos.md](base-de-datos.md)).

@@ -86,7 +86,9 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
 - Una sola petición por semana a la web de la liga; revisar antes su aviso legal y `robots.txt`.
 - (#12) Comprobar si la web publica la lista oficial de inscritos; si es así, traerla para rellenar `plantilla.inscrito_oficial` y avisar de convocados no inscritos.
 - Si falla, no rompe nada: queda registrado y los datos se pueden corregir a mano.
-- (#11) En el mismo flujo, copia de seguridad semanal con `pg_dump`, guardada de forma privada.
+- ~~(#11) Copia de seguridad semanal~~: hecha. `semanal.yml` vuelca la base de datos cada
+  miércoles, la cifra y la guarda 90 días como artefacto; cómo restaurarla, en
+  [base-de-datos.md](base-de-datos.md). El scraper irá en ese mismo flujo.
 - La actividad semanal evita que Supabase pause el proyecto por inactividad.
 
 ## 4. Estadísticas
