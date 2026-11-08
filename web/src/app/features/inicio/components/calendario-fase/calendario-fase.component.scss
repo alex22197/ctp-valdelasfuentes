@@ -67,6 +67,11 @@
   color: var(--color-derrota-texto);
 }
 
+// Un empate no es victoria: ni verde ni rojo.
+.marcador--empate {
+  color: var(--color-tinta);
+}
+
 .condicion {
   padding: var(--espacio-1) var(--espacio-3);
   border: 1.5px solid var(--color-borde-fuerte);
