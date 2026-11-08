@@ -8,7 +8,7 @@ import type { Fase } from '@data-access/competiciones/interfaces/fase.interface'
 import {
   aplanarCalendario,
   conFaseActual,
-  ultimaJugada,
+  ultimaDisputada,
 } from '@data-access/confrontaciones/calendario-competicion';
 import { ConfrontacionesService } from '@data-access/confrontaciones/confrontaciones.service';
 import { elegirProximaConfrontacion } from '@data-access/confrontaciones/proxima-confrontacion';
@@ -80,8 +80,20 @@ export class DatosInicioService {
     return suya && suya.confrontaciones.length > 0 ? null : actual;
   });
 
-  /** Entre dos fases, el último partido jugado, para que la portada no se quede vacía. */
-  readonly ultimoPartido = computed(() => ultimaJugada(this.porFase()));
+  /**
+   * Sin próximo partido (entre dos fases, o el día después de jugar sin resultados aún), el
+   * último disputado, para que la portada no se quede vacía.
+   */
+  readonly ultimoPartido = computed(() =>
+    ultimaDisputada(this.porFase(), fechaIsoEnMadrid(new Date())),
+  );
+
+  /** El tipo de fase del último partido, para rotularlo «Reto» si no tiene número de jornada. */
+  readonly tipoFaseUltimoPartido = computed(() => {
+    const ultimo = this.ultimoPartido();
+    const grupo = this.porFase().find((g) => g.confrontaciones.some((c) => c.id === ultimo?.id));
+    return grupo?.fase.tipo ?? 'apertura';
+  });
 
   /** Si cada fase del calendario ya terminó, es la que se juega o viene después. */
   estadoDe(fase: Fase): EstadoFase {

@@ -3,7 +3,7 @@ import {
   agruparPorFase,
   aplanarCalendario,
   conFaseActual,
-  ultimaJugada,
+  ultimaDisputada,
 } from './calendario-competicion';
 import type { ConfrontacionNuestroEquipo } from './interfaces/confrontacion-nuestro-equipo.interface';
 
@@ -68,7 +68,7 @@ describe('conFaseActual', () => {
   });
 });
 
-describe('aplanarCalendario y ultimaJugada', () => {
+describe('aplanarCalendario y ultimaDisputada', () => {
   const calendario = [
     { fase: fase(1), confrontaciones: [confrontacion('j1'), confrontacion('j2')] },
     { fase: fase(2, 'retos'), confrontaciones: [confrontacion('r', 'programada')] },
@@ -78,8 +78,31 @@ describe('aplanarCalendario y ultimaJugada', () => {
     expect(aplanarCalendario(calendario).map((c) => c.id)).toEqual(['j1', 'j2', 'r']);
   });
 
-  it('la última jugada salta las que faltan por jugar', () => {
-    expect(ultimaJugada(calendario)?.id).toBe('j2');
-    expect(ultimaJugada([])).toBeNull();
+  const HOY = '2026-11-08';
+  const conReto = (cambios: Partial<ConfrontacionNuestroEquipo>): typeof calendario => [
+    calendario[0],
+    {
+      fase: fase(2, 'retos'),
+      confrontaciones: [{ ...confrontacion('r', 'programada'), ...cambios }],
+    },
+  ];
+
+  it('salta las que faltan por jugar y aún no han llegado', () => {
+    expect(ultimaDisputada(calendario, HOY)?.id).toBe('j2');
+    expect(ultimaDisputada(conReto({ fechaPrevista: '2026-11-14' }), HOY)?.id).toBe('j2');
+    expect(ultimaDisputada([], HOY)).toBeNull();
+  });
+
+  it('cuenta la de ayer aunque aún no tenga resultados', () => {
+    expect(ultimaDisputada(conReto({ fechaHora: '2026-11-07T12:30:00Z' }), HOY)?.id).toBe('r');
+  });
+
+  it('la de hoy todavía no: es el próximo partido', () => {
+    expect(ultimaDisputada(conReto({ fechaPrevista: HOY }), HOY)?.id).toBe('j2');
+  });
+
+  it('una aplazada cuyo día pasó vuelve a estar por confirmar', () => {
+    const aplazada = conReto({ estado: 'aplazada', fechaPrevista: '2026-11-07' });
+    expect(ultimaDisputada(aplazada, HOY)?.id).toBe('j2');
   });
 });

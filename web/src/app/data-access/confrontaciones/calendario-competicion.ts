@@ -1,6 +1,7 @@
 import type { Fase } from '@data-access/competiciones/interfaces/fase.interface';
 import type { CalendarioDeFase } from './interfaces/calendario-de-fase.interface';
 import type { ConfrontacionNuestroEquipo } from './interfaces/confrontacion-nuestro-equipo.interface';
+import { ESTADOS_POR_JUGAR, diaDeJuego } from './proxima-confrontacion';
 
 /**
  * Reparte las confrontaciones de toda la competición por fase, con las fases en su orden. Las
@@ -41,13 +42,25 @@ export function aplanarCalendario(
   return calendario.flatMap((grupo) => grupo.confrontaciones);
 }
 
-/** La última confrontación ya jugada de toda la competición, o `null`. */
-export function ultimaJugada(
+/**
+ * La última confrontación ya disputada de toda la competición, o `null`: una jugada (o
+ * perdida por WO) o una por jugar cuyo día ya pasó, a la que solo le faltan los resultados.
+ * Una aplazada cuyo día pasó no cuenta, porque vuelve a estar por confirmar. `hoy` es
+ * AAAA-MM-DD en Madrid.
+ */
+export function ultimaDisputada(
   calendario: readonly CalendarioDeFase[],
+  hoy: string,
 ): ConfrontacionNuestroEquipo | null {
   return (
     aplanarCalendario(calendario)
-      .filter((confrontacion) => confrontacion.estado === 'jugada')
+      .filter((confrontacion) => {
+        if (!ESTADOS_POR_JUGAR.includes(confrontacion.estado)) {
+          return true;
+        }
+        const dia = diaDeJuego(confrontacion, hoy);
+        return dia !== null && dia < hoy;
+      })
       .at(-1) ?? null
   );
 }
