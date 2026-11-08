@@ -6,13 +6,8 @@ import {
   setsFormularioDesde,
 } from './formulario-resultado';
 
-function fila(
-  juegosNuestros: string,
-  juegosRival: string,
-  tiebreakNuestros = '',
-  tiebreakRival = '',
-): SetFormulario {
-  return { juegosNuestros, juegosRival, tiebreakNuestros, tiebreakRival };
+function fila(juegosNuestros: string, juegosRival: string): SetFormulario {
+  return { juegosNuestros, juegosRival };
 }
 
 const vacia = fila('', '');
@@ -32,13 +27,14 @@ describe('construirMarcador', () => {
     expect(Number.isNaN(marcador.sets[1]?.juegosNuestros)).toBe(true);
   });
 
-  it('solo tiene en cuenta el tie-break si el set acaba 7-6', () => {
-    const marcador = construirMarcador('normal', null, [
-      fila('7', '6', '7', '3'),
-      fila('6', '4', '7', '3'),
-    ]);
-    expect(marcador.sets[0]?.tiebreakNuestros).toBe(7);
-    expect(marcador.sets[1]?.tiebreakNuestros).toBeNull();
+  it('un 7-6 se guarda sin puntos de tie-break', () => {
+    const marcador = construirMarcador('normal', null, [fila('7', '6'), fila('6', '4')]);
+    expect(marcador.sets[0]).toEqual({
+      juegosNuestros: 7,
+      juegosRival: 6,
+      tiebreakNuestros: null,
+      tiebreakRival: null,
+    });
   });
 
   it('no envía sets en un WO ni el ganador fuera de un abandono', () => {
@@ -56,7 +52,7 @@ describe('setsFormularioDesde', () => {
     const filas = setsFormularioDesde([
       { juegosNuestros: 7, juegosRival: 6, tiebreakNuestros: 7, tiebreakRival: 5 },
     ]);
-    expect(filas).toEqual([fila('7', '6', '7', '5'), vacia, vacia]);
+    expect(filas).toEqual([fila('7', '6'), vacia, vacia]);
   });
 });
 

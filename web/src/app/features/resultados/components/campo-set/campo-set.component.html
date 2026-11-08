@@ -35,36 +35,6 @@
     </label>
   </div>
 
-  @if (hayTiebreak()) {
-    <div class="marcador marcador--tiebreak">
-      <label class="campo">
-        <span class="etiqueta">Tie-break nosotros</span>
-        <input
-          class="numero"
-          type="number"
-          [attr.aria-invalid]="error() ? true : null"
-          inputmode="numeric"
-          min="0"
-          [value]="valor().tiebreakNuestros"
-          (input)="cambiar('tiebreakNuestros', $event)"
-        />
-      </label>
-      <span class="guion" aria-hidden="true">–</span>
-      <label class="campo">
-        <span class="etiqueta">Tie-break rival</span>
-        <input
-          class="numero"
-          type="number"
-          [attr.aria-invalid]="error() ? true : null"
-          inputmode="numeric"
-          min="0"
-          [value]="valor().tiebreakRival"
-          (input)="cambiar('tiebreakRival', $event)"
-        />
-      </label>
-    </div>
-  }
-
   <!-- Siempre presente para que el error se anuncie al aparecer mientras se escribe. -->
   <div aria-live="polite">
     @if (error(); as mensaje) {

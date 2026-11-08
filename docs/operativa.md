@@ -43,7 +43,7 @@ Si cambias una convocatoria ya publicada, se ve en la portada en cuanto la guard
 2. En **Resultados por meter** (o en **Todas las jornadas**), pulsa **Meter resultados** en la
    jornada. También está en el **Calendario** del **Inicio**.
 3. En cada partido elige cómo terminó (Jugado, WO a favor, WO en contra, Abandono o
-   Suspendido), escribe los juegos de cada set (y el tie-break si un set acaba 7-6) y pulsa
+   Suspendido), escribe los juegos de cada set (en un 7-6 no hace falta el tie-break) y pulsa
    **Guardar**. Cada partido se guarda por separado.
 4. Cuando los seis tienen resultado, la jornada pasa a «jugada», el marcador aparece en el
    calendario y la portada muestra el siguiente partido.

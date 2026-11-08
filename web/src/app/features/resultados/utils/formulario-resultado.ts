@@ -2,7 +2,6 @@ import type { JugadorAlineado } from '@data-access/alineaciones/interfaces/jugad
 import type { MarcadorPartido } from '@data-access/resultados/interfaces/marcador-partido.interface';
 import type { SetPartido } from '@data-access/resultados/interfaces/set-partido.interface';
 import type { TipoResultadoPartido } from '@data-access/resultados/interfaces/tipo-resultado-partido.type';
-import { setConTiebreak } from '@data-access/resultados/validar-marcador';
 import type { OpcionResultado } from '../interfaces/opcion-resultado.interface';
 import type { SetFormulario } from '../interfaces/set-formulario.interface';
 
@@ -18,12 +17,7 @@ export const OPCIONES_RESULTADO: readonly OpcionResultado[] = [
   { valor: 'suspendido', etiqueta: 'Suspendido' },
 ];
 
-const SET_VACIO: SetFormulario = {
-  juegosNuestros: '',
-  juegosRival: '',
-  tiebreakNuestros: '',
-  tiebreakRival: '',
-};
+const SET_VACIO: SetFormulario = { juegosNuestros: '', juegosRival: '' };
 
 /** Los WO y los partidos por jugar no tienen sets. */
 export function resultadoLlevaSets(resultado: TipoResultadoPartido | null): boolean {
@@ -52,8 +46,6 @@ export function setsFormularioDesde(sets: readonly SetPartido[]): SetFormulario[
     return {
       juegosNuestros: String(set.juegosNuestros),
       juegosRival: String(set.juegosRival),
-      tiebreakNuestros: set.tiebreakNuestros === null ? '' : String(set.tiebreakNuestros),
-      tiebreakRival: set.tiebreakRival === null ? '' : String(set.tiebreakRival),
     };
   });
 }
@@ -62,7 +54,7 @@ export function setsFormularioDesde(sets: readonly SetPartido[]): SetFormulario[
  * Convierte lo escrito en el formulario en el marcador que se guarda:
  * - Las filas vacías del final no cuentan; una vacía entre dos rellenas queda como set sin
  *   juegos para que la validación la señale.
- * - El tie-break solo se tiene en cuenta si el set acaba 7-6.
+ * - Sin puntos de tie-break: no se apuntan, y al guardar se quedan vacíos.
  * - Quién ganó solo se envía en los abandonos.
  */
 export function construirMarcador(
@@ -96,22 +88,15 @@ function filaVacia(set: SetFormulario): boolean {
 }
 
 function convertirSet(set: SetFormulario): SetPartido {
-  const juegosNuestros = aNumero(set.juegosNuestros);
-  const juegosRival = aNumero(set.juegosRival);
-  const conTiebreak = setConTiebreak(juegosNuestros, juegosRival);
   return {
-    juegosNuestros,
-    juegosRival,
-    tiebreakNuestros: conTiebreak ? aNumeroONulo(set.tiebreakNuestros) : null,
-    tiebreakRival: conTiebreak ? aNumeroONulo(set.tiebreakRival) : null,
+    juegosNuestros: aNumero(set.juegosNuestros),
+    juegosRival: aNumero(set.juegosRival),
+    tiebreakNuestros: null,
+    tiebreakRival: null,
   };
 }
 
 /** Un campo vacío da `NaN`, que la validación señala como «faltan los juegos». */
 function aNumero(texto: string): number {
   return texto.trim() === '' ? Number.NaN : Number(texto);
-}
-
-function aNumeroONulo(texto: string): number | null {
-  return texto.trim() === '' ? null : Number(texto);
 }
