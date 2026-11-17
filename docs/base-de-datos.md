@@ -5,24 +5,24 @@ PostgreSQL gestionado por Supabase (región West EU, Irlanda). El esquema está 
 
 ## Tablas
 
-| Tabla               | Qué guarda                                                                                                 | Pública        |
-| ------------------- | ---------------------------------------------------------------------------------------------------------- | -------------- |
-| `competicion`       | Una liga en una temporada y su formato (partidos de cada tipo).                                            | Sí             |
-| `fase`              | Apertura, retos, clausura, play-off… con la URL de su grupo en la web de la liga.                          | Sí             |
-| `equipo`            | Equipos del grupo. `nombre_web` es el texto exacto de la liga, para el scraper.                            | Sí             |
-| `fase_equipo`       | Clasificación oficial de cada grupo, con los partidos a favor y en contra.                                 | Sí             |
-| `jugador`           | Nombre para mostrar, sexo y lado preferido.                                                                | Sí             |
-| `jugador_privado`   | Nombre completo.                                                                                           | **No**         |
-| `plantilla`         | Quién está inscrito en cada competición y si es comodín.                                                   | Sí             |
-| `confrontacion`     | Cada jornada entre dos equipos: fecha, sede, estado, resultado global y si su convocatoria está publicada. | Sí             |
-| `disponibilidad`    | Quién fue convocado. La columna `respuesta` (encuesta) ya no se usa: ADR 0012.                             | **No**         |
-| `partido`           | Los 6 partidos de cada confrontación de nuestro equipo.                                                    | Sí             |
-| `set_partido`       | Marcador de cada set, con el tie-break si lo hubo.                                                         | Sí             |
-| `participacion`     | Quién jugó cada partido y en qué lado.                                                                     | Sí             |
-| `perfil`            | Rol (admin o capitán) de cada usuario con permisos. Siempre queda al menos un admin (trigger).             | Solo el propio |
-| `invitacion_gestor` | Correos de Google invitados a gestionar que aún no han entrado; se borra al entrar. Solo por funciones.    | **No**         |
-| `cuenta_revisada`   | Cuentas que el admin descartó como gestores o a las que quitó el permiso: no vuelven a pendientes.         | **No**         |
-| `ejecucion_scraper` | Registro de cada ejecución del scraper.                                                                    | **No**         |
+| Tabla               | Qué guarda                                                                                                                                                          | Pública        |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `competicion`       | Una liga en una temporada y su formato (partidos de cada tipo).                                                                                                     | Sí             |
+| `fase`              | Apertura, retos, clausura, play-off… con la URL de su grupo en la web de la liga.                                                                                   | Sí             |
+| `equipo`            | Equipos del grupo. `nombre_web` es el texto exacto de la liga, para el scraper; `sede`, la fija del equipo, que la web usa en sus jornadas en casa sin sede propia. | Sí             |
+| `fase_equipo`       | Clasificación oficial de cada grupo, con los partidos a favor y en contra.                                                                                          | Sí             |
+| `jugador`           | Nombre para mostrar, sexo y lado preferido.                                                                                                                         | Sí             |
+| `jugador_privado`   | Nombre completo.                                                                                                                                                    | **No**         |
+| `plantilla`         | Quién está inscrito en cada competición y si es comodín.                                                                                                            | Sí             |
+| `confrontacion`     | Cada jornada entre dos equipos: fecha, sede, estado, resultado global y si su convocatoria está publicada.                                                          | Sí             |
+| `disponibilidad`    | Quién fue convocado. La columna `respuesta` (encuesta) ya no se usa: ADR 0012.                                                                                      | **No**         |
+| `partido`           | Los 6 partidos de cada confrontación de nuestro equipo.                                                                                                             | Sí             |
+| `set_partido`       | Marcador de cada set, con el tie-break si lo hubo.                                                                                                                  | Sí             |
+| `participacion`     | Quién jugó cada partido y en qué lado.                                                                                                                              | Sí             |
+| `perfil`            | Rol (admin o capitán) de cada usuario con permisos. Siempre queda al menos un admin (trigger).                                                                      | Solo el propio |
+| `invitacion_gestor` | Correos de Google invitados a gestionar que aún no han entrado; se borra al entrar. Solo por funciones.                                                             | **No**         |
+| `cuenta_revisada`   | Cuentas que el admin descartó como gestores o a las que quitó el permiso: no vuelven a pendientes.                                                                  | **No**         |
+| `ejecucion_scraper` | Registro de cada ejecución del scraper.                                                                                                                             | **No**         |
 
 Vistas:
 

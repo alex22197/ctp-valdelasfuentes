@@ -1,8 +1,13 @@
 import { type FilaConfrontacion, mapearConfrontacionNuestroEquipo } from './confrontacion.mapper';
 
-const nosotros = { id: 'ctpa', nombre: 'CTPA Valdelasfuentes', es_nuestro: true };
-const soto = { id: 'soto', nombre: 'Soto Torrejón', es_nuestro: false };
-const padelgon = { id: 'padelgon', nombre: 'Padelgon "C"', es_nuestro: false };
+const nosotros = {
+  id: 'ctpa',
+  nombre: 'CTPA Valdelasfuentes',
+  es_nuestro: true,
+  sede: 'https://maps.app.goo.gl/ciudad-deportiva',
+};
+const soto = { id: 'soto', nombre: 'Soto Torrejón', es_nuestro: false, sede: null };
+const padelgon = { id: 'padelgon', nombre: 'Padelgon "C"', es_nuestro: false, sede: null };
 
 function fila(cambios: Partial<FilaConfrontacion> = {}): FilaConfrontacion {
   return {
@@ -23,6 +28,16 @@ function fila(cambios: Partial<FilaConfrontacion> = {}): FilaConfrontacion {
 }
 
 describe('mapearConfrontacionNuestroEquipo', () => {
+  it('en casa sin sede propia usa la fija del equipo; con sede propia, manda esa', () => {
+    const enCasa = fila({ local: nosotros, visitante: soto });
+    expect(mapearConfrontacionNuestroEquipo(enCasa)?.sede).toBe(
+      'https://maps.app.goo.gl/ciudad-deportiva',
+    );
+    const enOtroSitio = fila({ local: nosotros, visitante: soto, sede: 'Pistas del instituto' });
+    expect(mapearConfrontacionNuestroEquipo(enOtroSitio)?.sede).toBe('Pistas del instituto');
+    expect(mapearConfrontacionNuestroEquipo(fila())?.sede).toBeNull();
+  });
+
   it('identifica al rival y que jugamos fuera', () => {
     const resultado = mapearConfrontacionNuestroEquipo(fila());
     expect(resultado?.rival.nombre).toBe('Soto Torrejón');
