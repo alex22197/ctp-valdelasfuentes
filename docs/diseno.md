@@ -82,6 +82,19 @@ clasificación, calendario y nombres.
 - Los comodines salen aparte, con «No tienen ficha pública», y sin enlace salvo para los
   gestores.
 
+**Plantilla, gestión** (construida; solo gestores, en `/gestion/plantilla`)
+
+- Es un vestuario: una lista de una columna, no tarjetas. Chicos, chicas y comodines (con las
+  iniciales en lima, como el mixto) y, plegadas al final, las bajas. Cada fila: iniciales,
+  nombre corto, nombre completo en gris, su lado y los avisos que importan («Sin inscribir»).
+- Tocar una fila, o **Nuevo jugador**, abre una hoja que sube desde abajo (`ctp-hoja`, el
+  mismo gesto que el selector de la convocatoria) con el formulario.
+- El lado preferido se elige **tocando media pista dibujada**: revés a la izquierda, drive a la
+  derecha, con la bola amarilla en el lado elegido; tocarlo otra vez lo quita.
+- Chicos/Chicas e Inscrito son botones de una pieza; comodín, un interruptor. Cada campo lleva
+  una frase que dice para qué sirve.
+- Dar de baja va abajo, discreto, con confirmación en dos pasos. No se borra a nadie.
+
 **Ficha de jugador** (construida; pública, en `/jugadores/:id`)
 
 - Nombre en grande y una frase con los partidos en los que juega y su lado habitual: el

@@ -1,7 +1,12 @@
 <header class="cabecera">
-  <h1 class="titulo-pagina">Plantilla</h1>
-  @if (competicion.hasValue() && competicion.value(); as competicion) {
-    <p class="texto-secundario">{{ competicion.nombre }} {{ competicion.temporada }}</p>
+  <div>
+    <h1 class="titulo-pagina">Plantilla</h1>
+    @if (competicion.hasValue() && competicion.value(); as competicion) {
+      <p class="texto-secundario">{{ competicion.nombre }} {{ competicion.temporada }}</p>
+    }
+  </div>
+  @if (enlazarComodines()) {
+    <a class="boton" routerLink="/gestion/plantilla">Editar la plantilla</a>
   }
 </header>
 

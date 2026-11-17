@@ -1,0 +1,52 @@
+<ng-template #fila let-jugador>
+  <li>
+    <button type="button" class="fila" (click)="editar.emit(jugador)">
+      <span class="avatar" [class.avatar--comodin]="jugador.comodin" aria-hidden="true">
+        {{ iniciales(jugador.nombreMostrar) }}
+      </span>
+      <span class="nombres">
+        <span class="nombre">{{ jugador.nombreMostrar }}</span>
+        @if (jugador.nombreCompleto) {
+          <span class="completo">{{ jugador.nombreCompleto }}</span>
+        }
+      </span>
+      <span class="datos">
+        @if (lado(jugador); as lado) {
+          <span class="lado">{{ lado }}</span>
+        }
+        @if (jugador.inscritoOficial === false) {
+          <span class="aviso">Sin inscribir</span>
+        } @else if (jugador.comodin && jugador.inscritoOficial === null) {
+          <span class="pendiente">Inscripción sin comprobar</span>
+        }
+      </span>
+      <span class="solo-lector">, editar</span>
+    </button>
+  </li>
+</ng-template>
+
+@for (seccion of secciones(); track seccion.titulo) {
+  <section class="grupo">
+    <h2 class="titulo-seccion">
+      {{ seccion.titulo }} <span class="cuenta">{{ seccion.jugadores.length }}</span>
+    </h2>
+    <ul class="filas">
+      @for (jugador of seccion.jugadores; track jugador.id) {
+        <ng-container *ngTemplateOutlet="fila; context: { $implicit: jugador }" />
+      }
+    </ul>
+  </section>
+}
+
+@if (grupos().bajas.length > 0) {
+  <details class="grupo grupo--bajas">
+    <summary class="titulo-seccion">
+      De baja <span class="cuenta">{{ grupos().bajas.length }}</span>
+    </summary>
+    <ul class="filas">
+      @for (jugador of grupos().bajas; track jugador.id) {
+        <ng-container *ngTemplateOutlet="fila; context: { $implicit: jugador }" />
+      }
+    </ul>
+  </details>
+}

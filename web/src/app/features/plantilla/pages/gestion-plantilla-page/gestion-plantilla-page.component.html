@@ -1,0 +1,51 @@
+<header class="cabecera">
+  <div>
+    <h1 class="titulo-pagina">Plantilla del equipo</h1>
+    @if (datos.competicion.hasValue() && datos.competicion.value(); as competicion) {
+      <p class="texto-secundario">{{ competicion.nombre }} {{ competicion.temporada }}</p>
+    }
+  </div>
+  @if (datos.estado() === 'lista') {
+    <button type="button" class="boton boton--principal" (click)="datos.abrir('nuevo')">
+      Nuevo jugador
+    </button>
+  }
+</header>
+
+@switch (datos.estado()) {
+  @case ('cargando') {
+    <ctp-mensaje-estado tipo="cargando" texto="Cargando la plantilla…" esqueleto="jugadores" />
+  }
+  @case ('error') {
+    <ctp-mensaje-estado
+      tipo="error"
+      texto="No se ha podido cargar la plantilla. Recarga la página para volver a intentarlo."
+    />
+  }
+  @case ('sin-competicion') {
+    <ctp-mensaje-estado tipo="vacio" texto="Ahora mismo no hay ninguna temporada en marcha." />
+  }
+  @default {
+    @if (datos.vacia()) {
+      <ctp-mensaje-estado
+        tipo="vacio"
+        texto="Todavía no hay nadie en la plantilla. Empieza por quien juegue la primera jornada."
+      />
+    } @else {
+      <p class="explicacion texto-secundario">
+        Toca a un jugador para cambiar sus datos o darlo de baja.
+      </p>
+      <ctp-lista-gestion-plantilla [grupos]="datos.grupos()" (editar)="datos.abrir($event)" />
+    }
+  }
+}
+
+<ctp-hoja [abierto]="datos.editando() !== null" [titulo]="tituloHoja()" (cerrar)="datos.cerrar()">
+  <ctp-formulario-jugador
+    [jugador]="jugadorEditando()"
+    [estado]="datos.guardado.estado()"
+    [estadoBaja]="datos.cambioDeBaja.estado()"
+    (guardar)="datos.guardar($event)"
+    (cambiarBaja)="jugadorEditando() && datos.cambiarBaja(jugadorEditando()!, $event)"
+  />
+</ctp-hoja>

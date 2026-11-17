@@ -57,6 +57,15 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'gestion/plantilla',
+    title: 'Plantilla del equipo',
+    canActivate: [gestorGuard],
+    loadComponent: () =>
+      import('@features/plantilla/pages/gestion-plantilla-page/gestion-plantilla-page.component').then(
+        (m) => m.GestionPlantillaPageComponent,
+      ),
+  },
+  {
     path: 'plantilla',
     title: 'Plantilla',
     loadComponent: () =>

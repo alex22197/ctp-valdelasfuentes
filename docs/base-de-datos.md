@@ -75,6 +75,8 @@ Vistas de estadísticas (#13). Todos los cálculos se hacen aquí; la web solo l
 | `guardar_respuesta_encuesta` | Sin uso desde el ADR 0012. Guarda lo que un jugador respondió a la encuesta de una jornada (Sí o No) sin tocar si está convocado. Volver a «sin responder» borra la fila, salvo que el jugador ya esté convocado: entonces solo vacía la respuesta. | Gestores              |
 | `guardar_alineacion`         | Guarda todas las parejas de una confrontación en una sola transacción: crea los partidos que falten, sustituye las participaciones y marca como convocados a los colocados ([ADR 0009](decisiones/0009-convocados-son-los-de-la-alineacion.md)).    | Gestores              |
 | `publicar_convocatoria`      | Publica la convocatoria para que se vea en la portada, o la devuelve a borrador.                                                                                                                                                                    | Gestores              |
+| `guardar_jugador`            | Crea o cambia un jugador (nombre corto, sexo, lado), su nombre completo privado y su fila en la plantilla de la competición, en una sola transacción. Rechaza nombres repetidos y cambiar el sexo de quien ya ha jugado.                            | Gestores              |
+| `cambiar_baja_jugador`       | Da de baja a un jugador de la plantilla (con la fecha de hoy) o lo reincorpora.                                                                                                                                                                     | Gestores              |
 | `listar_gestores`            | Gestores con su correo, nombre y papel, y las invitaciones pendientes.                                                                                                                                                                              | Admin                 |
 | `dar_permiso_gestor`         | Da o cambia el papel a un correo. Si esa cuenta de Google ya existe (correo confirmado e identidad de Google), al momento; si no, queda invitada. Nadie cambia su propio permiso.                                                                   | Admin                 |
 | `quitar_permiso_gestor`      | Quita el permiso o la invitación de un correo y deja la cuenta revisada, para que no vuelva a pendientes. Nadie se quita a sí mismo.                                                                                                                | Admin                 |
@@ -207,6 +209,7 @@ Reglas:
 | `20261023091214_cuentas_pendientes.sql`              | Tabla `cuenta_revisada`, `listar_cuentas_pendientes` y `descartar_cuenta`; quitar un permiso deja la cuenta revisada.                    |
 | `20261023095104_partidos_en_clasificacion.sql`       | Columnas `partidos_favor` y `partidos_contra` en `fase_equipo` (P. Favor y P. Contra de la liga).                                        |
 | `20261023124526_estadistica_partido_equipo.sql`      | Vista `estadistica_partido_equipo`: cada partido del equipo con sus sets, para casa y fuera y partidos ajustados.                        |
+| `20261117140000_gestion_de_plantilla.sql`            | Funciones `guardar_jugador` y `cambiar_baja_jugador` para gestionar la plantilla desde la web (#8).                                      |
 
 ## Pendiente
 
