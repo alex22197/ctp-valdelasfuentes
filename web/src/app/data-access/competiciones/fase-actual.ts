@@ -2,7 +2,7 @@ import type { Fase } from './interfaces/fase.interface';
 import type { TipoFase } from './interfaces/tipo-fase.type';
 
 /** Las fases que son una liga con clasificación; el resto son eliminatorias. */
-const TIPOS_CON_CLASIFICACION: readonly TipoFase[] = ['apertura', 'clausura'];
+export const TIPOS_CON_CLASIFICACION: readonly TipoFase[] = ['apertura', 'clausura'];
 
 /**
  * Elige la fase en curso (`hoyIso` va en formato AAAA-MM-DD):

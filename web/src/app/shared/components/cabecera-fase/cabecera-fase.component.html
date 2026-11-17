@@ -1,6 +1,12 @@
-<h3 class="nombre">
+<ng-template #contenido>
   {{ fase().nombre }}
   <span class="estado" [class]="'estado--' + estado()">
     <span class="solo-lector">, </span>{{ textoEstado[estado()] }}
   </span>
-</h3>
+</ng-template>
+
+@if (nivel() === 2) {
+  <h2 class="nombre"><ng-container [ngTemplateOutlet]="contenido" /></h2>
+} @else {
+  <h3 class="nombre"><ng-container [ngTemplateOutlet]="contenido" /></h3>
+}
