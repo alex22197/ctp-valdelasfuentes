@@ -1,0 +1,130 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-8);
+}
+
+.grupo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+}
+
+.cuenta {
+  margin-left: var(--espacio-1);
+  color: var(--color-tinta-tenue);
+  font-weight: 500;
+}
+
+.filas {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// Una fila por jugador, entera táctil, separada por una línea: es una lista, no tarjetas.
+.fila {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--espacio-3);
+  align-items: center;
+  width: 100%;
+  min-height: 3.5rem;
+  padding: var(--espacio-2) var(--espacio-2);
+  border: 0;
+  border-bottom: 1px solid var(--color-borde);
+  border-radius: 0;
+  background: none;
+  color: var(--color-tinta);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--duracion-rapida);
+
+  &:hover {
+    background: var(--color-pista-suave);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-pista);
+    outline-offset: -2px;
+  }
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--color-pista);
+  color: var(--color-sobre-pista);
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+}
+
+// Los comodines, con el lima del escudo, como el mixto en las alineaciones.
+.avatar--comodin {
+  background: var(--color-mixto);
+  color: var(--color-tinta);
+}
+
+.nombres {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.nombre {
+  overflow: hidden;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.completo {
+  overflow: hidden;
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.datos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  font-size: var(--texto-xs);
+  text-align: right;
+}
+
+.lado {
+  color: var(--color-tinta-tenue);
+  font-weight: 600;
+}
+
+.aviso {
+  color: var(--color-derrota-texto);
+  font-weight: 700;
+}
+
+.pendiente {
+  color: var(--color-tinta-tenue);
+}
+
+// Las bajas, plegadas: no estorban, pero siguen ahí para reincorporarlas.
+.grupo--bajas summary {
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-pista);
+    outline-offset: 2px;
+  }
+}
+
+.grupo--bajas .avatar {
+  background: var(--color-borde-fuerte);
+  color: var(--color-tinta-suave);
+}

@@ -3,8 +3,21 @@
 Qué hay que hacer cada semana de jornada y las tareas de administración puntuales.
 
 > La **convocatoria** y los **resultados** ya están en la web. La encuesta de quién puede ir se
-> hace en WhatsApp y no se pasa a la web. La plantilla aún se
-> edita desde el **Table Editor** de Supabase.
+> hace en WhatsApp y no se pasa a la web. La plantilla se gestiona desde la web.
+
+## Dar de alta o cambiar un jugador
+
+1. Entra con tu cuenta de gestor, pulsa **Gestión** y, en **Plantilla**, **Gestionar la
+   plantilla** (también desde la página pública de Plantilla, con **Editar la plantilla**).
+2. **Nuevo jugador** abre la hoja: el nombre corto (el que sale en la web), el nombre completo
+   (privado, para la imagen de la convocatoria), si juega con los chicos o con las chicas, su
+   lado preferido tocando la media pista, si es comodín y si está inscrito en la liga.
+3. Para cambiar algo, toca al jugador en la lista. Ahí mismo está **Dar de baja**: deja de salir
+   en la plantilla y no se puede convocar, pero se conservan sus partidos y se puede
+   reincorporar desde **De baja**. Borrar jugadores no se puede desde la web.
+
+Un comodín sin inscripción comprobada sale avisado en la lista: antes de convocarlo, mira la
+lista oficial de la liga y marca **Inscrito: Sí**.
 
 ## Poner la fecha, la hora y la sede
 
@@ -86,7 +99,7 @@ desde la web: Alex manda una captura de la web de la liga y Claude los carga en 
 ## Comodines
 
 Jugadores que no son de la plantilla habitual pero cubren huecos (por ejemplo, Jess en la
-jornada 1). Están en `plantilla` con `comodin = true`:
+jornada 1). Se marcan como comodín al darlos de alta en **Gestión → Plantilla**:
 
 - Aparecen en alineaciones y resultados.
 - Al convocar salen aparte, después de la plantilla.

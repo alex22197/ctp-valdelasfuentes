@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, resource } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '@core/auth/auth.service';
 import { CompeticionesService } from '@data-access/competiciones/competiciones.service';
 import { EstadisticasService } from '@data-access/estadisticas/estadisticas.service';
@@ -10,7 +11,7 @@ import { agruparPlantilla } from '../../utils/agrupar-plantilla';
 /** Plantilla pública del equipo: cada jugador lleva a su ficha. */
 @Component({
   selector: 'ctp-plantilla-page',
-  imports: [MensajeEstadoComponent, ListaPlantillaComponent],
+  imports: [RouterLink, MensajeEstadoComponent, ListaPlantillaComponent],
   templateUrl: './plantilla-page.component.html',
   styleUrl: './plantilla-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

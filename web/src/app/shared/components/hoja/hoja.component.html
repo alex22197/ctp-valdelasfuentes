@@ -1,0 +1,22 @@
+<!-- El clic en el propio <dialog> es el fondo oscuro; Escape llega por el evento «cancel». -->
+<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+<dialog
+  #dialogo
+  class="hoja"
+  [attr.aria-labelledby]="idTitulo"
+  (cancel)="cancelar($event)"
+  (click)="tocarFondo($event)"
+>
+  <div class="contenido">
+    <header class="cabecera">
+      <span class="asa" aria-hidden="true"></span>
+      <div class="fila-titulo">
+        <h2 #tituloElemento [id]="idTitulo" class="titulo" tabindex="-1">{{ titulo() }}</h2>
+        <button type="button" class="cerrar" (click)="cerrar.emit()">Cerrar</button>
+      </div>
+    </header>
+    <div class="cuerpo">
+      <ng-content />
+    </div>
+  </div>
+</dialog>

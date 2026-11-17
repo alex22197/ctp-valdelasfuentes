@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '@core/auth/auth.service';
 import { DatosJornadaComponent } from '@shared/components/datos-jornada/datos-jornada.component';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
@@ -17,6 +18,7 @@ import { GestoresGestionService } from '../../services/gestores-gestion.service'
 @Component({
   selector: 'ctp-gestion-page',
   imports: [
+    RouterLink,
     CabeceraFaseComponent,
     DatosJornadaComponent,
     MensajeEstadoComponent,

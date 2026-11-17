@@ -1,0 +1,32 @@
+<fieldset class="selector">
+  <legend class="etiqueta">Lado preferido</legend>
+  <div class="pista">
+    <button
+      type="button"
+      class="lado"
+      [class.lado--elegido]="valor() === 'reves'"
+      [attr.aria-pressed]="valor() === 'reves'"
+      (click)="elegir('reves')"
+    >
+      <span class="nombre">Revés</span>
+      <span class="posicion">izquierda</span>
+    </button>
+    <button
+      type="button"
+      class="lado"
+      [class.lado--elegido]="valor() === 'drive'"
+      [attr.aria-pressed]="valor() === 'drive'"
+      (click)="elegir('drive')"
+    >
+      <span class="nombre">Drive</span>
+      <span class="posicion">derecha</span>
+    </button>
+  </div>
+  <p class="ayuda">
+    @if (valor()) {
+      Toca el mismo lado para quitarlo.
+    } @else {
+      Si juega igual de los dos, déjalo sin marcar.
+    }
+  </p>
+</fieldset>

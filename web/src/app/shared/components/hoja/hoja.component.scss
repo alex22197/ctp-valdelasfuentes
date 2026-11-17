@@ -1,0 +1,131 @@
+@use 'breakpoints' as bp;
+
+// Hoja inferior en el móvil: ocupa el ancho, sube desde abajo y deja ver la página arriba.
+.hoja {
+  width: 100%;
+  max-width: 100%;
+  max-height: 90dvh;
+  margin: auto 0 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radio-pista) var(--radio-pista) 0 0;
+  background: var(--color-fondo);
+  box-shadow: var(--sombra-panel);
+  color: var(--color-tinta);
+  overscroll-behavior: contain;
+  translate: 0 100%;
+  transition:
+    translate var(--duracion-media) var(--curva-salida),
+    overlay var(--duracion-media) allow-discrete,
+    display var(--duracion-media) allow-discrete;
+
+  &[open] {
+    translate: 0 0;
+
+    @starting-style {
+      translate: 0 100%;
+    }
+  }
+
+  &::backdrop {
+    background: transparent;
+    transition:
+      background-color var(--duracion-media),
+      overlay var(--duracion-media) allow-discrete,
+      display var(--duracion-media) allow-discrete;
+  }
+
+  &[open]::backdrop {
+    background: var(--color-velo);
+
+    @starting-style {
+      background: transparent;
+    }
+  }
+
+  // En pantallas grandes, ventana centrada que aparece con un leve zoom.
+  @include bp.desde(tablet) {
+    width: min(36rem, 100% - 2 * var(--espacio-8));
+    max-height: 85dvh;
+    margin: auto;
+    border-radius: var(--radio-pista);
+    translate: 0 var(--espacio-8);
+    opacity: 0;
+    transition-property: translate, opacity, overlay, display;
+
+    &[open] {
+      translate: 0 0;
+      opacity: 1;
+
+      @starting-style {
+        translate: 0 var(--espacio-8);
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.contenido {
+  display: flex;
+  flex-direction: column;
+  max-height: inherit;
+}
+
+.cabecera {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+  padding: var(--espacio-2) var(--espacio-4) var(--espacio-3);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+// Asa decorativa: indica que es una hoja que sale de abajo.
+.asa {
+  align-self: center;
+  width: 2.5rem;
+  height: 0.3rem;
+  border-radius: var(--radio-pildora);
+  background: var(--color-borde-fuerte);
+
+  @include bp.desde(tablet) {
+    display: none;
+  }
+}
+
+.fila-titulo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+}
+
+.titulo {
+  font-size: var(--texto-m);
+  font-weight: 800;
+  outline: none;
+}
+
+.cerrar {
+  min-height: var(--minimo-tactil);
+  padding: 0 var(--espacio-3);
+  border: 0;
+  background: none;
+  color: var(--color-pista);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cuerpo {
+  flex: 1;
+  padding: var(--espacio-4);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hoja,
+  .hoja::backdrop {
+    transition: none;
+  }
+}
