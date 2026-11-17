@@ -124,7 +124,7 @@ cuenta de Alex), solo si el visitante lo acepta en el aviso de cookies:
 | ------------------------------ | -------------------------------------------------------------------- | ---------------------------------- |
 | URL del proyecto de Supabase   | `web/src/environments/*.ts`                                          | No                                 |
 | Publishable key                | `web/src/environments/*.ts`                                          | No: está pensada para ir en la web |
-| Secret key de Supabase         | Secretos de GitHub (para el scraper)                                 | **Sí**                             |
+| Secret key de Supabase         | Secretos de GitHub (`SUPABASE_SECRET_KEY`, para el scraper)          | **Sí**: se salta RLS               |
 | Contraseña de la base de datos | Gestor de contraseñas                                                | **Sí**                             |
 | URI del _session pooler_       | Secretos de GitHub (`SUPABASE_DB_URL`, para la copia)                | **Sí**: lleva la contraseña        |
 | Clave de la copia de seguridad | Secretos de GitHub (`CLAVE_COPIA_SEGURIDAD`) y gestor de contraseñas | **Sí**                             |
@@ -139,4 +139,5 @@ filtra, se regenera en su panel (Supabase o Google Cloud) y se actualiza donde s
 request: linter, formato, tests y compilación de producción. El resultado se ve en la pestaña
 **Actions** de GitHub. [Dependabot](../.github/dependabot.yml) abre pull requests cuando hay
 actualizaciones de dependencias. [`semanal.yml`](../.github/workflows/semanal.yml) hace cada
-miércoles la copia de seguridad de la base de datos ([base-de-datos.md](base-de-datos.md)).
+miércoles la copia de seguridad de la base de datos ([base-de-datos.md](base-de-datos.md)) y,
+después, pasa el scraper de la web de la liga ([scraper.md](scraper.md)).

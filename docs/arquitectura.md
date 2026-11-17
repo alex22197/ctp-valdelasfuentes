@@ -10,7 +10,7 @@
                 ├─ Auth (login con Google)
                 └─ PostgreSQL con RLS: decide qué puede leer o escribir cada uno
 
- GitHub Actions (semanal) ──► web de la liga ──► Supabase   (scraper, pendiente)
+ GitHub Actions (semanal) ──► web de la liga ──► Supabase   (scraper, docs/scraper.md)
 ```
 
 No hay servidor propio. La web es una aplicación de una sola página que habla directamente
