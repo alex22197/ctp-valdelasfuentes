@@ -41,15 +41,15 @@
       WhatsApp.
     </p>
 
-    @if (aviso() ?? error(); as mensaje) {
+    @if (aviso() ?? errorAlGuardar(); as mensaje) {
       <p class="error" role="alert">{{ mensaje }}</p>
     }
 
     <div class="acciones">
-      <button type="submit" class="boton boton--principal" [disabled]="guardando()">
-        {{ guardando() ? 'Guardando…' : 'Guardar' }}
+      <button type="submit" class="boton boton--principal" [disabled]="enCurso()">
+        {{ enCurso() ? 'Guardando…' : 'Guardar' }}
       </button>
-      <button type="button" class="boton" [disabled]="guardando()" (click)="cancelar()">
+      <button type="button" class="boton" [disabled]="enCurso()" (click)="cancelar()">
         Cancelar
       </button>
     </div>

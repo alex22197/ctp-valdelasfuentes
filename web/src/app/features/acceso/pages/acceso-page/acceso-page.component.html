@@ -16,7 +16,7 @@
       dará.
     </p>
   }
-  <button type="button" class="boton" [disabled]="enCurso()" (click)="salir()">
+  <button type="button" class="boton" [disabled]="accion.enCurso()" (click)="salir()">
     Cerrar sesión
   </button>
 } @else {
@@ -28,11 +28,16 @@
     Al entrar se guardan tu correo y tu nombre de Google. Lo explica la
     <a routerLink="/privacidad">página de privacidad</a>.
   </p>
-  <button type="button" class="boton boton--principal" [disabled]="enCurso()" (click)="entrar()">
+  <button
+    type="button"
+    class="boton boton--principal"
+    [disabled]="accion.enCurso()"
+    (click)="entrar()"
+  >
     Entrar con Google
   </button>
 }
 
-@if (error(); as mensaje) {
+@if (accion.error(); as mensaje) {
   <ctp-mensaje-estado tipo="error" [texto]="mensaje" />
 }

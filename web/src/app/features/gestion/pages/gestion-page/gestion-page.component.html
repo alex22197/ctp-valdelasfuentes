@@ -25,8 +25,7 @@
         <ctp-jornada-gestion class="destacada" [jornada]="proxima">
           <ctp-datos-jornada
             [jornada]="proxima"
-            [guardando]="datos.guardandoJornada()"
-            [error]="datos.errorJornada()"
+            [estado]="datos.guardadoJornada.estado()"
             (guardar)="datos.guardarDatosJornada(proxima.id, $event)"
           />
         </ctp-jornada-gestion>

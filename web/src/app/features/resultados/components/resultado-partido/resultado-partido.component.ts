@@ -11,7 +11,7 @@ import type { MarcadorPartido } from '@data-access/resultados/interfaces/marcado
 import type { PartidoConResultado } from '@data-access/resultados/interfaces/partido-con-resultado.interface';
 import { validarMarcador } from '@data-access/resultados/validar-marcador';
 import { clavePartido, etiquetaPartido } from '@shared/utils/etiquetas-partido';
-import type { EstadoGuardado } from '../../interfaces/estado-guardado.type';
+import type { EstadoAccion } from '@shared/utils/interfaces/estado-accion.type';
 import type { SetFormulario } from '../../interfaces/set-formulario.interface';
 import {
   OPCIONES_RESULTADO,
@@ -38,7 +38,7 @@ import { CampoSetComponent } from '../campo-set/campo-set.component';
 })
 export class ResultadoPartidoComponent {
   readonly partido = input.required<PartidoConResultado>();
-  readonly estado = input<EstadoGuardado>({ tipo: 'inactivo' });
+  readonly estado = input<EstadoAccion>({ tipo: 'inactivo' });
   readonly guardar = output<MarcadorPartido>();
 
   protected readonly opciones = OPCIONES_RESULTADO;
