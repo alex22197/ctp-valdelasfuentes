@@ -1,0 +1,29 @@
+{
+  "name": "ctp-valdelasfuentes-scraper",
+  "private": true,
+  "description": "Lee la web de la liga y actualiza calendario, resultados del grupo y clasificación.",
+  "type": "module",
+  "scripts": {
+    "inicio": "node src/index.ts",
+    "simular": "node src/index.ts --simular",
+    "leer": "node src/index.ts --leer",
+    "tipos": "tsc --noEmit",
+    "test": "vitest run",
+    "formatear": "prettier --write .",
+    "formatear:comprobar": "prettier --check .",
+    "verificar": "npm run tipos && npm run formatear:comprobar && npm test"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "prettier": "^3.8.1",
+    "typescript": "~6.0.2",
+    "vitest": "^5.0.0"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true
+  }
+}

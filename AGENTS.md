@@ -46,6 +46,8 @@ web/src/app/
   features/            Una carpeta por sección de la web, con pages/, components/,
                        services/ e interfaces/ según necesite
 web/src/styles/        Sistema de diseño (variables) y estilos globales
+scraper/               Script de Node que lee la web de la liga cada semana (docs/scraper.md);
+                       se comprueba con `npm run verificar --prefix scraper`
 docs/                  Documentación
 ```
 
