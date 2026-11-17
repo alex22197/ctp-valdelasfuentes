@@ -6,10 +6,9 @@ import { ConfrontacionesService } from '@data-access/confrontaciones/confrontaci
 import type { MarcadorPartido } from '@data-access/resultados/interfaces/marcador-partido.interface';
 import type { PartidoConResultado } from '@data-access/resultados/interfaces/partido-con-resultado.interface';
 import { ResultadosService } from '@data-access/resultados/resultados.service';
-import type { EstadoGuardado } from '../interfaces/estado-guardado.type';
+import { ACCION_INACTIVA } from '@shared/utils/accion-con-estado';
 import { clavePartido } from '@shared/utils/etiquetas-partido';
-
-const INACTIVO: EstadoGuardado = { tipo: 'inactivo' };
+import type { EstadoAccion } from '@shared/utils/interfaces/estado-accion.type';
 
 /**
  * Datos de la página de resultados de una confrontación (la de la ruta) y el guardado de
@@ -44,10 +43,10 @@ export class DatosResultadosService {
     () => this.partidos().filter((partido) => partido.marcador.resultado !== null).length,
   );
 
-  private readonly estados = signal<ReadonlyMap<string, EstadoGuardado>>(new Map());
+  private readonly estados = signal<ReadonlyMap<string, EstadoAccion>>(new Map());
 
-  estadoDe(partido: PartidoConResultado): EstadoGuardado {
-    return this.estados().get(clavePartido(partido)) ?? INACTIVO;
+  estadoDe(partido: PartidoConResultado): EstadoAccion {
+    return this.estados().get(clavePartido(partido)) ?? ACCION_INACTIVA;
   }
 
   /**
@@ -59,10 +58,10 @@ export class DatosResultadosService {
     if (!id) {
       return;
     }
-    this.cambiarEstado(partido, { tipo: 'guardando' });
+    this.cambiarEstado(partido, { tipo: 'en-curso' });
     try {
       await this.resultadosService.guardarResultado(id, partido, marcador);
-      this.cambiarEstado(partido, { tipo: 'guardado' });
+      this.cambiarEstado(partido, { tipo: 'hecho' });
       this.resultados.reload();
       this.confrontacion.reload();
     } catch (error) {
@@ -71,7 +70,7 @@ export class DatosResultadosService {
     }
   }
 
-  private cambiarEstado(partido: PartidoConResultado, estado: EstadoGuardado): void {
+  private cambiarEstado(partido: PartidoConResultado, estado: EstadoAccion): void {
     this.estados.update((estados) => new Map(estados).set(clavePartido(partido), estado));
   }
 }

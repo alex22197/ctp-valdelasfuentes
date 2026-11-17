@@ -1,7 +1,12 @@
 import type { FilaConfrontacion } from './confrontacion.mapper';
 import { mapearEnfrentamientoGrupo } from './enfrentamiento-grupo.mapper';
 
-const equipo = (nombre: string, es_nuestro = false) => ({ id: nombre, nombre, es_nuestro });
+const equipo = (nombre: string, es_nuestro = false) => ({
+  id: nombre,
+  nombre,
+  es_nuestro,
+  sede: null,
+});
 
 const fila = (cambios: Partial<FilaConfrontacion> = {}): FilaConfrontacion => ({
   id: 'c',

@@ -80,16 +80,16 @@
       <button
         type="submit"
         class="boton boton--principal"
-        [disabled]="estado().tipo === 'guardando'"
+        [disabled]="estado().tipo === 'en-curso'"
       >
-        {{ estado().tipo === 'guardando' ? 'Guardando…' : 'Guardar' }}
+        {{ estado().tipo === 'en-curso' ? 'Guardando…' : 'Guardar' }}
       </button>
 
       @if (mensajeError(); as mensaje) {
         <p class="error" role="alert">{{ mensaje }}</p>
       } @else if (hayCambios()) {
         <p class="estado" role="status">Cambios sin guardar</p>
-      } @else if (estado().tipo === 'guardado') {
+      } @else if (estado().tipo === 'hecho') {
         <p class="estado estado--guardado" role="status">Guardado</p>
       }
     </div>
