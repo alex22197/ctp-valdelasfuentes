@@ -3,7 +3,7 @@ import { mapearEquipoResumen } from '@data-access/equipos/equipo.mapper';
 import type { ConfrontacionNuestroEquipo } from './interfaces/confrontacion-nuestro-equipo.interface';
 import type { MarcadorConfrontacion } from './interfaces/marcador-confrontacion.interface';
 
-type FilaEquipo = Pick<Tables<'equipo'>, 'id' | 'nombre' | 'es_nuestro'>;
+type FilaEquipo = Pick<Tables<'equipo'>, 'id' | 'nombre' | 'es_nuestro' | 'sede'>;
 
 export type FilaConfrontacion = Pick<
   Tables<'confrontacion'>,
@@ -52,7 +52,8 @@ export function mapearConfrontacionNuestroEquipo(
     estado: fila.estado,
     fechaPrevista: fila.fecha_prevista,
     fechaHora: fila.fecha_hora,
-    sede: fila.sede,
+    // Sin sede propia, la fija del equipo local (en casa, la Ciudad Deportiva Valdelasfuentes).
+    sede: fila.sede ?? fila.local.sede,
     numeroPistas: fila.num_pistas,
     convocatoriaPublicada: fila.convocatoria_publicada,
     marcador: mapearMarcadorCalculado(marcadorCalculado) ?? mapearMarcadorLiga(fila, jugamosEnCasa),
