@@ -63,8 +63,8 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
 1. ~~**Resultados de una confrontación**~~: hecho (ver arriba).
 2. ~~(#6) **Pasar lista**~~: hecho y después retirado (#44).
 3. ~~(#7) **Convocatoria y alineación**~~: hecho (ver arriba).
-4. (#8) **Plantilla**: alta y edición de jugadores (nombre para mostrar y completo, sexo, lado
-   preferido, comodín, inscrito oficialmente).
+4. ~~(#8) **Plantilla**~~: hecho. `/gestion/plantilla`: alta, edición y baja de jugadores
+   (nombre para mostrar y completo, sexo, lado tocando media pista, comodín e inscripción).
 5. ~~(#9) **Acceso a la gestión desde el menú**~~: hecho. Botón «Gestión» en la cabecera, solo
    para gestores, que lleva a `/gestion`: la próxima jornada, los resultados por meter y
    todas las jornadas con su convocatoria y sus resultados.

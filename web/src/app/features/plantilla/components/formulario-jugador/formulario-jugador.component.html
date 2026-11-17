@@ -1,0 +1,138 @@
+@let valores = formulario();
+<form class="formulario" (submit)="enviar($event)">
+  <label class="campo">
+    <span class="etiqueta">Nombre para mostrar</span>
+    <input
+      class="nombre-corto"
+      type="text"
+      maxlength="30"
+      autocomplete="off"
+      autocapitalize="words"
+      [value]="valores.nombreMostrar"
+      (input)="cambiarTexto('nombreMostrar', $event)"
+    />
+    <span class="ayuda">Corto, como lo llamáis: es el que sale en la web.</span>
+  </label>
+
+  <label class="campo">
+    <span class="etiqueta">Nombre completo</span>
+    <input
+      type="text"
+      maxlength="80"
+      autocomplete="off"
+      autocapitalize="words"
+      [value]="valores.nombreCompleto"
+      (input)="cambiarTexto('nombreCompleto', $event)"
+    />
+    <span class="ayuda"
+      >Privado: solo lo ven los gestores. Va en la convocatoria para WhatsApp.</span
+    >
+  </label>
+
+  <fieldset class="campo">
+    <legend class="etiqueta">Juega en los partidos de</legend>
+    <div class="opciones">
+      <button
+        type="button"
+        class="opcion"
+        [class.opcion--elegida]="valores.sexo === 'masculino'"
+        [attr.aria-pressed]="valores.sexo === 'masculino'"
+        (click)="elegirSexo('masculino')"
+      >
+        Chicos
+      </button>
+      <button
+        type="button"
+        class="opcion"
+        [class.opcion--elegida]="valores.sexo === 'femenino'"
+        [attr.aria-pressed]="valores.sexo === 'femenino'"
+        (click)="elegirSexo('femenino')"
+      >
+        Chicas
+      </button>
+    </div>
+    <span class="ayuda">Y en el mixto. Decide en qué pistas se le puede poner.</span>
+  </fieldset>
+
+  <ctp-selector-lado [valor]="valores.ladoPreferido" (valorChange)="cambiarLado($event)" />
+
+  <label class="campo campo--interruptor">
+    <input type="checkbox" [checked]="valores.comodin" (change)="cambiarComodin($event)" />
+    <span class="interruptor" aria-hidden="true"></span>
+    <span class="texto">
+      <span class="etiqueta">Es comodín</span>
+      <span class="ayuda">Refuerza al equipo de vez en cuando. No tiene ficha pública.</span>
+    </span>
+  </label>
+
+  <fieldset class="campo">
+    <legend class="etiqueta">Inscrito en la liga</legend>
+    <div class="opciones">
+      @for (opcion of opcionesInscrito; track opcion.valor) {
+        <button
+          type="button"
+          class="opcion"
+          [class.opcion--elegida]="valores.inscrito === opcion.valor"
+          [attr.aria-pressed]="valores.inscrito === opcion.valor"
+          (click)="elegirInscrito(opcion.valor)"
+        >
+          {{ opcion.texto }}
+        </button>
+      }
+    </div>
+    <span class="ayuda"
+      >Si no está en la lista oficial y juega, el rival puede reclamar el partido.</span
+    >
+  </fieldset>
+
+  @if (aviso() ?? errorAlGuardar(); as mensaje) {
+    <p class="error" role="alert">{{ mensaje }}</p>
+  }
+
+  <div class="acciones">
+    <button type="submit" class="boton boton--principal" [disabled]="enCurso()">
+      {{
+        estado().tipo === 'en-curso'
+          ? 'Guardando…'
+          : esNuevo()
+            ? 'Añadir a la plantilla'
+            : 'Guardar'
+      }}
+    </button>
+  </div>
+
+  @if (!esNuevo()) {
+    <div class="baja">
+      @if (deBaja()) {
+        <p class="ayuda">Está de baja: no sale en la plantilla ni se puede convocar.</p>
+        <button
+          type="button"
+          class="boton"
+          [disabled]="enCurso()"
+          (click)="cambiarBaja.emit(false)"
+        >
+          Volver a la plantilla
+        </button>
+      } @else if (confirmandoBaja()) {
+        <p class="ayuda">
+          Dejará de salir en la plantilla y no se podrá convocar. Se puede deshacer.
+        </p>
+        <div class="acciones">
+          <button
+            type="button"
+            class="boton boton--peligro"
+            [disabled]="enCurso()"
+            (click)="cambiarBaja.emit(true)"
+          >
+            {{ estadoBaja().tipo === 'en-curso' ? 'Dando de baja…' : 'Sí, dar de baja' }}
+          </button>
+          <button type="button" class="boton" (click)="confirmandoBaja.set(false)">No</button>
+        </div>
+      } @else {
+        <button type="button" class="enlace-baja" (click)="confirmandoBaja.set(true)">
+          Dar de baja
+        </button>
+      }
+    </div>
+  }
+</form>

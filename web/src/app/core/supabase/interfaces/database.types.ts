@@ -1166,6 +1166,10 @@ export type Database = {
       };
     };
     Functions: {
+      cambiar_baja_jugador: {
+        Args: { p_baja: boolean; p_competicion: string; p_jugador: string };
+        Returns: undefined;
+      };
       competicion_de_confrontacion: {
         Args: { p_confrontacion: string };
         Returns: string;
@@ -1183,6 +1187,19 @@ export type Database = {
       guardar_alineacion: {
         Args: { p_confrontacion: string; p_parejas: Json };
         Returns: undefined;
+      };
+      guardar_jugador: {
+        Args: {
+          p_comodin?: boolean;
+          p_competicion: string;
+          p_inscrito?: boolean;
+          p_jugador?: string;
+          p_lado?: Database['public']['Enums']['lado'];
+          p_nombre_completo?: string;
+          p_nombre_mostrar: string;
+          p_sexo: Database['public']['Enums']['sexo'];
+        };
+        Returns: string;
       };
       guardar_respuesta_encuesta: {
         Args: {

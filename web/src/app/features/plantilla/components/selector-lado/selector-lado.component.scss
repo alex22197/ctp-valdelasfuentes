@@ -1,0 +1,79 @@
+.selector {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.etiqueta {
+  margin-bottom: var(--espacio-2);
+  color: var(--color-tinta-suave);
+  font-size: var(--texto-s);
+  font-weight: 600;
+}
+
+// Media pista vista desde arriba: la red arriba y la línea central. Cada mitad es un botón.
+.pista {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  height: 6.5rem;
+  overflow: hidden;
+  border-radius: var(--radio-control);
+  background:
+    linear-gradient(var(--color-sobre-pista), var(--color-sobre-pista)) top / 100% 5px no-repeat,
+    linear-gradient(var(--color-sobre-pista-suave), var(--color-sobre-pista-suave)) 50% 0 / 1.5px
+      100% no-repeat,
+    var(--color-pista);
+}
+
+.lado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: var(--espacio-3) var(--espacio-2);
+  border: 0;
+  background: transparent;
+  color: var(--color-sobre-pista-suave);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color var(--duracion-rapida);
+
+  &:focus-visible {
+    outline: 3px solid var(--color-bola);
+    outline-offset: -3px;
+  }
+}
+
+// La bola amarilla marca el lado elegido, como marca a nuestro equipo en la portada.
+.lado--elegido {
+  background: color-mix(in srgb, var(--color-sobre-pista) 16%, transparent);
+  color: var(--color-sobre-pista);
+
+  .nombre::before {
+    content: '';
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-right: var(--espacio-2);
+    border-radius: 50%;
+    background: var(--color-bola);
+    vertical-align: 0.05em;
+  }
+}
+
+.nombre {
+  font-size: var(--texto-l);
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+}
+
+.posicion {
+  font-size: var(--texto-xs);
+}
+
+.ayuda {
+  margin-top: var(--espacio-2);
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+}
