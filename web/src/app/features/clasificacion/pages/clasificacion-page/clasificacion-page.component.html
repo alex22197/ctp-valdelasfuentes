@@ -1,51 +1,45 @@
 <header class="cabecera">
   <h1 class="titulo-pagina">Clasificación</h1>
-  @if (fase(); as fase) {
-    <p class="texto-secundario">{{ fase.nombre }}</p>
+  @if (datos.competicion(); as competicion) {
+    <p class="texto-secundario">{{ competicion.nombre }} {{ competicion.temporada }}</p>
   }
 </header>
 
-@if (fase(); as fase) {
-  @if (faseClasificacion(); as faseClasificacion) {
-    @if (faseClasificacion.id !== fase.id) {
-      <p class="nota texto-secundario">
-        En esta fase no hay clasificación: esta es la final de {{ faseClasificacion.nombre }}.
-      </p>
-    }
-  } @else {
-    <ctp-mensaje-estado tipo="vacio" texto="En esta fase no hay clasificación." />
-  }
-}
-
-@if (faseActual.isLoading() || clasificacion.isLoading()) {
+@if (datos.cargando()) {
   <ctp-mensaje-estado tipo="cargando" texto="Cargando la clasificación…" esqueleto="tabla" />
-} @else if (faseActual.error() || clasificacion.error()) {
+} @else if (datos.error()) {
   <ctp-mensaje-estado
     tipo="error"
     texto="No se ha podido cargar la clasificación. Recarga la página para volver a intentarlo."
   />
-} @else if (filas().length === 0 && faseClasificacion()) {
-  <ctp-mensaje-estado
-    tipo="vacio"
-    texto="La clasificación de esta fase todavía no está publicada."
-  />
+} @else if (datos.lista().length === 0) {
+  <ctp-mensaje-estado tipo="vacio" texto="Todavía no hay ninguna fase de liga esta temporada." />
 } @else {
-  <ctp-tabla-clasificacion [filas]="filas()" />
-  <p class="nota texto-secundario">
-    {{ nota() }}
-    @if (fase()?.urlGrupo; as urlGrupo) {
-      <a [href]="urlGrupo" target="_blank" rel="noopener noreferrer"
-        >Ver el grupo en la web de la liga</a
-      >
-    }
-  </p>
-}
+  @for (bloque of datos.lista(); track bloque.fase.id) {
+    <section class="fase">
+      <ctp-cabecera-fase [fase]="bloque.fase" [estado]="bloque.estado" [nivel]="2" />
 
-@if (enfrentamientos.error()) {
-  <ctp-mensaje-estado tipo="error" texto="No se han podido cargar las jornadas del grupo." />
-} @else if (jornadasGrupo().length > 0) {
-  <section class="seccion" aria-labelledby="titulo-jornadas-grupo">
-    <h2 id="titulo-jornadas-grupo" class="titulo-seccion">Jornadas del grupo</h2>
-    <ctp-jornadas-grupo [jornadas]="jornadasGrupo()" />
-  </section>
+      @if (bloque.filas.length === 0) {
+        <ctp-mensaje-estado
+          tipo="vacio"
+          texto="La clasificación de esta fase todavía no está publicada."
+        />
+      } @else {
+        <ctp-tabla-clasificacion [filas]="bloque.filas" />
+        <p class="nota texto-secundario">
+          {{ bloque.nota }}
+          @if (bloque.fase.urlGrupo; as urlGrupo) {
+            <a [href]="urlGrupo" target="_blank" rel="noopener noreferrer"
+              >Ver el grupo en la web de la liga</a
+            >
+          }
+        </p>
+      }
+
+      @if (bloque.jornadas.length > 0) {
+        <h3 class="titulo-seccion">Jornadas del grupo</h3>
+        <ctp-jornadas-grupo [jornadas]="bloque.jornadas" />
+      }
+    </section>
+  }
 }
