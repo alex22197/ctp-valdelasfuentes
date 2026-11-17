@@ -72,6 +72,8 @@ InicioPageComponent
 
 - Los datos se cargan con `resource()`: cada uno expone `isLoading()`, `error()` y su valor,
   y se recarga solo cuando cambian sus parámetros.
+- Los estados con varias fases son uniones discriminadas; las acciones que tardan usan
+  `AccionConEstado`. Catálogo en [estados.md](estados.md).
 - Las plantillas muestran un `ctp-mensaje-estado` mientras cargan, si fallan o si no hay datos.
   Mientras cargan, se ve un esqueleto con la forma de lo que va a salir (`esqueleto="tabla"`,
   `"jugadores"`, `"grafica"`…) y el texto solo lo oyen los lectores de pantalla; si la espera

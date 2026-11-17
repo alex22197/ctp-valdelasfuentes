@@ -35,8 +35,7 @@
       <ctp-datos-jornada
         class="datos-jornada"
         [jornada]="confrontacion"
-        [guardando]="datos.guardandoJornada()"
-        [error]="datos.errorJornada()"
+        [estado]="datos.guardadoJornada.estado()"
         (guardar)="datos.guardarDatosJornada($event)"
       />
     }

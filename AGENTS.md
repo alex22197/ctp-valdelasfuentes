@@ -98,6 +98,10 @@ Detalle en [`docs/arquitectura.md`](docs/arquitectura.md).
 - Rutas con carga diferida (`loadComponent`) y `title` en castellano.
 - Páginas y componentes visuales separados: la página (`pages/`) obtiene los datos y los
   pasa por `input()` a componentes (`components/`) que solo los muestran.
+- Un estado con varias fases (una acción que tarda, la carga de una página, el ciclo de una
+  jornada) es un tipo de unión discriminada en `interfaces/`, nunca booleanos sueltos que
+  puedan contradecirse. Las acciones que tardan usan `AccionConEstado` (`shared/utils`). El
+  catálogo de estados está en [`docs/estados.md`](docs/estados.md) (ADR 0013).
 
 ### Capas
 
