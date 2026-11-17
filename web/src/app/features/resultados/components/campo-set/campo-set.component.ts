@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, input, model } from '@angular/core';
-import { setConTiebreak } from '@data-access/resultados/validar-marcador';
+import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
 import type { SetFormulario } from '../../interfaces/set-formulario.interface';
 
 let siguienteId = 0;
 
 /**
- * Juegos de un set para cada pareja. Si el set acaba 7-6 aparecen los puntos del
- * tie-break. Muestra debajo el error de ese set, si lo hay.
+ * Juegos de un set para cada pareja; en un 7-6 no hace falta apuntar el tie-break. Muestra
+ * debajo el error de ese set, si lo hay.
  */
 @Component({
   selector: 'ctp-campo-set',
@@ -20,11 +19,6 @@ export class CampoSetComponent {
   readonly error = input<string | null>(null);
 
   protected readonly idError = `error-set-${++siguienteId}`;
-
-  protected readonly hayTiebreak = computed(() => {
-    const { juegosNuestros, juegosRival } = this.valor();
-    return setConTiebreak(Number(juegosNuestros), Number(juegosRival));
-  });
 
   protected cambiar(campo: keyof SetFormulario, evento: Event): void {
     const texto = (evento.target as HTMLInputElement).value;

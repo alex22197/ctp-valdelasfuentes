@@ -55,19 +55,31 @@
   font-weight: 600;
 }
 
+// Marcador y etiqueta con ancho fijo: así los números quedan en columna aunque una jornada
+// diga «En casa» y la siguiente «Fuera».
 .marcador {
+  min-width: 2.5rem;
   color: var(--color-pista);
   font-size: var(--texto-cifra);
   font-weight: 800;
   font-stretch: var(--anchura-condensada);
   font-variant-numeric: tabular-nums;
+  text-align: right;
 }
 
 .marcador--derrota {
   color: var(--color-derrota-texto);
 }
 
+// Un empate no es victoria: ni verde ni rojo.
+.marcador--empate {
+  color: var(--color-tinta);
+}
+
 .condicion {
+  display: inline-flex;
+  justify-content: center;
+  min-width: 5.25rem;
   padding: var(--espacio-1) var(--espacio-3);
   border: 1.5px solid var(--color-borde-fuerte);
   border-radius: var(--radio-pildora);

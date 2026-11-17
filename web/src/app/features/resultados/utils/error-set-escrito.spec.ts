@@ -1,12 +1,10 @@
 import type { SetFormulario } from '../interfaces/set-formulario.interface';
 import { errorAlEscribirSet } from './error-set-escrito';
 
-const set = (
-  juegosNuestros: string,
-  juegosRival: string,
-  tiebreakNuestros = '',
-  tiebreakRival = '',
-): SetFormulario => ({ juegosNuestros, juegosRival, tiebreakNuestros, tiebreakRival });
+const set = (juegosNuestros: string, juegosRival: string): SetFormulario => ({
+  juegosNuestros,
+  juegosRival,
+});
 
 describe('errorAlEscribirSet', () => {
   it('no dice nada mientras falta algún juego por escribir', () => {
@@ -36,14 +34,8 @@ describe('errorAlEscribirSet', () => {
     expect(errorAlEscribirSet(set('3', '2'))).toBeNull();
   });
 
-  it('comprueba el tie-break solo cuando están sus dos puntos', () => {
-    expect(errorAlEscribirSet(set('7', '6', '7', ''))).toBeNull();
-    expect(errorAlEscribirSet(set('7', '6', '7', '5'))).toBeNull();
-    expect(errorAlEscribirSet(set('7', '6', '7', '6'))).toBe(
-      'El tie-break se gana a 7 puntos con 2 de diferencia',
-    );
-    expect(errorAlEscribirSet(set('7', '6', '3', '7'))).toBe(
-      'El tie-break lo gana la pareja que gana el set',
-    );
+  it('un 7-6 vale sin apuntar los puntos del tie-break', () => {
+    expect(errorAlEscribirSet(set('7', '6'))).toBeNull();
+    expect(errorAlEscribirSet(set('6', '7'))).toBeNull();
   });
 });

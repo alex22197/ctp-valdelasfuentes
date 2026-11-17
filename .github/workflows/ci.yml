@@ -37,3 +37,24 @@ jobs:
         run: npm run test:ci
       - name: Compilación de producción
         run: npm run build
+
+  scraper:
+    name: Scraper
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scraper
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: scraper/.nvmrc
+          cache: npm
+          cache-dependency-path: scraper/package-lock.json
+      - run: npm ci
+      - name: Tipos
+        run: npm run tipos
+      - name: Formato
+        run: npm run formatear:comprobar
+      - name: Tests
+        run: npm test

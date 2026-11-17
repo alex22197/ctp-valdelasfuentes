@@ -125,6 +125,54 @@ La base de datos rechaza, con un mensaje en castellano:
   secretos de GitHub. No debe pisar `fecha_hora`, `sede` ni `num_pistas` de una jornada si ya
   los ha puesto un gestor desde la web: solo los rellena cuando están vacíos.
 
+## Copia de seguridad
+
+El plan gratuito de Supabase no da copias descargables, así que las hace
+[`.github/workflows/semanal.yml`](../.github/workflows/semanal.yml) cada miércoles por la
+tarde (y a mano desde **Actions → Semanal → Run workflow**):
+
+- Vuelca roles, esquema y datos con `supabase db dump` por el _session pooler_ (los ejecutores
+  de GitHub no tienen IPv6).
+- Lo cifra con `gpg` (AES-256) con la clave `CLAVE_COPIA_SEGURIDAD`, porque el repositorio es
+  público y sus artefactos los puede descargar cualquiera con cuenta de GitHub.
+- Lo guarda como artefacto de la ejecución, `copia-base-de-datos-<fecha>`, durante 90 días (el
+  máximo en un repositorio público). Hay unas doce copias a la vez.
+- De paso, la conexión semanal evita que Supabase pause el proyecto por inactividad.
+
+Secretos (en **Settings → Secrets and variables → Actions**; nunca en el repositorio ni por
+chat): `SUPABASE_DB_URL`, la URI del _session pooler_ del panel de Supabase (**Connect →
+Session pooler**, con la contraseña puesta y, si lleva caracteres raros, codificada para URL), y
+`CLAVE_COPIA_SEGURIDAD`, una frase larga guardada también en el gestor de contraseñas. Sin la
+clave, la copia no se puede abrir.
+
+### Restaurar una copia
+
+1. Descarga el artefacto desde la ejecución en **Actions** y descomprímelo:
+
+   ```bash
+   gpg --decrypt --output copia.tar.gz copia-2026-11-11.tar.gz.gpg   # pide la clave
+   tar -xzf copia.tar.gz                                             # deja copia/roles.sql, esquema.sql y datos.sql
+   ```
+
+2. **A un proyecto nuevo** (el de siempre se ha perdido): crea el proyecto en Supabase, copia su
+   URI del _session pooler_ y carga los tres ficheros en orden. Los datos se cargan con los
+   triggers apagados para que no vuelvan a validar lo que ya era válido:
+
+   ```bash
+   psql "$DB_URL" --single-transaction --variable ON_ERROR_STOP=1 \
+     --file copia/roles.sql --file copia/esquema.sql \
+     --command 'set session_replication_role = replica' --file copia/datos.sql
+   ```
+
+   Después, en el proyecto nuevo: el proveedor de Google, la URL del sitio y las de redirección
+   ([despliegue.md](despliegue.md)), y la URL y la publishable key nuevas en
+   `web/src/environments/*.ts`. Los usuarios de `auth` no viajan en la copia: cada gestor entra
+   otra vez con Google y el admin le devuelve el permiso desde **Gestión**.
+
+3. **Al proyecto de siempre**, para deshacer un error con los datos: no cargues el esquema (ya
+   está). Carga solo lo que haga falta de `datos.sql`, mejor tabla a tabla y dentro de una
+   transacción, y confírmalo antes con Alex: pisa lo que haya ahora.
+
 ## Cómo cambiar el esquema
 
 ```bash

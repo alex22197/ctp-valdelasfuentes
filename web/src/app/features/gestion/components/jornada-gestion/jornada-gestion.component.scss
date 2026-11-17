@@ -40,6 +40,11 @@
   color: var(--color-derrota-texto);
 }
 
+// Un empate no es victoria: ni verde ni rojo.
+.marcador--empate {
+  color: var(--color-tinta);
+}
+
 // «Publicada» o «Borrador», como en la pantalla de convocatoria.
 .estado {
   align-self: start;
