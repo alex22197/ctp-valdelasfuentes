@@ -6,6 +6,7 @@ import type { Fase } from '@data-access/competiciones/interfaces/fase.interface'
 import {
   aplanarCalendario,
   conFaseActual,
+  masRecientePrimero,
 } from '@data-access/confrontaciones/calendario-competicion';
 import { ConfrontacionesService } from '@data-access/confrontaciones/confrontaciones.service';
 import type { DatosConfrontacion } from '@data-access/confrontaciones/interfaces/datos-confrontacion.interface';
@@ -38,10 +39,10 @@ export class DatosGestionService {
     this.calendario.hasValue() ? this.calendario.value() : [],
   );
 
-  /** El calendario por fases, con la actual aunque aún no tenga partidos. */
+  /** El calendario por fases, con la actual aunque aún no tenga partidos y la más reciente arriba. */
   readonly calendarioPorFase = computed(() => {
     const actual = this.fase()?.fase;
-    return actual ? conFaseActual(this.porFase(), actual) : this.porFase();
+    return masRecientePrimero(actual ? conFaseActual(this.porFase(), actual) : this.porFase());
   });
 
   readonly jornadas = computed(() => aplanarCalendario(this.porFase()));

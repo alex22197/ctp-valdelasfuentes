@@ -3,6 +3,7 @@ import {
   agruparPorFase,
   aplanarCalendario,
   conFaseActual,
+  masRecientePrimero,
   ultimaDisputada,
 } from './calendario-competicion';
 import type { ConfrontacionNuestroEquipo } from './interfaces/confrontacion-nuestro-equipo.interface';
@@ -104,5 +105,23 @@ describe('aplanarCalendario y ultimaDisputada', () => {
   it('una aplazada cuyo día pasó vuelve a estar por confirmar', () => {
     const aplazada = conReto({ estado: 'aplazada', fechaPrevista: '2026-11-07' });
     expect(ultimaDisputada(aplazada, HOY)?.id).toBe('j2');
+  });
+});
+
+describe('masRecientePrimero', () => {
+  it('pone la última fase arriba y conserva el orden de las jornadas', () => {
+    const calendario = [
+      { fase: fase(1), confrontaciones: [confrontacion('j1'), confrontacion('j2')] },
+      { fase: fase(2, 'retos'), confrontaciones: [confrontacion('r')] },
+      { fase: fase(3, 'clausura'), confrontaciones: [confrontacion('c1', 'programada')] },
+    ];
+    expect(
+      masRecientePrimero(calendario).map((g) => [g.fase.id, g.confrontaciones.map((c) => c.id)]),
+    ).toEqual([
+      ['f3', ['c1']],
+      ['f2', ['r']],
+      ['f1', ['j1', 'j2']],
+    ]);
+    expect(calendario[0]?.fase.id).toBe('f1');
   });
 });
