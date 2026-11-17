@@ -35,6 +35,14 @@ export function conFaseActual(
   );
 }
 
+/**
+ * Las fases de la más reciente a la más antigua, para que lo próximo quede arriba y lo ya
+ * jugado debajo. Dentro de cada fase las jornadas siguen en su orden.
+ */
+export function masRecientePrimero(calendario: readonly CalendarioDeFase[]): CalendarioDeFase[] {
+  return [...calendario].sort((a, b) => b.fase.orden - a.fase.orden);
+}
+
 /** Todas las confrontaciones seguidas, de la primera fase a la última. */
 export function aplanarCalendario(
   calendario: readonly CalendarioDeFase[],
