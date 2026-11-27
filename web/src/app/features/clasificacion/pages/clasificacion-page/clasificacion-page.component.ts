@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CabeceraFaseComponent } from '@shared/components/cabecera-fase/cabecera-fase.component';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
 import { TablaClasificacionComponent } from '@shared/components/tabla-clasificacion/tabla-clasificacion.component';
-import { JornadasGrupoComponent } from '../../components/jornadas-grupo/jornadas-grupo.component';
+import { JornadasGrupoComponent } from '@shared/components/jornadas-grupo/jornadas-grupo.component';
 import { DatosClasificacionService } from '../../services/datos-clasificacion.service';
 
 /**

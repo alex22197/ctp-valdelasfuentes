@@ -1,107 +1,32 @@
+:host {
+  display: block;
+}
+
+// «Por jugar» y «Jugados»: discretos, solo ordenan.
+.rotulo {
+  margin: var(--espacio-3) 0 var(--espacio-1);
+  padding: 0 var(--espacio-2);
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-xs);
+  font-weight: 600;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
 .jornadas {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.jornada {
-  display: flex;
-  align-items: center;
-  gap: var(--espacio-4);
-  padding: var(--espacio-4) 0;
-  border-bottom: 1px solid var(--color-borde);
+// Una raya entre jornadas, salvo alrededor de la próxima, que ya va en su recuadro.
+.jornada + .jornada {
+  border-top: 1px solid var(--color-borde);
 }
 
-.numero {
-  flex: none;
-  width: 2.25rem;
-  color: var(--color-pista);
-  font-size: var(--texto-cifra);
-  font-weight: 800;
-  font-stretch: var(--anchura-condensada);
-}
-
-// En una eliminatoria, «Reto» en lugar del número: más pequeño para que quepa en la columna.
-.numero--texto {
-  font-size: var(--texto-s);
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
-
-.datos {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.rival {
-  font-size: var(--texto-m);
-  font-weight: 700;
-}
-
-// Aplazada, suspendida o no comparecencia, junto a la fecha.
-.etiqueta-estado {
-  align-self: flex-start;
-  padding: 0 var(--espacio-2);
-  border-radius: var(--radio-pildora);
-  background: var(--color-aviso);
-  color: var(--color-aviso-texto);
-  font-size: var(--texto-xs);
-  font-weight: 700;
-}
-
-.enlaces-gestion {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: var(--espacio-4);
-}
-
-.enlace-gestion {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--minimo-tactil);
-  font-size: var(--texto-s);
-  font-weight: 600;
-}
-
-// Marcador y etiqueta con ancho fijo: así los números quedan en columna aunque una jornada
-// diga «En casa» y la siguiente «Fuera».
-.marcador {
-  min-width: 2.5rem;
-  color: var(--color-pista);
-  font-size: var(--texto-cifra);
-  font-weight: 800;
-  font-stretch: var(--anchura-condensada);
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-}
-
-.marcador--derrota {
-  color: var(--color-derrota-texto);
-}
-
-// Un empate no es victoria: ni verde ni rojo.
-.marcador--empate {
-  color: var(--color-tinta);
-}
-
-.condicion {
-  display: inline-flex;
-  justify-content: center;
-  min-width: 5.25rem;
-  padding: var(--espacio-1) var(--espacio-3);
-  border: 1.5px solid var(--color-borde-fuerte);
-  border-radius: var(--radio-pildora);
-  color: var(--color-tinta-tenue);
-  font-size: var(--texto-xs);
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.condicion--casa {
-  border-color: var(--color-pista);
-  background: var(--color-pista);
-  color: var(--color-sobre-pista);
+.jornada + .jornada--proxima,
+.jornada--proxima + .jornada {
+  border-top-color: transparent;
 }

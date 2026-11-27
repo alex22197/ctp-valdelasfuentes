@@ -1,56 +1,41 @@
+@let partes = repartidas();
 @if (confrontaciones().length === 0) {
   <ctp-mensaje-estado tipo="vacio" [texto]="textoVacio()" />
 } @else {
-  <ol class="jornadas">
-    @for (jornada of confrontaciones(); track jornada.id) {
-      <li class="jornada">
-        @if (jornada.jornada) {
-          <span class="numero" aria-hidden="true">J{{ jornada.jornada }}</span>
-        } @else {
-          <span class="numero numero--texto" aria-hidden="true">{{ sinNumero() }}</span>
-        }
-        <span class="datos">
-          <span class="rival">
-            <span class="solo-lector">{{
-              jornada.jornada ? 'Jornada ' + jornada.jornada + ' contra ' : sinNumero() + ' contra '
-            }}</span>
-            {{ jornada.rival.nombre }}
-          </span>
-          <span class="texto-secundario">{{ jornada | fechaConfrontacion }}</span>
-          @if (etiquetaEstado(jornada.estado); as etiqueta) {
-            <span class="etiqueta-estado">{{ etiqueta }}</span>
-          }
-          @if (enlacesGestion()) {
-            <span class="enlaces-gestion">
-              @if (estaPorJugar(jornada.estado)) {
-                <a class="enlace-gestion" [routerLink]="['/convocatoria', jornada.id]">
-                  Convocatoria
-                  <span class="solo-lector"> contra {{ jornada.rival.nombre }}</span>
-                </a>
-              }
-              <a class="enlace-gestion" [routerLink]="['/resultados', jornada.id]">
-                {{ jornada.marcador ? 'Editar resultados' : 'Meter resultados' }}
-                <span class="solo-lector"> contra {{ jornada.rival.nombre }}</span>
-              </a>
-            </span>
-          }
-        </span>
-        @if (jornada.marcador; as marcador) {
-          <span
-            class="marcador"
-            [class.marcador--derrota]="marcador.nuestros < marcador.rival"
-            [class.marcador--empate]="marcador.nuestros === marcador.rival"
-          >
-            <span aria-hidden="true">{{ marcador.nuestros }}-{{ marcador.rival }}</span>
-            <span class="solo-lector"
-              >Resultado: {{ marcador.nuestros }} a {{ marcador.rival }}</span
-            >
-          </span>
-        }
-        <span class="condicion" [class.condicion--casa]="jornada.condicion === 'local'">
-          {{ jornada.condicion === 'local' ? 'En casa' : 'Fuera' }}
-        </span>
-      </li>
+  @if (partes.porJugar.length > 0) {
+    @if (conRotulos()) {
+      <h4 class="rotulo">Por jugar</h4>
     }
-  </ol>
+    <ol class="jornadas">
+      @for (jornada of partes.porJugar; track jornada.id) {
+        <li class="jornada" [class.jornada--proxima]="jornada.id === idProxima()">
+          <ctp-fila-calendario
+            [jornada]="jornada"
+            [sinNumero]="sinNumero()"
+            [proxima]="jornada.id === idProxima()"
+            [enlacesGestion]="enlacesGestion()"
+            [hoy]="hoy()"
+          />
+        </li>
+      }
+    </ol>
+  }
+  @if (partes.disputadas.length > 0) {
+    @if (conRotulos()) {
+      <h4 class="rotulo">Jugados</h4>
+    }
+    <ol class="jornadas">
+      @for (jornada of partes.disputadas; track jornada.id) {
+        <li class="jornada">
+          <ctp-fila-calendario
+            [jornada]="jornada"
+            [sinNumero]="sinNumero()"
+            [disputada]="true"
+            [enlacesGestion]="enlacesGestion()"
+            [hoy]="hoy()"
+          />
+        </li>
+      }
+    </ol>
+  }
 }

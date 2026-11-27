@@ -12,6 +12,10 @@ import {
   ultimaDisputada,
 } from '@data-access/confrontaciones/calendario-competicion';
 import { ConfrontacionesService } from '@data-access/confrontaciones/confrontaciones.service';
+import {
+  agruparPorJornada,
+  ultimaJornadaConResultados,
+} from '@data-access/confrontaciones/jornadas-grupo';
 import { elegirProximaConfrontacion } from '@data-access/confrontaciones/proxima-confrontacion';
 import { JugadoresService } from '@data-access/jugadores/jugadores.service';
 import { fechaIsoEnMadrid } from '@shared/utils/fechas';
@@ -41,6 +45,24 @@ export class DatosInicioService {
   readonly clasificacion = resource({
     params: () => this.faseClasificacion()?.id,
     loader: ({ params: idFase }) => this.clasificaciones.obtenerClasificacion(idFase),
+  });
+
+  /** Todos los enfrentamientos del grupo, para enseñar bajo la tabla los últimos resultados. */
+  private readonly enfrentamientosGrupo = resource({
+    params: () => this.faseClasificacion()?.id,
+    loader: ({ params: idFase }) => this.confrontaciones.obtenerEnfrentamientosDelGrupo(idFase),
+  });
+
+  /**
+   * La última jornada del grupo con algún resultado, con los de los demás equipos. `null` si
+   * no hay ninguna o no se ha podido cargar: es un añadido y no merece un error en la portada.
+   */
+  readonly ultimaJornadaGrupo = computed(() => {
+    if (!this.enfrentamientosGrupo.hasValue()) {
+      return null;
+    }
+    const ultima = ultimaJornadaConResultados(agruparPorJornada(this.enfrentamientosGrupo.value()));
+    return ultima && { ...ultima, titulo: `Resultados del grupo, ${ultima.titulo.toLowerCase()}` };
   });
 
   /** Las jornadas de toda la competición por fase: también las de las fases que ya terminaron. */

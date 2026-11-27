@@ -1,5 +1,5 @@
-import type { EnfrentamientoGrupo } from '@data-access/confrontaciones/interfaces/enfrentamiento-grupo.interface';
-import { agruparPorJornada } from './jornadas-grupo';
+import type { EnfrentamientoGrupo } from './interfaces/enfrentamiento-grupo.interface';
+import { agruparPorJornada, ultimaJornadaConResultados } from './jornadas-grupo';
 
 const equipo = (nombre: string, esNuestro = false) => ({ id: nombre, nombre, esNuestro });
 
@@ -37,5 +37,27 @@ describe('agruparPorJornada', () => {
 
   it('sin enfrentamientos, nada', () => {
     expect(agruparPorJornada([])).toEqual([]);
+  });
+});
+
+describe('ultimaJornadaConResultados', () => {
+  const jugado = (id: string, jornada: number): EnfrentamientoGrupo => ({
+    ...enfrentamiento(id, jornada),
+    marcador: { local: 4, visitante: 2 },
+  });
+
+  it('elige la última jornada con algún resultado, aunque le falten otros', () => {
+    const jornadas = agruparPorJornada([
+      jugado('a', 1),
+      jugado('b', 2),
+      enfrentamiento('c', 2),
+      enfrentamiento('d', 3),
+    ]);
+    expect(ultimaJornadaConResultados(jornadas)?.titulo).toBe('Jornada 2');
+  });
+
+  it('sin ningún resultado no hay jornada que enseñar', () => {
+    expect(ultimaJornadaConResultados(agruparPorJornada([enfrentamiento('a', 1)]))).toBeNull();
+    expect(ultimaJornadaConResultados([])).toBeNull();
   });
 });

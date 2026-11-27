@@ -16,10 +16,12 @@
   padding: 0 var(--espacio-2);
 }
 
+// Misma altura con enlace o sin él: en escritorio los títulos de las dos columnas se alinean.
 .cabecera-seccion {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: var(--minimo-tactil);
 
   // «Ver detalle»: zona táctil de 44 px sin cambiar cómo se ve.
   a {
@@ -29,15 +31,14 @@
   }
 }
 
-// Calendario de toda la temporada: una fase debajo de otra, cada una con su cabecera.
+// Los resultados de los demás, bajo la tabla.
+.resultados-grupo {
+  margin-top: var(--espacio-3);
+}
+
+// Calendario de toda la temporada: la fase en juego abierta y las terminadas plegadas debajo.
 .fases {
   display: flex;
   flex-direction: column;
-  gap: var(--espacio-6);
-}
-
-.fase {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espacio-1);
+  gap: var(--espacio-4);
 }

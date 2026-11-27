@@ -6,7 +6,7 @@ import { fechaIsoEnMadrid } from '@shared/utils/fechas';
 import type { BloqueClasificacion } from '../interfaces/bloque-clasificacion.interface';
 import type { FaseConEstado } from '../interfaces/fase-con-estado.interface';
 import { fasesConClasificacion } from '../utils/fases-con-clasificacion';
-import { agruparPorJornada } from '../utils/jornadas-grupo';
+import { agruparPorJornada } from '@data-access/confrontaciones/jornadas-grupo';
 import { describirActualizacion } from '../utils/ultima-actualizacion';
 
 /**

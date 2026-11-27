@@ -1,6 +1,6 @@
 import type { FilaClasificacion } from '@data-access/clasificacion/interfaces/fila-clasificacion.interface';
 import type { FaseConEstado } from './fase-con-estado.interface';
-import type { JornadaGrupo } from './jornada-grupo.interface';
+import type { JornadaGrupo } from '@data-access/confrontaciones/interfaces/jornada-grupo.interface';
 
 /** La clasificación de una fase de liga con las jornadas de su grupo, lista para enseñar. */
 export interface BloqueClasificacion extends FaseConEstado {

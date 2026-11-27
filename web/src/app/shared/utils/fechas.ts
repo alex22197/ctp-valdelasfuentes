@@ -48,6 +48,43 @@ export function describirFechaCorta(
   return larga.charAt(0).toLowerCase() + larga.slice(1);
 }
 
+/**
+ * Fecha breve para listas, donde el sitio es poco: «Sáb 28 nov · 15:00», «Finde del 29 nov» o
+ * «Fecha por confirmar».
+ */
+export function describirFechaBreve(
+  fechaHora: string | null,
+  fechaPrevista: string | null,
+): string {
+  if (fechaHora) {
+    const partes = new Intl.DateTimeFormat('es-ES', {
+      timeZone: ZONA_HORARIA,
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      hourCycle: 'h23',
+    }).formatToParts(new Date(fechaHora));
+    // Según el navegador, las abreviaturas llegan con punto («sáb.») o sin él.
+    const parte = (tipo: Intl.DateTimeFormatPartTypes): string =>
+      (partes.find((p) => p.type === tipo)?.value ?? '').replace('.', '');
+    const dia = parte('weekday');
+    return `${dia.charAt(0).toUpperCase()}${dia.slice(1)} ${parte('day')} ${parte('month')} · ${parte('hour')}:${parte('minute')}`;
+  }
+  if (fechaPrevista) {
+    const diaYMes = new Intl.DateTimeFormat('es-ES', {
+      timeZone: 'UTC',
+      day: 'numeric',
+      month: 'short',
+    })
+      .format(new Date(`${fechaPrevista}T00:00:00Z`))
+      .replace('.', '');
+    return `Finde del ${diaYMes}`;
+  }
+  return 'Fecha por confirmar';
+}
+
 function describirDiaYHora(fecha: Date): string {
   const partes = new Intl.DateTimeFormat('es-ES', {
     timeZone: ZONA_HORARIA,
