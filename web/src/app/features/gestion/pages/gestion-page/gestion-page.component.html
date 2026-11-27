@@ -5,6 +5,14 @@
   }
 </header>
 
+@if (datos.ultimaLecturaLiga.error()) {
+  <p class="texto-secundario lectura-liga">
+    No se ha podido comprobar la última lectura de la liga.
+  </p>
+} @else if (datos.lecturaLiga(); as lectura) {
+  <ctp-lectura-liga class="lectura-liga" [estado]="lectura" />
+}
+
 @switch (datos.estado()) {
   @case ('cargando') {
     <ctp-mensaje-estado tipo="cargando" texto="Cargando las jornadas…" esqueleto="tarjetas" />

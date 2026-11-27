@@ -1,0 +1,39 @@
+// Discreta si todo va bien; en recuadro si hay algo que mirar.
+:host {
+  display: block;
+}
+
+.linea {
+  font-size: var(--texto-s);
+}
+
+.recuadro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+  padding: var(--espacio-3) var(--espacio-4);
+  border-radius: var(--radio-contenedor);
+  font-size: var(--texto-s);
+}
+
+.recuadro--aviso {
+  background: var(--color-aviso);
+  color: var(--color-aviso-texto);
+}
+
+.recuadro--error {
+  border: 2px solid var(--color-derrota);
+  background: var(--color-superficie);
+  color: var(--color-derrota-texto);
+}
+
+.titulo {
+  font-size: var(--texto-m);
+  font-weight: 700;
+}
+
+.detalles {
+  margin: 0;
+  padding-left: var(--espacio-5);
+  overflow-wrap: break-word;
+}
