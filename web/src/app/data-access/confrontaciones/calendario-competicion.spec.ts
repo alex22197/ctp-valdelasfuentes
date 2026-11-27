@@ -102,9 +102,14 @@ describe('aplanarCalendario y ultimaDisputada', () => {
     expect(ultimaDisputada(conReto({ fechaPrevista: HOY }), HOY)?.id).toBe('j2');
   });
 
-  it('una aplazada cuyo día pasó vuelve a estar por confirmar', () => {
-    const aplazada = conReto({ estado: 'aplazada', fechaPrevista: '2026-11-07' });
+  it('una aplazada sin fecha nueva no cuenta', () => {
+    const aplazada = conReto({ estado: 'aplazada' });
     expect(ultimaDisputada(aplazada, HOY)?.id).toBe('j2');
+  });
+
+  it('una aplazada que se jugó en su fecha nueva cuenta, aunque le falten resultados', () => {
+    const aplazada = conReto({ estado: 'aplazada', fechaPrevista: '2026-11-07' });
+    expect(ultimaDisputada(aplazada, HOY)?.id).toBe('r');
   });
 });
 
