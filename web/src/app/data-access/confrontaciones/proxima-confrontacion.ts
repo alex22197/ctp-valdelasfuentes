@@ -11,16 +11,12 @@ export const ESTADOS_POR_JUGAR: readonly EstadoConfrontacion[] = [
 
 /**
  * Cuándo se juega, como AAAA-MM-DD en Madrid: el día real si ya hay hora; si no, el fin de
- * semana del calendario oficial. Una jornada aplazada o suspendida cuya fecha ya ha pasado
- * vuelve a estar «por confirmar» (`null`) hasta que se le ponga la nueva. Al marcarla desde
- * Gestión la base de datos ya le borra la fecha (`cambiar_estado_jornada`).
+ * semana del calendario oficial; `null` si está por confirmar. Al aplazar o suspender una
+ * jornada la base de datos le borra la fecha (`cambiar_estado_jornada`), así que la que tenga
+ * una aplazada es la nueva: si pasa sin resultados, los pide como cualquier otra.
  */
-export function diaDeJuego(jornada: ConfrontacionNuestroEquipo, hoy: string): string | null {
-  const dia = jornada.fechaHora
-    ? fechaIsoEnMadrid(new Date(jornada.fechaHora))
-    : jornada.fechaPrevista;
-  const sinFechaNueva = jornada.estado === 'aplazada' || jornada.estado === 'suspendida';
-  return sinFechaNueva && dia !== null && dia < hoy ? null : dia;
+export function diaDeJuego(jornada: ConfrontacionNuestroEquipo): string | null {
+  return jornada.fechaHora ? fechaIsoEnMadrid(new Date(jornada.fechaHora)) : jornada.fechaPrevista;
 }
 
 /**
@@ -34,7 +30,7 @@ export function elegirProximaConfrontacion(
 ): ConfrontacionNuestroEquipo | null {
   const candidatas = calendario
     .filter((jornada) => ESTADOS_POR_JUGAR.includes(jornada.estado))
-    .map((jornada) => ({ jornada, dia: diaDeJuego(jornada, hoy) }))
+    .map((jornada) => ({ jornada, dia: diaDeJuego(jornada) }))
     .filter(({ dia }) => dia === null || dia >= hoy);
   candidatas.sort(
     (a, b) =>

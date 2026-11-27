@@ -45,9 +45,11 @@ La convención está en el [ADR 0013](decisiones/0013-estados-con-uniones-discri
   impide que cambien de estado (`validar_estado_confrontacion`). Se llega a `jugada` cuando no
   queda ningún partido pendiente, o por el scraper en las de otros equipos.
 - **Aplazada o suspendida.** Al marcarla, `cambiar_estado_jornada` le borra la fecha: deja de
-  ser «el partido de hoy» y queda «por confirmar» hasta que se ponga la nueva. Si la fecha que
-  tenga ya pasó, también queda por confirmar (`diaDeJuego`) y no pide resultados. En el
-  calendario, la tarjeta de Gestión y el próximo partido sale una etiqueta ámbar.
+  ser «el partido de hoy» y queda «por confirmar» hasta que se ponga la nueva. La fecha que
+  tenga después es la nueva, así que se comporta como una programada: es la próxima hasta ese
+  día y, si pasa sin resultados, sale en «Resultados por meter». Si no se llegó a jugar, se
+  vuelve a aplazar. En el calendario, la tarjeta de Gestión y el próximo partido sale una
+  etiqueta ámbar.
 - **WO de todo el equipo.** Se mete en Resultados como WO en los seis partidos: la jornada pasa
   a `jugada` con su 6-0 o 0-6, que es lo que publica la liga y lo que cuentan las estadísticas
   del equipo. `no_comparecencia` existe en el enum pero no lo escribe nadie; si apareciera, la
@@ -67,7 +69,9 @@ La convención está en el [ADR 0013](decisiones/0013-estados-con-uniones-discri
 Están apuntadas en la issue de hallazgos del inventario (noviembre de 2026):
 
 - Si se borra un resultado después de cerrar una jornada queda `jugada` sin marcador y
-  desaparece de «Resultados por meter».
+  desaparece de «Resultados por meter». Para arreglarlo, `guardar_resultado_partido` tendría
+  que devolverla a `programada`, y el trigger `validar_estado_confrontacion` hoy lo impide:
+  habrá que permitir esa vuelta atrás solo desde la función.
 - La edición de la alineación, los permisos de gestores y copiar la convocatoria siguen con
   señales sueltas (`ocupado`, `error`, `aviso`): son las siguientes en pasar a `AccionConEstado`.
   En gestores, el `aviso` de éxito borra el correo que se estaba escribiendo.
