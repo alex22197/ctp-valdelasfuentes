@@ -2,6 +2,12 @@
   margin-bottom: var(--espacio-6);
 }
 
+// Cómo fue la última lectura de la liga, entre la cabecera y el próximo partido.
+.lectura-liga {
+  display: block;
+  margin-bottom: var(--espacio-6);
+}
+
 .seccion {
   display: flex;
   flex-direction: column;

@@ -73,6 +73,9 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
 7. ~~(#55) **Dar permisos de gestor desde la web**~~: hecho. En Gestión, solo para el
    administrador: dar, cambiar y quitar permisos con el correo de Google, con invitaciones
    para quien aún no ha entrado.
+8. ~~(#92) **Jornadas aplazadas y suspendidas**~~: hecho. En Gestión, cada jornada por jugar se
+   aplaza o se suspende (se borra su fecha) y se puede deshacer; sale una etiqueta en el
+   calendario. Un WO de todo el equipo se mete como WO en los seis partidos.
 
 ## 3. Scraper semanal y copia de seguridad
 
@@ -82,6 +85,8 @@ Solo para gestores (`gestorGuard`), pensadas para el móvil. La jornada 1 se jue
   [scraper.md](scraper.md).
 - (#12) Comprobar si la web publica la lista oficial de inscritos; si es así, traerla para rellenar `plantilla.inscrito_oficial` y avisar de convocados no inscritos.
 - Si falla, no rompe nada: queda registrado y los datos se pueden corregir a mano.
+- ~~(#98) Aviso en Gestión~~: hecho. Arriba de Gestión sale la última lectura de la liga, con
+  sus errores o avisos, y avisa si lleva más de 8 días sin leer.
 - ~~(#11) Copia de seguridad semanal~~: hecha. `semanal.yml` vuelca la base de datos cada
   miércoles, la cifra y la guarda 90 días como artefacto; cómo restaurarla, en
   [base-de-datos.md](base-de-datos.md). El scraper irá en ese mismo flujo.
