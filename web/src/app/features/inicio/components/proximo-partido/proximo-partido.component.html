@@ -30,6 +30,9 @@
     <li class="detalle">
       <ctp-icono nombre="calendario" />
       {{ partido | fechaConfrontacion }}
+      @if (etiquetaEstado(); as etiqueta) {
+        <span class="etiqueta-estado">{{ etiqueta }}</span>
+      }
     </li>
     <li class="detalle detalle--sede">
       <ctp-icono nombre="ubicacion" />

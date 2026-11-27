@@ -77,6 +77,7 @@ Vistas de estadísticas (#13). Todos los cálculos se hacen aquí; la web solo l
 | `publicar_convocatoria`      | Publica la convocatoria para que se vea en la portada, o la devuelve a borrador.                                                                                                                                                                    | Gestores              |
 | `guardar_jugador`            | Crea o cambia un jugador (nombre corto, sexo, lado), su nombre completo privado y su fila en la plantilla de la competición, en una sola transacción. Rechaza nombres repetidos y cambiar el sexo de quien ya ha jugado.                            | Gestores              |
 | `cambiar_baja_jugador`       | Da de baja a un jugador de la plantilla (con la fecha de hoy) o lo reincorpora.                                                                                                                                                                     | Gestores              |
+| `cambiar_estado_jornada`     | Marca una jornada nuestra como aplazada o suspendida, y le borra la fecha porque ya no vale, o la devuelve a programada. No toca las terminadas.                                                                                                    | Gestores              |
 | `listar_gestores`            | Gestores con su correo, nombre y papel, y las invitaciones pendientes.                                                                                                                                                                              | Admin                 |
 | `dar_permiso_gestor`         | Da o cambia el papel a un correo. Si esa cuenta de Google ya existe (correo confirmado e identidad de Google), al momento; si no, queda invitada. Nadie cambia su propio permiso.                                                                   | Admin                 |
 | `quitar_permiso_gestor`      | Quita el permiso o la invitación de un correo y deja la cuenta revisada, para que no vuelva a pendientes. Nadie se quita a sí mismo.                                                                                                                | Admin                 |
@@ -108,6 +109,8 @@ La base de datos rechaza, con un mensaje en castellano:
   jugado, marcadores imposibles (7-3), tie-breaks fuera de un 7-6 o mal ganados, sets de más
   o de menos, y abandonos sin indicar quién ganó.
 - Borrar a un jugador que ya ha jugado algún partido.
+- Que una jornada terminada (`jugada` o `no_comparecencia`) cambie de estado
+  (`validar_estado_confrontacion`). Entre programada, aplazada y suspendida se va y se vuelve.
 
 ## Seguridad
 
@@ -193,23 +196,25 @@ Reglas:
 
 ## Migraciones existentes
 
-| Migración                                            | Contenido                                                                                                                                |
-| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `20261008120000_esquema_inicial.sql`                 | Tablas, validaciones, vista de resultados, RLS y permisos.                                                                               |
-| `20261008120100_datos_iniciales.sql`                 | Competición, grupo, equipos, plantilla, calendario de la apertura y alineación de la jornada 1.                                          |
-| `20261008130000_resultados_confrontacion.sql`        | Vista `confrontacion_marcador` y funciones `validar_marcador` y `guardar_resultado_partido`.                                             |
-| `20261008211955_guardar_respuesta_encuesta.sql`      | Función `guardar_respuesta_encuesta` para pasar lista.                                                                                   |
-| `20261009114304_convocatoria_y_alineacion.sql`       | Columna `confrontacion.convocatoria_publicada` (la jornada 1 nace publicada) y funciones `guardar_alineacion` y `publicar_convocatoria`. |
-| `20261011133401_vistas_de_estadisticas.sql`          | Vistas `estadistica_*` de jugadores, parejas, puestos, jornadas y participación.                                                         |
-| `20261011134423_marcador_y_fase_en_estadisticas.sql` | Columnas `marcador` en `estadistica_partido_jugador` y `fase_nombre` y `fase_orden` en `estadistica_jornada`.                            |
-| `20261011171259_set_posible_en_padel.sql`            | Restricciones `set_posible` y `tiebreak_posible` en `set_partido`.                                                                       |
-| `20261016104056_permisos_de_gestores.sql`            | Tabla `invitacion_gestor`, funciones de permisos de gestor y trigger que deja siempre un administrador.                                  |
-| `20261016115007_endurecer_permisos.sql`              | Invitaciones ligadas al correo verificado de Google, estructura solo para el admin, borradores ocultos y nombres sin `<` ni `>`.         |
-| `20261016125521_reclamar_permiso_sin_carreras.sql`   | `reclamar_permiso_gestor` vuelve a leer el perfil si otra llamada a la vez ya reclamó la invitación.                                     |
-| `20261023091214_cuentas_pendientes.sql`              | Tabla `cuenta_revisada`, `listar_cuentas_pendientes` y `descartar_cuenta`; quitar un permiso deja la cuenta revisada.                    |
-| `20261023095104_partidos_en_clasificacion.sql`       | Columnas `partidos_favor` y `partidos_contra` en `fase_equipo` (P. Favor y P. Contra de la liga).                                        |
-| `20261023124526_estadistica_partido_equipo.sql`      | Vista `estadistica_partido_equipo`: cada partido del equipo con sus sets, para casa y fuera y partidos ajustados.                        |
-| `20261117140000_gestion_de_plantilla.sql`            | Funciones `guardar_jugador` y `cambiar_baja_jugador` para gestionar la plantilla desde la web (#8).                                      |
+| Migración                                                   | Contenido                                                                                                                                |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `20261008120000_esquema_inicial.sql`                        | Tablas, validaciones, vista de resultados, RLS y permisos.                                                                               |
+| `20261008120100_datos_iniciales.sql`                        | Competición, grupo, equipos, plantilla, calendario de la apertura y alineación de la jornada 1.                                          |
+| `20261008130000_resultados_confrontacion.sql`               | Vista `confrontacion_marcador` y funciones `validar_marcador` y `guardar_resultado_partido`.                                             |
+| `20261008211955_guardar_respuesta_encuesta.sql`             | Función `guardar_respuesta_encuesta` para pasar lista.                                                                                   |
+| `20261009114304_convocatoria_y_alineacion.sql`              | Columna `confrontacion.convocatoria_publicada` (la jornada 1 nace publicada) y funciones `guardar_alineacion` y `publicar_convocatoria`. |
+| `20261011133401_vistas_de_estadisticas.sql`                 | Vistas `estadistica_*` de jugadores, parejas, puestos, jornadas y participación.                                                         |
+| `20261011134423_marcador_y_fase_en_estadisticas.sql`        | Columnas `marcador` en `estadistica_partido_jugador` y `fase_nombre` y `fase_orden` en `estadistica_jornada`.                            |
+| `20261011171259_set_posible_en_padel.sql`                   | Restricciones `set_posible` y `tiebreak_posible` en `set_partido`.                                                                       |
+| `20261016104056_permisos_de_gestores.sql`                   | Tabla `invitacion_gestor`, funciones de permisos de gestor y trigger que deja siempre un administrador.                                  |
+| `20261016115007_endurecer_permisos.sql`                     | Invitaciones ligadas al correo verificado de Google, estructura solo para el admin, borradores ocultos y nombres sin `<` ni `>`.         |
+| `20261016125521_reclamar_permiso_sin_carreras.sql`          | `reclamar_permiso_gestor` vuelve a leer el perfil si otra llamada a la vez ya reclamó la invitación.                                     |
+| `20261023091214_cuentas_pendientes.sql`                     | Tabla `cuenta_revisada`, `listar_cuentas_pendientes` y `descartar_cuenta`; quitar un permiso deja la cuenta revisada.                    |
+| `20261023095104_partidos_en_clasificacion.sql`              | Columnas `partidos_favor` y `partidos_contra` en `fase_equipo` (P. Favor y P. Contra de la liga).                                        |
+| `20261023124526_estadistica_partido_equipo.sql`             | Vista `estadistica_partido_equipo`: cada partido del equipo con sus sets, para casa y fuera y partidos ajustados.                        |
+| `20261117140000_gestion_de_plantilla.sql`                   | Funciones `guardar_jugador` y `cambiar_baja_jugador` para gestionar la plantilla desde la web (#8).                                      |
+| `20261127104007_permiso_scraper_confrontacion_marcador.sql` | Lectura de `confrontacion_marcador` para el scraper (`service_role`) (#97).                                                              |
+| `20261127115353_estados_de_jornada.sql`                     | Función `cambiar_estado_jornada` y trigger `validar_estado_confrontacion` (#92).                                                         |
 
 ## Pendiente
 

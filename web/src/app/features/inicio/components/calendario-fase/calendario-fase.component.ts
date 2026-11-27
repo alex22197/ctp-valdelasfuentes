@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { RouterLink } from '@angular/router';
 import { etiquetaSinJornada } from '@data-access/competiciones/estado-fase';
 import type { TipoFase } from '@data-access/competiciones/interfaces/tipo-fase.type';
+import { estaPorJugar, etiquetaEstadoJornada } from '@data-access/confrontaciones/estado-jornada';
 import type { ConfrontacionNuestroEquipo } from '@data-access/confrontaciones/interfaces/confrontacion-nuestro-equipo.interface';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
 import { FechaConfrontacionPipe } from '@shared/pipes/fecha-confrontacion.pipe';
@@ -24,6 +25,11 @@ export class CalendarioFaseComponent {
   /** El tipo de la fase, para nombrar las confrontaciones sin número de jornada. */
   readonly tipoFase = input<TipoFase>('apertura');
   readonly textoVacio = input('El calendario de esta fase todavía no está publicado.');
+
+  /** Una jornada terminada (jugada o no comparecencia) ya no se convoca. */
+  protected readonly estaPorJugar = estaPorJugar;
+  /** «Aplazada», «Suspendida» o «No comparecencia» junto a la fecha. */
+  protected readonly etiquetaEstado = etiquetaEstadoJornada;
 
   /** «Reto», «Play-off»… o una raya si una jornada de liga no tiene número. */
   protected readonly sinNumero = computed(() => etiquetaSinJornada(this.tipoFase()) ?? '–');

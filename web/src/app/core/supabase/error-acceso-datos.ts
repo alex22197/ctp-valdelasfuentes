@@ -15,3 +15,19 @@ export function lanzarSiHayError(error: unknown, mensaje: string): void {
     throw new ErrorAccesoDatos(mensaje, error);
   }
 }
+
+/** Código de PostgreSQL de las excepciones que levantan nuestras funciones con `raise exception`. */
+const EXCEPCION_PROPIA = 'P0001';
+
+/**
+ * Como `lanzarSiHayError`, pero los mensajes que levanta la propia función de la base de datos
+ * (en castellano, como «La jornada ya está terminada») llegan tal cual al usuario.
+ */
+export function lanzarConMensajePropio(
+  error: { code?: string; message: string } | null,
+  porDefecto: string,
+): asserts error is null {
+  if (error) {
+    throw new ErrorAccesoDatos(error.code === EXCEPCION_PROPIA ? error.message : porDefecto, error);
+  }
+}

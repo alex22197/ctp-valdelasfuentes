@@ -50,9 +50,11 @@
   text-align: center;
 }
 
-// Algo condensado para que un nombre completo quepa en media pista sin partirse.
+// Algo condensado para que un nombre completo quepa en media pista. Un nombre se parte entre
+// palabras, nunca por dentro de una («Guadali-x»): si no cabe, se estrecha la letra.
 .jugador {
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  hyphens: manual;
   font-weight: 700;
   font-stretch: var(--anchura-titulo);
   line-height: 1.15;
@@ -72,7 +74,7 @@
   display: inline-flex;
   align-items: center;
   min-height: var(--minimo-tactil);
-  padding: 0 var(--espacio-2);
+  padding: 0 var(--espacio-1);
   border-radius: var(--radio-control);
   color: inherit;
   text-decoration: underline;

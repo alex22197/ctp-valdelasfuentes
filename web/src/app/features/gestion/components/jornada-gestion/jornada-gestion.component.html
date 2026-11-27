@@ -10,6 +10,9 @@
     <p class="texto-secundario">
       {{ actual | fechaConfrontacion }}, {{ actual.condicion === 'local' ? 'en casa' : 'fuera' }}
     </p>
+    @if (etiquetaEstado(); as etiqueta) {
+      <p class="etiqueta-estado">{{ etiqueta }}</p>
+    }
   </div>
 
   @if (actual.marcador; as marcador) {
@@ -21,14 +24,14 @@
       <span aria-hidden="true">{{ marcador.nuestros }}-{{ marcador.rival }}</span>
       <span class="solo-lector">Resultado: {{ marcador.nuestros }} a {{ marcador.rival }}</span>
     </p>
-  } @else if (!jugada()) {
+  } @else if (estadoPorJugar()) {
     <p class="estado" [class.estado--publicada]="actual.convocatoriaPublicada">
       {{ actual.convocatoriaPublicada ? 'Publicada' : 'Borrador' }}
     </p>
   }
 
   <div class="acciones">
-    @if (!jugada()) {
+    @if (estadoPorJugar()) {
       <a class="boton" [routerLink]="['/convocatoria', actual.id]">
         Convocatoria
         <span class="solo-lector"> contra {{ actual.rival.nombre }}</span>
@@ -39,6 +42,16 @@
       <span class="solo-lector"> contra {{ actual.rival.nombre }}</span>
     </a>
   </div>
+
+  @if (estadoPorJugar(); as estado) {
+    <ctp-estado-jornada
+      class="cambio-estado"
+      [estado]="estado"
+      [contra]="'contra ' + actual.rival.nombre"
+      [accion]="cambioEstado()"
+      (cambiar)="cambiarEstado.emit($event)"
+    />
+  }
 
   <!-- Lo que la página añada a la tarjeta, como el formulario de fecha y sede. -->
   <div class="extra"><ng-content /></div>

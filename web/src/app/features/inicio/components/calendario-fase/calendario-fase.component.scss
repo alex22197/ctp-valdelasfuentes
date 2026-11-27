@@ -41,6 +41,17 @@
   font-weight: 700;
 }
 
+// Aplazada, suspendida o no comparecencia, junto a la fecha.
+.etiqueta-estado {
+  align-self: flex-start;
+  padding: 0 var(--espacio-2);
+  border-radius: var(--radio-pildora);
+  background: var(--color-aviso);
+  color: var(--color-aviso-texto);
+  font-size: var(--texto-xs);
+  font-weight: 700;
+}
+
 .enlaces-gestion {
   display: flex;
   flex-wrap: wrap;

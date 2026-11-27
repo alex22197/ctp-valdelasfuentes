@@ -59,6 +59,16 @@
   @include pista.detalle;
 }
 
+// Aplazada o suspendida: en ámbar, que se lee bien también sobre el verde de la pista.
+.etiqueta-estado {
+  padding: 0 var(--espacio-2);
+  border-radius: var(--radio-pildora);
+  background: var(--color-aviso);
+  color: var(--color-aviso-texto);
+  font-size: var(--texto-xs);
+  font-weight: 700;
+}
+
 // Con un enlace de mapa: el sitio, su dirección y «Cómo llegar». Nada se sale de la pista,
 // aunque la dirección sea larga.
 .detalle--sede {

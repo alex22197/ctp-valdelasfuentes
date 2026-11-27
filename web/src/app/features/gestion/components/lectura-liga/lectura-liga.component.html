@@ -1,0 +1,44 @@
+@let actual = estado();
+@switch (actual.tipo) {
+  @case ('al-dia') {
+    <p class="linea texto-secundario">
+      Resultados de la liga al día: leídos {{ cuando(actual.fecha) }}.
+    </p>
+  }
+  @case ('avisos') {
+    <div class="recuadro recuadro--aviso" role="status">
+      <p class="titulo">Liga leída {{ cuando(actual.fecha) }}, con avisos</p>
+      <ul class="detalles">
+        @for (aviso of actual.avisos; track aviso) {
+          <li>{{ aviso }}</li>
+        }
+      </ul>
+    </div>
+  }
+  @case ('error') {
+    <div class="recuadro recuadro--error" role="alert">
+      <p class="titulo">La lectura de la liga falló {{ cuando(actual.fecha) }}</p>
+      <ul class="detalles">
+        @for (error of actual.errores; track error) {
+          <li>{{ error }}</li>
+        }
+      </ul>
+      <p>
+        Los resultados de los otros equipos y la clasificación pueden estar sin actualizar. Avisa al
+        administrador.
+      </p>
+    </div>
+  }
+  @case ('sin-leer') {
+    <div class="recuadro recuadro--error" role="alert">
+      <p class="titulo">La liga no se lee desde hace {{ actual.dias }} días</p>
+      <p>
+        La última lectura fue {{ cuando(actual.ultima) }}. El scraper semanal no se ha ejecutado o
+        ha fallado antes de dejarlo apuntado: hay que revisarlo en GitHub Actions.
+      </p>
+    </div>
+  }
+  @case ('nunca') {
+    <p class="linea texto-secundario">Todavía no hay ninguna lectura de la liga registrada.</p>
+  }
+}

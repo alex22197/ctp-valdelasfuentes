@@ -58,11 +58,15 @@ describe('elegirProximaConfrontacion', () => {
 
   it('una aplazada sin fecha nueva va detrás de las que tienen fecha', () => {
     const calendario = [
-      jornada(1, 'aplazada', { fechaPrevista: '2026-10-10' }),
+      jornada(1, 'aplazada'),
       jornada(2, 'programada', { fechaPrevista: '2026-10-24' }),
     ];
     expect(numero(calendario)).toBe(2);
-    expect(numero([jornada(1, 'aplazada', { fechaPrevista: '2026-10-10' })])).toBe(1);
+    expect(numero([jornada(1, 'aplazada')])).toBe(1);
+  });
+
+  it('una aplazada con fecha nueva que ya pasó deja de ser la próxima: le faltan resultados', () => {
+    expect(numero([jornada(1, 'aplazada', { fechaPrevista: '2026-10-10' })])).toBeUndefined();
   });
 
   it('sin fechas, por número de jornada', () => {
@@ -76,15 +80,19 @@ describe('elegirProximaConfrontacion', () => {
 
 describe('diaDeJuego', () => {
   it('usa el día de Madrid de la hora real', () => {
-    expect(diaDeJuego(jornada(1, 'programada', { fechaHora: '2026-10-10T22:30:00Z' }), HOY)).toBe(
+    expect(diaDeJuego(jornada(1, 'programada', { fechaHora: '2026-10-10T22:30:00Z' }))).toBe(
       '2026-10-11',
     );
   });
 
-  it('una aplazada que ya pasó queda por confirmar', () => {
-    expect(diaDeJuego(jornada(1, 'aplazada', { fechaPrevista: '2026-10-10' }), HOY)).toBeNull();
-    expect(diaDeJuego(jornada(1, 'aplazada', { fechaPrevista: '2026-11-01' }), HOY)).toBe(
-      '2026-11-01',
+  it('una aplazada o suspendida conserva su fecha nueva aunque haya pasado', () => {
+    expect(diaDeJuego(jornada(1, 'aplazada', { fechaPrevista: '2026-10-10' }))).toBe('2026-10-10');
+    expect(diaDeJuego(jornada(1, 'suspendida', { fechaHora: '2026-10-10T10:00:00Z' }))).toBe(
+      '2026-10-10',
     );
+  });
+
+  it('sin ninguna fecha está por confirmar', () => {
+    expect(diaDeJuego(jornada(1, 'aplazada'))).toBeNull();
   });
 });

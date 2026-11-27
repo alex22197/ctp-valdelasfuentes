@@ -63,13 +63,33 @@ describe('organizarJornadasGestion', () => {
     });
   });
 
-  it('una aplazada que ya pasó no pide resultados hasta tener fecha nueva', () => {
+  it('una aplazada sin fecha nueva no pide resultados', () => {
     const conAplazada = [
-      jornada(2, 'aplazada', { fechaPrevista: '2026-10-10' }),
+      jornada(2, 'aplazada'),
       jornada(3, 'programada', { fechaPrevista: '2026-10-24' }),
     ];
     const { proxima, sinResultados } = organizarJornadasGestion(conAplazada, '2026-10-13');
     expect(proxima?.jornada).toBe(3);
+    expect(sinResultados).toEqual([]);
+  });
+
+  it('una aplazada o suspendida jugada en su fecha nueva pide resultados', () => {
+    const calendario = [
+      jornada(1, 'aplazada', { fechaPrevista: '2026-11-29' }),
+      jornada(2, 'suspendida', { fechaHora: '2026-11-28T15:00:00Z' }),
+    ];
+    const { proxima, sinResultados } = organizarJornadasGestion(calendario, '2026-11-30');
+    expect(proxima).toBeNull();
+    expect(sinResultados.map((j) => j.jornada)).toEqual([1, 2]);
+  });
+
+  it('aplazada el mismo día (ya sin fecha) deja paso a la siguiente', () => {
+    const calendario = [
+      jornada(3, 'aplazada'),
+      jornada(4, 'programada', { fechaPrevista: '2026-12-05' }),
+    ];
+    const { proxima, sinResultados } = organizarJornadasGestion(calendario, '2026-11-28');
+    expect(proxima?.jornada).toBe(4);
     expect(sinResultados).toEqual([]);
   });
 

@@ -34,6 +34,16 @@ lleva más de una semana acabada):
    avisos). Si una fase falla, no deja nada a medias de esa fase y sigue con las demás; la
    ejecución queda como fallida y GitHub avisa por correo.
 
+## El aviso en Gestión
+
+Arriba de Gestión sale cómo fue la última lectura (#98). Si fue bien, una línea con la fecha.
+Si falló, un recuadro rojo con el error de cada fase; si dejó avisos (un marcador que no
+cuadra, ninguna fase en juego), un recuadro ámbar con ellos. Si la última tiene **más de 8
+días**, avisa aunque fuera bien: hay fallos que no dejan registro, como una copia de seguridad
+fallida (el scraper va detrás y ni se lanza) o un error antes de empezar. El mensaje se separa
+en errores y avisos en `data-access/scraper/ejecucion-scraper.mapper.ts`: si cambia su formato
+en `scraper/src/index.ts`, hay que cambiar también el mapeador.
+
 Si la liga cambia el diseño de sus páginas, el scraper falla con un mensaje claro («la
 clasificación tiene otras columnas», «ninguna jornada»…) en vez de guardar datos a medias.
 Entonces hay que ajustar `scraper/src/pagina-grupo.ts` o `pagina-eliminatoria.ts` y sus copias de

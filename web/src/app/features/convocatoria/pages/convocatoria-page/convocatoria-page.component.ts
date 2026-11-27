@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { estaPorJugar } from '@data-access/confrontaciones/estado-jornada';
 import { IconoComponent } from '@shared/components/icono/icono.component';
 import { DatosJornadaComponent } from '@shared/components/datos-jornada/datos-jornada.component';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
@@ -46,6 +47,8 @@ export class ConvocatoriaPageComponent {
   private readonly transicion = inject(TransicionVistaService);
 
   protected readonly clavePartido = clavePartido;
+  /** La fecha y la sede solo se cambian mientras la jornada sigue por jugar. */
+  protected readonly estaPorJugar = estaPorJugar;
   /** Lado de la pista cuyo panel de jugadores está abierto. */
   protected readonly abierto = signal<PosicionHueco | null>(null);
   /** Jugador que está volando del panel a la pista durante la animación. */

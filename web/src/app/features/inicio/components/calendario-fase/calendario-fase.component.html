@@ -17,9 +17,12 @@
             {{ jornada.rival.nombre }}
           </span>
           <span class="texto-secundario">{{ jornada | fechaConfrontacion }}</span>
+          @if (etiquetaEstado(jornada.estado); as etiqueta) {
+            <span class="etiqueta-estado">{{ etiqueta }}</span>
+          }
           @if (enlacesGestion()) {
             <span class="enlaces-gestion">
-              @if (jornada.estado !== 'jugada') {
+              @if (estaPorJugar(jornada.estado)) {
                 <a class="enlace-gestion" [routerLink]="['/convocatoria', jornada.id]">
                   Convocatoria
                   <span class="solo-lector"> contra {{ jornada.rival.nombre }}</span>

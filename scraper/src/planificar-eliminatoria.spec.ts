@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { ContextoFase } from './interfaces/contexto-fase.interface.ts';
 import { crucesNuestros, planificarEliminatoria } from './planificar-eliminatoria.ts';
+import type { ConfrontacionConocida } from './interfaces/confrontacion-conocida.interface.ts';
 
 const nosotros = { id: 'ctpa', nombre: 'CTPA Valdelasfuentes', nombreWeb: null, esNuestro: true };
 const ssr = {
@@ -55,7 +56,7 @@ describe('planificarEliminatoria', () => {
   });
 
   it('si ya existe, solo avisa cuando el marcador no coincide', () => {
-    const reto = {
+    const reto: ConfrontacionConocida = {
       id: 'c',
       jornada: null,
       localId: 'ctpa',

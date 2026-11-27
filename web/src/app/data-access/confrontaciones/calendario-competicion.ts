@@ -53,8 +53,7 @@ export function aplanarCalendario(
 /**
  * La última confrontación ya disputada de toda la competición, o `null`: una jugada (o
  * perdida por WO) o una por jugar cuyo día ya pasó, a la que solo le faltan los resultados.
- * Una aplazada cuyo día pasó no cuenta, porque vuelve a estar por confirmar. `hoy` es
- * AAAA-MM-DD en Madrid.
+ * Una aplazada o suspendida sin fecha nueva no cuenta. `hoy` es AAAA-MM-DD en Madrid.
  */
 export function ultimaDisputada(
   calendario: readonly CalendarioDeFase[],
@@ -66,7 +65,7 @@ export function ultimaDisputada(
         if (!ESTADOS_POR_JUGAR.includes(confrontacion.estado)) {
           return true;
         }
-        const dia = diaDeJuego(confrontacion, hoy);
+        const dia = diaDeJuego(confrontacion);
         return dia !== null && dia < hoy;
       })
       .at(-1) ?? null

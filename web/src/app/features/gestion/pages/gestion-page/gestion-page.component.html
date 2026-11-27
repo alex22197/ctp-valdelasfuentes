@@ -5,6 +5,14 @@
   }
 </header>
 
+@if (datos.ultimaLecturaLiga.error()) {
+  <p class="texto-secundario lectura-liga">
+    No se ha podido comprobar la última lectura de la liga.
+  </p>
+} @else if (datos.lecturaLiga(); as lectura) {
+  <ctp-lectura-liga class="lectura-liga" [estado]="lectura" />
+}
+
 @switch (datos.estado()) {
   @case ('cargando') {
     <ctp-mensaje-estado tipo="cargando" texto="Cargando las jornadas…" esqueleto="tarjetas" />
@@ -22,7 +30,12 @@
     <section class="seccion" aria-labelledby="titulo-proxima">
       <h2 id="titulo-proxima" class="titulo-seccion">Próximo partido</h2>
       @if (datos.organizadas().proxima; as proxima) {
-        <ctp-jornada-gestion class="destacada" [jornada]="proxima">
+        <ctp-jornada-gestion
+          class="destacada"
+          [jornada]="proxima"
+          [cambioEstado]="datos.estadoCambioDe(proxima.id)"
+          (cambiarEstado)="datos.cambiarEstado(proxima.id, $event)"
+        >
           <ctp-datos-jornada
             [jornada]="proxima"
             [estado]="datos.guardadoJornada.estado()"
@@ -41,7 +54,13 @@
       } @else {
         <ul class="lista">
           @for (jornada of datos.organizadas().sinResultados; track jornada.id) {
-            <li><ctp-jornada-gestion [jornada]="jornada" /></li>
+            <li>
+              <ctp-jornada-gestion
+                [jornada]="jornada"
+                [cambioEstado]="datos.estadoCambioDe(jornada.id)"
+                (cambiarEstado)="datos.cambiarEstado(jornada.id, $event)"
+              />
+            </li>
           }
         </ul>
       }
@@ -60,7 +79,13 @@
           } @else {
             <ul class="lista">
               @for (jornada of grupo.confrontaciones; track jornada.id) {
-                <li><ctp-jornada-gestion [jornada]="jornada" /></li>
+                <li>
+                  <ctp-jornada-gestion
+                    [jornada]="jornada"
+                    [cambioEstado]="datos.estadoCambioDe(jornada.id)"
+                    (cambiarEstado)="datos.cambiarEstado(jornada.id, $event)"
+                  />
+                </li>
               }
             </ul>
           }
