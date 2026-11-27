@@ -1,5 +1,6 @@
 import {
   describirDia,
+  describirFechaBreve,
   describirFechaConfrontacion,
   describirFechaCorta,
   fechaIsoEnMadrid,
@@ -46,5 +47,20 @@ describe('describirDia', () => {
   it('dice el día en Madrid, aunque en UTC aún sea el anterior', () => {
     expect(describirDia('2026-10-21T18:00:00Z')).toBe('21 de octubre');
     expect(describirDia('2026-10-20T22:30:00Z')).toBe('21 de octubre');
+  });
+});
+
+describe('describirFechaBreve', () => {
+  it('con hora: día de la semana, día, mes y hora de Madrid', () => {
+    expect(describirFechaBreve('2026-11-28T14:00:00Z', null)).toBe('Sáb 28 nov · 15:00');
+    expect(describirFechaBreve('2026-10-10T22:30:00Z', '2026-10-10')).toBe('Dom 11 oct · 00:30');
+  });
+
+  it('sin hora, el fin de semana del calendario', () => {
+    expect(describirFechaBreve(null, '2026-11-29')).toBe('Finde del 29 nov');
+  });
+
+  it('sin nada, por confirmar', () => {
+    expect(describirFechaBreve(null, null)).toBe('Fecha por confirmar');
   });
 });

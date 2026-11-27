@@ -1,8 +1,10 @@
 <ng-template #contenido>
   {{ fase().nombre }}
-  <span class="estado" [class]="'estado--' + estado()">
-    <span class="solo-lector">, </span>{{ textoEstado[estado()] }}
-  </span>
+  @if (conEstado()) {
+    <span class="estado" [class]="'estado--' + estado()">
+      <span class="solo-lector">, </span>{{ textoEstado[estado()] }}
+    </span>
+  }
 </ng-template>
 
 @if (nivel() === 2) {

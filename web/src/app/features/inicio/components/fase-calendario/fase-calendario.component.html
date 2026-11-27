@@ -1,0 +1,28 @@
+@let actual = calendario();
+<ng-template #jornadas>
+  <ctp-calendario-fase
+    [confrontaciones]="actual.confrontaciones"
+    [tipoFase]="actual.fase.tipo"
+    [enlacesGestion]="enlacesGestion()"
+    [idProxima]="idProxima()"
+    textoVacio="Todavía no hay partido: el cruce lo publica la liga."
+  />
+</ng-template>
+
+@if (plegada()) {
+  <details class="plegada">
+    <summary class="resumen">
+      <span class="titulo">
+        <ctp-cabecera-fase [fase]="actual.fase" [estado]="estado()" [conEstado]="false" />
+        <span class="balance">Terminada{{ balance() ? ' · ' + balance() : '' }}</span>
+      </span>
+      <span class="flecha" aria-hidden="true"></span>
+    </summary>
+    <div class="contenido"><ng-container [ngTemplateOutlet]="jornadas" /></div>
+  </details>
+} @else {
+  <div class="abierta">
+    <ctp-cabecera-fase class="cabecera" [fase]="actual.fase" [estado]="estado()" />
+    <ng-container [ngTemplateOutlet]="jornadas" />
+  </div>
+}

@@ -25,6 +25,8 @@ export class CabeceraFaseComponent {
   readonly fase = input.required<Fase>();
   readonly estado = input.required<EstadoFase>();
   readonly nivel = input<2 | 3>(3);
+  /** Sin la etiqueta del estado, para cuando ya lo dice quien la usa (una fase plegada). */
+  readonly conEstado = input(true);
 
   protected readonly textoEstado = TEXTO_ESTADO;
 }

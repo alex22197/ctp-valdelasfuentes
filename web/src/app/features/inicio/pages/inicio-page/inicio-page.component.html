@@ -68,25 +68,27 @@
         <ctp-mensaje-estado tipo="cargando" texto="Cargando la clasificación…" esqueleto="tabla" />
       } @else {
         <ctp-tabla-clasificacion [filas]="datos.filasClasificacion()" />
+        @if (datos.ultimaJornadaGrupo(); as jornada) {
+          <ctp-jornadas-grupo class="resultados-grupo" [jornadas]="[jornada]" />
+        }
       }
     </section>
 
     <section class="seccion" aria-labelledby="titulo-calendario">
-      <h2 id="titulo-calendario" class="titulo-seccion">Calendario</h2>
+      <div class="cabecera-seccion">
+        <h2 id="titulo-calendario" class="titulo-seccion">Calendario</h2>
+      </div>
       @if (datos.calendario.error()) {
         <ctp-mensaje-estado tipo="error" texto="No se ha podido cargar el calendario." />
       } @else {
         <div class="fases">
           @for (grupo of datos.calendarioPorFase(); track grupo.fase.id) {
-            <div class="fase">
-              <ctp-cabecera-fase [fase]="grupo.fase" [estado]="datos.estadoDe(grupo.fase)" />
-              <ctp-calendario-fase
-                [confrontaciones]="grupo.confrontaciones"
-                [tipoFase]="grupo.fase.tipo"
-                [enlacesGestion]="auth.esGestor()"
-                textoVacio="Todavía no hay partido: el cruce lo publica la liga."
-              />
-            </div>
+            <ctp-fase-calendario
+              [calendario]="grupo"
+              [estado]="datos.estadoDe(grupo.fase)"
+              [enlacesGestion]="auth.esGestor()"
+              [idProxima]="datos.proximaConfrontacion()?.id ?? null"
+            />
           }
         </div>
       }
