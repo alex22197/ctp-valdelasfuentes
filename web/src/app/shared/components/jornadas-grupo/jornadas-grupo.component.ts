@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { EnfrentamientoGrupo } from '@data-access/confrontaciones/interfaces/enfrentamiento-grupo.interface';
-import type { JornadaGrupo } from '../../interfaces/jornada-grupo.interface';
-import { esNuestro } from '../../utils/jornadas-grupo';
+import type { JornadaGrupo } from '@data-access/confrontaciones/interfaces/jornada-grupo.interface';
+import { esNuestro } from '@data-access/confrontaciones/jornadas-grupo';
 
 /**
  * Los resultados de todo el grupo, jornada a jornada: local, marcador y visitante. El ganador

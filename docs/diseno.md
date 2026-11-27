@@ -39,7 +39,13 @@ clasificación, calendario y nombres.
   líneas, en discontinuo) y «Todavía no está publicada…».
 - **Clasificación** del grupo, una línea por equipo (nombre condensado), con nuestra fila
   resaltada y la bola amarilla tras el nombre.
-- **Calendario** de la fase: «J1», rival, fecha y una etiqueta «Fuera» o «En casa».
+- Bajo la clasificación, los **resultados del grupo** en la última jornada con algún resultado.
+- **Calendario** (#100): la fase en juego abierta, con «Por jugar» por fecha (el próximo partido
+  destacado sobre fondo de pista suave) y «Jugados» del más reciente al más antiguo. Cada fila:
+  «J1», rival y, en gris, fecha corta y «En casa» o «Fuera». A la derecha, el resultado en una
+  ficha verde, gris o roja (victoria, empate o derrota), o la etiqueta «Próximo» o «Aplazada».
+  Las fases terminadas van plegadas, con su balance («Terminada · 1 empate, 2 derrotas»). A los
+  gestores, un solo enlace por fila según toque: convocatoria, meter resultados o editarlos.
 - En escritorio, a dos columnas: el próximo partido junto a la convocatoria y, debajo, la
   clasificación junto al calendario.
 

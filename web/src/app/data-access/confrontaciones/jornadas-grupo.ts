@@ -1,5 +1,5 @@
-import type { EnfrentamientoGrupo } from '@data-access/confrontaciones/interfaces/enfrentamiento-grupo.interface';
-import type { JornadaGrupo } from '../interfaces/jornada-grupo.interface';
+import type { EnfrentamientoGrupo } from './interfaces/enfrentamiento-grupo.interface';
+import type { JornadaGrupo } from './interfaces/jornada-grupo.interface';
 
 /**
  * Reparte los enfrentamientos del grupo por jornada, en orden y con el nuestro primero. Los
@@ -23,4 +23,15 @@ export function agruparPorJornada(enfrentamientos: readonly EnfrentamientoGrupo[
 /** Si juega nuestro equipo, de local o de visitante. */
 export function esNuestro(enfrentamiento: EnfrentamientoGrupo): boolean {
   return enfrentamiento.local.esNuestro || enfrentamiento.visitante.esNuestro;
+}
+
+/**
+ * La última jornada del grupo en la que ya hay algún resultado, para enseñarla en la portada.
+ * `null` si todavía no se ha jugado nada. Las jornadas llegan en orden (`agruparPorJornada`).
+ */
+export function ultimaJornadaConResultados(jornadas: readonly JornadaGrupo[]): JornadaGrupo | null {
+  return (
+    jornadas.filter((jornada) => jornada.enfrentamientos.some((e) => e.marcador !== null)).at(-1) ??
+    null
+  );
 }

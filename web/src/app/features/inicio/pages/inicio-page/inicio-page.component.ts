@@ -1,25 +1,30 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '@core/auth/auth.service';
-import { CabeceraFaseComponent } from '@shared/components/cabecera-fase/cabecera-fase.component';
+import { JornadasGrupoComponent } from '@shared/components/jornadas-grupo/jornadas-grupo.component';
 import { MensajeEstadoComponent } from '@shared/components/mensaje-estado/mensaje-estado.component';
 import { TablaClasificacionComponent } from '@shared/components/tabla-clasificacion/tabla-clasificacion.component';
 import { CalendarioFaseComponent } from '../../components/calendario-fase/calendario-fase.component';
+import { FaseCalendarioComponent } from '../../components/fase-calendario/fase-calendario.component';
 import { ConvocatoriaPendienteComponent } from '../../components/convocatoria-pendiente/convocatoria-pendiente.component';
 import { ConvocatoriaJornadaComponent } from '../../components/convocatoria-jornada/convocatoria-jornada.component';
 import { ProximaFaseComponent } from '../../components/proxima-fase/proxima-fase.component';
 import { ProximoPartidoComponent } from '../../components/proximo-partido/proximo-partido.component';
 import { DatosInicioService } from '../../services/datos-inicio.service';
 
-/** Portada: próximo partido, su convocatoria, la clasificación y el calendario. */
+/**
+ * Portada: próximo partido, su convocatoria, la clasificación con los últimos resultados del
+ * grupo y el calendario.
+ */
 @Component({
   selector: 'ctp-inicio-page',
   imports: [
     RouterLink,
     MensajeEstadoComponent,
-    CabeceraFaseComponent,
+    JornadasGrupoComponent,
     TablaClasificacionComponent,
     CalendarioFaseComponent,
+    FaseCalendarioComponent,
     ConvocatoriaJornadaComponent,
     ConvocatoriaPendienteComponent,
     ProximaFaseComponent,

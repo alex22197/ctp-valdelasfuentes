@@ -1,4 +1,4 @@
-import type { EnfrentamientoGrupo } from '@data-access/confrontaciones/interfaces/enfrentamiento-grupo.interface';
+import type { EnfrentamientoGrupo } from './enfrentamiento-grupo.interface';
 
 /** Los enfrentamientos de una jornada del grupo, el nuestro primero. */
 export interface JornadaGrupo {

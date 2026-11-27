@@ -1,0 +1,53 @@
+@let actual = jornada();
+<div class="fila" [class.fila--proxima]="proxima()">
+  @if (actual.jornada) {
+    <span class="numero" aria-hidden="true">J{{ actual.jornada }}</span>
+  } @else {
+    <span class="numero numero--texto" aria-hidden="true">{{ sinNumero() }}</span>
+  }
+
+  <div class="datos">
+    <p class="rival">
+      <span class="solo-lector"
+        >{{ actual.jornada ? 'Jornada ' + actual.jornada : sinNumero() }} contra
+      </span>
+      {{ actual.rival.nombre }}
+    </p>
+    <p class="detalle">
+      {{ fecha() }} <span aria-hidden="true">·</span>
+      {{ actual.condicion === 'local' ? 'En casa' : 'Fuera' }}
+    </p>
+    @if (acciones().length > 0) {
+      <p class="acciones">
+        @for (accion of acciones(); track accion.texto) {
+          <a class="accion" [routerLink]="accion.ruta">
+            {{ accion.texto }}
+            <span class="solo-lector"> contra {{ actual.rival.nombre }}</span>
+          </a>
+        }
+      </p>
+    }
+  </div>
+
+  <div class="lateral">
+    @if (resultado(); as resultado) {
+      <span class="ficha" [class]="'ficha--' + resultado.tipo">
+        <span aria-hidden="true"
+          >{{ resultado.marcador.nuestros }}-{{ resultado.marcador.rival }}</span
+        >
+        <span class="solo-lector"
+          >{{ resultado.nombre }}, {{ resultado.marcador.nuestros }} a
+          {{ resultado.marcador.rival }}</span
+        >
+      </span>
+    }
+    @if (proxima()) {
+      <span class="etiqueta etiqueta--proxima">Próximo</span>
+    }
+    @if (etiquetaEstado(); as etiqueta) {
+      <span class="etiqueta etiqueta--aviso">{{ etiqueta }}</span>
+    } @else if (disputada() && !resultado()) {
+      <span class="etiqueta">Sin resultado</span>
+    }
+  </div>
+</div>

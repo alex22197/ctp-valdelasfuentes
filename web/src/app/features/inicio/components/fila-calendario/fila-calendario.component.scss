@@ -1,0 +1,127 @@
+:host {
+  display: block;
+}
+
+// Número, datos y, a la derecha, lo que importa: resultado o estado. El nombre del rival se
+// queda con todo el sitio que sobra.
+.fila {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--espacio-3);
+  padding: var(--espacio-3) var(--espacio-2);
+}
+
+// El próximo partido: fondo de pista suave y un filo verde, para verlo sin leer.
+.fila--proxima {
+  border-radius: var(--radio-control);
+  background: var(--color-pista-suave);
+  box-shadow: inset 4px 0 0 var(--color-pista);
+}
+
+.numero {
+  color: var(--color-pista);
+  font-size: var(--texto-cifra);
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+  line-height: 1;
+}
+
+// En una eliminatoria, «Reto» en lugar del número: más pequeño para que quepa en la columna.
+.numero--texto {
+  font-size: var(--texto-xs);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.datos {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rival {
+  font-size: var(--texto-m);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.detalle {
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-s);
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--espacio-4);
+}
+
+// Zona táctil de 44 px que no separa las filas: lo que le sobra se monta sobre el margen.
+.accion {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--minimo-tactil);
+  margin-block: calc(var(--espacio-2) * -1) calc(var(--espacio-3) * -1);
+  font-size: var(--texto-s);
+  font-weight: 600;
+}
+
+.lateral {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--espacio-1);
+}
+
+// El resultado como una ficha de marcador: el color dice cómo nos fue.
+.ficha {
+  min-width: 3.25rem;
+  padding: var(--espacio-1) var(--espacio-2);
+  border-radius: var(--radio-control);
+  font-size: var(--texto-l);
+  font-weight: 800;
+  font-stretch: var(--anchura-condensada);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.ficha--victoria {
+  background: var(--color-pista);
+  color: var(--color-sobre-pista);
+}
+
+// Un empate no es victoria: ni verde ni rojo.
+.ficha--empate {
+  background: var(--color-borde-fuerte);
+  color: var(--color-tinta);
+}
+
+.ficha--derrota {
+  background: var(--color-derrota);
+  color: var(--color-sobre-pista);
+}
+
+.etiqueta {
+  padding: 2px var(--espacio-2);
+  border: 1.5px solid var(--color-borde-fuerte);
+  border-radius: var(--radio-pildora);
+  color: var(--color-tinta-tenue);
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.etiqueta--proxima {
+  border-color: var(--color-pista);
+  background: var(--color-pista);
+  color: var(--color-sobre-pista);
+}
+
+.etiqueta--aviso {
+  border-color: var(--color-aviso);
+  background: var(--color-aviso);
+  color: var(--color-aviso-texto);
+}
