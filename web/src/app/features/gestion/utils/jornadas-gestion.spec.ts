@@ -73,6 +73,21 @@ describe('organizarJornadasGestion', () => {
     expect(sinResultados).toEqual([]);
   });
 
+  it('una suspendida que ya pasó tampoco pide resultados', () => {
+    const conSuspendida = [jornada(2, 'suspendida', { fechaPrevista: '2026-10-10' })];
+    expect(organizarJornadasGestion(conSuspendida, '2026-10-13').sinResultados).toEqual([]);
+  });
+
+  it('aplazada el mismo día (ya sin fecha) deja paso a la siguiente', () => {
+    const calendario = [
+      jornada(3, 'aplazada'),
+      jornada(4, 'programada', { fechaPrevista: '2026-12-05' }),
+    ];
+    const { proxima, sinResultados } = organizarJornadasGestion(calendario, '2026-11-28');
+    expect(proxima?.jornada).toBe(4);
+    expect(sinResultados).toEqual([]);
+  });
+
   it('las jugadas y los WO no piden nada', () => {
     const cerradas = [
       jornada(1, 'jugada', { fechaPrevista: '2026-10-03' }),

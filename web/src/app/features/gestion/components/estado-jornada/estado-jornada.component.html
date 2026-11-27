@@ -1,0 +1,31 @@
+@if (confirmando(); as opcion) {
+  <div class="confirmacion">
+    <p class="pregunta">
+      {{ opcion.confirmacion?.pregunta }} Se borra su fecha y queda «por confirmar» hasta que pongas
+      la nueva.
+    </p>
+    <div class="botones">
+      <button
+        type="button"
+        class="boton boton--principal"
+        [disabled]="enCurso()"
+        (click)="confirmar(opcion)"
+      >
+        {{ opcion.confirmacion?.boton }}
+      </button>
+      <button type="button" class="boton" (click)="confirmando.set(null)">Cancelar</button>
+    </div>
+  </div>
+} @else {
+  <div class="botones">
+    @for (opcion of opciones(); track opcion.destino) {
+      <button type="button" class="cambio" [disabled]="enCurso()" (click)="elegir(opcion)">
+        {{ opcion.texto }}<span class="solo-lector"> la jornada {{ contra() }}</span>
+      </button>
+    }
+  </div>
+}
+
+@if (error(); as mensaje) {
+  <p class="error" role="alert">{{ mensaje }}</p>
+}

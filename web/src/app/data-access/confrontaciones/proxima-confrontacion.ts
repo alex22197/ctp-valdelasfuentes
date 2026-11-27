@@ -11,14 +11,16 @@ export const ESTADOS_POR_JUGAR: readonly EstadoConfrontacion[] = [
 
 /**
  * Cuándo se juega, como AAAA-MM-DD en Madrid: el día real si ya hay hora; si no, el fin de
- * semana del calendario oficial. Una jornada aplazada cuya fecha ya ha pasado vuelve a estar
- * «por confirmar» (`null`) hasta que se le ponga la nueva.
+ * semana del calendario oficial. Una jornada aplazada o suspendida cuya fecha ya ha pasado
+ * vuelve a estar «por confirmar» (`null`) hasta que se le ponga la nueva. Al marcarla desde
+ * Gestión la base de datos ya le borra la fecha (`cambiar_estado_jornada`).
  */
 export function diaDeJuego(jornada: ConfrontacionNuestroEquipo, hoy: string): string | null {
   const dia = jornada.fechaHora
     ? fechaIsoEnMadrid(new Date(jornada.fechaHora))
     : jornada.fechaPrevista;
-  return jornada.estado === 'aplazada' && dia !== null && dia < hoy ? null : dia;
+  const sinFechaNueva = jornada.estado === 'aplazada' || jornada.estado === 'suspendida';
+  return sinFechaNueva && dia !== null && dia < hoy ? null : dia;
 }
 
 /**

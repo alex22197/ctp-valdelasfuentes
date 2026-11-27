@@ -1,0 +1,52 @@
+// Discretos: aplazar o suspender es raro y no debe competir con la convocatoria y los resultados.
+:host {
+  display: block;
+}
+
+.botones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espacio-2);
+}
+
+.cambio {
+  min-height: var(--minimo-tactil);
+  padding: 0 var(--espacio-2);
+  border: 0;
+  border-radius: var(--radio-control);
+  background: none;
+  color: var(--color-tinta-suave);
+  font-size: var(--texto-s);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-tinta);
+  }
+
+  &:disabled {
+    cursor: progress;
+    opacity: 0.6;
+  }
+}
+
+.confirmacion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+}
+
+.pregunta {
+  font-size: var(--texto-s);
+  font-weight: 600;
+}
+
+.error {
+  margin-top: var(--espacio-2);
+  color: var(--color-derrota-texto);
+  font-size: var(--texto-s);
+  font-weight: 600;
+}

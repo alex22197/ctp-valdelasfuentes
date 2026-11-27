@@ -31,7 +31,7 @@
         sede por confirmar
       }
     </p>
-    @if (confrontacion.estado !== 'jugada') {
+    @if (estaPorJugar(confrontacion.estado)) {
       <ctp-datos-jornada
         class="datos-jornada"
         [jornada]="confrontacion"
