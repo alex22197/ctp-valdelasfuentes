@@ -63,7 +63,20 @@
   color: var(--color-sobre-pista);
 }
 
+// Aplazada, suspendida o no comparecencia: se tiene que ver de un vistazo.
+.etiqueta-estado {
+  display: inline-block;
+  margin-top: var(--espacio-1);
+  padding: var(--espacio-1) var(--espacio-3);
+  border-radius: var(--radio-pildora);
+  background: var(--color-aviso);
+  color: var(--color-aviso-texto);
+  font-size: var(--texto-xs);
+  font-weight: 700;
+}
+
 .acciones,
+.cambio-estado,
 .extra {
   grid-column: 1 / -1;
 }

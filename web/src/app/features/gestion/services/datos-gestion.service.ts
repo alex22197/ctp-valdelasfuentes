@@ -1,4 +1,4 @@
-import { Injectable, computed, inject, resource } from '@angular/core';
+import { Injectable, computed, inject, resource, signal } from '@angular/core';
 import { CompeticionesService } from '@data-access/competiciones/competiciones.service';
 import { estadoFase } from '@data-access/competiciones/estado-fase';
 import type { EstadoFase } from '@data-access/competiciones/interfaces/estado-fase.type';
@@ -10,7 +10,9 @@ import {
 } from '@data-access/confrontaciones/calendario-competicion';
 import { ConfrontacionesService } from '@data-access/confrontaciones/confrontaciones.service';
 import type { DatosConfrontacion } from '@data-access/confrontaciones/interfaces/datos-confrontacion.interface';
-import { AccionConEstado } from '@shared/utils/accion-con-estado';
+import type { EstadoPorJugar } from '@data-access/confrontaciones/interfaces/estado-por-jugar.type';
+import { ACCION_INACTIVA, AccionConEstado } from '@shared/utils/accion-con-estado';
+import type { EstadoAccion } from '@shared/utils/interfaces/estado-accion.type';
 import { fechaIsoEnMadrid } from '@shared/utils/fechas';
 import { organizarJornadasGestion } from '../utils/jornadas-gestion';
 
@@ -77,6 +79,28 @@ export class DatosGestionService {
   async guardarDatosJornada(idConfrontacion: string, datos: DatosConfrontacion): Promise<void> {
     await this.guardadoJornada.ejecutar(async () => {
       await this.confrontaciones.guardarDatos(idConfrontacion, datos);
+      this.calendario.reload();
+    });
+  }
+
+  /** Aplazar, suspender o volver a programar una jornada; después se recarga el calendario. */
+  private readonly cambioEstado = new AccionConEstado(
+    'No se ha podido cambiar el estado de la jornada.',
+  );
+  /** La jornada del último cambio de estado: solo su tarjeta enseña cómo va. */
+  private readonly idCambioEstado = signal<string | null>(null);
+
+  estadoCambioDe(idConfrontacion: string): EstadoAccion {
+    return this.idCambioEstado() === idConfrontacion ? this.cambioEstado.estado() : ACCION_INACTIVA;
+  }
+
+  async cambiarEstado(idConfrontacion: string, estado: EstadoPorJugar): Promise<void> {
+    if (this.cambioEstado.enCurso()) {
+      return;
+    }
+    this.idCambioEstado.set(idConfrontacion);
+    await this.cambioEstado.ejecutar(async () => {
+      await this.confrontaciones.cambiarEstado(idConfrontacion, estado);
       this.calendario.reload();
     });
   }

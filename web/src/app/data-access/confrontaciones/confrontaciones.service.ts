@@ -1,6 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { SupabaseClientService } from '@core/supabase/supabase-client.service';
-import { ErrorAccesoDatos, lanzarSiHayError } from '@core/supabase/error-acceso-datos';
+import {
+  ErrorAccesoDatos,
+  lanzarConMensajePropio,
+  lanzarSiHayError,
+} from '@core/supabase/error-acceso-datos';
 import {
   type FilaConfrontacion,
   type FilaMarcadorCalculado,
@@ -14,6 +18,7 @@ import { mapearEnfrentamientoGrupo } from './enfrentamiento-grupo.mapper';
 import type { ConfrontacionNuestroEquipo } from './interfaces/confrontacion-nuestro-equipo.interface';
 import type { DatosConfrontacion } from './interfaces/datos-confrontacion.interface';
 import type { EnfrentamientoGrupo } from './interfaces/enfrentamiento-grupo.interface';
+import type { EstadoPorJugar } from './interfaces/estado-por-jugar.type';
 
 const COLUMNAS_CONFRONTACION = `
   id, jornada, estado, fecha_prevista, fecha_hora, sede, num_pistas,
@@ -95,6 +100,19 @@ export class ConfrontacionesService {
         'No se han guardado los datos: entra otra vez con tu cuenta de gestor y vuelve a probar.',
       );
     }
+  }
+
+  /**
+   * Marca una jornada como aplazada o suspendida, o la devuelve a programada. Al aplazarla o
+   * suspenderla la base de datos le borra la fecha, que ya no vale. Una jornada terminada no
+   * cambia: la función lo explica en castellano y el mensaje llega tal cual.
+   */
+  async cambiarEstado(idConfrontacion: string, estado: EstadoPorJugar): Promise<void> {
+    const { error } = await this.supabase.rpc('cambiar_estado_jornada', {
+      p_confrontacion: idConfrontacion,
+      p_estado: estado,
+    });
+    lanzarConMensajePropio(error, 'No se ha podido cambiar el estado de la jornada.');
   }
 
   private async mapearConMarcadores(

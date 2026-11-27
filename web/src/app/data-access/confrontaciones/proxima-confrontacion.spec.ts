@@ -87,4 +87,19 @@ describe('diaDeJuego', () => {
       '2026-11-01',
     );
   });
+
+  it('una suspendida que ya pasó también queda por confirmar', () => {
+    expect(diaDeJuego(jornada(1, 'suspendida', { fechaHora: '2026-10-10T10:00:00Z' }), HOY)).toBe(
+      null,
+    );
+    expect(diaDeJuego(jornada(1, 'suspendida', { fechaHora: '2026-10-24T10:00:00Z' }), HOY)).toBe(
+      '2026-10-24',
+    );
+  });
+
+  it('una programada que ya pasó conserva su día: le faltan los resultados', () => {
+    expect(diaDeJuego(jornada(1, 'programada', { fechaPrevista: '2026-10-10' }), HOY)).toBe(
+      '2026-10-10',
+    );
+  });
 });

@@ -1170,6 +1170,13 @@ export type Database = {
         Args: { p_baja: boolean; p_competicion: string; p_jugador: string };
         Returns: undefined;
       };
+      cambiar_estado_jornada: {
+        Args: {
+          p_confrontacion: string;
+          p_estado: Database['public']['Enums']['estado_confrontacion'];
+        };
+        Returns: undefined;
+      };
       competicion_de_confrontacion: {
         Args: { p_confrontacion: string };
         Returns: string;

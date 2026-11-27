@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { SupabaseClientService } from '@core/supabase/supabase-client.service';
-import { ErrorAccesoDatos, lanzarSiHayError } from '@core/supabase/error-acceso-datos';
+import { lanzarConMensajePropio, lanzarSiHayError } from '@core/supabase/error-acceso-datos';
 import { esUuid } from '@shared/utils/es-uuid';
 import type { DatosJugador } from './interfaces/datos-jugador.interface';
 import type { JugadorGestion } from './interfaces/jugador-gestion.interface';
@@ -8,9 +8,6 @@ import type { JugadorPlantilla } from './interfaces/jugador-plantilla.interface'
 import { mapearJugadorGestion } from './jugador-gestion.mapper';
 import { mapearJugadorPlantilla } from './jugador.mapper';
 import { mapearNombresCompletos } from './nombres-completos.mapper';
-
-/** SQLSTATE de un `raise exception` nuestro: su mensaje ya está en castellano. */
-const EXCEPCION_PROPIA = 'P0001';
 
 @Injectable({ providedIn: 'root' })
 export class JugadoresService {
@@ -83,7 +80,7 @@ export class JugadoresService {
       p_comodin: datos.comodin,
       p_inscrito: datos.inscritoOficial ?? undefined,
     });
-    this.lanzarConMensaje(error, 'No se ha podido guardar el jugador.');
+    lanzarConMensajePropio(error, 'No se ha podido guardar el jugador.');
     return data;
   }
 
@@ -94,7 +91,7 @@ export class JugadoresService {
       p_jugador: idJugador,
       p_baja: baja,
     });
-    this.lanzarConMensaje(error, 'No se ha podido cambiar la baja.');
+    lanzarConMensajePropio(error, 'No se ha podido cambiar la baja.');
   }
 
   /**
@@ -113,18 +110,5 @@ export class JugadoresService {
       .in('jugador_id', [...idsJugador]);
     lanzarSiHayError(error, 'No se han podido cargar los nombres completos.');
     return mapearNombresCompletos(data ?? []);
-  }
-
-  /** Los mensajes que levanta la propia función (en castellano) llegan tal cual al usuario. */
-  private lanzarConMensaje(
-    error: { code?: string; message: string } | null,
-    porDefecto: string,
-  ): asserts error is null {
-    if (error) {
-      throw new ErrorAccesoDatos(
-        error.code === EXCEPCION_PROPIA ? error.message : porDefecto,
-        error,
-      );
-    }
   }
 }
